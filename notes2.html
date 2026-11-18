@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>高中生物学 必修2《遗传与进化》必背知识点</title>
+<style>
+@page { size: A4; margin: 13mm 14mm 15mm; }
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; }
+body {
+  font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","Songti SC",sans-serif;
+  color:#1e293b; font-size:9.8pt; line-height:1.7;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+p { margin: 3pt 0; }
+h1,h2,h3 { margin:0; font-weight:700; }
+ul,ol { margin:3pt 0 3pt 0; padding-left:1.5em; }
+li { margin: 1.5pt 0; }
+b { font-weight:600; }
+sub,sup { font-size:70%; }
+.k { font-weight:600; background: linear-gradient(transparent 62%, #fde68a 62%); padding:0 1px; }
+table { border-collapse: collapse; width:100%; margin:4pt 0 6pt; }
+th,td { border:0.6pt solid #dbe2ea; padding:3pt 5pt; vertical-align:top; font-size:8.8pt; line-height:1.55; text-align:left; }
+th { font-weight:600; }
+
+/* ---------- 封面 ---------- */
+.cover {
+  break-after: page; height: 260mm; border-radius: 5mm;
+  background: linear-gradient(155deg, #0b1f33 0%, #123a5c 42%, #0e5e52 100%);
+  color:#fff; padding: 22mm 20mm 16mm; display:flex; flex-direction:column;
+}
+.cv-badge { display:inline-block; align-self:flex-start; font-size:8.5pt; letter-spacing:.35em;
+  border:1pt solid rgba(255,255,255,.45); border-radius:99px; padding:3pt 12pt; color:#cfe8dd; }
+.cv-title { font-size:30pt; font-weight:700; line-height:1.35; margin-top:26mm; letter-spacing:.06em; }
+.cv-title small { display:block; font-size:13pt; font-weight:500; color:#9fd8c4; margin-top:5mm; letter-spacing:.14em; }
+.cv-line { width:34mm; height:2.6pt; background:#4ade80; margin:9mm 0; border-radius:2pt; }
+.cv-desc { font-size:10.5pt; color:#d7e5ee; line-height:2; max-width:128mm; }
+.cv-cards { display:flex; gap:4mm; margin-top:10mm; }
+.cv-card { flex:1; background:rgba(255,255,255,.08); border:0.7pt solid rgba(255,255,255,.22);
+  border-radius:3mm; padding:4mm 5mm; font-size:8.8pt; line-height:1.7; color:#e8f1f8; }
+.cv-card b { display:block; color:#7ee0b0; font-size:9.5pt; margin-bottom:1.5mm; }
+.cv-foot { margin-top:auto; display:flex; justify-content:space-between; align-items:flex-end;
+  font-size:8.8pt; color:#a8bccb; }
+
+/* ---------- 目录 ---------- */
+.toc { break-after: page; padding-top:6mm; }
+.toc h1 { font-size:19pt; color:#0f172a; letter-spacing:.3em; }
+.toc-rule { width:26mm; height:2.4pt; background:linear-gradient(90deg,#0e5e52,#4ade80); border-radius:2pt; margin:3mm 0 7mm; }
+.toc-row { display:flex; align-items:center; gap:4mm; padding:3.1mm 2mm; border-bottom:0.6pt dashed #cbd5e1; }
+.toc-num { width:8.5mm; height:8.5mm; border-radius:2.4mm; color:#fff; font-weight:700; font-size:9.5pt;
+  display:flex; align-items:center; justify-content:center; flex:none; }
+.toc-t { font-weight:600; font-size:11pt; color:#0f172a; }
+.toc-d { margin-left:auto; font-size:8.5pt; color:#64748b; text-align:right; max-width:118mm; }
+.toc-note { margin-top:7mm; background:#f1f5f9; border:0.6pt solid #e2e8f0; border-radius:3mm; padding:4mm 5mm; font-size:9pt; color:#475569; line-height:1.8; }
+
+/* ---------- 章节通用 ---------- */
+.chapter { break-before: page; --ac:#2563EB; --acb: color-mix(in srgb, var(--ac) 9%, white); }
+.ch-head { display:flex; align-items:center; gap:5mm; padding:0 0 4mm; border-bottom:2pt solid var(--ac); margin-bottom:5mm; }
+.ch-num { width:13mm; height:13mm; border-radius:3.2mm; background:var(--ac); color:#fff;
+  font-size:15pt; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none; }
+.ch-head h1 { font-size:16.5pt; color:#0f172a; letter-spacing:.04em; }
+.ch-sub { font-size:8.6pt; color:#64748b; margin-top:1mm; letter-spacing:.03em; }
+
+h2 { font-size:12pt; color:var(--ac); margin:6pt 0 3pt; padding-left:2.5mm; border-left:3.2pt solid var(--ac); letter-spacing:.02em; }
+h3 { font-size:10.2pt; color:#0f172a; margin:5pt 0 2pt; }
+
+/* 提示框 */
+.bx { border-radius:2.4mm; padding:3.2mm 4mm 3.2mm 4mm; margin:4pt 0 6pt; break-inside:avoid; position:relative; }
+.bx .bx-tag { display:inline-block; font-size:7.6pt; font-weight:700; letter-spacing:.12em; color:#fff;
+  border-radius:99px; padding:1pt 8pt 1.5pt; margin-bottom:2mm; }
+.bx p, .bx li { font-size:9.2pt; }
+.note { background:#eef2ff; border-left:3pt solid #4F46E5; }
+.note .bx-tag { background:#4F46E5; }
+.warn { background:#fff1f2; border-left:3pt solid #E11D48; }
+.warn .bx-tag { background:#E11D48; }
+.exam { background:#f0fdfa; border-left:3pt solid #0D9488; }
+.exam .bx-tag { background:#0D9488; }
+.exp  { background:#faf5ff; border-left:3pt solid #9333EA; }
+.exp  .bx-tag { background:#9333EA; }
+
+/* 公式卡片 */
+.fgrid { display:flex; flex-wrap:wrap; gap:2.5mm; margin:3pt 0 5pt; }
+.fcard { flex:1 1 30%; background:#f8fafc; border:0.6pt solid #dbe2ea; border-radius:2mm;
+  padding:2.5mm 3mm; font-size:8.9pt; line-height:1.6; break-inside:avoid; }
+.fcard b { color:var(--ac); }
+.fcard .fm { display:block; font-family:"Menlo","SF Mono",monospace; font-size:8.6pt; color:#0f172a; margin-top:1mm; }
+
+/* 流程 */
+.flow { background:#f8fafc; border:0.6pt solid #dbe2ea; border-radius:2mm; padding:2.5mm 3.5mm;
+  font-size:9pt; margin:3pt 0 5pt; break-inside:avoid; }
+.flow b { color:var(--ac); }
+
+/* 章末小结 */
+.recap { background:var(--acb); border:0.7pt solid var(--ac); border-radius:3mm; padding:3.5mm 4.5mm; margin-top:6pt; break-inside:avoid; }
+.recap .bx-tag { display:inline-block; background:var(--ac); color:#fff; font-size:7.6pt; font-weight:700;
+  letter-spacing:.12em; border-radius:99px; padding:1pt 8pt 1.5pt; margin-bottom:2mm; }
+.recap p { font-size:9.2pt; }
+</style>
+</head>
+<body>
+
+<!-- ================= 封面 ================= -->
+<section class="cover">
+  <div>
+    <span class="cv-badge">GAOKAO BIOLOGY · 必修二</span>
+    <div class="cv-title">
+      遗传与进化<br>必背知识点手册
+      <small>课本边角小字 · 易错点 · 易考点 全收录</small>
+    </div>
+    <div class="cv-line"></div>
+    <p class="cv-desc">
+      人教版必修第二册九章核心知识 + 课本边角小字 + 易错易考点，条目式呈现，适合每日背诵与考前速览。
+    </p>
+    <div class="cv-cards">
+      <div class="cv-card"><b>黑体必背</b>教材黑体字与背诵段落逐条落实，考什么背什么</div>
+      <div class="cv-card"><b>边角小字</b>相关信息、思考·讨论、与社会的联系不再丢分</div>
+      <div class="cv-card"><b>易错易考</b>高考易错判断题逐条辨析，附真题出处</div>
+    </div>
+  </div>
+  <div class="cv-foot">
+    <span>人教版 高中生物学 必修2《遗传与进化》</span>
+    <span>2026 年 11 月整理</span>
+  </div>
+</section>
+
+<!-- ================= 目录 ================= -->
+<section class="toc">
+  <h1>目 录</h1>
+  <div class="toc-rule"></div>
+  <div class="toc-row"><div class="toc-num" style="background:#2563EB">01</div><div class="toc-t">减数分裂和受精作用</div><div class="toc-d">分裂流程与图像判读 · 曲线分析 · 配子种类与异常 · 受精作用</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#0891B2">02</div><div class="toc-t">基因的分离定律</div><div class="toc-d">实验选材 · 假说-演绎法 · 实质与验证 · 特殊分离比 · 计算方法</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#D97706">03</div><div class="toc-t">基因的自由组合定律</div><div class="toc-d">9:3:3:1 结构 · 先分后合 · 致死变式 · 连锁与互换 · 杂交育种</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#DC2626">04</div><div class="toc-t">基因在染色体上、伴性遗传与人类遗传病</div><div class="toc-d">萨顿与摩尔根 · 伴性遗传特点 · 系谱图判断 · 遗传病与调查</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#7C3AED">05</div><div class="toc-t">DNA 是主要的遗传物质</div><div class="toc-d">肺炎链球菌转化 · 噬菌体侵染 · 烟草花叶病毒 · 实验思路总结</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#059669">06</div><div class="toc-t">DNA 的结构、基因的本质与 DNA 复制</div><div class="toc-d">双螺旋特点 · 碱基计算 · 基因本质 · 半保留复制及证据 · 复制计算</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#0284C7">07</div><div class="toc-t">基因的表达</div><div class="toc-d">RNA 与密码子 · 转录与翻译 · 中心法则 · 基因与性状 · 表观遗传</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#DB2777">08</div><div class="toc-t">基因突变、基因重组和染色体变异</div><div class="toc-d">突变特点与癌变 · 基因重组 · 染色体组 · 无子西瓜 · 育种方法比较</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#EA580C">09</div><div class="toc-t">生物的进化</div><div class="toc-d">共同由来证据 · 自然选择与适应 · 基因频率 · 物种形成 · 协同进化</div></div>
+  <div class="toc-note">
+    框色：<b style="color:#4F46E5">蓝·边角小字</b>（教材相关信息、思考·讨论，近年高考常考）｜
+    <b style="color:#E11D48">红·易错警示</b>（考前逐条自测）｜
+    <b style="color:#0D9488">青·高频考点</b>。页码均指人教版（2019 年版）必修第二册。
+  </div>
+</section>
+
+<!-- ================= 01 减数分裂和受精作用 ================= -->
+<section class="chapter" style="--ac:#2563EB">
+  <div class="ch-head">
+    <div class="ch-num">01</div>
+    <div><h1>减数分裂和受精作用</h1>
+      <div class="ch-sub">必修2 第1章第1节 · 配图判读、曲线分析与配子异常是高考主线</div>
+    </div>
+  </div>
+
+  <h2>减数分裂的概念（背诵）</h2>
+  <p><span class="k">减数分裂</span>：进行有性生殖的生物，在产生成熟生殖细胞时进行的染色体数目减半的细胞分裂。<b>染色体复制一次，细胞连续分裂两次</b>，结果成熟生殖细胞中染色体数目比原始生殖细胞<b>减少一半</b>。</p>
+
+  <h2>分裂过程</h2>
+  <div class="flow"><b>精子形成：</b>精原细胞 →（复制）→ 初级精母细胞 →（减Ⅰ：同源染色体分离、细胞质均分）→ 2个次级精母细胞 →（减Ⅱ：着丝粒分裂）→ 精细胞 →（变形）→ 4个精子</div>
+  <div class="flow"><b>卵细胞形成：</b>卵原细胞 → 初级卵母细胞 →（减Ⅰ<b>不均等</b>分裂）→ 次级卵母细胞 + 第一极体 →（减Ⅱ不均等 / 均等）→ 1个卵细胞 + 3个极体（极体退化消失）</div>
+
+  <h3>关键概念</h3>
+  <ul>
+    <li><span class="k">同源染色体</span>：减Ⅰ中配对的两条染色体，形状大小一般相同，一条来自父方、一条来自母方。</li>
+    <li><span class="k">联会</span>：同源染色体两两配对（减Ⅰ前期）；联会后每对同源染色体含4条染色单体，称<span class="k">四分体</span>（1四分体=1对同源=2条染色体=4条单体=2个着丝粒）。</li>
+    <li><span class="k">交叉互换</span>：四分体时期，同源染色体的<b>非姐妹染色单体</b>之间交换对应片段（属于基因重组）。</li>
+    <li><b>减Ⅰ后期</b>：同源染色体分离（等位基因随之分离），非同源染色体自由组合；<b>减Ⅱ后期</b>：着丝粒分裂，姐妹染色单体分开。</li>
+  </ul>
+
+  <div class="warn"><span class="bx-tag">易错警示</span>
+    <p><b>图像三步判断：</b>①无同源染色体→减Ⅱ；②有同源且同源分离→减Ⅰ后期，有同源且着丝粒分裂→有丝分裂后期；③<b>不均等分裂→雌性</b>（初级/次级卵母细胞），均等分裂→雄性或极体。</p>
+  </div>
+
+  <div class="fgrid">
+    <div class="fcard"><b>核 DNA 加倍</b>：减Ⅰ前间期（复制）<span class="fm">染色体数不变</span></div>
+    <div class="fcard"><b>核 DNA / 染色体减半</b>：减Ⅰ末期<span class="fm">同源染色体分离入两子细胞</span></div>
+    <div class="fcard"><b>染色体暂时加倍</b>：减Ⅱ后期<span class="fm">着丝粒分裂；减Ⅱ全程无同源</span></div>
+  </div>
+
+  <h2>配子种类与规律</h2>
+  <div class="fgrid">
+    <div class="fcard"><b>1个精原细胞</b><span class="fm">2种4个精子（两两相同、互补）</span></div>
+    <div class="fcard"><b>1个卵原细胞</b><span class="fm">1种1个卵细胞</span></div>
+    <div class="fcard"><b>个体配子种类</b><span class="fm">n对同源染色体（不考虑互换）→ 2<sup>n</sup> 种</span></div>
+    <div class="fcard"><b>互换率</b><span class="fm">发生交换的初级精母细胞比例 = 重组型配子比例 × 2</span></div>
+  </div>
+
+  <div class="warn"><span class="bx-tag">易错警示</span>
+    <p><b>异常配子：</b>减Ⅰ同源染色体未分离→<b>4个配子全部异常</b>；减Ⅱ着丝粒分裂后单体未移向两极→<b>2个正常、2个异常</b>。异常精子 X<sup>b</sup>Y 与 X 卵结合→XXY（唐氏综合征同理，见课后题）；减Ⅱ时 Y 单体未分开→含 YY 的精子→XYY。</p>
+  </div>
+
+  <h2>受精作用</h2>
+  <ul>
+    <li>过程：精子<b>头部</b>进入卵细胞，尾部留外；<span class="k">透明带反应</span>、<span class="k">卵细胞膜反应</span>阻止多个精子入卵。</li>
+    <li>意义（背诵）：受精卵的染色体数目<b>恢复到本物种体细胞数目</b>，其中一半来自精子、一半来自卵细胞；配子多样性 + 精卵随机结合 → 同一双亲后代呈多样性。</li>
+    <li>减数分裂使染色体减半、受精作用使之恢复，对维持每种生物<b>前后代染色体数目的恒定</b>，以及遗传和变异，都具有重要意义。</li>
+  </ul>
+
+  <div class="note"><span class="bx-tag">边角小字</span>
+    <p><b>观察蝗虫精母细胞减数分裂实验（P24）</b>：选雄性生殖器官——精母细胞数量多且持续分裂，而卵巢中减Ⅱ常未完成、形成的卵细胞少；装片中视野方向不一的分裂相多；雄蜂（单倍体）无同源染色体仍可有一整套基因（假减数分裂）。</p>
+  </div>
+
+  <div class="exp"><span class="bx-tag">高考真题链接</span>
+    <p>山东卷（2022/2023/2024/2026）反复考查：减Ⅱ姐妹染色单体互锁、环状染色体交换后子细胞基因组成、配子异常的成因判定——核心抓手是"减Ⅰ异常→全异常；减Ⅱ异常→半数异常"。</p>
+  </div>
+</section>
+
+<!-- ================= 02 基因的分离定律 ================= -->
+<section class="chapter" style="--ac:#0891B2">
+  <div class="ch-head">
+    <div class="ch-num">02</div>
+    <div><h1>基因的分离定律</h1>
+      <div class="ch-sub">必修2 第1章第2节 · 假说-演绎法与显隐性判断是方法学核心</div>
+    </div>
+  </div>
+
+  <h2>实验材料与基本操作</h2>
+  <ul>
+    <li><b>豌豆优点</b>：①自花传粉、闭花受粉，自然状态下都是纯种；②具有易于区分的相对性状；③生长周期短、后代数量大；④花大，易操作。</li>
+    <li><b>果蝇优点</b>：易饲养、繁殖快、后代数量多；相对性状多而明显；染色体少、易观察。<b>玉米优点</b>：繁殖快、后代多；相对性状明显；雌雄同株异花，杂交易操作。</li>
+    <li><b>人工异花传粉</b>：花蕾期人工去雄 → 套袋 → 人工授粉 → 再套袋（母本去雄须在开花前）。</li>
+  </ul>
+
+  <h3>基本概念</h3>
+  <ul>
+    <li><span class="k">自交</span>：基因型相同个体间交配（闭花授粉、同株授粉）；<b>杂交</b>：基因型不同个体交配；<b>测交</b>：与隐性纯合子杂交。</li>
+    <li><span class="k">相对性状</span>：一种生物同一种性状的不同表现类型；<b>性状分离</b>：杂种后代中同时出现显性性状和隐性性状。</li>
+    <li><span class="k">等位基因</span>：同源染色体相同位置上控制相对性状的基因（纯合子同位置为相同基因；本质区别是碱基排列顺序不同）。</li>
+    <li><b>融合遗传</b>≠不完全显性：紫茉莉红×白→粉花，粉花自交后代 1红:2粉:1白，可重新出现红、白，属于<b>颗粒遗传</b>。</li>
+  </ul>
+
+  <h2>假说-演绎法（背诵）</h2>
+  <div class="flow"><b>四步：</b>提出问题 → 提出假说 → 演绎推理（若假说成立，测交后代应为 1:1）→ 实验验证（实际 1:1）→ 得出结论</div>
+  <ul>
+    <li>假说内容：①生物性状由<b>遗传因子</b>决定；②体细胞中遗传因子<b>成对</b>存在；③形成配子时每对遗传因子<b>分离</b>，分别进入不同配子；④受精时雌雄配子<b>随机结合</b>。</li>
+    <li>核心：F<sub>1</sub> 产生<b>数量相等的两种配子</b>。测交后代比例反映被测个体配子种类及比例。</li>
+  </ul>
+
+  <h2>分离定律的实质与验证</h2>
+  <p><b>实质（背诵·P32）</b>：杂合子细胞中，位于一对同源染色体上的等位基因具有一定的独立性；在减数分裂形成配子时，<span class="k">等位基因随同源染色体的分开而分离</span>，独立地随配子遗传给后代（减Ⅰ后期）。</p>
+  <div class="warn"><span class="bx-tag">易错警示</span>
+    <p>符合分离定律<b>不一定出现 3:1</b>，3:1 成立需同时满足：①配子成活率均等；②基因型个体成活率均等；③子代数目足够多；④完全显性；⑤等位基因仅一对且无致死。<b>最能说明实质的是 F<sub>1</sub> 产生配子比为 1:1</b>。</p>
+  </div>
+
+  <h3>特殊分离比</h3>
+  <div class="fgrid">
+    <div class="fcard"><b>显性纯合致死</b><span class="fm">杂合子自交 → 显:隐 = 2:1</span></div>
+    <div class="fcard"><b>隐性纯合致死</b><span class="fm">杂合子自交 → 后代全显性</span></div>
+    <div class="fcard"><b>配子致死</b><span class="fm">如 AB 雄配子致死 → 5:3:3:1 变式（见第3章）</span></div>
+  </div>
+
+  <h2>应用一：显隐性判断</h2>
+  <ul>
+    <li><b>定义法（杂交）</b>：两不同性状亲本杂交，子代只出现一种性状→子代性状为显性；同性状亲本杂交出现分离→新性状为隐性。</li>
+    <li><b>自交法</b>：自交后代出现性状分离→亲本为显性（适用于植物，最简便）。</li>
+    <li>动物判断显隐性：多对杂交统计比例（单次交配后代少，不能直接下结论）。</li>
+  </ul>
+
+  <h2>应用二：纯合子/杂合子鉴定</h2>
+  <table>
+    <tr><th>方法</th><th>操作与判断</th><th>适用</th></tr>
+    <tr><td>自交</td><td>后代无性状分离→纯合子；有分离→杂合子</td><td>植物（最简便）</td></tr>
+    <tr><td>测交</td><td>×隐性纯合子，子代一种性状→纯合；两种→杂合</td><td>动物（雄性需与多只隐性雌性交配）、植物均可</td></tr>
+    <tr><td>花粉鉴定</td><td>两种花粉1:1→杂合（如糯性与非糯性碘染）</td><td>仅部分特殊植物，最直接证明</td></tr>
+  </table>
+
+  <h2>应用三：连续自交与自由交配</h2>
+  <div class="fgrid">
+    <div class="fcard"><b>杂合子连续自交 n 代</b><span class="fm">Aa 占 (1/2)<sup>n</sup>；纯合子 1−(1/2)<sup>n</sup>；显纯=隐纯=[1−(1/2)<sup>n</sup>]/2</span></div>
+    <div class="fcard"><b>连续自交逐代淘汰 aa</b><span class="fm">AA:Aa 比例每代不变，淘汰后按比例重新归一化</span></div>
+    <div class="fcard"><b>自由交配</b><span class="fm">基因频率不变，基因型频率自 F<sub>1</sub> 起稳定（遗传平衡）</span></div>
+  </div>
+
+  <div class="exam"><span class="bx-tag">高频考点</span>
+    <p><b>性状分离比模拟实验</b>：甲乙两桶代表雌雄生殖器官，彩球代表配子，两色球代表两种配子；随机抓取组合模拟<b>雌雄配子随机结合</b>。要求：每桶两色球数量相等、抓取随机、记录后放回摇匀、重复 30 次以上以减少误差。</p>
+  </div>
+</section>
+
+<!-- ================= 03 基因的自由组合定律 ================= -->
+<section class="chapter" style="--ac:#D97706">
+  <div class="ch-head">
+    <div class="ch-num">03</div>
+    <div><h1>基因的自由组合定律</h1>
+      <div class="ch-sub">必修2 第1章第2节 · 9:3:3:1 变式与两对基因位置判断是解题难点</div>
+    </div>
+  </div>
+
+  <h2>两对相对性状的杂交实验</h2>
+  <ul>
+    <li>F<sub>1</sub> 全为黄圆（黄对绿、圆对皱均为显性）；F<sub>2</sub> 出现亲本没有的<span class="k">重组类型</span>，四种表现型之比 <b>9:3:3:1</b>。</li>
+    <li>每一对相对性状单独分析均符合<b>分离定律</b>（黄:绿=3:1，圆:皱=3:1）。</li>
+    <li>F<sub>2</sub> 结构：4种纯合子各占 1/16；4种单杂合子各占 2/16；双杂合子 YyRr 占 4/16。</li>
+    <li>测交结果 <b>1:1:1:1</b>，可检测 F<sub>1</sub> 配子种类及比例、基因型、纯合杂合。</li>
+  </ul>
+
+  <h2>实质（背诵）</h2>
+  <p><span class="k">同源染色体上的等位基因分离的同时，非同源染色体上的非等位基因自由组合</span>（减Ⅰ后期）。两定律<b>同时进行、同时起作用</b>；自由组合发生在<b>产生配子</b>时，配子的随机结合不属于自由组合。</p>
+
+  <div class="warn"><span class="bx-tag">易错警示</span>
+    <p>非等位基因不一定位于非同源染色体上——同一条染色体上的多个基因也是非等位基因，但<b>不能自由组合</b>（连锁）。"非同源染色体自由组合，使所有非等位基因自由组合"错误。</p>
+  </div>
+
+  <h2>解题方法：先分后合（乘法原理）</h2>
+  <ul>
+    <li>正推：AaBb×Aabb → 子代基因型 3×2=6 种，表现型 2×2=4 种；某基因型概率=两对概率相乘。</li>
+    <li>逆推：由子代表现型及比例倒推双亲基因型（先拆分每对性状）。</li>
+    <li>两种遗传病概率：每对先算，再乘（自由组合为前提）。</li>
+    <li>分解组合法的前提是<b>两对基因独立遗传</b>（配子中比例互不干扰）；若配子比例随搭配改变则不适用（连锁）。</li>
+  </ul>
+
+  <h2>9:3:3:1 的变式（高频）</h2>
+  <table>
+    <tr><th>F<sub>2</sub> 分离比</th><th>原因（配子致死类用棋盘法：列出配子→删除致死→重新归纳）</th></tr>
+    <tr><td>5:3:3:1</td><td>AB 的雄配子或雌配子致死</td></tr>
+    <tr><td>7:3:1:1</td><td>Ab 的雄配子或雌配子致死</td></tr>
+    <tr><td>7:1:3:1</td><td>aB 的雄配子或雌配子致死</td></tr>
+    <tr><td>8:2:2</td><td>ab 的雄配子或雌配子致死</td></tr>
+    <tr><td>6:3:2:1</td><td>AA 或 BB 显性纯合致死</td></tr>
+    <tr><td>4:2:2:1</td><td>AA 和 BB 同时显性纯合致死</td></tr>
+    <tr><td>3:1</td><td>aa 或 bb 隐性纯合致死</td></tr>
+    <tr><td>9:3:3</td><td>aabb 受精卵（胚胎）致死</td></tr>
+  </table>
+
+  <h2>验证自由组合的四种方法</h2>
+  <ul>
+    <li>自交法：F<sub>1</sub>（AaBb）自交后代 9:3:3:1；</li>
+    <li>测交法：后代 1:1:1:1；</li>
+    <li>花粉鉴定法：四种花粉 1:1:1:1；</li>
+    <li>单倍体育种法：花药培养加倍后四种表现型 1:1:1:1。</li>
+  </ul>
+
+  <h2>两对基因的位置判断（连锁与互换）</h2>
+  <div class="fgrid">
+    <div class="fcard"><b>同一对同源染色体·不考虑互换</b><span class="fm">完全连锁：自交后代全显性或 显:隐=3:1（比例型同单基因）；测交后代 1:1</span></div>
+    <div class="fcard"><b>同一对同源染色体·考虑互换</b><span class="fm">重组型配子少：测交后代两多两少；自交后代两种单显性比例<b>始终相等</b></span></div>
+    <div class="fcard"><b>亲本型判断</b><span class="fm">aabb 占比＞1/16 → ab 为亲本型配子；＜1/16 → ab 为重组型配子</span></div>
+  </div>
+
+  <h2>杂交育种</h2>
+  <div class="flow"><b>植物：</b>选纯合双亲杂交 → F<sub>1</sub> 自交 → F<sub>2</sub> 选优 → 连续自交至不再发生性状分离（可用分区域种植法加快）。<br><b>动物：</b>杂交 → 选优 → 与隐性（或双隐）类型测交检验纯合度，不通过逐代自交。</div>
+  <p>若所需优良性状为种子（果实）性状，当年即可收获选用；若为植株性状，需种到植株表现性状再选。</p>
+
+  <div class="exam"><span class="bx-tag">高频考点</span>
+    <p><b>2022 山东卷</b>：6种纯合突变体互交判突变基因——"突×突→突"为相同基因突变（非等位），"突×突→野"为不同基因突变。</p>
+  </div>
+</section>
+
+<!-- ================= 04 基因在染色体上、伴性遗传与人类遗传病 ================= -->
+<section class="chapter" style="--ac:#DC2626">
+  <div class="ch-head">
+    <div class="ch-num">04</div>
+    <div><h1>基因在染色体上、伴性遗传与人类遗传病</h1>
+      <div class="ch-sub">必修2 第2章 · 系谱图判断与正反交设计是考试必出题型</div>
+    </div>
+  </div>
+
+  <h2>萨顿假说（类比推理法）</h2>
+  <p>依据：基因和染色体的行为存在<b>明显的平行关系</b>——①基因在体细胞中成对、染色体也成对；②体细胞中一对基因一个来自父方一个来自母方，同源染色体亦然；③形成配子时成对的基因（染色体）一个进入配子；④非同源染色体自由组合时，非同源染色体上的非等位基因也自由组合。结论：基因在染色体上。</p>
+
+  <h2>摩尔根实验（假说-演绎法）</h2>
+  <ul>
+    <li>提出问题：F<sub>1</sub> 全红眼、F<sub>2</sub> 3:1 且白眼只在雄性中出现。</li>
+    <li>假说：控制白眼的基因 w 位于 <b>X 染色体上</b>，Y 染色体上不含其等位基因。</li>
+    <li>验证：F<sub>1</sub> 红眼雌 × 白眼雄 → 4种表型 1:1:1:1；<b>关键证据</b>是白眼雌 × F<sub>1</sub> 红眼雄 → 子代雌全红、雄全白（1:1）。</li>
+    <li>结论：基因在染色体上；后又发明测定基因相对位置的方法（三点测交），证明基因在染色体上<span class="k">呈线性排列</span>。</li>
+  </ul>
+  <div class="note"><span class="bx-tag">边角小字</span>
+    <p>测交实验不能排除"基因位于 XY 同源区段"的假说——可用<b>反交实验</b>（白眼雌 × 红眼雄）排除：若子代雌全红、雄全白且与假说预测矛盾即可排除。荧光标记的 DNA 探针与染色体杂交可直观显示基因位置。</p>
+  </div>
+  <div class="warn"><span class="bx-tag">易错警示</span>
+    <p>基因并非全部位于染色体上：线粒体、叶绿体、原核拟核与质粒、病毒中的基因无染色体。X、Y 染色体同源区段存在等位基因，非同源区段没有。果蝇的 Y 染色体比 X 大（P31）。</p>
+  </div>
+
+  <h2>性别决定与伴性遗传</h2>
+  <ul>
+    <li>XY 型：含两个 X 为雌性，XY 为雄性；性别比例 1:1 的原因是含 X 与含 Y 的精子比例 1:1。ZW 型：ZZ 雄、ZW 雌（鸟类、蛾类）。</li>
+    <li>性别决定不全是 XY/ZW：有的取决于染色体数目，有的取决于环境（如后螠）；雌雄同体生物无性染色体。</li>
+  </ul>
+  <table>
+    <tr><th>类型</th><th>实例</th><th>特点</th></tr>
+    <tr><td>伴X隐性</td><td>红绿色盲、血友病</td><td>隔代遗传；男患者多于女；女病其父、子必病（交叉遗传）</td></tr>
+    <tr><td>伴X显性</td><td>抗维生素D佝偻病</td><td>世代连续；女患者多于男；男病其母、女必病</td></tr>
+    <tr><td>伴Y</td><td>外耳道多毛症</td><td>限雄遗传，父传子、子传孙，世代连续，无显隐之分</td></tr>
+    <tr><td>细胞质</td><td>线粒体基因病</td><td>母系遗传：子女表现型与母亲相同</td></tr>
+  </table>
+  <div class="warn"><span class="bx-tag">易错警示</span>
+    <p>XY 同源区段（Ⅰ）：基因男女都可患病，男患病率可能≠女；X 特有区段（Ⅱ）：隐性病男＞女；Y 特有区段（Ⅲ）：患者全为男性。伴X隐性致病基因：男患者只能来自母亲、只能传给女儿。</p>
+  </div>
+
+  <h2>遗传系谱图判断（准确/最可能）</h2>
+  <div class="flow"><b>三步：</b>先排除伴Y遗传和细胞质遗传（母系）→ 判显隐性："无中生有为隐性，有中生无为显性" → 判位置：<b>女病其父、子全病→伴X隐性</b>；男病其母、女全病→伴X显性；否则常染色体。"可能"与"最可能"审题：可能一般有多种，最可能只有一种。</div>
+
+  <h3>正反交的应用（一代交配判位置）</h3>
+  <ul>
+    <li>未知显隐性：正反交结果不同（有性别差异）→伴X；结果相同（无性别差异）→常染色体；后代总与母本相同→细胞质遗传。</li>
+    <li>已知显隐性：用"同隐异显"（隐性雌 × 显性纯合雄）判断常/伴X。</li>
+    <li>判断父本/母本来源致死：双杂合子分别作父本、母本分别测交比较。</li>
+  </ul>
+
+  <h2>人类遗传病</h2>
+  <ul>
+    <li><b>单基因遗传病</b>：受一对等位基因控制，符合分离定律（白化病、红绿色盲、抗维生素D佝偻病）。</li>
+    <li><b>多基因遗传病</b>：两对以上等位基因控制，群体发病率高，<b>易受环境影响</b>（原发性高血压、青少年型糖尿病）。</li>
+    <li><b>染色体异常遗传病</b>：猫叫综合征=5号染色体片段缺失；21三体综合征=体细胞多一条21号染色体（是"三条染色体"而非三个染色体组）。</li>
+  </ul>
+  <div class="warn"><span class="bx-tag">易错警示</span>
+    <p>五个"不一定"：携带致病基因不一定患病（女性携带者）；不携带致病基因也可能患病（染色体异常病）；先天性疾病不一定遗传；家族性疾病不一定遗传（缺维生素A夜盲）；遗传病不一定出生即表现。人类所有的病不都是基因病。</p>
+  </div>
+  <div class="exam"><span class="bx-tag">高频考点</span>
+    <p><b>调查</b>：发病率→在广大人群随机抽样、群体足够大、选发病率较高的<b>单基因</b>遗传病；遗传方式→在<b>患者家系</b>中调查。多基因遗传病易受环境影响，不宜作为调查对象。<b>基因组测序</b>：人测 24 条（22常+X+Y），玉米（2n=20）测 11 条，果蝇同理。</p>
+  </div>
+
+  <div class="exp"><span class="bx-tag">高考真题链接</span>
+    <p>伴X基因频率在男女中相等（交叉遗传）：男性中发病率 7% → X<sup>b</sup>% =7% → 女性 0.49%。XYY 患儿成因：父方减Ⅱ时两条 Y 未分开进入同一精子。</p>
+  </div>
+</section>
+
+<!-- ================= 05 DNA是主要的遗传物质 ================= -->
+<section class="chapter" style="--ac:#7C3AED">
+  <div class="ch-head">
+    <div class="ch-num">05</div>
+    <div><h1>DNA 是主要的遗传物质</h1>
+      <div class="ch-sub">必修2 第3章第1节 · 三大经典实验的过程、结论与异常分析必须记准</div>
+    </div>
+  </div>
+
+  <h2>肺炎链球菌转化实验</h2>
+  <ul>
+    <li><b>材料特点</b>：S型菌有多糖类荚膜、有毒、菌落光滑；R型菌无荚膜、无毒、菌落粗糙（P43）。</li>
+    <li><b>格里菲思体内转化</b>：加热杀死的S型菌 + 活R型菌 → 小鼠死亡，体内分离出活S型菌 → 加热杀死的S型菌中含有"<span class="k">转化因子</span>"，使R型转化为S型。</li>
+    <li><b>艾弗里体外转化</b>：S型菌破碎→去除绝大部分糖类、蛋白质和脂质制成细胞提取物→分别加入蛋白酶、RNA酶、酯酶、<b>DNA酶</b>（减法原理：每组特异性去除一种物质）→只有 DNA 酶组转化消失 → <b>DNA 是遗传物质</b>，蛋白质等不是。</li>
+  </ul>
+  <div class="note"><span class="bx-tag">边角小字</span>
+    <p>加热致死后 DNA 仍保持活性的原因：80~100℃ 时蛋白质变性失活，而 DNA 双链解开、温度恢复后可复性（P43 小字）。转化的实质是<b>基因重组</b>；转化效率低，只有少部分R型菌转化。艾弗里实验还证明 DNA 可在同种生物不同个体间转移（为基因工程奠基，Ca²⁺处理大肠杆菌=人工转化）。</p>
+  </div>
+
+  <h2>噬菌体侵染细菌实验</h2>
+  <div class="flow"><b>四步：</b>①标记噬菌体：先分别用含 ³⁵S、³²P 的培养基培养大肠杆菌，再用其培养噬菌体 → ②侵染未标记的大肠杆菌 → ③搅拌（使吸附在细菌上的噬菌体与细菌分离）→ ④离心（轻的噬菌体颗粒进上清液，重的细菌留沉淀）→ ⑤检测放射性</div>
+  <div class="fgrid">
+    <div class="fcard"><b>³⁵S 标记蛋白质</b><span class="fm">理论上沉淀物无放射性；实测有少量→搅拌不充分，噬菌体仍吸附在细菌表面</span></div>
+    <div class="fcard"><b>³²P 标记 DNA</b><span class="fm">理论上上清液无放射性；实测有少量→保温过短（未全部侵入）或过长（细菌裂解释放子代）</span></div>
+    <div class="fcard"><b>结论</b><span class="fm">DNA 是遗传物质，蛋白质不是（有争议说"没证明"）</span></div>
+  </div>
+  <div class="warn"><span class="bx-tag">易错警示</span>
+    <p>①不能用培养基直接培养噬菌体（病毒必须寄生）；②³⁵S、³²P 必须<b>分两组</b>分别标记（同位素检测只能定位不能辨元素）；③不能标记 C、H、O、N（DNA 与蛋白质共有）；④短时间保温=让噬菌体充分侵染又不裂解释放；⑤实验<b>间接证明</b> DNA 能自我复制、指导蛋白质合成，不能证明 DNA 可产生可遗传变异；⑥子代噬菌体只有少数被 ³²P 标记。</p>
+  </div>
+
+  <h2>烟草花叶病毒的重建实验</h2>
+  <ul>
+    <li>T2噬菌体侵染时 RNA 与蛋白质<b>没有分开</b>（完整病毒侵入），故 TMV 实验不能用噬菌体的操作思路。</li>
+    <li>方法：人工<b>分离提纯</b> RNA 与蛋白质，分别感染烟草 → RNA 组出现病斑并分离出正常 TMV → <b>RNA 是烟草花叶病毒的遗传物质</b>。</li>
+  </ul>
+
+  <h2>总结与辨析</h2>
+  <div class="exam"><span class="bx-tag">高频考点</span>
+    <p><b>实验共同设计思路（考填空）</b>：将 DNA、蛋白质等物质<b>分开，单独、直接观察</b>各自的作用（分离提纯法/减法原理/同位素标记）。</p>
+    <p><b>结论</b>：真核、原核生物及 DNA 病毒的遗传物质都是 DNA；少数病毒（HIV、流感、新冠、烟草花叶病毒）是 RNA → <b>DNA 是主要的遗传物质</b>（统计分析结论，非实验直接验证）。细胞生物的遗传物质只能是 DNA。</p>
+  </div>
+  <div class="exp"><span class="bx-tag">高考真题链接</span>
+    <p>2017 全国Ⅰ卷：判断新病毒类型需甲、乙两组相互印证——用标记特定碱基（如分别标记 T 或 U）的宿主细胞培养病毒，检测子代放射性确定核酸种类。</p>
+  </div>
+</section>
+
+<!-- ================= 06 DNA的结构、基因的本质与DNA复制 ================= -->
+<section class="chapter" style="--ac:#059669">
+  <div class="ch-head">
+    <div class="ch-num">06</div>
+    <div><h1>DNA 的结构、基因的本质与 DNA 复制</h1>
+      <div class="ch-sub">必修2 第3章第2、3节 · 碱基计算与半保留复制证据是计算题主线</div>
+    </div>
+  </div>
+
+  <h2>DNA 双螺旋结构的特点（背诵·P50）</h2>
+  <ul>
+    <li>由<b>两条脱氧核苷酸长链</b>构成，按<b>反向平行</b>方式盘旋成双螺旋结构。</li>
+    <li><b>外侧</b>：脱氧核糖与磷酸交替连接构成基本骨架；<b>内侧</b>：碱基通过氢键形成碱基对（A=T，G≡C），遵循<span class="k">碱基互补配对原则</span>。</li>
+    <li>A=T 之间<b>2个</b>氢键，G≡C 之间<b>3个</b>氢键 → <b>G-C 碱基对越多 DNA 越稳定</b>（耐高温）。</li>
+    <li>1个双链 DNA 含 <b>2个游离磷酸基团、0个游离脱氧核糖</b>；每个磷酸基团连接2个脱氧核糖，每个脱氧核糖连接1~2个磷酸。</li>
+    <li>模型构建：沃森、克里克（构建物理模型）；富兰克林拍摄"<b>照片51号</b>"（X射线衍射）；威尔金斯展示照片；查哥夫法则（A=T、G=C）提供化学依据。</li>
+  </ul>
+  <div class="note"><span class="bx-tag">边角小字</span>
+    <p>两条链反向平行的意义：DNA 两条链走向相反，使碱基对能整齐配对排布（P50）。酶与化学键：解旋酶、高温断<b>氢键</b>；DNA 聚合酶、DNA 连接酶形成<b>磷酸二酯键</b>；限制酶、DNA 酶破坏磷酸二酯键。</p>
+  </div>
+
+  <h2>碱基计算</h2>
+  <div class="fgrid">
+    <div class="fcard"><b>不互补碱基之和恒定</b><span class="fm">A+G = T+C = 50%</span></div>
+    <div class="fcard"><b>互补碱基比例相等</b><span class="fm">单链(A+T)% = 互补链(A+T)% = 双链(A+T)%</span></div>
+    <div class="fcard"><b>氢键数</b><span class="fm">n对碱基中G-C有m对：2(n−m)+3m = 2n+m</span></div>
+    <div class="fcard"><b>磷酸二酯键</b><span class="fm">2n−2 个（n为碱基对数）</span></div>
+  </div>
+
+  <h2>遗传信息与基因的本质（背诵）</h2>
+  <ul>
+    <li><span class="k">遗传信息</span>：基因中 4 种碱基（脱氧核苷酸）的排列顺序。多样性：碱基对的数目和排列顺序千变万化；特异性：每种生物有特定的碱基排列顺序（β-珠蛋白基因1700对→4<sup>1700</sup> 种排列）。</li>
+    <li><span class="k">基因</span>：通常是有<span class="k">遗传效应</span>的 DNA 片段。基因在 DNA 上<b>不连续分布</b>（被碱基序列分隔）；染色体是 DNA 的主要载体，基因在染色体上呈线性排列；RNA 病毒的基因在 RNA 上。</li>
+    <li>数量关系：1条染色体含1个（无单体）或2个（有单体）DNA，DNA 上有许多基因；基因中脱氧核苷酸排列顺序代表遗传信息。</li>
+  </ul>
+
+  <h2>DNA 的复制（背诵·P56）</h2>
+  <div class="fgrid">
+    <div class="fcard"><b>时间</b><span class="fm">有丝分裂间期、减数第一次分裂前的间期</span></div>
+    <div class="fcard"><b>场所</b><span class="fm">主要细胞核；其次线粒体、叶绿体；原核在拟核、质粒</span></div>
+    <div class="fcard"><b>条件</b><span class="fm">模板（两条母链）、原料（4种游离脱氧核苷酸）、能量、酶（解旋酶、DNA聚合酶等）</span></div>
+    <div class="fcard"><b>过程</b><span class="fm">解旋 → 合成子链 → 重新螺旋（边解旋边复制）</span></div>
+    <div class="fcard"><b>特点</b><span class="fm">半保留复制；多起点、双向复制</span></div>
+    <div class="fcard"><b>结果与意义</b><span class="fm">1个DNA→2个完全相同的DNA；保持遗传信息连续性</span></div>
+  </div>
+  <div class="exam"><span class="bx-tag">高频考点</span>
+    <p><b>准确复制的原因</b>：①独特的双螺旋结构提供精确模板；②碱基互补配对保证准确进行。<b>方向</b>：DNA 聚合酶只能催化子链 5'→3' 延伸（从引物 3' 端连接脱氧核苷酸）→ 后随链形成<span class="k">冈崎片段</span>（不连续，由 DNA 连接酶连接）；两条链反向平行+酶的方向性 → 双向复制。<b>引物</b>：DNA 聚合酶不能从头合成，需 RNA 引物，随后被替换保证准确性。</p>
+  </div>
+
+  <h3>半保留复制的实验证据（梅塞尔森、斯塔尔）</h3>
+  <ul>
+    <li>方法：假说-演绎法 + <b>同位素标记技术</b>（¹⁵N）+ <b>密度梯度离心技术</b>。</li>
+    <li>流程：¹⁵N 大肠杆菌多代培养 → 转入 ¹⁴N 培养基繁殖两代 → 提取 DNA 离心。</li>
+    <li>预期：若子代Ⅰ为轻、重两条带→全保留；若子代Ⅰ一条<b>中密度带</b>→排除全保留（可能半保留或分散）；子代Ⅱ出现中、轻两条带→排除分散，<b>肯定是半保留复制</b>。</li>
+    <li>离心法三类：差速离心（分离细胞器）、密度梯度离心（本实验）、沉淀离心（噬菌体实验、DNA 粗提取、制备细胞膜）。</li>
+  </ul>
+
+  <h3>复制计算（图解法）</h3>
+  <div class="fgrid">
+    <div class="fcard"><b>n 次复制后 DNA</b><span class="fm">共 2<sup>n</sup> 个；含¹⁵N的 2 个；只含¹⁴N的 2<sup>n</sup>−2 个</span></div>
+    <div class="fcard"><b>脱氧核苷酸链</b><span class="fm">共 2<sup>n+1</sup> 条；含¹⁵N的链 2 条；含¹⁴N的 2<sup>n+1</sup>−2 条</span></div>
+    <div class="fcard"><b>消耗某种脱氧核苷酸</b><span class="fm">亲代含 m 个：n 次共耗 m(2<sup>n</sup>−1)；第 n 次耗 m·2<sup>n−1</sup></span></div>
+  </div>
+  <div class="warn"><span class="bx-tag">易错警示</span>
+    <p>看清"碱基个数"还是"碱基对数"；"培养几代"=复制几次。有丝分裂标记分析：第一次分裂中、后期每条染色体都带标记；第二次分裂后期一半染色体带标记；子细胞带标记染色体 0~2n 条。</p>
+  </div>
+
+  <div class="note"><span class="bx-tag">边角小字</span>
+    <p>真核生物 DNA 多个复制起点→多个复制泡，加快复制速率（果蝇图题）。复制方式补充：θ型（细菌环状 DNA）、D环型（线粒体 DNA）、滚环复制。</p>
+  </div>
+</section>
+
+<!-- ================= 07 基因的表达 ================= -->
+<section class="chapter" style="--ac:#0284C7">
+  <div class="ch-head">
+    <div class="ch-num">07</div>
+    <div><h1>基因的表达</h1>
+      <div class="ch-sub">必修2 第4章 · 转录翻译全程、中心法则与表观遗传</div>
+    </div>
+  </div>
+
+  <h2>RNA 与密码子</h2>
+  <ul>
+    <li><b>RNA 适合做信使的原因（P65）</b>：能储存遗传信息；一般为单链、比 DNA 短，能通过核孔从细胞核转移到细胞质。</li>
+    <li><b>3种 RNA</b>：mRNA——携带遗传信息，翻译的模板；tRNA——识别并转运氨基酸、识别密码子；rRNA——构成核糖体，催化肽键形成。RNA 还是 RNA 病毒的遗传物质、少数酶的成分。3种 RNA 都是转录产物，都参与翻译。</li>
+    <li><span class="k">密码子</span>：mRNA 上决定一个氨基酸的 3 个相邻碱基，共 4³=64 种（3 种终止密码子、61 种决定氨基酸）；<span class="k">反密码子</span>在 tRNA 上。一种密码子只决定一种氨基酸，一种氨基酸可由一种或多种密码子决定。</li>
+  </ul>
+  <div class="note"><span class="bx-tag">边角小字</span>
+    <p><b>简并性意义（P67 思考·讨论）</b>：①碱基改变可能不改变氨基酸，增强容错性；②多种密码子编码同一氨基酸可保证翻译速度。通用性：所有生物共用一套密码子（病毒基因导入宿主仍表达病毒蛋白）。特殊：原核 GUG 可作起始密码子；UGA 特殊情况编码硒代半胱氨酸。</p>
+  </div>
+
+  <h2>转录</h2>
+  <ul>
+    <li><b>场所</b>：主要细胞核（也在线粒体、叶绿体、拟核、质粒）；<b>模板</b>：DNA 的一条链（模板链/反义链）；<b>原料</b>：4种游离核糖核苷酸；<b>酶</b>：RNA 聚合酶（兼具解旋、识别结合启动子、连接磷酸二酯键功能）；产物 mRNA 等。</li>
+    <li>mRNA 延伸方向 <b>5'→3'</b>；转录与复制都遵循碱基互补配对，保证信息传递准确。</li>
+    <li><span class="k">启动子</span>：基因上游，RNA 聚合酶识别结合位点，<b>本身不被转录</b>；<span class="k">终止子</span>：编码区下游，终止转录（RNA 水平形成茎-环结构）。</li>
+    <li>起始密码子、终止密码子位于 <b>mRNA</b> 上；一个基因的有义链可能是另一基因的反义链。</li>
+  </ul>
+
+  <h2>翻译</h2>
+  <ul>
+    <li><b>场所</b>：核糖体；<b>模板</b>：mRNA；<b>原料</b>：20种氨基酸；<b>搬运工</b>：tRNA（一种 tRNA 只转运一种氨基酸）；<b>方向</b>：核糖体沿 mRNA 由 5'→3' 移动（肽链从 N 端向 C 端合成），mRNA 不移动。</li>
+    <li>核糖体有 2 个 tRNA 结合位点；氨基酸间脱水缩合形成<span class="k">肽键</span>；遇终止密码子合成终止。</li>
+    <li><b>准确翻译的原因</b>：mRNA 提供精确模板 + 碱基互补配对（密码子-反密码子）。</li>
+    <li><b>多聚核糖体（P69）</b>：一个 mRNA 上结合多个核糖体同时翻译→少量 mRNA 迅速合成大量蛋白质；按肽链长短判断先后（长的在前）。各核糖体产物<b>完全相同</b>。</li>
+    <li><b>时空</b>：真核——核内转录、质内翻译，时空分隔；原核——<b>边转录边翻译</b>；线粒体、叶绿体同原核。</li>
+  </ul>
+
+  <h2>数量关系与中心法则</h2>
+  <div class="fcard" style="width:100%"><b>碱基数比例</b><span class="fm">基因 : mRNA : 氨基酸 ≈ 6 : 3 : 1；实际不符原因：内含子转录后被剪切、非编码区不转录、终止密码子不编码氨基酸、肽链加工剪切</span></div>
+  <ul>
+    <li><b>中心法则</b>：DNA复制、转录、翻译三主线 + RNA复制（烟草花叶病毒）+ 逆转录（HIV）。</li>
+    <li>RNA 复制酶、逆转录酶由<b>病毒自身基因组编码、在宿主细胞合成</b>。</li>
+    <li>体现基因两大功能：<b>传递遗传信息</b>（复制）与<b>表达遗传信息</b>（转录、翻译）。</li>
+    <li>不同细胞：分裂旺盛细胞三条途径都有；高度分化细胞只有转录翻译；哺乳动物成熟红细胞无。</li>
+    <li>遗传密码破译（P70）：尼伦伯格体外合成实验——人工多聚尿嘧啶核苷酸（UUU）→多聚苯丙氨酸；需除去提取液中 DNA 和 mRNA 排除干扰。</li>
+  </ul>
+
+  <h2>基因与性状的关系（背诵·P71）</h2>
+  <ul>
+    <li><b>间接控制</b>：基因通过控制<span class="k">酶的合成控制代谢过程</span>，进而控制性状——白化病（酪氨酸酶）、豌豆皱粒（淀粉分支酶）。</li>
+    <li><b>直接控制</b>：基因通过控制<span class="k">蛋白质的结构</span>直接控制性状——镰刀型细胞贫血（血红蛋白）、囊性纤维化（CFTR）。</li>
+    <li>基因与性状<b>不都是一一对应</b>：一个基因可影响多个性状，一个性状可受多个基因影响；<b>表型 = 基因型 + 环境</b>（单双眼皮、表型模拟）。</li>
+    <li>细胞分化的实质：基因的<span class="k">选择性表达</span>；不同细胞 mRNA 不同，但 tRNA、rRNA 无差异。</li>
+  </ul>
+
+  <h2>表观遗传（P74）</h2>
+  <ul>
+    <li><b>概念（背诵）</b>：生物体基因的<span class="k">碱基序列保持不变</span>，但<span class="k">基因表达和表型发生可遗传变化</span>的现象。</li>
+    <li><b>机制</b>：①DNA 甲基化；②组蛋白甲基化/乙酰化；③RNA 干扰——主要影响<b>转录</b>过程。</li>
+    <li>特点：可遗传、可逆（甲基化可去）；<b>不遵循孟德尔遗传规律</b>；通过有丝分裂、减数分裂传递。</li>
+    <li>实例：柳穿鱼花形、小鼠毛色、蜂王浆使幼虫发育成蜂王（减少 DNA 甲基化改变基因表达）。</li>
+  </ul>
+  <div class="exp"><span class="bx-tag">高考真题链接</span>
+    <p>遗传印记（甲基化随配子重建）常考：亲代雌鼠某基因来自父方（雄配子印记去甲基化）；反义 RNA 与 mRNA 形成双链阻断翻译=基因沉默，杂交分子含 4 种核苷酸、4 种碱基。</p>
+  </div>
+</section>
+
+<!-- ================= 08 基因突变、基因重组和染色体变异 ================= -->
+<section class="chapter" style="--ac:#DB2777">
+  <div class="ch-head">
+    <div class="ch-num">08</div>
+    <div><h1>基因突变、基因重组和染色体变异</h1>
+      <div class="ch-sub">必修2 第5章 · 三种可遗传变异比较与育种方法选择</div>
+    </div>
+  </div>
+
+  <h2>基因突变</h2>
+  <ul>
+    <li><b>概念（背诵·P81）</b>：DNA 分子中发生碱基的<span class="k">替换、增添或缺失</span>，而引起的基因<span class="k">碱基序列的改变</span>。</li>
+    <li><b>时间</b>：主要是有丝分裂前的间期、减数第一次分裂前的间期（DNA 复制时出现差错）；<b>原因</b>：物理、化学、生物因素（诱发）+ 自发突变。</li>
+    <li><b>5个特点</b>：<span class="k">普遍性、随机性、不定向性、低频性、多害少利性</span>。</li>
+    <li><b>意义</b>：产生新基因的途径；生物变异的<b>根本来源</b>；为生物进化提供原材料。</li>
+  </ul>
+  <div class="warn"><span class="bx-tag">易错警示</span>
+    <p><b>一定改变</b>：碱基序列、遗传信息、基因种类（突变产生原基因的等位基因）；<b>不一定改变</b>：氨基酸序列（密码子简并性）、生物性状（隐性突变、突变发生在非编码区或内含子、个别氨基酸改变不影响蛋白功能）；基因数目和位置不变。<b>能否遗传</b>：发生在配子中→遵循遗传规律传给后代；体细胞→一般不能（植物可通过无性生殖）；父方细胞质基因突变一般不传子代。基因突变光镜下不可见；红细胞（无核无线粒体）不会突变。</p>
+  </div>
+  <ul>
+    <li><b>显性/隐性突变判断</b>：突变体 × 未突变体——子代全突变型则突变性状为隐性…反之：子一代全高秆→矮秆为隐性突变；出现分离→显性突变。</li>
+    <li><b>诱变育种</b>：物理/化学因素处理萌发的种子或幼苗（分裂旺盛处）；提高突变率、较短时间获得更多变异类型、大幅改良性状；但有利变异少、盲目，需处理大量材料（太空育种：选刚萌发种子，因复制时易突变；返回后不定向、显性性状不一定是纯合）。</li>
+    <li><b>细胞癌变</b>：原癌基因（调控细胞正常生长分裂）突变或过量表达 + 抑癌基因（阻止细胞不正常增殖）突变，一般需累积 5~6 个基因突变；癌细胞特征：无限增殖、形态结构改变、糖蛋白减少易扩散转移、无接触抑制。</li>
+  </ul>
+
+  <h2>基因重组</h2>
+  <ul>
+    <li><b>类型</b>：①减Ⅰ后期——非同源染色体上非等位基因<b>自由组合</b>；②减Ⅰ前期（四分体时期）——同源染色体非姐妹染色单体间<b>交叉互换</b>。</li>
+    <li><b>本质</b>：原有基因的重新组合，<b>产生新基因型，不产生新基因</b>。广义还包括基因工程、肺炎链球菌的转化。</li>
+    <li><b>意义</b>：生物变异的来源之一；形成生物多样性的重要原因；为进化提供原材料（配子多样化→有性生殖加快进化，P84/P122）。</li>
+    <li>判断：基因重组不发生在受精作用中；姐妹染色单体间"交换"不属于基因重组；Aa 自交的性状分离是等位基因分离所致，不是基因重组。</li>
+  </ul>
+
+  <h2>三种可遗传变异的比较</h2>
+  <table>
+    <tr><th>项目</th><th>基因突变</th><th>基因重组</th><th>染色体变异</th></tr>
+    <tr><td>适用范围</td><td>所有生物（含病毒）均可发生</td><td>真核生物有性生殖核基因；人工基因工程</td><td>真核生物</td></tr>
+    <tr><td>发生时间</td><td>间期（DNA复制时）</td><td>减Ⅰ前期、减Ⅰ后期</td><td>随时可发生</td></tr>
+    <tr><td>结果</td><td>产生新基因</td><td>产生新基因型</td><td>基因数目或排列顺序改变</td></tr>
+    <tr><td>光镜观察</td><td>不可见（分子水平）</td><td>不可见</td><td><b>可见</b>（细胞水平）</td></tr>
+    <tr><td>意义</td><td>变异的根本来源</td><td>变异来源之一</td><td>变异来源之一</td></tr>
+  </table>
+  <div class="warn"><span class="bx-tag">易错警示</span>
+    <p><b>互换 vs 易位</b>：互换发生在<b>同源染色体</b>的非姐妹染色单体之间（基因重组，不可见）；易位发生在<b>非同源染色体</b>之间（染色体结构变异，可见）。<b>基因突变 vs 染色体缺失</b>：基因突变是基因内若干碱基对的改变；染色体缺失是 DNA 上若干基因的缺失。姐妹染色单体上出现等位基因：基因突变或交叉互换均可导致。</p>
+  </div>
+
+  <h2>染色体结构变异</h2>
+  <p>四种类型：<span class="k">缺失</span>（猫叫综合征=5号缺失）、<span class="k">重复</span>、<span class="k">倒位</span>、<span class="k">易位</span>——基因的<b>数目或排列顺序</b>发生改变。判读依据：染色体上基因数目或排列顺序改变；联会时可出现缺失环、重复环、倒位环、十字形（易位）。</p>
+
+  <h2>染色体数目变异与染色体组</h2>
+  <ul>
+    <li><span class="k">染色体组</span>（背诵·P87）：细胞中的一组<b>非同源染色体</b>，形态和功能各不相同，携带着控制生物生长发育的全部遗传信息。</li>
+    <li><b>组数判断</b>：①同种形态染色体有几条→几个组；②基因型中同一字母（不分大小写）出现几次→几个组（Aaaa=2组、AAaaBbbb=4组）。</li>
+    <li><b>二倍体</b>：受精卵发育、含2个组；<b>多倍体</b>：受精卵发育、含3个及以上组；<span class="k">单倍体</span>：体细胞染色体数与本物种<b>配子</b>相同——由配子直接发育，不论几个组都是单倍体（雄蜂、四倍体的单倍体含2组）。</li>
+    <li>育性：染色体组为偶数、能联会→一般可育；奇数→联会紊乱→高度不育（三倍体、骡）。异源多倍体的单倍体加倍后仍可能是杂合子。</li>
+  </ul>
+
+  <h2>育种方法</h2>
+  <table>
+    <tr><th>方法</th><th>原理</th><th>方法要点</th><th>优缺点</th></tr>
+    <tr><td>杂交育种</td><td>基因重组</td><td>杂交→自交→选优→连续自交至纯合</td><td>集中双亲优良性状、操作简单；时间长</td></tr>
+    <tr><td>诱变育种</td><td>基因突变</td><td>物理化学因素处理萌发种子/幼苗</td><td>提高突变率、大幅改良；盲目、需大量材料</td></tr>
+    <tr><td>单倍体育种</td><td>染色体数目变异</td><td>花药离体培养→单倍体幼苗→秋水仙素加倍→纯合子</td><td><b>明显缩短育种年限</b>，后代全纯合；技术复杂</td></tr>
+    <tr><td>多倍体育种</td><td>染色体数目变异</td><td>秋水仙素/低温处理萌发的种子或幼苗</td><td>茎秆粗壮、果实种子大、营养高；发育迟缓、结实率低</td></tr>
+    <tr><td>基因工程</td><td>基因重组</td><td>定向改造生物性状（外源基因表达）</td><td>定向、高效；克服远缘杂交不亲和</td></tr>
+  </table>
+  <ul>
+    <li><b>秋水仙素/低温原理</b>：作用于<b>分裂前期</b>，抑制<span class="k">纺锤体形成</span>→染色体不能移向两极→细胞不分裂→染色体数目加倍（秋水仙素诱导基因突变则作用于间期）。</li>
+    <li><b>无子西瓜</b>（P91）：二倍体×四倍体→三倍体种子→种下，授二倍体花粉刺激子房发育→三倍体无子西瓜（联会紊乱不育故无子）。两次授粉=第二次用二倍体花粉提供生长素类刺激。无子性状<b>可遗传</b>（三倍体本身可经组织培养繁殖）。</li>
+    <li><b>无子番茄</b>：生长素处理未受粉雌蕊→<b>遗传物质不变、不可遗传</b>。判断可遗传的唯一依据：<b>遗传物质是否改变</b>。</li>
+  </ul>
+  <div class="note"><span class="bx-tag">边角小字</span>
+    <p><b>低温诱导染色体数目变化实验（P89）</b>：卡诺氏液固定形态→95%酒精冲洗→解离（15%HCl:95%酒精=1:1）→漂洗→甲紫染色→制片观察；解离后细胞已死亡，看不到动态过程；间期细胞最多、加倍的只是少数。</p>
+  </div>
+</section>
+
+<!-- ================= 09 生物的进化 ================= -->
+<section class="chapter" style="--ac:#EA580C">
+  <div class="ch-head">
+    <div class="ch-num">09</div>
+    <div><h1>生物的进化</h1>
+      <div class="ch-sub">必修2 第6章 · 现代生物进化理论五大要点与基因频率计算</div>
+    </div>
+  </div>
+
+  <h2>进化理论的发展</h2>
+  <ul>
+    <li><b>拉马克</b>：用进废退、获得性遗传——进步：否定物种不变论、所有生物由更古老生物进化而来；局限：认为变异是定向的（环境变化直接导致物种改变）。</li>
+    <li><b>达尔文</b>：①共同由来学说（所有生物由原始的共同祖先进化而来，揭示生物的统一性）；②自然选择学说——<b>过度繁殖（基础）、生存斗争（动力）、遗传变异（内因）、适者生存（结果）</b>，揭示生物的多样性和适应性。</li>
+    <li>自然选择学说局限（P109）：对遗传变异的认识局限于<b>性状水平</b>，不能解释本质；研究对象局限于<b>个体水平</b>；认为物种形成是渐变的，不能解释物种大爆发。</li>
+  </ul>
+
+  <h2>共同由来学说的证据</h2>
+  <ul>
+    <li><span class="k">化石</span>：保存在地层中的古代生物遗体、遗物或生活痕迹——研究生物进化<b>最直接、最重要</b>的证据；越早地层生物越低等、越简单，证实生物由共同祖先经漫长地质年代逐渐进化（简单→复杂、低等→高等、水生→陆生，P101）。</li>
+    <li>比较解剖学：同源器官（人的上肢与其他脊椎动物前肢结构一致）→共同祖先，适应不同环境出现形态功能差异。</li>
+    <li>胚胎学：人及脊椎动物胚胎发育都经历鳃裂、尾阶段。</li>
+    <li>细胞和分子水平：都含 DNA、细胞色素 C 氨基酸序列高度相似、密码子通用、都遵循中心法则；DNA/蛋白质差异大小反映亲缘关系远近与出现顺序。</li>
+  </ul>
+
+  <h2>适应的形成（P107-108）</h2>
+  <ul>
+    <li><b>适应的两层含义</b>：形态结构适合完成一定功能；形态结构及其功能适合该生物在一定环境中生存和繁殖。</li>
+    <li><b>特点</b>：普遍性（拟态、保护色）+ <b>相对性</b>（雷鸟换白羽遇降雪延迟易被天敌发现）——根本原因：遗传的稳定性与环境不断变化之间的矛盾；适应性特征是对<b>之前</b>环境适应的结果。</li>
+    <li>拉马克：适应=用进废退+获得性遗传；达尔文：适应的来源是<span class="k">可遗传变异</span>，适应是<span class="k">自然选择</span>的结果。</li>
+    <li><b>适应形成的必要条件（背诵）</b>：群体中出现<span class="k">可遗传的有利变异</span>和环境的<span class="k">定向选择</span>。</li>
+  </ul>
+
+  <h2>用进化观点解释现象</h2>
+  <ul>
+    <li><b>细菌抗药性</b>：达尔文——繁殖中产生各种可遗传变异（含抗药性强变异），抗生素使抗药弱者大量死亡、抗药强者生存繁殖，抗药个体增多；现代——抗生素滥用使耐药菌生存繁殖机会增加，耐药基因频率逐年上升形成超级细菌。</li>
+    <li><b>防止超级细菌</b>：建立耐药预警机制，耐药率超限时及时更换抗生素，将耐药率控制在低水平（抑制单一抗生素的定向选择）。</li>
+    <li>变异发生在环境选择<b>之前</b>（不定向），环境只起<b>选择</b>作用——拉马克认为环境变化在前、生物为适应环境产生变异是错误的。</li>
+  </ul>
+
+  <h2>现代生物进化理论（背诵·P123）</h2>
+  <ul>
+    <li><span class="k">适应是自然选择的结果</span>；<span class="k">种群是生物进化的基本单位</span>。</li>
+    <li><span class="k">突变和基因重组提供进化的原材料</span>，自然选择使种群基因频率<b>定向</b>改变，进而通过<b>隔离</b>形成新物种。</li>
+    <li>进化过程是<b>生物与生物、生物与环境协同进化</b>的过程；<b>生物多样性是协同进化的结果</b>。</li>
+  </ul>
+
+  <h2>种群基因频率与基因库</h2>
+  <div class="fgrid">
+    <div class="fcard"><b>种群 / 基因库 / 基因频率</b><span class="fm">生活在一定区域的同种生物全部个体；全部基因；某个基因占全部等位基因数的比值</span></div>
+    <div class="fcard"><b>定义法</b><span class="fm">某基因频率 = 该基因数 ÷ 全部等位基因数（伴X：男 = Xⁿ% ÷ (X+Y)）</span></div>
+    <div class="fcard"><b>遗传平衡定律</b><span class="fm">5条件：种群极大、随机交配、无突变、无选择、无迁入迁出；p²+2pq+q²，AA=p²、Aa=2pq、aa=q²</span></div>
+  </div>
+  <div class="warn"><span class="bx-tag">易错警示</span>
+    <p><b>进化的实质</b>：种群基因频率的<b>定向改变</b>（自然选择决定进化方向）。引起基因频率改变的因素：突变和基因重组、自然选择、迁入迁出、遗传漂变等。<b>变异不定向，不能决定进化方向</b>，只提供原材料；自发突变频率低但种群巨大，突变和重组的随机组合数极大。自然选择直接作用对象是生物个体（表型），本质是改变种群的基因频率。</p>
+  </div>
+
+  <h2>隔离与物种形成</h2>
+  <ul>
+    <li><span class="k">物种</span>（P116）：能在自然状态下相互交配并产生<b>可育后代</b>的一群生物。<span class="k">隔离</span>：不同种群间个体在自然条件下<b>不能自由交配或不能产生可育后代</b>的现象；实质=阻断基因交流。</li>
+    <li><span class="k">生殖隔离</span>范畴：不能交配、杂种不活（胚胎致死）、杂种不育（骡子联会紊乱）；地理隔离只是阻碍基因交流，<b>不一定</b>形成新物种。</li>
+    <li><b>物种形成三环节</b>：突变和基因重组（原材料）→ 自然选择（决定进化方向）→ 隔离（物种形成的必要条件）；新物种形成的标志=<span class="k">生殖隔离</span>。</li>
+    <li>关系：基因频率改变→一定发生进化，但不一定形成新物种；只有基因库差异达到不能实现基因交流的程度才形成新物种。</li>
+    <li>四倍体西瓜与二倍体杂交所得三倍体不育，故四倍体是新物种；三倍体西瓜、骡不是物种（无性生殖生物以表型特征区分）。</li>
+  </ul>
+
+  <h2>协同进化与生物多样性</h2>
+  <ul>
+    <li><span class="k">协同进化</span>（P121）：<b>不同物种之间</b>、<b>生物与无机环境之间</b>在相互影响中不断进化和发展；结果=形成生物多样性。</li>
+    <li>捕食者作用（P119）：捕食个体数量多的物种，避免一种或少数几种生物占绝对优势（<b>收割理论</b>）；吃掉年老病弱幼小个体促进种群发展；促进协同进化。</li>
+    <li><b>生物多样性三个层次</b>：<span class="k">基因（遗传）多样性、物种多样性、生态系统多样性</span>；形成过程：由原始生命进化出原核→真核→多细胞→各类生物。</li>
+  </ul>
+  <div class="note"><span class="bx-tag">边角小字</span>
+    <p><b>探究抗生素对细菌的选择作用（P115）</b>：抑菌圈直径逐代变小=耐药菌比例升高；结论：耐药性来自可遗传变异（基因突变），抗生素起定向选择作用。</p>
+  </div>
+  <div class="exp"><span class="bx-tag">高考真题链接</span>
+    <p>ZW 型基因频率计算：雌性 ZaW%=10% → 种群短口器雌性占 5%；遗传平衡计算伴X性状：男 7%→女 0.49%。拓展概念：中性学说（中性突变靠遗传漂变固定）、遗传漂变（小种群随机波动更显著）。</p>
+  </div>
+</section>
+
+</body>
+</html>
