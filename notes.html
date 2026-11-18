@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>高中生物学 必修1《分子与细胞》必备知识点</title>
+<style>
+@page { size: A4; margin: 13mm 14mm 15mm; }
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; }
+body {
+  font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","Songti SC",sans-serif;
+  color:#1e293b; font-size:9.8pt; line-height:1.7;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+p { margin: 3pt 0; }
+h1,h2,h3 { margin:0; font-weight:700; }
+ul,ol { margin:3pt 0 3pt 0; padding-left:1.5em; }
+li { margin: 1.5pt 0; }
+b { font-weight:600; }
+sub,sup { font-size:70%; }
+.k { font-weight:600; background: linear-gradient(transparent 62%, #fde68a 62%); padding:0 1px; }
+table { border-collapse: collapse; width:100%; margin:4pt 0 6pt; }
+th,td { border:0.6pt solid #dbe2ea; padding:3pt 5pt; vertical-align:top; font-size:8.8pt; line-height:1.55; text-align:left; }
+th { font-weight:600; }
+
+/* ---------- 封面 ---------- */
+.cover {
+  break-after: page; height: 260mm; border-radius: 5mm;
+  background: linear-gradient(155deg, #0b1f33 0%, #123a5c 42%, #0e5e52 100%);
+  color:#fff; padding: 22mm 20mm 16mm; display:flex; flex-direction:column;
+}
+.cv-badge { display:inline-block; align-self:flex-start; font-size:8.5pt; letter-spacing:.35em;
+  border:1pt solid rgba(255,255,255,.45); border-radius:99px; padding:3pt 12pt; color:#cfe8dd; }
+.cv-title { font-size:30pt; font-weight:700; line-height:1.35; margin-top:26mm; letter-spacing:.06em; }
+.cv-title small { display:block; font-size:13pt; font-weight:500; color:#9fd8c4; margin-top:5mm; letter-spacing:.14em; }
+.cv-line { width:34mm; height:2.6pt; background:#4ade80; margin:9mm 0; border-radius:2pt; }
+.cv-desc { font-size:10.5pt; color:#d7e5ee; line-height:2; max-width:128mm; }
+.cv-cards { display:flex; gap:4mm; margin-top:10mm; }
+.cv-card { flex:1; background:rgba(255,255,255,.08); border:0.7pt solid rgba(255,255,255,.22);
+  border-radius:3mm; padding:4mm 5mm; font-size:8.8pt; line-height:1.7; color:#e8f1f8; }
+.cv-card b { display:block; color:#7ee0b0; font-size:9.5pt; margin-bottom:1.5mm; }
+.cv-foot { margin-top:auto; display:flex; justify-content:space-between; align-items:flex-end;
+  font-size:8.8pt; color:#a8bccb; }
+
+/* ---------- 目录 ---------- */
+.toc { break-after: page; padding-top:6mm; }
+.toc h1 { font-size:19pt; color:#0f172a; letter-spacing:.3em; }
+.toc-rule { width:26mm; height:2.4pt; background:linear-gradient(90deg,#0e5e52,#4ade80); border-radius:2pt; margin:3mm 0 7mm; }
+.toc-row { display:flex; align-items:center; gap:4mm; padding:3.1mm 2mm; border-bottom:0.6pt dashed #cbd5e1; }
+.toc-num { width:8.5mm; height:8.5mm; border-radius:2.4mm; color:#fff; font-weight:700; font-size:9.5pt;
+  display:flex; align-items:center; justify-content:center; flex:none; }
+.toc-t { font-weight:600; font-size:11pt; color:#0f172a; }
+.toc-d { margin-left:auto; font-size:8.5pt; color:#64748b; text-align:right; max-width:118mm; }
+.toc-note { margin-top:7mm; background:#f1f5f9; border:0.6pt solid #e2e8f0; border-radius:3mm; padding:4mm 5mm; font-size:9pt; color:#475569; line-height:1.8; }
+
+/* ---------- 章节通用 ---------- */
+.chapter { break-before: page; --ac:#2563EB; --acb: color-mix(in srgb, var(--ac) 9%, white); }
+.ch-head { display:flex; align-items:center; gap:5mm; padding:0 0 4mm; border-bottom:2pt solid var(--ac); margin-bottom:5mm; }
+.ch-num { width:13mm; height:13mm; border-radius:3.2mm; background:var(--ac); color:#fff;
+  font-size:15pt; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none; }
+.ch-head h1 { font-size:16.5pt; color:#0f172a; letter-spacing:.04em; }
+.ch-sub { font-size:8.6pt; color:#64748b; margin-top:1mm; letter-spacing:.03em; }
+
+h2 { font-size:12pt; color:var(--ac); margin:6pt 0 3pt; padding-left:2.5mm; border-left:3.2pt solid var(--ac); letter-spacing:.02em; }
+h3 { font-size:10.2pt; color:#0f172a; margin:5pt 0 2pt; }
+
+/* 提示框 */
+.bx { border-radius:2.4mm; padding:3.2mm 4mm 3.2mm 4mm; margin:4pt 0 6pt; break-inside:avoid; position:relative; }
+.bx .bx-tag { display:inline-block; font-size:7.6pt; font-weight:700; letter-spacing:.12em; color:#fff;
+  border-radius:99px; padding:1pt 8pt 1.5pt; margin-bottom:2mm; }
+.bx p, .bx li { font-size:9.2pt; }
+.note { background:#eef2ff; border-left:3pt solid #4F46E5; }
+.note .bx-tag { background:#4F46E5; }
+.warn { background:#fff1f2; border-left:3pt solid #E11D48; }
+.warn .bx-tag { background:#E11D48; }
+.exam { background:#f0fdfa; border-left:3pt solid #0D9488; }
+.exam .bx-tag { background:#0D9488; }
+.exp  { background:#faf5ff; border-left:3pt solid #9333EA; }
+.exp  .bx-tag { background:#9333EA; }
+
+/* 公式卡片 */
+.fgrid { display:flex; flex-wrap:wrap; gap:2.5mm; margin:3pt 0 5pt; }
+.fcard { flex:1 1 30%; background:#f8fafc; border:0.6pt solid #dbe2ea; border-radius:2mm;
+  padding:2.5mm 3mm; font-size:8.9pt; line-height:1.6; break-inside:avoid; }
+.fcard b { color:var(--ac); }
+.fcard .fm { display:block; font-family:"Menlo","SF Mono",monospace; font-size:8.6pt; color:#0f172a; margin-top:1mm; }
+
+/* 流程 */
+.flow { background:#f8fafc; border:0.6pt solid #dbe2ea; border-radius:2mm; padding:2.5mm 3.5mm;
+  font-size:9pt; margin:3pt 0 5pt; break-inside:avoid; }
+.flow b { color:var(--ac); }
+
+/* 章末小结 */
+.recap { background:var(--acb); border:0.7pt solid var(--ac); border-radius:3mm; padding:3.5mm 4.5mm; margin-top:6pt; break-inside:avoid; }
+.recap .bx-tag { display:inline-block; background:var(--ac); color:#fff; font-size:7.6pt; font-weight:700;
+  letter-spacing:.12em; border-radius:99px; padding:1pt 8pt 1.5pt; margin-bottom:2mm; }
+.recap p { font-size:9.2pt; }
+</style>
+</head>
+<body>
+
+<!-- ================= 封面 ================= -->
+<section class="cover">
+  <div>
+    <span class="cv-badge">GAOKAO BIOLOGY · 必修一</span>
+    <div class="cv-title">
+      分子与细胞<br>必备知识点手册
+      <small>课本边角小字 · 易错点 · 易考点 全收录</small>
+    </div>
+    <div class="cv-line"></div>
+    <p class="cv-desc">
+      人教版必修第一册十二章核心知识 + 课本边角小字 + 易错易考点，条目式呈现，适合每日背诵与考前速览。
+    </p>
+    <div class="cv-cards">
+      <div class="cv-card"><b>黑体必背</b>教材黑体字与背诵段落逐条落实，考什么背什么</div>
+      <div class="cv-card"><b>边角小字</b>相关信息、思考·讨论、与社会的联系不再丢分</div>
+      <div class="cv-card"><b>易错易考</b>高考易错判断题逐条辨析，附真题出处</div>
+    </div>
+  </div>
+  <div class="cv-foot">
+    <span>人教版 高中生物学 必修1《分子与细胞》</span>
+    <span>2026 年 11 月整理</span>
+  </div>
+</section>
+
+<!-- ================= 目录 ================= -->
+<section class="toc">
+  <h1>目 录</h1>
+  <div class="toc-rule"></div>
+  <div class="toc-row"><div class="toc-num" style="background:#2563EB">01</div><div class="toc-t">走近细胞</div><div class="toc-d">细胞学说 · 生命系统层次 · 病毒 · 真核与原核 · 显微镜使用</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#0891B2">02</div><div class="toc-t">细胞的元素与化合物 · 水和无机盐</div><div class="toc-d">检测实验 · 自由水与结合水 · 无机盐功能与缺乏症</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#D97706">03</div><div class="toc-t">糖类和脂质</div><div class="toc-d">糖类分类 · 脂质三类 · 种子成熟与萌发中的物质变化</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#DC2626">04</div><div class="toc-t">蛋白质和核酸</div><div class="toc-d">脱水缩合全套计算 · 变性与盐析 · DNA 与 RNA 比较</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#7C3AED">05</div><div class="toc-t">细胞膜与细胞核</div><div class="toc-d">流动镶嵌模型 · 膜制备与成分探索 · 核结构与经典实验</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#059669">06</div><div class="toc-t">细胞器与生物膜系统</div><div class="toc-d">八大细胞器 · 线粒体与叶绿体 · 分泌蛋白 · 内共生学说</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#0284C7">07</div><div class="toc-t">细胞的物质输入和输出</div><div class="toc-d">渗透作用 · 质壁分离 · 三种运输方式 · 载体与通道蛋白</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#DB2777">08</div><div class="toc-t">酶与 ATP</div><div class="toc-d">酶本质探索 · 特性与实验设计 · 抑制剂 · ATP 与 ADP 循环</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#EA580C">09</div><div class="toc-t">细胞呼吸</div><div class="toc-d">酵母菌实验 · 有氧呼吸三阶段 · 呼吸方式判断 · 原理应用</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#16A34A">10</div><div class="toc-t">光合作用</div><div class="toc-d">色素提取分离 · 光反应与暗反应 · 影响因素 · 光呼吸与 C4</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#6D28D9">11</div><div class="toc-t">细胞增殖</div><div class="toc-d">细胞周期 · 有丝分裂各期 · 观察实验 · 周期调控与同步化</div></div>
+  <div class="toc-row"><div class="toc-num" style="background:#475569">12</div><div class="toc-t">细胞分化、衰老和死亡</div><div class="toc-d">分化与全能性 · 衰老学说 · 凋亡 · 自噬与新型细胞死亡</div></div>
+  <div class="toc-note">
+    框色：<b style="color:#4F46E5">蓝·边角小字</b>（教材相关信息、思考·讨论，近年高考常考）｜
+    <b style="color:#E11D48">红·易错警示</b>（考前逐条自测）｜
+    <b style="color:#0D9488">青·高频考点</b>。页码均指人教版（2019 年版）必修第一册。
+  </div>
+</section>
+
+<!-- ================= 01 走近细胞 ================= -->
+<section class="chapter" style="--ac:#2563EB">
+  <header class="ch-head">
+    <div class="ch-num">01</div>
+    <div><h1>走近细胞</h1><p class="ch-sub">细胞学说 · 生命系统的结构层次 · 病毒 · 真核细胞与原核细胞 · 显微镜使用</p></div>
+  </header>
+
+  <h2>1.1 细胞学说</h2>
+  <ul>
+    <li>建立者：<span class="k">施莱登、施旺</span>（提出）；<span class="k">魏尔肖</span>补充「细胞通过分裂产生新细胞」。</li>
+    <li>内容（三点）：①细胞是一个有机体，一切动植物都由<span class="k">细胞发育而来</span>，并由细胞和细胞产物构成；②细胞是一个相对独立的单位，既有自己的生命，又对与其他细胞共同组成的整体生命起作用；③新细胞是由<span class="k">老细胞分裂</span>产生的。</li>
+    <li>意义：揭示<span class="k">细胞的统一性和生物体结构的统一性</span>（证明动植物有共同的结构基础与亲缘关系）。</li>
+    <li>局限：未涉及<span class="k">原核生物、真菌、病毒</span>；未揭示细胞的<span class="k">多样性</span>。</li>
+    <li>启示：科学发现离不开技术支持；理论经修正补充而完善；运用了<span class="k">不完全归纳法</span>——结论可信但可能有例外。</li>
+  </ul>
+
+  <h2>1.2 生命系统的结构层次</h2>
+  <ul>
+    <li>层次：细胞 → 组织 → 器官 → 系统 → <span class="k">个体 → 种群 → 群落 → 生态系统 → 生物圈</span>。</li>
+    <li><b>植物没有「系统」</b>层次（六大器官直接构成个体）；<b>单细胞生物</b>没有组织、器官、系统层次，<span class="k">细胞层次即个体层次</span>；病毒没有结构层次（不属于生命系统的任何层次，但属于生物）。</li>
+    <li>生态系统包括生物群落与<span class="k">非生物的环境</span>（阳光、空气、水等），仍属于生命系统。</li>
+    <li>细胞是最基本的生命系统：单细胞生物一个细胞完成全部生命活动；多细胞生物依赖各种分化的细胞密切合作。</li>
+  </ul>
+
+  <h2>1.3 病毒</h2>
+  <ul>
+    <li>结构：<span class="k">核酸（DNA 或 RNA）+ 蛋白质</span>；无细胞结构，必须<span class="k">寄生在活细胞</span>中才能增殖（培养病毒须用活细胞/活鸡胚，不能用普通培养基）。</li>
+    <li>分类：DNA 病毒（T2 噬菌体、乙肝病毒）；RNA 病毒（HIV、流感病毒、SARS 冠状病毒、新冠病毒）。RNA 病毒遗传物质为单链，<span class="k">结构不稳定、易变异</span>，疫苗研发难度大。</li>
+    <li>增殖过程：吸附 → 注入核酸（噬菌体注射式；动物病毒多经膜融合或胞吞）→ 合成核酸与蛋白质 → 组装 → 释放。合成场所利用宿主细胞的核糖体、原料和能量。</li>
+  </ul>
+
+  <h2>1.4 真核细胞与原核细胞</h2>
+  <table class="t">
+    <tr><th style="width:17%">比较项</th><th>原核细胞（蓝细菌、细菌等）</th><th>真核细胞（动植物、真菌）</th></tr>
+    <tr><td>细胞核</td><td><span class="k">拟核</span>：无核膜、核仁，大型环状 DNA 集中分布</td><td>有核膜包被的细胞核，染色质（DNA+蛋白质）</td></tr>
+    <tr><td>染色体</td><td>无（DNA 不与蛋白质结合）</td><td>有</td></tr>
+    <tr><td>细胞器</td><td>只有<span class="k">核糖体</span></td><td>核糖体及其他多种复杂细胞器</td></tr>
+    <tr><td>细胞壁</td><td>主要成分<span class="k">肽聚糖</span>（<b>支原体无细胞壁</b>）</td><td>植物：纤维素和果胶；真菌：几丁质</td></tr>
+    <tr><td>分裂方式</td><td><span class="k">二分裂</span>（不遵循孟德尔遗传定律）</td><td>有丝分裂、无丝分裂、减数分裂</td></tr>
+    <tr><td>转录与翻译</td><td><span class="k">同时同地进行</span>（边转录边翻译）</td><td>先后不同空间进行（核内转录、质中翻译）</td></tr>
+    <tr><td>共同点</td><td colspan="2">均有细胞膜、核糖体、DNA 和 RNA，遗传物质均为 DNA；都通过 ATP 供能</td></tr>
+  </table>
+  <ul>
+    <li>蓝细菌（原核）：含<span class="k">叶绿素和藻蓝素</span>，能进行光合作用，但<span class="k">没有叶绿体</span>。</li>
+    <li><span class="k">质粒</span>：小型环状 DNA，存在于<span class="k">绝大多数原核生物</span>中，酵母菌中也存在；是基因工程的常用载体。</li>
+    <li>常见原核生物：蓝细菌（念珠藻、色球藻、颤藻、发菜）、大肠杆菌、乳酸菌、硝化细菌、醋酸杆菌、根瘤菌、支原体（原核中唯一无细胞壁）。带「菌」字的多为细菌，但酵母菌是真核生物。</li>
+  </ul>
+
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <ul>
+      <li>显微镜下识别真核与原核细胞：有无以核膜为界限的细胞核（教材第 11 页图示比较）。</li>
+      <li>水华与赤潮：水体<span class="k">富营养化（N、P 含量高）</span>导致蓝细菌和绿藻等大量繁殖，淡水称水华，海水称赤潮。</li>
+      <li>科学史：列文虎克发现活细胞（红细胞、精子）；罗伯特·胡克发现并命名「细胞」（死细胞）；施莱登提出植物体由细胞组成；施旺提出动物体也由细胞组成。</li>
+    </ul>
+  </div>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <ul>
+      <li>病毒不属于生命系统的任何结构层次，但病毒属于生物。</li>
+      <li>细胞融合（如人鼠细胞融合）也能产生新细胞——「新细胞只能由细胞分裂产生」的说法不对。</li>
+      <li>原核细胞≠低等细胞：原核与真核细胞的根本区别是有无以核膜为界限的细胞核，本质是遗传物质存在形式不同。</li>
+      <li>蓝细菌能进行光合作用却没有叶绿体；硝化细菌能进行化能合成作用；醋酸杆菌无线粒体却可进行有氧呼吸（酶分布在细胞膜上）。</li>
+      <li>二分裂不是减数分裂也不是有丝分裂，原核细胞的分裂不遵循孟德尔定律。</li>
+    </ul>
+  </div>
+
+  <div class="bx exam"><span class="bx-tag">高频考点 · 显微镜使用</span>
+    <ul>
+      <li>换高倍镜：<b>只调细准焦螺旋</b>，不动粗准焦螺旋；先在低倍镜下将目标移到视野中央。</li>
+      <li>物像移动：显微镜成倒立的虚像，物像偏哪往哪移（欲将左上方物像移至中央，装片向左上方移）。</li>
+      <li>视野中污点定位：转动目镜（动→在目镜）、换物镜（消失→在物镜）、移动装片（动→在装片）。</li>
+      <li>视野内细胞数目计算：目镜 10×、物镜 10× 时圆形视野中有 64 个充满视野的细胞，换 40× 物镜后为 <span class="k">64 ÷ 16 = 4</span> 个；若细胞呈单行排布，则按长度计算 <span class="k">16 ÷ 4 = 4</span> 个。</li>
+      <li>放大倍数指长度放大，面积按倍数平方缩小；放大倍数越大视野越暗、细胞越大、数目越少。</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ================= 02 元素化合物 ================= -->
+<section class="chapter" style="--ac:#0891B2">
+  <header class="ch-head">
+    <div class="ch-num">02</div>
+    <div><h1>细胞的元素与化合物 · 水和无机盐</h1><p class="ch-sub">组成细胞的元素 · 检测生物组织中的糖类、脂肪和蛋白质 · 细胞中的水和无机盐</p></div>
+  </header>
+
+  <h2>2.1 组成细胞的元素</h2>
+  <ul>
+    <li>大量元素：C、H、O、N、P、S、K、Ca、Mg；微量元素：Fe、Mn、Zn、Cu、B、Mo。</li>
+    <li><span class="k">C 是最基本元素</span>（碳链构成生物大分子骨架）；鲜重含量最多的是 <span class="k">O</span>，<span class="k">干重含量最多的是 C</span>；占细胞鲜重最多的化合物是水，最多的有机物是蛋白质。</li>
+    <li>生物界与非生物界的统一性：元素种类大体相同；差异性：元素含量相差很大。</li>
+  </ul>
+
+  <h2>2.2 检测生物组织中的有机物（必背数据）</h2>
+  <table class="t">
+    <tr><th style="width:14%">待测物</th><th style="width:22%">试剂与配制</th><th>操作与颜色反应</th></tr>
+    <tr><td>还原糖</td><td><span class="k">斐林试剂</span>：甲液 0.1 g/mL NaOH + 乙液 0.05 g/mL CuSO<sub>4</sub>，<b>现配现用、等量混合</b></td><td>50~65 ℃ 水浴加热约 2 min：<span class="k">浅蓝色 → 棕色 → 砖红色（Cu<sub>2</sub>O）</span></td></tr>
+    <tr><td>蛋白质</td><td><span class="k">双缩脲试剂</span>：A 液 0.1 g/mL NaOH 1 mL + B 液 0.01 g/mL CuSO<sub>4</sub> 3~4 滴</td><td>不加热，先加 A 液再加 B 液，呈<span class="k">紫色</span></td></tr>
+    <tr><td>脂肪</td><td>苏丹Ⅲ染液（<span class="k">橘黄色</span>）或苏丹Ⅳ染液（<span class="k">红色</span>）</td><td>切片法需显微镜观察；<b>匀浆法可直接观察</b>，不需显微镜</td></tr>
+    <tr><td>淀粉</td><td>碘液</td><td>变蓝</td></tr>
+  </table>
+  <ul>
+    <li>还原糖：葡萄糖、果糖、麦芽糖、乳糖；<span class="k">蔗糖不是还原糖</span>。选材要求「组织颜色浅、富含待测物」——<span class="k">甘蔗、甜菜（蔗糖非还原糖）、西瓜、番茄（红色干扰）均不合适</span>，常用苹果、梨的匀浆。</li>
+    <li>双缩脲试剂检测蛋白质要求分子中<span class="k">含两个及以上肽键</span>——二肽不能被检测。</li>
+  </ul>
+
+  <h2>2.3 细胞中的水</h2>
+  <ul>
+    <li>存在形式：<span class="k">自由水</span>（良好溶剂、参与反应、运输物质）与<span class="k">结合水</span>（细胞结构的重要组成成分，如与蛋白质、多糖结合）。</li>
+    <li>自由水/结合水比值：<span class="k">升高 → 代谢旺盛</span>；<span class="k">降低 → 抗逆性（抗寒、抗旱）增强</span>。冬眠动物、越冬植物比值下降。</li>
+    <li>水的性质：极性分子（良好的溶剂）、液体（氢键缔合）、<span class="k">比热容大</span>（恒温、缓冲温度变化）。</li>
+    <li><b>产生水的反应</b>：氨基酸脱水缩合、ATP 合成、有氧呼吸第三阶段、暗反应（糖类合成）；<b>消耗水的反应</b>：多肽水解、有氧呼吸第二阶段、光反应（水的光解）、光合作用的光反应阶段。</li>
+  </ul>
+
+  <h2>2.4 细胞中的无机盐</h2>
+  <ul>
+    <li>存在形式：主要以<span class="k">离子</span>形式存在（少量构成化合物，如 Fe<sup>2+</sup> 于血红蛋白、Mg 于叶绿素、P 于核苷酸）。</li>
+    <li>功能：①复杂化合物的组成成分；②维持细胞和生物体的生命活动；③维持细胞的酸碱平衡；④维持细胞的渗透压与形态。</li>
+    <li>缺乏症：<span class="k">血 Ca²⁺过低→抽搐，过高→肌无力</span>；缺 Fe → 缺铁性贫血；缺 Mg → 叶片变黄；缺 B → 「花而不实」；缺 I → 甲状腺肿大（大脖子病）。</li>
+  </ul>
+
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <ul>
+      <li>血红素：含 <span class="k">Fe²⁺</span> 的卟啉环辅基；血红蛋白 = 珠蛋白 + 4 个血红素。生物体内没有含 Fe 的氨基酸，Fe 是肽链折叠后与辅基结合的。</li>
+      <li>等质量的脂肪比糖类含 H 多、含 O 少，氧化分解释放能量多、耗 O 多——脂肪是良好的储能物质。</li>
+      <li>结合水与抗逆性的关系：结合水比例越高，原生质黏度越大、代谢越慢、抗逆性越强。</li>
+    </ul>
+  </div>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <ul>
+      <li>斐林试剂需现配现用、甲乙液混合后加入，不能像双缩脲那样先后单独加入。</li>
+      <li>不加热时还原糖与斐林试剂反应极慢（约 50 min 才出现砖红色沉淀），故实验须 50~65 ℃ 水浴加热。</li>
+      <li>晒干的种子与烘烤干种子：失去的主要分别是自由水和结合水——<span class="k">结合水被破坏后细胞死亡</span>。</li>
+      <li>「无机盐不提供能量」：无机盐不能作为能源物质。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 03 糖类和脂质 ================= -->
+<section class="chapter" style="--ac:#D97706">
+  <header class="ch-head">
+    <div class="ch-num">03</div>
+    <div><h1>糖类和脂质</h1><p class="ch-sub">细胞中的糖类 · 细胞中的脂质 · 种子成熟与萌发过程中的物质变化</p></div>
+  </header>
+
+  <h2>3.1 糖类（主要能源物质）</h2>
+  <table class="t">
+    <tr><th style="width:14%">类别</th><th style="width:36%">代表物</th><th>分布与功能</th></tr>
+    <tr><td>单糖</td><td>葡萄糖（细胞重要能源）、果糖、半乳糖；核糖、脱氧核糖（构成核酸）</td><td>不能再水解；葡萄糖是细胞呼吸最常利用的底物</td></tr>
+    <tr><td>二糖</td><td><b>植物</b>：蔗糖（葡萄糖+果糖）、麦芽糖（两分子葡萄糖）；<b>动物</b>：乳糖</td><td>须水解为单糖才能被吸收；蔗糖、麦芽糖是运输/储存形式</td></tr>
+    <tr><td>多糖</td><td><b>植物</b>：淀粉（储能）、纤维素（细胞壁成分）；<b>动物</b>：糖原（肝糖原、肌糖原）</td><td>淀粉储能、可水解供能；<span class="k">纤维素不供能</span>，构成植物细胞壁；糖原暂时储能</td></tr>
+  </table>
+  <ul>
+    <li><span class="k">几丁质（壳多糖）</span>：广泛存在于甲壳类动物和昆虫的外骨骼、<b>真菌</b>的细胞壁中；可用于制作人造皮肤、缝合线等，含 N 元素。</li>
+  </ul>
+
+  <h2>3.2 脂质（C、H、O 为主，有的含 N、P）</h2>
+  <table class="t">
+    <tr><th style="width:16%">类别</th><th>功能</th><th style="width:30%">备注</th></tr>
+    <tr><td>脂肪</td><td>①细胞内良好的<span class="k">储能物质</span>；②保温；③缓冲、减压，保护内脏</td><td>等质量产能比糖类多、耗 O 多；动物脂肪饱和程度高、熔点高</td></tr>
+    <tr><td>磷脂</td><td>构成<span class="k">所有细胞膜（生物膜）</span>的重要成分</td><td>脑、卵细胞、大豆中丰富</td></tr>
+    <tr><td>固醇</td><td>胆固醇：构成动物细胞膜的重要成分、参与血液中<span class="k">脂质的运输</span>；性激素：促进生殖器官发育与生殖细胞形成；维生素 D：促进肠道对<span class="k">钙和磷</span>的吸收</td><td>胆固醇过高会导致血管堵塞，但其本身是必需成分，不可完全缺乏</td></tr>
+  </table>
+
+  <h2>3.3 种子成熟与萌发过程中的物质变化（课件拓展）</h2>
+  <ul>
+    <li>油料种子（花生、油菜）成熟过程中：光合产物（糖类）<span class="k">转变为脂肪</span>储存，游离脂肪酸减少、脂肪增多，磷脂含量上升。</li>
+    <li>种子萌发时：脂肪<span class="k">水解并转变为糖类</span>（经过乙醛酸循环途径），自由水含量增多、呼吸作用增强。</li>
+    <li>萌发初期干重先<span class="k">增加</span>（吸收 O<sub>2</sub> 与 H<sub>2</sub>O 参与氧化，质量来自氧）后持续减少（呼吸消耗）。</li>
+  </ul>
+
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <ul>
+      <li>糖类「甜」与「不甜」与是否为还原糖无关；蔗糖水解产物（葡萄糖+果糖）都是还原糖。</li>
+      <li>脂肪检测试剂同样可用苏丹Ⅲ/Ⅳ染色后显微镜观察颗粒大小与分布。</li>
+      <li>植物细胞储能：淀粉；动物细胞储能：糖原和脂肪。纤维素虽然由葡萄糖构成，但不能被人消化（无相应酶）。</li>
+    </ul>
+  </div>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <ul>
+      <li>「糖类是主要能源物质，脂肪是主要储能物质」不要混淆。</li>
+      <li>所有活细胞都含糖类与脂质；但并非所有细胞都含脂肪（磷脂是膜成分，普遍存在）。</li>
+      <li>胆固醇过多有害，但缺少会影响膜的稳定性与脂质运输——「胆固醇有害无益」说法错误。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 04 蛋白质和核酸 ================= -->
+<section class="chapter" style="--ac:#DC2626">
+  <header class="ch-head">
+    <div class="ch-num">04</div>
+    <div><h1>蛋白质和核酸</h1><p class="ch-sub">蛋白质的结构与功能 · 核酸的结构与功能 · 生物大分子以碳链为骨架</p></div>
+  </header>
+
+  <h2>4.1 蛋白质（生命活动的主要承担者）</h2>
+  <h3>功能（五大类，教材 P28 黑体）</h3>
+  <ul>
+    <li>结构蛋白（肌肉、羽毛、头发）；催化（绝大多数酶）；运输（血红蛋白、通道蛋白、载体蛋白）；调节（胰岛素、生长激素）；免疫（抗体）。正常代谢中蛋白质<span class="k">不供能</span>，仅在病理或衰老状态才氧化分解。</li>
+  </ul>
+  <h3>基本单位——氨基酸</h3>
+  <ul>
+    <li>结构通式：至少含<span class="k">一个氨基和一个羧基连接在同一个碳原子上</span>，该碳原子还连一个氢和一个 R 基。区别在于 R 基不同；有的 R 基中也含氨基或羧基。</li>
+    <li>组成人体蛋白质的氨基酸约 21 种，其中 8 种（婴儿 9 种）为<span class="k">必需氨基酸</span>，只能从食物获得，人体不能合成；<span class="k">非必需氨基酸</span>可由转氨基作用合成。</li>
+    <li>必需氨基酸口诀：「携（缬）一（异亮）两（亮）本（苯丙）单（蛋）色（色）书（苏）来（赖）」。</li>
+    <li>脱水缩合在<span class="k">核糖体</span>上进行：一个氨基酸的羧基与另一个的氨基结合，脱去一分子水，形成<span class="k">肽键（—CO—NH—）</span>。水中 H 来自氨基和羧基，O 只来自羧基。</li>
+  </ul>
+
+  <h3>脱水缩合计算全套公式</h3>
+  <div class="fgrid">
+    <div class="fcard"><b>肽键数 / 脱去水分子数</b><span class="fm">= 氨基酸数 − 肽链数（链状）</span><span class="fm">= 氨基酸数（环状肽）</span></div>
+    <div class="fcard"><b>至少含氨基 / 羧基数</b><span class="fm">= 肽链数（链状，环状为 0；R 基另计）</span></div>
+    <div class="fcard"><b>N 原子数</b><span class="fm">= 氨基酸数 + R 基中 N 数</span><span class="fm">= 肽键数 + 游离氨基数 + R 基 N</span></div>
+    <div class="fcard"><b>O 原子数</b><span class="fm">= 各氨基酸 O 之和 − 脱去水数（链状）</span></div>
+    <div class="fcard"><b>相对分子质量</b><span class="fm">= Σ氨基酸 − 18 × 脱水数 − 2 × 二硫键数</span></div>
+    <div class="fcard"><b>二硫键</b><span class="fm">由两个半胱氨酸的巯基（—SH）脱 2 个 H 形成</span></div>
+  </div>
+  <ul>
+    <li>蛋白质结构多样性直接原因：氨基酸的<span class="k">种类、数目、排列顺序</span>不同 + 肽链盘曲折叠形成的<span class="k">空间结构</span>千差万别；根本原因：<span class="k">基因（DNA）的多样性</span>。</li>
+    <li>肽链间的连接：二硫键、氢键等（也有少量肽键）；二硫键可存在于肽链内或肽链间。</li>
+  </ul>
+
+  <h3>变性与盐析</h3>
+  <ul>
+    <li><span class="k">变性</span>：高温、过酸、过碱、重金属、酒精等破坏<span class="k">空间结构</span>（肽键不断裂），失去活性且<span class="k">不可恢复</span>；变性后仍能用双缩脲试剂检测。高温消毒灭菌、熟鸡蛋易消化的原理。</li>
+    <li><span class="k">盐析</span>：盐溶液降低蛋白质溶解度使其析出，空间结构不变、活性保持，<span class="k">加水可复溶</span>——可逆。低温也不破坏空间结构。</li>
+  </ul>
+
+  <h2>4.2 核酸（遗传信息的携带者）</h2>
+  <table class="t">
+    <tr><th style="width:16%">项目</th><th>DNA（脱氧核糖核酸）</th><th>RNA（核糖核酸）</th></tr>
+    <tr><td>元素</td><td colspan="2">均为 C、H、O、N、P</td></tr>
+    <tr><td>基本单位</td><td>脱氧核糖核苷酸（4 种）</td><td>核糖核苷酸（4 种）</td></tr>
+    <tr><td>五碳糖</td><td>脱氧核糖</td><td>核糖</td></tr>
+    <tr><td>碱基</td><td>A、T、G、C</td><td>A、U、G、C</td></tr>
+    <tr><td>结构</td><td>一般双链，双螺旋</td><td>一般单链</td></tr>
+    <tr><td>分布</td><td>细胞核（染色质）、线粒体、叶绿体、拟核、质粒</td><td>细胞核、线粒体、叶绿体、核糖体（rRNA）</td></tr>
+    <tr><td>功能</td><td>绝大多数生物的遗传物质</td><td>mRNA 储存传递信息；tRNA 转运氨基酸；rRNA 构成核糖体；少数 RNA 有催化作用（酶）</td></tr>
+  </table>
+  <ul>
+    <li>核苷酸 = <span class="k">磷酸 + 五碳糖 + 含氮碱基</span>，连接处：磷酸—酯键连五碳糖。核苷 = 五碳糖 + 碱基（无磷酸）。腺苷 = 腺嘌呤 + 核糖。</li>
+    <li>DNA 多样性：脱氧核苷酸（碱基对）的<span class="k">数目与排列顺序</span>千变万化（数学模型 4<sup>n</sup>）；特异性：每种 DNA 有特定的排列顺序——DNA 指纹、核酸检测的依据。</li>
+    <li>新冠病毒核酸（RNA）有特定核苷酸排列顺序，故可用核酸检测判断感染。</li>
+  </ul>
+  <table class="t">
+    <tr><th>生物类型</th><th>核酸种类</th><th>遗传物质</th><th>核苷酸</th><th>五碳糖</th><th>碱基</th></tr>
+    <tr><td>细胞生物（真核/原核）</td><td>2（DNA+RNA）</td><td>DNA</td><td>8</td><td>2</td><td>5</td></tr>
+    <tr><td>DNA 病毒（T2 噬菌体）</td><td>1</td><td>DNA</td><td>4</td><td>1</td><td>4</td></tr>
+    <tr><td>RNA 病毒（HIV、新冠）</td><td>1</td><td>RNA</td><td>4</td><td>1</td><td>4</td></tr>
+  </table>
+
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <ul>
+      <li>生物大分子（多糖、蛋白质、核酸）以<span class="k">碳链为基本骨架</span>，由单体（单体→多聚体）连接而成；「碳原子的排列方式和碳链的长短是生物大分子多样性的基础」（教材 P36）。</li>
+      <li>DNA 和 RNA 的初步水解产物：核苷酸；彻底水解产物：磷酸 + 五碳糖 + 碱基。</li>
+      <li>同一个体不同细胞 DNA 相同（都来自同一受精卵的有丝分裂），RNA 不完全相同（<span class="k">基因的选择性表达</span>）。</li>
+      <li>转录（转氨基）：氨基酸的氨基可转移形成新氨基酸；脱氨基：脱去氨基产生氨，进一步转为尿素排出——含碳部分进入糖代谢供能。</li>
+      <li>丙氨酸氨基转移酶（ALT）、天冬氨酸氨基转移酶（AST）：肝细胞受损时膜通透性增大，转氨酶入血，血清酶活性升高反映器官状态（教材「问题探讨」）。</li>
+      <li>胰岛素 A、B 链由<span class="k">同一个基因</span>编码，先合成前胰岛素原，加工切除 C 肽后形成 A、B 链。</li>
+    </ul>
+  </div>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <ul>
+      <li>「只要有氨基和羧基就是组成蛋白质的氨基酸」×——必须连在同一个碳原子上。</li>
+      <li>蛋白质水解终产物：氨基酸；彻底氧化分解终产物：CO<sub>2</sub>、H<sub>2</sub>O、尿素。「都是氨基酸」×。</li>
+      <li>并非所有大分子的彻底水解产物都是其单体（如核酸彻底水解得磷酸、五碳糖、碱基）。</li>
+      <li>蛋白质变性后肽键未断，双缩脲检测呈紫色仍为阳性。</li>
+      <li>去除中间一个氨基酸需断 2 个肽键、消耗 2 分子水。</li>
+      <li>HIV 是 RNA 病毒、T2 是 DNA 病毒，不要混淆。</li>
+    </ul>
+  </div>
+
+  <div class="bx exam"><span class="bx-tag">高频考点</span>
+    <ul>
+      <li>已知多肽分子式与原料氨基酸分子式，推氨基酸种类和数目（守恒法：先数 N、再数 S、再用 C 守恒）。</li>
+      <li>α-鹅膏蕈碱是环状八肽：肽键 8 个、游离氨基/羧基至少 0 个、完全水解需 8 分子水。</li>
+      <li>肽酶专一性水解：如「专水解丙氨酸羧基端肽键」，产物种类与氧原子数计算。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 05 细胞膜与细胞核 ================= -->
+<section class="chapter" style="--ac:#7C3AED">
+  <header class="ch-head">
+    <div class="ch-num">05</div>
+    <div><h1>细胞膜与细胞核</h1><p class="ch-sub">细胞膜的结构和功能 · 细胞器与生物膜系统前置知识 · 细胞核的结构和功能</p></div>
+  </header>
+
+  <h2>5.1 细胞膜的功能（三条，教材 P40-41）</h2>
+  <ul>
+    <li>①将细胞与外界环境<span class="k">分隔开</span>（保障内部环境相对稳定；也是系统的边界）；②<span class="k">控制物质进出</span>（相对性：控制作用有普遍性和相对性）；③进行<span class="k">细胞间的信息交流</span>。</li>
+    <li>信息交流三种方式：<b>化学物质随体液运输</b>（激素—靶细胞受体）；<b>相邻细胞膜直接接触</b>（精卵识别与结合）；<b>相邻细胞形成通道</b>（高等植物细胞的<span class="k">胞间连丝</span>）。</li>
+    <li>受体位置：蛋白质类（大分子）激素受体在靶细胞<span class="k">细胞膜上</span>；<span class="k">甲状腺激素（小分子脂溶性）和固醇类激素受体在细胞质或细胞核中</span>。</li>
+    <li>台盼蓝染色：活细胞不让染料进入（膜的选择透过性），死细胞被染蓝——鉴别细胞死活。</li>
+  </ul>
+
+  <h2>5.2 细胞膜的制备与成分（教材 P42-43）</h2>
+  <ul>
+    <li>选材：哺乳动物<span class="k">成熟红细胞</span>——无细胞壁；<span class="k">无细胞核和众多细胞器</span>，排除其他膜干扰；吸水涨破后差速离心得较纯净细胞膜。</li>
+    <li>成分探索历程：欧文顿（脂溶性物质更易通过 → 膜由脂质组成）→ 戈特、格伦德尔（红细胞膜脂质铺展单分子层面积为表面积 2 倍 → 磷脂<span class="k">连续两层</span>）→ 丹尼利、戴维森（表面张力低于油水界面 → 推测附有蛋白质）→ 后发现糖蛋白（1950s，纽伯格等）、糖脂、糖被。</li>
+    <li>成分：脂质（约 50%，<span class="k">磷脂最丰富</span>；动物细胞膜还含胆固醇）+ 蛋白质（约 40%）+ 糖类（约 2%~10%，与蛋白质或脂质结合为糖蛋白/糖脂）。<span class="k">功能越复杂的膜，蛋白质的种类和数量越多</span>。</li>
+  </ul>
+
+  <h2>5.3 流动镶嵌模型（教材 P44-45，必背）</h2>
+  <ul>
+    <li><span class="k">磷脂双分子层</span>构成膜的基本支架，具有流动性；蛋白质分子<span class="k">镶、嵌、贯穿</span>（部分或全部嵌入、贯穿于双层，或附着在表面）——分布是不对称、不均匀的。</li>
+    <li>糖蛋白（糖被）只分布于<span class="k">细胞膜外表面</span>，与细胞识别、信息传递有关——据此判断膜的内外侧。</li>
+    <li><span class="k">流动性</span>实例：变形虫运动与摄食、动物细胞缢裂、细胞融合与受精、巨噬细胞吞噬（胞吞）、分泌蛋白与神经递质释放（胞吐）、质壁分离与复原、细胞吸水膨胀失水皱缩。</li>
+    <li><span class="k">选择透过性</span>的结构基础：细胞膜上<span class="k">转运蛋白的种类和数量</span>，或转运蛋白<span class="k">空间结构的变化</span>（教材 P66-72）。</li>
+  </ul>
+
+  <h2>5.4 细胞壁（教材 P48）</h2>
+  <ul>
+    <li>主要成分：植物——<span class="k">纤维素和果胶</span>；真菌——几丁质；细菌——肽聚糖。全透性（对进出物质无选择性），<span class="k">细胞壁不是系统的边界</span>。功能：支持和保护。</li>
+    <li>去壁方法：酶解法（纤维素酶+果胶酶）——植物细胞吸水不涨破的原因是有细胞壁。</li>
+  </ul>
+
+  <h2>5.5 细胞核（教材 P54-58）</h2>
+  <ul>
+    <li>功能（黑体）：<span class="k">细胞核是遗传信息库，是细胞代谢和遗传的控制中心</span>。</li>
+    <li>结构：核膜（双层膜，外膜连内质网、附核糖体）、<span class="k">核孔</span>（大分子如 mRNA、蛋白质进出的通道，具<span class="k">选择透过性</span>，DNA 不能随意出核，大分子进出需能量）、核仁（与<span class="k">某种 RNA 的合成及核糖体的形成</span>有关）、染色质（DNA+蛋白质，易被碱性染料染成深色）。</li>
+    <li>染色质与染色体：同一物质在细胞不同时期的两种存在状态——染色质（细丝状，利于复制转录）⇄ 染色体（高度螺旋，利于分裂时平均分配）；前期出现、末期变为染色质。</li>
+    <li>四个经典实验结论：美西螈核移植——肤色由细胞核控制；蝾螈受精卵横缢——细胞核控制分裂分化；变形虫切割/核移植——细胞核是生命活动控制中心；伞藻嫁接与核移植——形态结构建成由核控制（伞帽形状取决于核）。只做嫁接实验不能完全说明核的作用（假说需核移植验证）。</li>
+    <li>核质依存：精子和哺乳动物成熟红细胞寿命短；细胞需保持<span class="k">结构完整性</span>。代谢旺盛细胞：<span class="k">核孔数目多、核仁较大</span>。</li>
+    <li>模型：物理模型（细胞模型、DNA 双螺旋模型）、概念模型、数学模型。照片不是模型；以实物或图画形式直观表达特征的是物理模型。</li>
+  </ul>
+
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <ul>
+      <li>磷脂分子亲水头朝外、疏水尾相对——脂质体药物：脂溶性药物夹在双层疏水尾部之间，水溶性药物包在核心水环境；脂质体与细胞膜融合或被胞吞后发挥药效（教材 P46）。</li>
+      <li>提取人口腔上皮细胞膜脂质铺单分子层面积 <span class="k">大于 2S</span>（含核膜、细胞器膜等）；哺乳动物成熟红细胞则恰好等于 2S；细菌因无核膜等也接近 2S。</li>
+      <li>冰冻蚀刻技术（冷冻断裂）：证明膜蛋白镶嵌、贯穿于磷脂双分子层；荧光漂白恢复技术（FRAP）：证明膜蛋白、膜脂可侧向移动（流动性），部分蛋白恢复慢是因被细胞骨架锚定。</li>
+      <li>脂筏模型：膜上富含胆固醇和鞘磷脂的有序微区——是对流动镶嵌模型的补充，说明膜的不均一性。</li>
+      <li>「碱性染料」甲紫溶液 pH 小于 7（酸性）：碱性/酸性染色剂按电离后助色基团所带电荷界定，不由溶液 pH 决定。</li>
+      <li>双小核草履虫有两个核、肌肉细胞多核：维持正常<span class="k">核质比</span>。</li>
+      <li>亲核蛋白含核定位序列 NLS，经核孔复合体信号识别、载体介导入核；将 NLS 连到非亲核蛋白上也能使其入核——核孔复合体具有选择透过性。</li>
+    </ul>
+  </div>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <ul>
+      <li>细胞膜上受体不是信息交流必需的结构（胞间连丝、胞内受体）；信息交流也不一定通过细胞膜。</li>
+      <li>膜的选择透过性与磷脂有关：基本支架内部疏水，水溶性分子和离子不能自由通过（屏障作用）。</li>
+      <li>高倍镜下看不到暗—亮—暗三层结构（需电镜）；电镜下也看不到糖被的动态变化。</li>
+      <li>叶绿体产生的 ATP 不经核孔进入细胞核（ATP 由载体/易化扩散，且叶绿体 ATP 专供暗反应）。</li>
+      <li>光学显微镜下洋葱外表皮细胞的细胞核不易清晰观察（与液泡重叠）。</li>
+      <li>核孔对物质进出有选择性；mRNA 出、蛋白质（如 DNA 聚合酶、组蛋白）进。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 06 细胞器 ================= -->
+<section class="chapter" style="--ac:#059669">
+  <header class="ch-head">
+    <div class="ch-num">06</div>
+    <div><h1>细胞器与生物膜系统</h1><p class="ch-sub">细胞器之间的分工合作 · 分泌蛋白的合成与运输 · 细胞的生物膜系统</p></div>
+  </header>
+
+  <h2>6.1 细胞质与细胞骨架（教材 P47-50）</h2>
+  <ul>
+    <li>细胞质 = 细胞质基质（<span class="k">胶质状</span>，细胞代谢的主要场所，含水、无机盐、脂质、糖类、氨基酸、核苷酸、多种酶）+ 细胞器。</li>
+    <li>分离细胞器的方法：<span class="k">差速离心法</span>——细胞核最先沉淀，依次为叶绿体、线粒体与溶酶体、内质网与高尔基体，核糖体最后。</li>
+    <li><span class="k">细胞骨架</span>：由<span class="k">蛋白质纤维</span>组成的网架结构；功能：维持细胞形态、锚定支撑细胞器，与细胞运动、分裂、分化及物质运输、能量转化、信息传递等密切相关。</li>
+  </ul>
+
+  <h2>6.2 八大细胞器（识图+功能重点）</h2>
+  <table class="t">
+    <tr><th style="width:15%">细胞器</th><th style="width:32%">结构</th><th>功能</th></tr>
+    <tr><td>线粒体</td><td>双层膜，内膜折叠成嵴，基质</td><td><span class="k">有氧呼吸的主要场所</span>（二、三阶段）；「动力车间」；含少量 DNA（半自主）</td></tr>
+    <tr><td>叶绿体</td><td>双层膜，类囊体堆叠成基粒，基质</td><td>绿色植物<span class="k">光合作用的场所</span>；「养料制造车间、能量转换站」</td></tr>
+    <tr><td>内质网</td><td>单层膜，网状</td><td>粗面：蛋白质合成、加工、运输；光面：脂质合成；增大膜面积</td></tr>
+    <tr><td>高尔基体</td><td>单层膜，扁平囊</td><td>对来自内质网的蛋白质<span class="k">加工、分类、包装</span>；植物：与细胞壁形成有关；「发送站」</td></tr>
+    <tr><td>核糖体</td><td><span class="k">无膜</span>，rRNA+蛋白质</td><td><span class="k">合成蛋白质</span>（「生产蛋白质的机器」）；游离型合成胞内蛋白，附着型合成分泌蛋白/膜蛋白</td></tr>
+    <tr><td>溶酶体</td><td>单层膜，内含多种<span class="k">酸性水解酶</span>（pH≈5）</td><td>分解衰老损伤的细胞器；吞噬杀死入侵病毒病菌；「消化车间」；来源于<span class="k">高尔基体</span></td></tr>
+    <tr><td>液泡</td><td>单层膜，内含<span class="k">细胞液</span>（糖类、无机盐、色素、蛋白质）</td><td>调节植物细胞内环境、保持坚挺</td></tr>
+    <tr><td>中心体</td><td><span class="k">无膜</span>，两个垂直中心粒+周围物质</td><td>与<span class="k">动物和低等植物</span>细胞的有丝分裂有关</td></tr>
+  </table>
+  <ul>
+    <li>典型细胞：根尖分生区——无叶绿体、无大液泡；根尖成熟区——无叶绿体；洋葱（鳞片叶）表皮细胞——无叶绿体；叶肉细胞——含全部植物细胞器；心肌细胞——线粒体多；消化腺细胞——核糖体、高尔基体多。</li>
+    <li>能自我复制的细胞器：线粒体、叶绿体（半自主，含环状 DNA）和<span class="k">中心体</span>（间期复制，不含 DNA）。</li>
+  </ul>
+
+  <h2>6.3 线粒体与叶绿体对比（高频）</h2>
+  <table class="t">
+    <tr><th style="width:20%">项目</th><th>线粒体</th><th>叶绿体</th></tr>
+    <tr><td>分布</td><td>真核细胞（<span class="k">蛔虫除外</span>）</td><td>植物的绿色部分</td></tr>
+    <tr><td>增大膜面积方式</td><td>内膜折叠成嵴</td><td>类囊体堆叠成基粒</td></tr>
+    <tr><td>完成生理过程</td><td>有氧呼吸第二、三阶段</td><td>光合作用全过程</td></tr>
+    <tr><td>ATP 去路</td><td>各项生命活动</td><td><span class="k">仅用于暗反应 C<sub>3</sub> 的还原</span></td></tr>
+    <tr><td>相同点</td><td colspan="2">均双层膜；均能量转换；均既产水又耗水；均含少量 DNA、RNA（<span class="k">半自主性细胞器</span>）；均与自然界碳循环有关</td></tr>
+  </table>
+  <div class="flow"><b>内共生起源学说证据链（支持观点）</b>：①线粒体、叶绿体有与细菌/蓝细菌相似的裸露环状 DNA 和核糖体；③自身 DNA 指导合成少数蛋白质；④内膜与细菌质膜相似、外膜与真核内膜系统相似；⑥以分裂方式繁殖。<b>不支持</b>：②细菌基因组无内含子而线粒体、叶绿体有；⑤拥有的聚合酶恰说明其「自主但依赖核基因」需辩证判断。</div>
+
+  <h2>6.4 分泌蛋白的合成与运输（教材 P51-52，必背）</h2>
+  <div class="flow"><b>途径</b>：核糖体（附着型，氨基酸脱水缩合）→ <b>内质网</b>（初步加工，肽链折叠组装糖基化）→ 囊泡 → <b>高尔基体</b>（进一步加工分类包装）→ 囊泡 → <b>细胞膜</b> → 胞吐。全过程<span class="k">跨膜 0 层</span>，需能量，不需转运蛋白。</div>
+  <ul>
+    <li>研究方法：<span class="k">同位素标记（示踪）法</span>（<sup>3</sup>H 标记亮氨酸注入豚鼠胰腺腺泡细胞），放射性依次出现于：核糖体 → 内质网 → 高尔基体 → 细胞膜 → 分泌物。</li>
+    <li>参与分泌蛋白合成的 4 个细胞器：核糖体、内质网、高尔基体、线粒体；5 个有关结构：+ 细胞膜；3 个直接相关的膜结构：内质网膜、高尔基体膜、细胞膜。</li>
+    <li>膜面积变化：内质网减少；高尔基体先增后减（基本不变）——膜流的<span class="k">交通枢纽/转化中心</span>；细胞膜增加。</li>
+    <li>需要内质网和高尔基体加工的蛋白：分泌蛋白（消化酶、抗体、蛋白类激素、细胞因子）、膜蛋白、溶酶体水解酶。</li>
+  </ul>
+
+  <h2>6.5 生物膜系统（教材 P53）</h2>
+  <ul>
+    <li>组成：细胞膜、核膜 + 细胞器膜（内质网、高尔基体、溶酶体、液泡、线粒体、叶绿体等）。<span class="k">核糖体和中心体无膜，不属于生物膜系统</span>；<span class="k">原核生物有生物膜（细胞膜）但无生物膜系统</span>。</li>
+    <li>功能（三条必背）：①使细胞具有相对稳定的内部环境，同时在物质运输、能量转换和信息传递中起决定作用；②广阔的膜面积为多种酶提供大量附着位点；③使各类细胞器分工协作、把各种反应分隔开，保证高效有序进行。</li>
+    <li>结构联系：直接联系（内质网膜→核膜外膜、细胞膜；内质网腔与高尔基体囊泡间接联系）；功能联系：分泌蛋白的合成运输体现。</li>
+  </ul>
+
+  <h2>6.6 实验：用高倍镜观察叶绿体和细胞质的流动（教材 P49）</h2>
+  <ul>
+    <li>原理：叶绿体绿色、扁平椭球形，不需染色可直接观察；观察细胞质流动以<span class="k">叶绿体运动</span>为标志。活细胞的细胞质处于不断流动状态（环流式）。</li>
+    <li>选材：黑藻幼嫩小叶、藓类叶片或菠菜稍带叶肉的下表皮（叶薄、叶绿体少、易观察）。制片后随时保持有水，防止叶绿体变形。</li>
+    <li>先低倍镜找细胞，再高倍镜观察；黑藻提前在<span class="k">光照、室温</span>下培养可提高流速。同一细胞中叶绿体流动方向一致；若显微镜下顺时针环流，实际也是顺时针（显微镜不上下颠倒旋转方向）。</li>
+    <li>意义：细胞质流动为细胞内物质运输创造条件，保障生命活动正常进行。</li>
+  </ul>
+
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <ul>
+      <li>显微结构（光镜可见）：细胞壁、细胞质、细胞核、核仁、染色体、叶绿体、线粒体、液泡；<span class="k">亚显微结构</span>（需电镜）：细胞膜、内质网膜、核膜厚度、核糖体、细胞骨架（<0.2 μm）。</li>
+      <li>溶酶体膜不被自身水解酶分解的可能机制（教材 P48 思考）：膜成分被修饰使酶无法识别；膜所带电荷/特定基团排斥酶；膜转运 H⁺ 维持内部酸性环境（pH≈5）使酶在膜外失活等。</li>
+      <li>硅肺：吞噬细胞溶酶体缺乏分解硅尘的酶，硅尘破坏溶酶体膜释放水解酶，破坏细胞结构导致死亡。</li>
+      <li>溶酶体消化底物三来源：自体吞噬（胞内衰老结构）、吞噬体（有害物质）、胞吞（营养物质）；还有自溶作用——衰老细胞靠溶酶体破裂自我消化。初级溶酶体（仅含酶、无底物）→ 次级溶酶体（酶+底物）。</li>
+      <li>高尔基体顺面膜囊接收内质网来物，KDEL 受体回收逃逸的内质网驻留蛋白（低 pH 促进结合）；反面膜囊 pH 低，负责分类包装。</li>
+      <li>信号肽假说：分泌蛋白 N 端信号肽引导核糖体附着内质网；蛋白质定位由信号序列（信号肽、线粒体定向肽、核定位信号）决定。</li>
+      <li>分泌蛋白除糖类外还可形成氨基酸、脂类；光合产物同理——卡尔文实验中发现 <sup>14</sup>C 出现于氨基酸和脂类中。</li>
+    </ul>
+  </div>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <ul>
+      <li>无线粒体一定不能进行有氧呼吸×——好氧细菌（醋酸杆菌等）无线粒体，有氧呼吸酶分布在细胞膜上；蛔虫、哺乳动物成熟红细胞无线粒体，只能无氧呼吸。</li>
+      <li>一切生物的蛋白质合成场所都是核糖体√（包括病毒寄生时利用宿主核糖体）。</li>
+      <li>细胞以囊泡运输的不都是蛋白质（如脂质、神经递质）；溶酶体内的水解酶在核糖体合成后须经内质网、高尔基体加工。</li>
+      <li>葡萄醛酸/葡萄糖进入线粒体的途径：葡萄糖不进入线粒体（膜上无其载体）；造血干细胞中葡萄糖运输途径止于细胞质基质。</li>
+      <li>神经细胞高度分化不再分裂，核 DNA 不复制，DNA 聚合酶不需要运输入核。</li>
+      <li>大肠杆菌（原核）无内质网、高尔基体；人胰岛素基因导入大肠杆菌后表达产物不能由高尔基体分泌。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 07 物质运输 ================= -->
+<section class="chapter" style="--ac:#0284C7">
+  <header class="ch-head">
+    <div class="ch-num">07</div>
+    <div><h1>细胞的物质输入和输出</h1><p class="ch-sub">渗透作用 · 质壁分离与复原 · 物质跨膜运输的方式 · 影响跨膜运输的因素</p></div>
+  </header>
+
+  <h2>7.1 渗透作用（教材 P62，必背第三段）</h2>
+  <ul>
+    <li>概念：<span class="k">水分子（或其他溶剂分子）通过半透膜的扩散</span>。方向：双向移动、总体单向。</li>
+    <li>条件：①具有<span class="k">半透膜</span>；②膜两侧溶液具有<span class="k">浓度差</span>。</li>
+    <li>半透膜：某些物质可透过而另一些不能透过的多孔性薄膜；<span class="k">选择透过性膜是生物膜</span>，具有选择透过性（活性依赖）。</li>
+    <li>动态平衡时：水分子仍在进出（数目相等），液面高的一侧浓度<span class="k">仍然较高</span>（水柱压力所致）；浓度指<span class="k">物质的量浓度</span>而非质量浓度。</li>
+    <li>漏斗实验：蔗糖酶加入后，若单糖不能透过半透膜→液面继续上升后稳定；若单糖能透过→<span class="k">先升后降，最终内外相等</span>。</li>
+  </ul>
+  <div class="flow"><b>经典题</b>：等体积等质量浓度的葡萄糖与蔗糖溶液被半透膜隔开——①只允许水通过：葡萄糖一侧（摩尔浓度高）液面升高；②水与葡萄糖可通过、蔗糖不能：<span class="k">先甲高后乙高</span>（葡萄糖先使甲侧升高，后葡萄糖透过使乙侧浓度增大）。</div>
+
+  <h2>7.2 动物细胞与植物细胞的吸水和失水</h2>
+  <table class="t">
+    <tr><th style="width:18%">条件</th><th>动物细胞（红细胞）</th><th>成熟植物细胞</th></tr>
+    <tr><td>外界浓度 = 内部</td><td>正常无变化</td><td>正常无变化</td></tr>
+    <tr><td>外界浓度 &lt; 内部</td><td>吸水膨胀甚至涨破</td><td>吸水（膨胀，受细胞壁限制）</td></tr>
+    <tr><td>外界浓度 &gt; 内部</td><td>失水皱缩</td><td><span class="k">质壁分离</span></td></tr>
+    <tr><td>半透膜</td><td>细胞膜</td><td><span class="k">原生质层</span>：细胞膜+液泡膜+两层膜之间的细胞质</td></tr>
+  </table>
+  <ul>
+    <li>成熟植物细胞是一个渗透系统：大液泡 + 半透性原生质层。水进出细胞主要指水经原生质层进出液泡（教材 P63）。</li>
+  </ul>
+
+  <h2>7.3 实验：观察植物细胞的质壁分离与复原（教材 P64-65）</h2>
+  <ul>
+    <li>原理：内因——<span class="k">原生质层伸缩性大于细胞壁</span>、原生质层相当于半透膜；外因——外界溶液浓度＞细胞液浓度。</li>
+    <li>选材：紫色洋葱鳞片叶<span class="k">外表皮</span>（有大液泡、细胞液紫色便于观察）；黑藻（叶绿体绿色可观察）；洋葱内表皮可发生但不宜观察。</li>
+    <li>试剂：0.3 g/mL 蔗糖溶液——既明显质壁分离又不致细胞失水死亡。引流法：滴蔗糖/清水+吸水纸吸引，重复几次，目的是让细胞<span class="k">浸润</span>在相应溶液中。</li>
+    <li><span class="k">三次低倍镜观察、自身前后对照</span>：正常态 → 质壁分离 → 复原。第二次观察时质壁分离<span class="k">首先发生在细胞的角隅处</span>；第一次观察不能省略。</li>
+    <li>变化分析：失水越多 → 液泡变小、颜色变深、细胞液浓度变大、吸水能力越强；细胞体积略缩小（壁限制）。原生质层与细胞壁之间充满<span class="k">外界溶液</span>（细胞壁全透）。</li>
+    <li>自动复原：外界浓度＞细胞液浓度先失水质壁分离，但 K⁺、NO₃⁻ 等被<span class="k">主动运输</span>吸收进入细胞，细胞液浓度升高后渗透吸水复原。<span class="k">能自动复原的溶液：KNO₃、甘油、尿素、乙二醇、葡萄糖</span>（0.5 mol/L 尿素先分离后复原；0.3 mol/L 蔗糖只分离不复原）。</li>
+    <li>应用：①判断细胞死活；②测定细胞液浓度范围；③比较不同细胞液/溶液浓度；④鉴别溶液种类（蔗糖 vs KNO₃）。</li>
+  </ul>
+
+  <h2>7.4 物质跨膜运输的方式（离子与小分子，教材 P66-70）</h2>
+  <table class="t">
+    <tr><th style="width:12%">方式</th><th style="width:15%">方向</th><th style="width:10%">能量</th><th style="width:16%">转运蛋白</th><th style="width:17%">影响因素</th><th>实例</th></tr>
+    <tr><td>自由扩散</td><td>高→低（顺浓度）</td><td>不耗能</td><td>不需要</td><td>浓度差</td><td><span class="k">小部分水、气体（O<sub>2</sub>、CO<sub>2</sub>）、脂溶性物质（苯、乙醇、甘油、脂肪酸、尿素、胆固醇、维生素 D、性激素）</span></td></tr>
+    <tr><td>协助扩散</td><td>高→低</td><td>不耗能</td><td>载体蛋白或通道蛋白</td><td>浓度差、转运蛋白数量</td><td><span class="k">红细胞吸收葡萄糖</span>、水经水通道蛋白、K⁺ 经 K⁺ 通道、Na⁺ 内流、K⁺ 外流</td></tr>
+    <tr><td>主动运输</td><td>低→高（逆浓度）</td><td><span class="k">耗能</span></td><td><span class="k">载体蛋白</span></td><td>能量、载体蛋白数量</td><td>大多数离子、肾小管重吸收葡萄糖、小肠吸收葡萄糖与氨基酸</td></tr>
+  </table>
+  <ul>
+    <li>载体蛋白：只容许与自身结合部位相适应的分子/离子通过，转运时<span class="k">自身构象（空间结构）改变</span>，如 CFTR 蛋白转运 Cl⁻（氯离子大小与性质与其结合部位相适应）。</li>
+    <li>通道蛋白：只容许大小和电荷相适应的分子通过，<span class="k">不与运输分子结合</span>；水通道蛋白、离子通道。</li>
+    <li>主动运输意义：保证细胞按生命活动需要，<span class="k">主动选择吸收</span>所需营养物质，排出代谢废物和对细胞有害的物质（教材 P70）。</li>
+    <li>主动运输类型（能量来源）：ATP 驱动泵（Na-K 泵）、<span class="k">协同转运（离子梯度动力，如 Na⁺-葡萄糖同向转运）</span>、光驱动泵。</li>
+    <li>胞吞胞吐（大分子等）：依赖膜的<span class="k">流动性</span>，需要膜上蛋白质参与，<span class="k">耗能</span>；跨膜 0 层；运输的不一定是大分子（神经递质小分子也经胞吐）；大分子也可经核孔出（不用胞吞胞吐）。</li>
+  </ul>
+
+  <h2>7.5 影响跨膜运输的因素</h2>
+  <ul>
+    <li>物质浓度：自由扩散——在一定范围内速率随浓度增大而增大后达平台；协助扩散/主动运输——需转运蛋白，会饱和。</li>
+    <li>氧气浓度：自由扩散/协助扩散不受影响；主动运输在有氧呼吸范围内随 O₂ 增大而增大（能量来自呼吸作用），无氧时仍有一定速率（无氧呼吸供能）。</li>
+    <li>温度：影响膜流动性、酶活性、呼吸供能。载体蛋白数量：限制最大速率。</li>
+  </ul>
+
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <ul>
+      <li>教材 P74-T2：主动运输的机理图——ATP 水解使载体蛋白磷酸化而改变构象（膜上 Na⁺-K⁺ 泵，每消耗 1 个 ATP 运出 3 个 Na⁺、运入 2 个 K⁺）。</li>
+      <li>小肠上皮细胞吸收葡萄糖：肠腔侧 Na⁺-葡萄糖同向协同转运（主动运输，动力来自 Na⁺ 电化学梯度）；基底侧葡萄糖经载体协助扩散出细胞；Na⁺ 由 Na-K 泵（ATP）泵出。教材 P69 强调：小肠液中氨基酸、葡萄糖浓度远低于细胞内浓度。</li>
+      <li>蔗糖运入筛管：H⁺ 泵（①）消耗 ATP 建立 H⁺ 梯度，蔗糖- H⁺ 同向转运体（②）借助梯度将蔗糖逆浓度运入筛管——协同转运。</li>
+      <li>柽柳根系吸收无机盐方式的实验设计：分甲（正常呼吸）、乙（抑制呼吸）两组，比较 Ca²⁺、K⁺ 吸收速率——速率明显不同为主动运输，相同为被动运输。</li>
+      <li>ATP 合酶：H⁺ 顺浓度梯度（协助扩散）返回基质同时催化 ATP 合成；好氧细菌因只有细胞膜，其 ATP 合酶分布在细胞膜上。</li>
+    </ul>
+  </div>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <ul>
+      <li>葡萄糖进出细胞方式不唯一：进红细胞=协助扩散，进小肠上皮=主动运输，进成熟植物细胞（如进导管周围细胞）多为主动运输。</li>
+      <li>渗透平衡≠两侧浓度相等；液面稳定时高侧浓度仍高。</li>
+      <li>质壁分离复原实验中，0.5 g/mL 蔗糖浓度过高细胞会因失水过多死亡而不复原。</li>
+      <li>水分子运输：主要经水通道蛋白（协助扩散），少数经磷脂间隙自由扩散。</li>
+      <li>主动运输一定耗能，耗能的不一定是主动运输（胞吞胞吐也耗能）；大分子进出核孔不需胞吞胞吐。</li>
+      <li>「物质逆浓度梯度出入细胞」仅对主动运输；顺浓度也可能需要载体（协助扩散）。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 08 酶与ATP ================= -->
+<section class="chapter" style="--ac:#DB2777">
+  <header class="ch-head">
+    <div class="ch-num">08</div>
+    <div><h1>酶与 ATP</h1><p class="ch-sub">降低化学反应活化能的酶 · 细胞的能量「货币」ATP</p></div>
+  </header>
+
+  <h2>8.1 酶的本质与作用机理（教材 P78-80）</h2>
+  <ul>
+    <li>作用：催化；机理：<span class="k">降低化学反应的活化能</span>（分子从常态转变为容易发生反应的活跃状态所需的能量）。与加热（给反应物能量）机理不同。</li>
+    <li>本质探索（课本 P79）：巴斯德（发酵与活酵母细胞有关）→ 李比希（酵母死亡裂解后物质起作用）→ <span class="k">毕希纳</span>（获得无细胞提取液「酿酶」）→ <span class="k">萨姆纳</span>（提取脲酶结晶，证明是蛋白质）→ <span class="k">切赫、奥特曼</span>（少数 RNA 也有催化功能）。</li>
+    <li>酶的概念：活细胞产生的、具有催化作用的<span class="k">有机物，绝大多数是蛋白质，少数是 RNA</span>。</li>
+    <li>合成原料：氨基酸（CHON）或核糖核苷酸（CHONP）；合成场所：核糖体（蛋白质类）或细胞核（真核生物 RNA 类）；作用场所：细胞内外、体外均可。</li>
+    <li>鉴定蛋白质类酶：双缩脲试剂（紫色）。</li>
+  </ul>
+
+  <h2>8.2 酶的特性与验证实验</h2>
+  <ul>
+    <li><span class="k">高效性</span>：与无机催化剂相比降低活化能更显著——H₂O₂ 实验：3、4 号对照（Fe³⁺ vs 过氧化氢酶），气泡多、卫生香复燃猛。</li>
+    <li><span class="k">专一性</span>：每种酶只能催化一种或一类化学反应。两套方案：①「一底物多酶」淀粉+唾液淀粉酶/蔗糖酶，用<span class="k">碘液</span>检测（蔗糖不与碘反应，不能用碘液检蔗糖是否水解）；②「一酶多底物」淀粉/蔗糖+淀粉酶，用<span class="k">斐林试剂</span>（60 ℃ 保温、沸水浴；不能用碘液，因为碘液无法检测蔗糖是否水解）。</li>
+    <li><span class="k">作用条件温和</span>：适宜温度、pH。过酸过碱、高温破坏空间结构永久失活；<span class="k">低温抑制活性但空间结构稳定，升温可恢复</span>——酶保存：低温、最适 pH。</li>
+    <li>酶促反应原理与催化剂共性：①改变化学反应速率而本身不被消耗；②只能缩短达到平衡的时间，<span class="k">不改变平衡点</span>；③反应前后性质数量不变（但酶自身需要更新）；④都降低活化能。</li>
+  </ul>
+
+  <h2>8.3 探究温度、pH 对酶活性的影响（实验设计细节）</h2>
+  <table class="t">
+    <tr><th style="width:16%">实验</th><th>要点与「不能」</th></tr>
+    <tr><td>温度（淀粉+淀粉酶+碘液）</td><td>冰浴（不变蓝）0 ℃、60 ℃（变蓝浅/消失）、沸水浴（变蓝）三组；<span class="k">先各自保温 5 min 再混合</span>（防止未达预设温度即反应）；沸水浴后自来水冲凉再加碘（100 ℃ 直链淀粉螺旋结构破坏遇碘不变蓝；防止碘蒸发）；<span class="k">不能用 H₂O₂ 酶</span>（加热本身促进 H₂O₂ 分解）；<span class="k">不能用斐林试剂</span>（需加热检测，低温酶活性恢复造成错觉）</td></tr>
+    <tr><td>pH（H₂O₂+过氧化氢酶）</td><td>先加酶+不同 pH 溶液（蒸馏水/HCl/NaOH）<span class="k">再</span>加底物（否则未调 pH 反应已结束）；<span class="k">不能用淀粉酶</span>（淀粉在酸性下自行水解；斐林试剂与酸反应干扰；碱性环境碘与碱反应干扰）</td></tr>
+  </table>
+  <ul>
+    <li>酶活性：酶催化特定化学反应的能力，用<span class="k">单位时间内底物减少量或产物生成量</span>表示。</li>
+    <li>影响因素分两类：<span class="k">温度、pH 通过影响酶活性</span>影响反应速率；<span class="k">酶浓度、底物浓度通过影响酶与底物接触面积</span>影响速率，<b>不影响酶活性</b>。</li>
+  </ul>
+
+  <h2>8.4 激活剂与抑制剂（课件拓展）</h2>
+  <ul>
+    <li>激活剂：提高酶活性的物质（无机离子如 Mg²⁺、K⁺、Cl⁻；有机分子如维生素 C、半胱氨酸）。酶原需激活剂激活后才有活性。</li>
+    <li>抑制剂三种：<b>竞争性抑制</b>——抑制剂与底物结构相似，竞争活性中心；<span class="k">Km 增大、Vmax 不变</span>，增加底物浓度可解除。<b>非竞争性抑制</b>——结合活性中心以外必需基团；<span class="k">Km 不变、Vmax 降低</span>，加底物不能解除。<b>反竞争性抑制</b>——只结合酶-底物复合物（ES）；<span class="k">Km 减小、Vmax 降低</span>。</li>
+    <li>Km（米氏常数）：反应速率达最大速率一半时的底物浓度，反映<span class="k">酶与底物的亲和力</span>（越小亲和力越大）。</li>
+  </ul>
+
+  <h2>8.5 ATP（教材 P87-89）</h2>
+  <ul>
+    <li>结构简式 <span class="k">A—P~P~P</span>：A=腺苷（腺嘌呤+核糖）；P=磷酸基团；—普通化学键；~<span class="k">特殊的化学键</span>（远离 A 的那个易断裂，水解释能约 30.54 kJ/mol）。元素：C、H、O、N、P。</li>
+    <li>ATP 彻底水解产物：磷酸、核糖、腺嘌呤；<span class="k">ATP 去掉两个磷酸基团（即 AMP，腺苷一磷酸）是 RNA 的基本组成单位之一</span>（腺嘌呤核糖核苷酸）。</li>
+    <li>功能：<span class="k">直接的能源物质</span>——糖类、脂肪中能量稳定不能直接利用，须转化为 ATP 中活跃化学能。ATP 是物质不是能量；<span class="k">能口服</span>（被消化分解，意义不大）。</li>
+    <li>ATP 含量少但供能及时持续：ATP 与 ADP <span class="k">转化迅速且处于动态平衡</span>；该转化机制是生物界的共性。</li>
+    <li>ATP ⇄ ADP + Pi + 能量：<span class="k">不可逆反应</span>——酶不同（水解酶/合成酶）、场所不同、物质可逆而<span class="k">能量不可逆</span>。合成能量来源：动物——呼吸作用；植物——呼吸作用+光合作用。</li>
+    <li>能量流通：吸能反应与 ATP 水解相联系；放能反应与 ATP 合成相联系。ATP 是细胞内流通的能量「<span class="k">货币</span>」。</li>
+    <li>ATP 产生量与 O₂ 供应量曲线：A 点（无氧时产生少量 ATP，无氧呼吸）；AB 段（O₂ 增多有氧呼吸加强，ATP 上升）；BC 段平台（限制因素：酶、ADP、Pi 等）。哺乳动物成熟红细胞曲线为水平直线（只无氧呼吸）。</li>
+  </ul>
+
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <ul>
+      <li>高中阶段常见酶的功能（背诵）：溶菌酶（溶解细菌细胞壁）；果胶酶（分解果胶、澄清果汁）；胰蛋白酶（伤口愈合、溶解血凝块）；脂肪酶；青霉素酰化酶（改造青霉素为氨苄青霉素）；酪氨酸酶（催化黑色素合成，衰老细胞活性下降）；DNA 聚合酶（单个核苷酸连到 3′-OH，形成磷酸二酯键）；DNA 连接酶（连接 DNA 片段）；限制酶（识别特定序列并断开磷酸二酯键）；解旋酶（断氢键）；RNA 聚合酶（识别启动子、催化转录、兼解旋）；端粒酶（含 RNA 模板的逆转录酶）；DNA 酶（水解 DNA 为脱氧核苷酸）。</li>
+      <li>能产生激素的细胞一定能产生酶，反之不然；激素与酶共性都调节/催化代谢但不组成细胞结构、不供能；激素不直接参与代谢而是传递调节信息。</li>
+      <li>哺乳动物成熟红细胞不能产生酶（无核糖体等）；食物中的酶会被消化分解失活。</li>
+      <li>激素通过 cAMP（第二信使）调节酶活性，或通过细胞内受体促进 mRNA 合成而诱导酶的合成。</li>
+      <li>教材 P84 相关信息：多数酶最适温度 35~50 ℃，胃蛋白酶最适 pH 1.5~2.0；pH 由 10 降到 1 时胃蛋白酶活性始终为 0（过碱已失活）。</li>
+      <li>教材 P88 图 5-7：ATP 为主动运输提供能量——载体蛋白磷酸化改变构象。</li>
+    </ul>
+  </div>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <ul>
+      <li>酶能加快反应速率，但不改变平衡点和产率；酶减少产物的说法×。</li>
+      <li>「加热与酶促反应机理相同」×——加热给反应物能量，酶降低活化能。</li>
+      <li>酶浓度增大反应速率加快，但酶活性不变；底物浓度同理。</li>
+      <li>ADA/APA 首字母：ADP 结构简式 A—P~P；「ATP 与 ADP 相互转化是可逆反应」×。</li>
+      <li>「所有酶都在核糖体上合成」×——RNA 类酶不是；「活细胞都能产生酶」×（哺乳动物成熟红细胞不能）。</li>
+      <li>酶的最适 pH 下加少量盐酸，活性下降；若 pH 恢复，活性可部分恢复（未失活时）；过酸过碱则不可恢复。</li>
+      <li>低温保存的酶升温后活性恢复，高温处理的酶活性不能恢复。</li>
+    </ul>
+  </div>
+
+  <div class="bx exam"><span class="bx-tag">高频考点 · 曲线题</span>
+    <ul>
+      <li>图甲（酶活性-pH 曲线）+ 图乙（产物量-时间平台）：pH 改变 → 活性点移动但 D（最终产物量）不变、时间变长；温度降低 → E（速率）不变 D 不变但斜率变缓；底物量增加 → 最终产物量上移（D 上移）。</li>
+      <li>瓦堡效应（2020 全国Ⅰ）：癌细胞供氧充足仍主要无氧呼吸，大量吸收葡萄糖；无氧呼吸第二阶段（丙酮酸→乳酸）不产生 ATP。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 09 细胞呼吸 ================= -->
+<section class="chapter" style="--ac:#EA580C">
+  <header class="ch-head">
+    <div class="ch-num">09</div>
+    <div><h1>细胞呼吸</h1><p class="ch-sub">探究酵母菌的呼吸方式 · 有氧呼吸 · 无氧呼吸 · 细胞呼吸原理的应用</p></div>
+  </header>
+
+  <h2>9.1 细胞呼吸的概念与实质（教材 P90）</h2>
+  <ul>
+    <li>细胞呼吸（黑体）：<span class="k">有机物在细胞内经过一系列的氧化分解，生成二氧化碳或其他产物，释放能量并生成 ATP 的过程</span>。实质：氧化分解有机物、释放能量。</li>
+    <li>与体外燃烧相比：有氧呼吸<span class="k">条件温和</span>；能量<span class="k">逐步释放</span>；一部分储存在 ATP 中。意义：能量逐步转移到 ATP、充分利用；缓慢有序释放维持细胞相对稳定。</li>
+  </ul>
+
+  <h2>9.2 探究酵母菌细胞的呼吸方式（教材 P91-92）</h2>
+  <ul>
+    <li>酵母菌：真核单细胞真菌，<span class="k">兼性厌氧</span>，繁殖（出芽生殖为主），细胞壁+细胞膜+细胞核+液泡+线粒体。</li>
+    <li>方法：<span class="k">对比实验法</span>（有氧、无氧装置相互对照）。检测 CO₂：<span class="k">澄清石灰水变浑浊</span>；<span class="k">溴麝香草酚蓝水溶液：蓝→绿→黄</span>（由变黄时间长短判断 CO₂ 多少）。检测酒精：<span class="k">酸性（浓硫酸）重铬酸钾：橙色→灰绿色</span>。</li>
+    <li>装置要点：空气先经 <span class="k">NaOH 溶液</span>（除去 CO₂，排除干扰）；B 瓶（无氧组）<span class="k">先封口放置一段时间耗尽 O₂</span> 再连通检测瓶；培养液<span class="k">煮沸灭菌</span>（排除杂菌呼吸干扰）；检测酒精需<span class="k">过滤取滤液</span>（培养液浑浊有色会干扰，且葡萄糖可被重铬酸钾氧化产生类似颜色）。</li>
+    <li>有氧组气泵间歇通空气保证供氧；无氧组可加石蜡油/植物油液封。</li>
+  </ul>
+
+  <h2>9.3 有氧呼吸（教材 P92-93）</h2>
+  <table class="t">
+    <tr><th style="width:12%">阶段</th><th style="width:22%">场所</th><th>反应物 → 产物</th><th style="width:20%">能量</th></tr>
+    <tr><td>第一阶段</td><td><span class="k">细胞质基质</span></td><td>葡萄糖 → <span class="k">2 丙酮酸 + [H](NADH)</span></td><td>少量 ATP（少量能量）</td></tr>
+    <tr><td>第二阶段</td><td><span class="k">线粒体基质</span></td><td>丙酮酸 + <span class="k">H₂O</span> → CO₂ + [H]</td><td>少量 ATP</td></tr>
+    <tr><td>第三阶段</td><td><span class="k">线粒体内膜</span></td><td>[H] + <span class="k">O₂</span> → H₂O</td><td><span class="k">大量 ATP</span>（最多）</td></tr>
+  </table>
+  <div class="fgrid">
+    <div class="fcard"><b>总反应式</b><span class="fm">C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> + 6O<sub>2</sub> + 6H<sub>2</sub>O →(酶) 6CO<sub>2</sub> + 12H<sub>2</sub>O + 能量</span></div>
+    <div class="fcard"><b>元素去向</b><span class="fm">CO<sub>2</sub> 中 O：来自葡萄糖和水</span><span class="fm">H<sub>2</sub>O 中 O：来自 O<sub>2</sub>；H：来自葡萄糖和水</span></div>
+    <div class="fcard"><b>转移路径</b><span class="fm">C：葡萄糖 → 丙酮酸 → CO<sub>2</sub></span><span class="fm"><sup>18</sup>O<sub>2</sub> → H<sub>2</sub><sup>18</sup>O（第三阶段产物）</span></div>
+  </div>
+  <ul>
+    <li>[H] 是 NADH（还原型辅酶Ⅰ），来源于第一、二阶段，只在第三阶段被消耗（与 O₂ 结合）。</li>
+    <li>有氧呼吸第三阶段机理：电子传递链（NADH→…→O₂），电子传递释放能量驱动 H⁺ 泵至膜间隙建立梯度，H⁺ 经 ATP 合酶回流推动 ATP 合成；电子供体 NADH、受体 O₂。</li>
+  </ul>
+
+  <h2>9.4 无氧呼吸（教材 P94）</h2>
+  <div class="fgrid">
+    <div class="fcard"><b>产酒精型</b><span class="fm">C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> →(酶) 2C<sub>2</sub>H<sub>5</sub>OH + 2CO<sub>2</sub> + 少量能量</span><span class="fm">代表：酵母菌、大多数植物细胞</span></div>
+    <div class="fcard"><b>产乳酸型</b><span class="fm">C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> →(酶) 2C<sub>3</sub>H<sub>6</sub>O<sub>3</sub> + 少量能量</span><span class="fm">代表：人及动物细胞、马铃薯块茎、甜菜块根、玉米胚、乳酸菌</span></div>
+    <div class="fcard"><b>共同点</b><span class="fm">场所全程在细胞质基质</span><span class="fm">第一阶段与有氧呼吸相同；只在第一阶段产 ATP</span></div>
+  </div>
+  <ul>
+    <li>无氧呼吸释放能量少的原因：葡萄糖中大部分能量<span class="k">存留在酒精或乳酸中</span>；无氧呼吸释放的能量大部分（其余部分）以热能散失。</li>
+    <li>不同生物无氧呼吸产物不同的直接原因：酶种类不同；根本原因：<span class="k">控制酶合成的基因不同</span>。</li>
+  </ul>
+
+  <h2>9.5 呼吸方式的判断（高频方法）</h2>
+  <ul>
+    <li>据产物：产 H₂O → 一定有有氧呼吸；耗 O₂ → 一定有有氧呼吸；无 CO₂ → 一定为产乳酸无氧呼吸（或死亡）。</li>
+    <li>据气体：<span class="k">O₂ 吸收量 = CO₂ 释放量</span> → 只进行有氧呼吸（或同时有产乳酸无氧呼吸）；<span class="k">CO₂ &gt; O₂</span> → 有氧呼吸 + 产酒精无氧呼吸（差值为无氧呼吸 CO₂ 的一半即酒精量相关）；只无 CO₂ 无 O₂ → 产乳酸无氧呼吸（未死）。</li>
+    <li>液滴移动法（装置一 NaOH 吸收 CO₂：左移距离 = 有氧呼吸耗 O₂ 量；装置二清水对照：左移 = 耗 O₂ − 放 CO₂，右移 = 放 CO₂ − 耗 O₂）。设死种子（等量灭活）对照排除气压温度物理因素；装置需<span class="k">遮光</span>（绿色材料）；种子需消毒、灭菌。</li>
+    <li>底物为脂肪时：耗 O₂ &gt; 释放 CO₂（脂肪 H 多 O 少）。</li>
+  </ul>
+
+  <h2>9.6 影响细胞呼吸的因素与应用</h2>
+  <ul>
+    <li>内因：遗传因素（不同生物呼吸速率不同；同一植物生殖器官＞营养器官；幼苗、花期速率高）。</li>
+    <li>外因：<span class="k">温度（影响酶活性）</span>、O₂ 浓度、CO₂ 浓度（高浓度抑制呼吸）、含水量。</li>
+    <li>O₂ 浓度曲线关键点：Q 点只无氧呼吸；P 点无氧呼吸消失；QP 段（不含端点）两种呼吸并存；<span class="k">R 点：有氧呼吸弱+无氧呼吸被抑制，总呼吸最弱，有机物消耗最少——果蔬储存最适</span>。</li>
+    <li>应用（背诵）：包扎伤口用透气纱布（抑制厌氧菌）；酿酒先通气后密封；花盆松土（促进根有氧呼吸、利于无机盐吸收）；储粮晒干、果蔬低温低氧高 CO₂；破伤风杆菌厌氧需清创；提倡慢跑（避免乳酸堆积）；<span class="k">稻田定期排水（避免无氧呼吸产酒精烂根）</span>；长途运输蔬菜充 N₂、调至 R 点对应 O₂ 浓度。</li>
+    <li>运动时体内主要呼吸方式仍是有氧呼吸；剧烈运动骨骼肌产乳酸——「能量由乳酸分解提供」×（能量来自葡萄糖分解）。</li>
+  </ul>
+
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <ul>
+      <li>教材 P92 科学方法：对比实验——设置两个或两个以上实验组，通过对结果的分析比较来探究每种因素的作用（有氧组与无氧组相互对照）。</li>
+      <li>教材 P94 小字：细胞呼吸对生物体的意义——为生命活动提供能量，是生物体代谢的枢纽（糖类、脂质、蛋白质等代谢联系）。</li>
+      <li>磷酸戊糖途径（2022 山东）：植物细胞 10%~25% 的葡萄糖经此途径产生 NADPH（与呼吸作用的 NADH 不同）、CO₂ 和多种中间产物，可转化为氨基酸、核苷酸——受伤组织修复的原料来源。</li>
+      <li>DNP 解偶联（2022 山东 16）：H⁺ 不经 ATP 合酶回基质 → 梯度消失、ATP 大减、产热增多；低温（4 ℃）使电子传递受阻，消耗葡萄糖增多、产热多。</li>
+      <li>细胞色素 C：线粒体内电子传递蛋白；泄露入细胞质可诱导细胞凋亡；其泄漏与外膜通透性增高有关。</li>
+      <li>细胞呼吸只释放 CO₂（如产乳酸无氧呼吸）时不改变装置气压——液滴不动的判断陷阱。</li>
+    </ul>
+  </div>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <ul>
+      <li>「没有线粒体就不能进行有氧呼吸」×；「线粒体能直接利用葡萄糖」×（葡萄糖在细胞质基质分解为丙酮酸后才进入线粒体）。</li>
+      <li>有氧呼吸第二阶段直接产生 [H] 最多（来源包括第一阶段）；第三阶段产生 ATP 最多但消耗 [H] 也最多。</li>
+      <li>「无氧呼吸不需要 O₂，最终有 [H] 积累」×（[H] 用于还原丙酮酸）。</li>
+      <li>「检测到重铬酸钾变灰绿一定产酒精」不完全对（还原性糖如葡萄糖也可使其变色；需过滤除糖干扰）。</li>
+      <li>人体剧烈运动所需能量主要由葡萄糖（有氧呼吸为主）提供，不是乳酸分解。</li>
+      <li>水稻烂根：无氧呼吸产酒精毒害细胞——不是乳酸。</li>
+      <li>呼吸强度判断的关键是看消耗葡萄糖的量，而不是释放 CO₂ 的量。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 10 光合作用 ================= -->
+<section class="chapter" style="--ac:#16A34A">
+  <header class="ch-head">
+    <div class="ch-num">10</div>
+    <div><h1>光合作用与能量转化</h1><p class="ch-sub">捕获光能的色素和结构 · 光合作用的原理和应用 · 化能合成作用</p></div>
+  </header>
+
+  <h2>10.1 叶绿体与光合色素（教材 P97-99）</h2>
+  <ul>
+    <li>色素提取：色素能溶解在<span class="k">无水乙醇（有机溶剂）</span>中；分离：色素在<span class="k">层析液中溶解度不同</span>，溶解度高者随层析液在滤纸上扩散得快。</li>
+    <li>步骤细节：加 <span class="k">SiO₂</span>（研磨充分）、<span class="k">CaCO₃</span>（防止研磨中色素被破坏）；研磨迅速（防乙醇挥发）充分（破坏叶绿体释出色素）；过滤用<span class="k">单层尼龙布</span>（滤纸吸附色素、色素分子不易透过）；滤纸条剪两角（防边缘扩散过快使色素带不齐）；画滤液细线要<span class="k">细、直、齐</span>（起点相同），干后重复画 1~2 次（积累色素）；<span class="k">滤液细线不能触及层析液</span>（色素会溶入层析液）；试管口塞棉塞（防层析液挥发）。</li>
+    <li>结果（从上到下）：<span class="k">胡萝卜素（橙黄色，最快）→ 叶黄素（黄色）→ 叶绿素 a（蓝绿色，最宽/含量最多）→ 叶绿素 b（黄绿色）</span>。类胡萝卜素占 1/3（含 C、H 或 C、H、O），叶绿素占 2/3（含 C、H、O、N、<span class="k">Mg</span>）。</li>
+    <li>色素功能：<span class="k">吸收、传递、转化光能</span>；叶绿素主要吸收<span class="k">红光和蓝紫光</span>，类胡萝卜素主要吸收蓝紫光；对绿光吸收最少（叶片显绿色）。</li>
+  </ul>
+
+  <h2>10.2 光合作用的探索（教材 P100-102）</h2>
+  <ul>
+    <li>恩格尔曼：水绵+好氧细菌，极细光束照射——好氧细菌只向叶绿体被光束照射部位集中，全部曝光时细菌分布在叶绿体所有受光部位。结论：①O₂ 由叶绿体释放，叶绿体是光合作用场所；②叶绿体主要吸收红光和蓝紫光。</li>
+    <li>希尔反应：离体叶绿体加铁盐（有 H₂O 无 CO₂），光照下放 O₂——说明<span class="k">水的光解与糖的合成不是同一反应</span>；但不能证明 O₂ 中氧全部来自水（未排除叶绿体其他物质干扰、未直接观察氧的转移）。</li>
+    <li><span class="k">鲁宾、卡门（同位素标记法，对比实验）</span>：H₂<sup>18</sup>O 组放 <sup>18</sup>O₂，C<sup>18</sup>O₂ 组放 O₂——证明光合作用释放的 O₂ <span class="k">全部来自水</span>。</li>
+    <li><span class="k">卡尔文（小球藻、¹⁴CO₂、双向纸层析）</span>：缩短取样时间至 0.5 s，¹⁴C 首先出现在 3-磷酸甘油酸（C₃）→ 5 s 出现在 RuBP（C₅）和六碳糖——C 的转移路径：CO₂ → C₃ →（CH₂O）/C₅。取样后立即<span class="k">煮沸乙醇杀死小球藻</span>终止反应。</li>
+    <li>卡尔文发现 ¹⁴C 也出现于氨基酸、脂类——光合产物不只是糖类。</li>
+  </ul>
+
+  <h2>10.3 光合作用的过程（教材 P103-104，必背）</h2>
+  <table class="t">
+    <tr><th style="width:14%">项目</th><th>光反应</th><th>暗反应（卡尔文循环）</th></tr>
+    <tr><td>场所</td><td><span class="k">类囊体薄膜</span></td><td><span class="k">叶绿体基质</span></td></tr>
+    <tr><td>条件</td><td>光、色素、酶、H₂O</td><td>多种酶、CO₂；<span class="k">不直接需光但依赖光反应产物</span></td></tr>
+    <tr><td>物质变化</td><td>①水的光解：H₂O → [H](NADPH) + O₂；②ATP 合成（ADP+Pi+能量→ATP）</td><td>①CO₂ 固定：CO₂ + C₅ → <span class="k">2C₃</span>；②C₃ 的还原：C₃ + [H] + ATP →（CH₂O）+ C₅</td></tr>
+    <tr><td>能量变化</td><td>光能 → NADPH、ATP 中<span class="k">活跃化学能</span></td><td>活跃化学能 → 有机物中<span class="k">稳定化学能</span></td></tr>
+    <tr><td>联系</td><td colspan="2">光反应为暗反应提供 NADPH、ATP；暗反应为光反应提供 ADP、Pi、NADP⁺（相互依存、不可分割）</td></tr>
+  </table>
+  <ul>
+    <li>唯一不需要酶催化的反应：<span class="k">水的光解</span>。</li>
+    <li>移动方向：NADPH、ATP 由类囊体薄膜 → 叶绿体基质；ADP、Pi、NADP⁺ 由基质 → 类囊体薄膜。</li>
+    <li>NADPH 作用：①作还原剂还原 C₃；②储存部分能量。ATP 作用：为 C₃ 还原供能。</li>
+    <li>光反应中 ATP 合成：PQ 载体<span class="k">主动运输</span>泵 H⁺ 入类囊体腔 + 水光解产 H⁺；H⁺ 经 ATP 合酶（协助扩散）回流合成 ATP。</li>
+    <li>光反应、暗反应都<span class="k">既消耗水又产生水</span>（光解耗水；合成糖类/ATP 产水）——判断正确。</li>
+    <li>叶绿体产生的 ATP <span class="k">只用于暗反应</span>，不用于其他生命活动。</li>
+  </ul>
+
+  <h2>10.4 条件改变时物质量的短期变化（高频题型）</h2>
+  <table class="t">
+    <tr><th style="width:28%">条件改变（短暂时间）</th><th>NADPH/[H]、ATP</th><th>C₃</th><th>C₅</th><th>(CH₂O)</th></tr>
+    <tr><td>光照减弱 / 停止光照（阴天）</td><td>减少</td><td>增加</td><td>减少</td><td>减少</td></tr>
+    <tr><td>CO₂ 供应减少（气孔关闭/降温）</td><td>增加</td><td>减少</td><td>增加</td><td>减少</td></tr>
+    <tr><td>光照增强（CO₂ 不变）</td><td>增加</td><td>减少</td><td>增加</td><td>增加</td></tr>
+  </table>
+  <ul>
+    <li>分析思路：先判断受影响的环节（光反应 or 暗反应），再从「生成速率 vs 消耗速率」比较含量变化。</li>
+    <li>暗反应稳定时，<span class="k">C₃ 分子数是 C₅ 的 2 倍</span>（1 C₅ 固定 1 CO₂ 生成 2 C₃）。</li>
+    <li>间隔光照（亮暗交替）比连续光照合成有机物多：暗期光反应产物 NADPH、ATP 继续被利用、基本不积累；连续光照反而利用不充分。</li>
+  </ul>
+
+  <h2>10.5 影响光合作用的因素与应用（教材 P105-107）</h2>
+  <ul>
+    <li>外因：CO₂ 浓度、光照强度/光质/光照面积/时间、温度（酶活性，主要制约暗反应）、水、矿质元素（N、Mg、P 等）。内因：色素的数量、酶的数量和活性。</li>
+    <li><span class="k">光补偿点</span>：光合强度=呼吸强度（植物需整株光合＞呼吸才能生长）；<span class="k">光饱和点</span>以后限制因素为 CO₂ 浓度、温度等。阳生植物补偿点、饱和点均高；阴生植物均低（连续阴雨时阴生植物受影响小）。</li>
+    <li>关键指标：<span class="k">真正（总）光合 = 净（表观）光合 + 呼吸消耗</span>。「制造/产生/固定/合成/消耗」为总光合；「吸收/释放/测定/积累」为净光合。</li>
+    <li>午休现象（盛夏晴天）：温度过高蒸腾过强 → 气孔开放程度减小 → CO₂ 吸收减少 → 光合下降（FG 段），主要影响暗反应。</li>
+    <li>密闭容器一昼夜曲线：I 点低于 A 点 → 光合＞呼吸，植物生长；高于则不能正常生长。</li>
+    <li>增产措施：「正其行，通其风」、增施有机肥（微生物分解释 CO₂ 与矿质）、施用碳酸氢铵、合理密植与间作套种（提高光照面积）、温室昼夜温差（白天升温增光合、晚上降温减呼吸）、阴雨天补光。</li>
+  </ul>
+
+  <h2>10.6 化能合成作用（教材 P105）</h2>
+  <ul>
+    <li><span class="k">硝化细菌</span>等：利用体外环境中无机物氧化（NH₃ → HNO₂ → HNO₃）释放的化学能合成有机物。与光合作用同为自养，但能源不同（化学能 vs 光能）。</li>
+  </ul>
+
+  <div class="bx note"><span class="bx-tag">边角小字（高频细节）</span>
+    <ul>
+      <li>光合作用影响因素实验（教材 P105）：探究光照强度——调整灯与烧杯距离；CO₂ 浓度——吹气时间或不同浓度 NaHCO₃ 溶液；温度——水浴保温；光质——功率相同的不同色光 LED。因变量：圆形小叶片<span class="k">浮起的数量</span>（或浮起相同数量所需时间）。灯与烧杯间加<span class="k">盛水玻璃槽</span>吸热防温度干扰。</li>
+      <li>秋叶变黄：低温叶绿素合成受阻且易降解，类胡萝卜素稳定显现黄色；变红：可溶性糖积累形成<span class="k">花青素</span>。遮光条件下叶绿素含量升高、叶绿素 a/b 比值降低（适应蓝紫光比例高的阴生环境）。</li>
+      <li>海洋藻类垂直分布：水层对红橙光吸收多，深水为短波长光——绿藻（浅）、褐藻（中）、红藻（深）。</li>
+      <li>植物细胞中色素不全在叶绿体：液泡含花青素等；幼嫩茎、果实细胞也含光合色素。</li>
+      <li>光呼吸：Rubisco 双重活性——CO₂/O₂ 比值高时催化羧化（固定 CO₂），低时催化加氧（光呼吸）。光呼吸消耗 NADPH、ATP 和 C₅，降低光合产量；但强光下可消耗过剩 ATP、NADPH，减轻对叶绿体的伤害。生产上提高 CO₂ 浓度既促进暗反应又降低光呼吸而增产。</li>
+      <li>C4 植物（玉米、甘蔗）：叶肉细胞叶绿体中 PEP 羧化酶（对 CO₂ 亲和力强）固定 CO₂ 成 C₄，「CO₂ 泵」将其运至维管束鞘细胞叶绿体释放 CO₂ 再走 C₃ 途径——干旱时气孔关闭仍能利用低浓度 CO₂，光呼吸低、光合强。</li>
+      <li>CAM 途径（景天科等肉质植物）：夜间气孔开放，CO₂ 固定为苹果酸储存于液泡；白天苹果酸脱羧释放 CO₂ 供暗反应——适应干旱。</li>
+      <li>微藻 CCM：以 HCO₃⁻ 为主要形式的无机碳库，胞内 CO₂ 浓度可达水中 1000 倍。</li>
+      <li>光抑制与光保护：光能过剩时光合功能下降（PSⅡ为主要光破坏场所）；四道防线——调整叶片/叶绿体角度减少受光、类胡萝卜素热耗散、PSI 环式电子传递（只产 ATP）、电子分流给 O₂ 生成活性氧后被酶清除。</li>
+      <li>磷酸转运器受抑制：磷酸丙糖运不出叶绿体 → 暗反应受抑制、淀粉积累、无机磷供应减少抑制光反应。</li>
+    </ul>
+  </div>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <ul>
+      <li>色素分离实验「不属于实验要求」的是了解吸收光谱（教材活动只提取分离）。</li>
+      <li>希尔的实验不能证明 O₂ 全部来自水；鲁宾-卡门才能。</li>
+      <li>「光合作用产生的 ATP 远多于呼吸产生」×——两者量级相当（判断题常考）；且叶绿体 ATP 只供暗反应。</li>
+      <li>「停止光照后暗反应立即停止」×——NADPH、ATP 有少量存量，暗反应可持续短暂进行。</li>
+      <li>光补偿点是「叶肉细胞」还是「整株」：整株植物光合=呼吸时，叶肉细胞的光合＞呼吸（根等不进行光合）。</li>
+      <li>「暗反应不需要光」≠「暗反应与光无关」——光反应停止后暗反应失去 NADPH、ATP 供应。</li>
+      <li>从纵坐标是否过原点判断净/总光合：不过原点（有负值/起点在呼吸速率处）为净。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 11 细胞增殖 ================= -->
+<section class="chapter" style="--ac:#6D28D9">
+  <header class="ch-head">
+    <div class="ch-num">11</div>
+    <div><h1>细胞的增殖</h1><p class="ch-sub">细胞周期 · 有丝分裂各期 · 实验：观察根尖分生区组织细胞的有丝分裂 · 无丝分裂</p></div>
+  </header>
+
+  <h2>11.1 细胞增殖与细胞周期（教材 P110-111）</h2>
+  <ul>
+    <li>细胞增殖：细胞<span class="k">生长和分裂</span>的过程（物质准备+细胞分裂）；是生物体生长、发育、繁殖、遗传的基础。</li>
+    <li>细胞不能无限长大的原因：①<span class="k">表面积与体积之比（相对表面积）</span>限制——体积越大相对表面积越小，物质运输效率越低；②<span class="k">核质比</span>限制——一个核的控制能力有限。细胞也不能太小（容纳必要结构与物质）。</li>
+    <li><span class="k">细胞周期（黑体）</span>：<b>连续分裂的细胞</b>，从<span class="k">一次分裂完成时开始</span>，到<span class="k">下一次分裂完成时为止</span>；包括<span class="k">分裂间期（约占 90%~95%）和分裂期（M 期）</span>。有丝分裂严格指分裂期。</li>
+    <li>有细胞周期的细胞：茎形成层、根尖分生区、皮肤生发层、造血干细胞、癌细胞、受精卵、精原/卵原细胞、肝细胞（受刺激后）等；神经细胞、成熟红细胞、叶肉细胞等无。</li>
+    <li>分裂间期细分：G1（RNA、蛋白质合成，为 S 期准备）、<span class="k">S 期（DNA 复制）</span>、G2（合成微管蛋白等，为 M 期准备）。</li>
+  </ul>
+
+  <h2>11.2 有丝分裂各期特点（教材 P112-113，必背）</h2>
+  <table class="t">
+    <tr><th style="width:14%">时期</th><th>主要特点</th></tr>
+    <tr><td>间期</td><td>完成 <span class="k">DNA 分子的复制</span>和<span class="k">有关蛋白质的合成</span>，细胞适度生长；动物细胞中心粒倍增</td></tr>
+    <tr><td>前期</td><td><span class="k">「膜仁消失显两体」</span>：核膜核仁消失，出现染色体和纺锤体，染色体散乱分布</td></tr>
+    <tr><td>中期</td><td><span class="k">「形定数晰赤道齐」</span>：染色体形态稳定、数目清晰，着丝粒整齐排列在<span class="k">赤道板</span>上——<b>观察染色体最佳时期</b></td></tr>
+    <tr><td>后期</td><td><span class="k">「点裂数数加均极」</span>：着丝粒分裂，姐妹染色单体分开成为两条染色体，染色体数目<span class="k">加倍</span>，平均移向两极</td></tr>
+    <tr><td>末期</td><td><span class="k">「两消两现重开始」</span>：染色体、纺锤体消失，核膜核仁重现</td></tr>
+  </table>
+  <ul>
+    <li>动植物细胞有丝分裂区别：①前期纺锤体形成方式——动物<span class="k">中心粒发出星射线</span>；植物<span class="k">两极发出纺锤丝</span>；②末期细胞质分裂——动物<span class="k">细胞膜中部内陷缢裂</span>；植物<span class="k">赤道板位置出现细胞板</span>扩展成新细胞壁。区分动植物细胞最可靠依据：细胞质分裂方式（有无细胞板）。</li>
+    <li>赤道板是假想平面（不存在），细胞板是真实结构（植物末期出现）。</li>
+    <li>数目变化口诀：DNA 加倍在间期（S 期）；染色体加倍在后期；染色单体形成在间期（复制后）出现于前期、消失于后期；染色体出现于前期（螺旋化）。</li>
+    <li>有关细胞器：核糖体（间期合成蛋白质）、<span class="k">中心体</span>（动物、低等植物）、线粒体（供能）、高尔基体（植物末期形成细胞壁）。</li>
+    <li>有丝分裂意义（黑体）：将亲代细胞的染色体经过复制后，<span class="k">精确地平均分配</span>到两个子细胞中，保持<span class="k">亲代和子代细胞之间遗传性状的稳定性</span>。</li>
+    <li>着丝粒分裂不是纺锤丝牵引的结果：秋水仙素抑制纺锤体形成，后期着丝粒照常分裂、染色体照样加倍——验证方法。</li>
+  </ul>
+
+  <h2>11.3 无丝分裂（教材 P115）</h2>
+  <ul>
+    <li>过程：细胞核先延长缢裂为二，然后整个细胞从中部缢裂为二。特点：<span class="k">没有出现纺锤丝和染色体的变化</span>（但有 DNA 复制）；过程简单迅速耗能少，核膜核仁不消失。典型实例：<span class="k">蛙的红细胞</span>（高等植物薄壁组织如胚乳细胞中也常见）。</li>
+  </ul>
+
+  <h2>11.4 实验：观察根尖分生区组织细胞的有丝分裂（教材 P116）</h2>
+  <div class="flow"><b>流程</b>：培养根尖（葱/蒜，根长约 5 cm，取 2~3 mm）→ <b>解离</b>（15% HCl : 95% 酒精 = 1:1，使组织细胞相互分离）→ <b>漂洗</b>（清水，洗去药液防解离过度）→ <b>染色</b>（甲紫溶液或醋酸洋红液 3~5 min，使染色体着色）→ <b>制片</b>（弄碎根尖、压片使细胞分散）→ 镜检。</div>
+  <ul>
+    <li><span class="k">解离后细胞已死亡</span>——不能观察到连续分裂过程，需移动装片寻找不同时期的细胞。</li>
+    <li>分生区细胞特点：<span class="k">呈正方形、排列紧密</span>；先低倍镜找分生区，再高倍镜观察；视野中<b>间期细胞最多</b>（间期时间最长——各期细胞数目与该期持续时间成正比）。</li>
+    <li>选材要求：选分裂期占细胞周期比例大的材料便于观察分裂相。</li>
+    <li>甲紫溶液是「碱性染料」但 pH 小于 7——碱性/酸性由电离后助色基团所带电荷决定。</li>
+  </ul>
+
+  <h2>11.5 细胞周期调控与同步化（课件拓展）</h2>
+  <ul>
+    <li>检验点系统：G1/S 检验点（细胞是否足够大、DNA 是否损伤）、S 期检验点（DNA 复制是否正确）、G2/M 检验点、纺锤体组装检验点（中期——染色体是否都与纺锤体正确连接，如 MAD2 蛋白监控单附着染色体）、分离后检验点（染色体是否到达两极，决定是否胞质分裂）。</li>
+    <li>原癌基因（调节细胞周期、控制生长分裂进程）与抑癌基因（阻止细胞不正常增殖）协同维持细胞周期正常。</li>
+    <li>药物：抑制 DNA 复制的抗癌药使细胞停留在<span class="k">间期</span>；<span class="k">秋水仙素抑制纺锤体形成</span>→着丝粒正常分裂但染色体不能移向两极→染色体数目加倍（多倍体育种、中期阻断法）。</li>
+    <li>同步化方法：①DNA 合成双阻断法（胸苷/TdR 两次阻断，使细胞停在 G1/S 交界）；②秋水仙素中期阻断法；③血清饥饿法（停滞于间期）。</li>
+    <li>CDK1 蛋白（2020 山东）：推动间期→分裂期；DNA 复制未完成时 CDK1 磷酸化失活，复制完成后去磷酸化激活。</li>
+  </ul>
+
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <ul>
+      <li>细胞分裂后子细胞三种去向：①继续增殖（造血干细胞、癌细胞、根尖分生区细胞）；②暂不增殖（肝细胞、记忆细胞，受刺激后重返细胞周期）；③不再增殖（神经细胞、成熟红细胞、叶肉细胞、精子等高度分化细胞）。</li>
+      <li>温度、pH、射线等通过影响酶的活性影响细胞周期长短。</li>
+      <li>流式细胞仪：可快速测定细胞 DNA 含量并分选不同细胞群（零分辨率，只测整体参量）。</li>
+      <li>间期易发生基因突变：DNA 解旋稳定性差；分裂期染色体高度螺旋化，不易突变也不易转录（蛋白质合成少）。</li>
+      <li>卵细胞大但不分裂不意味运输效率不重要——储存营养供早期发育；原生动物伸缩泡增大膜面积与体积之比；双小核草履虫双核维持核质比。</li>
+      <li>末端缺失染色体（失去端粒）可形成「染色体桥」（2020 山东）：着丝粒分裂后两极牵引使桥断裂，子染色体缺失——染色体结构变异的一种情境。</li>
+    </ul>
+  </div>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <ul>
+      <li>「细胞分裂间期是决定增殖快慢最关键的时期」√（时间占比大、物质准备在此完成）——S 期开始后分裂活动一旦启动会持续到完成。</li>
+      <li>染色单体：间期复制后即形成，但「出现」通常指前期螺旋化可见；消失在后期（着丝粒分裂）。</li>
+      <li>观察有丝分裂看不到「动态连续过程」——解离杀死细胞。</li>
+      <li>秋水仙素作用于前期（抑制纺锤体形成），但细胞会「停留（染色体形态）在中期」；着丝粒能分裂、染色体不能移向两极。</li>
+      <li>G2 期细胞与 G1 期细胞相比：DNA 含量加倍、染色体数不变。</li>
+      <li>染色体数=着丝粒数；有染色单体时 DNA 数=染色单体数=2×染色体数。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 12 分化衰老死亡 ================= -->
+<section class="chapter" style="--ac:#475569">
+  <header class="ch-head">
+    <div class="ch-num">12</div>
+    <div><h1>细胞的分化、衰老和死亡</h1><p class="ch-sub">细胞分化 · 细胞的全能性 · 细胞的衰老 · 细胞的死亡（凋亡与自噬）</p></div>
+  </header>
+
+  <h2>12.1 细胞分化（教材 P118-119）</h2>
+  <ul>
+    <li>概念（黑体）：在个体发育中，由一个或一种细胞增殖产生的后代，在<span class="k">形态、结构和生理功能上发生稳定性差异</span>的过程。</li>
+    <li>特点：普遍性（贯穿生命历程）、持久性/稳定性（一般保持分化后状态直到死亡）、不可逆性。</li>
+    <li>根本原因（实质）：<span class="k">基因的选择性表达</span>（遗传物质 DNA 不变；mRNA、蛋白质种类改变）。</li>
+    <li>「不变与变」：不变——DNA、tRNA、rRNA、细胞数目（核 DNA）；改变——mRNA、蛋白质种类、细胞形态结构功能。</li>
+    <li>分化与分裂的关系：分裂是分化的基础，二者相伴相随；分化程度越高，分裂能力一般越低。</li>
+    <li>意义：使多细胞生物体中的细胞趋向专门化，有利于提高各种生理功能的效率。</li>
+  </ul>
+
+  <h2>12.2 细胞的全能性（教材 P120）</h2>
+  <ul>
+    <li>概念（黑体）：细胞经<span class="k">分裂和分化后，仍具有产生完整有机体或分化成其他各种细胞的潜能和特性</span>。</li>
+    <li>原因：细胞含有本物种的<span class="k">全套遗传信息（全套基因）</span>。条件：①<span class="k">离体</span>；②适宜的营养、激素等条件。标志：发育成完整个体或分化成其他各种细胞。</li>
+    <li>实例：植物组织培养（植物细胞全能性）；克隆羊多莉（<span class="k">已分化的动物细胞核具有全能性</span>）。种子萌发长成植株<span class="k">不是</span>体现全能性（胚本身是幼体，属正常发育）。</li>
+    <li>一般规律：分化程度越高，全能性越低；但<span class="k">生殖细胞（卵细胞）分化程度高而全能性较高</span>（孤雌生殖）——特例。</li>
+    <li>干细胞：全能干细胞（胚胎干细胞，可发育成完整个体）→ 多能干细胞（骨髓造血干细胞）→ 专能干细胞（神经干细胞）；应用：干细胞移植治疗白血病、体外培养组织器官。</li>
+  </ul>
+
+  <h2>12.3 细胞的衰老（教材 P122-124）</h2>
+  <ul>
+    <li>特征口诀「一大一小、一多一少、两慢两低」：细胞核<span class="k">体积增大</span>（核膜内折、染色质收缩）、细胞<span class="k">体积变小</span>；色素（脂褐素）积累；水分减少；酶活性降低、代谢减慢；膜通透性改变、物质运输功能降低。</li>
+    <li>染色质收缩 → 影响 DNA 解旋 → 影响复制与转录。多数酶活性降低，但与衰老相关的酶活性可升高。</li>
+    <li><span class="k">自由基学说</span>：异常活泼的带电分子或基团攻击磷脂（破坏生物膜）、DNA（基因突变）、蛋白质（活性下降）→ 细胞衰老。</li>
+    <li><span class="k">端粒学说</span>：端粒是染色体两端<span class="k">特殊序列的 DNA-蛋白质复合体</span>；细胞每分裂一次端粒缩短一截，内侧正常 DNA 序列受损 → 细胞活动异常。端粒酶（含 RNA 模板的逆转录酶）可补添端粒（生殖细胞、癌细胞中活跃）。</li>
+    <li>个体衰老与细胞衰老的关系：单细胞生物——细胞衰老=个体衰老；多细胞生物——个体衰老=<span class="k">细胞普遍衰老的过程</span>，但年轻个体也有衰老细胞，衰老个体也有新生细胞（造血干细胞）。</li>
+    <li>正常细胞衰老有利于机体<span class="k">自我更新</span>；延缓衰老：高营养饮食、多运动、多用脑、不吸烟、心情愉悦。</li>
+  </ul>
+
+  <h2>12.4 细胞的死亡（教材 P125-127）</h2>
+  <ul>
+    <li><span class="k">细胞凋亡（黑体）</span>：由<span class="k">基因所决定的细胞自动结束生命的过程</span>（程序性死亡，主动、生理性、对机体有利）。实例：胚胎发育中尾的消失、指间细胞自动死亡、被病原体感染细胞的清除、成熟个体细胞的自然更新。</li>
+    <li>意义：完成正常发育、维持内部环境稳定、抵御外界干扰。机理：凋亡信号与膜受体结合 → 信号转导 → 凋亡相关基因表达 → DNase 切割 DNA、Caspase 降解蛋白 → 形成凋亡小体 → 被吞噬清除（内容物不释放到内环境）。</li>
+    <li><span class="k">细胞坏死</span>：外界不利因素导致的<span class="k">被动</span>死亡，膜破裂内容物释放引发炎症，对机体有害。长期吸烟肺部细胞病变死亡属于坏死。</li>
+    <li><span class="k">细胞自噬</span>：细胞「吃掉」自身结构和物质——依赖<span class="k">溶酶体</span>清除变性/错误折叠蛋白、衰老损伤细胞器；养分不足时自噬增强；产物可回收利用；<span class="k">激烈的细胞自噬可能诱导细胞凋亡</span>；随年龄增长肌肉细胞自噬减弱。</li>
+    <li>白细胞凋亡速率远快于红细胞（白细胞吞噬病菌，功能损伤大）；胚胎期尾的消失与<span class="k">溶酶体</span>有直接关系。</li>
+    <li>新发现的程序性死亡方式：铁死亡（铁依赖的脂质过氧化，线粒体皱缩、染色质不凝聚）；细胞焦亡（感染时程序性死亡，细胞肿胀破裂释放内容物引发炎症）；铜死亡（2022）；双硫死亡（2023）。</li>
+  </ul>
+
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <ul>
+      <li>端粒细节：人类端粒为六碱基重复序列（TTAGGG）ₙ；每次分裂缩短约 30~200 bp——「末端复制问题」：DNA 聚合酶只能 5′→3′ 合成且依赖引物，后随链末端留下缺口。</li>
+      <li>衰老细胞核变大的机理：核纤层解聚支撑下降；染色质固缩；体积变小机理：钠钾泵活性下降水分流失、线粒体供能不足、细胞骨架支撑失效。</li>
+      <li>基因的选择性表达不只发生在分化过程中（同一细胞不同时间、环境下也调整表达谱）；RNA 聚合酶基因在所有活细胞中都表达（管家基因），不能作为分化判断依据。</li>
+      <li>壁虎断尾再生（器官级再生）不体现细胞全能性；骨髓造血干细胞分化出多种血细胞也不属于全能性（未发育成完整个体）。</li>
+      <li>成熟红细胞无细胞核、无基因，其衰老死亡不属于基因调控的凋亡。</li>
+      <li>凋亡与自噬形态区别：凋亡形成凋亡小体（单层膜内陷包裹）；自噬形成<span class="k">双层膜自噬泡</span>与溶酶体融合；凋亡一定导致细胞死亡，自噬不一定。</li>
+    </ul>
+  </div>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <ul>
+      <li>「细胞凋亡由遗传机制决定、与环境因素无关」×——环境因素可诱导凋亡相关基因表达。</li>
+      <li>「凋亡细胞内酶活性都降低」×——凋亡相关酶（DNase、Caspase）活性升高。</li>
+      <li>「被病原体感染的细胞死亡属于坏死」×——被病毒感染的细胞被效应 T 细胞诱导清除属于凋亡；病原体直接破坏导致的死亡是坏死（吸烟肺病变死亡为坏死）。</li>
+      <li>「个体发育中分裂、分化、衰老、凋亡对机体都有积极意义」√；「分化后细胞不能再分裂增殖」×（造血干细胞等仍可分裂）。</li>
+      <li>「细胞分化程度越高全能性一定越低」存在特例（卵细胞）；「已分化细胞都有全能性」×（需离体+条件才能表达）。</li>
+      <li>细胞衰老≠个体衰老（多细胞生物）；个体衰老时并非所有细胞都衰老。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 附录 ================= -->
+<section class="chapter" style="--ac:#0e5e52">
+  <header class="ch-head">
+    <div class="ch-num">附</div>
+    <div><h1>高考考情速览与复习建议</h1><p class="ch-sub">基于近年全国卷与各省真题的分布规律</p></div>
+  </header>
+  <ul>
+    <li>必修 1 在高考中通常占选择题 3~4 个，第 1~4 章（细胞概述与分子组成）合计约 6 分。</li>
+    <li>非选择题几乎必考<span class="k">光合作用与细胞呼吸的综合</span>（曲线分析、装置计算、实验设计），其次是细胞增殖图像与实验、酶实验设计。</li>
+    <li>近年高考题明显偏好<span class="k">教材小字与拓展信息</span>：磷酸戊糖途径（2022 山东）、瓦堡效应（2020 全国Ⅰ）、CDK1/BYDV（2020 山东）、染色体桥（2020 山东）、细胞焦亡与凋亡对比（2025 山东）、KDEL 回收、Rubisco 光呼吸、C4 与 CAM 途径等。</li>
+    <li>复习策略：①黑体字定义逐字背；②边角小字按章过一遍；③易错判断题考前自测；④曲线题掌握「生成速率 vs 消耗速率」「总/净光合」「气体量差值」三套方法。</li>
+  </ul>
+  <div class="recap">
+    <span class="bx-tag">一册在手 · 每日一背</span>
+    <p>每章按「核心知识 → 边角小字 → 易错警示 → 高频考点」四块编排：先背正文黑体，再扫小字，考前只看易错框。</p>
+  </div>
+</section>
+
+</body>
+</html>
