@@ -214,7 +214,7 @@ CSS = (WEB / "app.css").read_text(encoding="utf-8")
 JS = (WEB / "app.js").read_text(encoding="utf-8")
 
 MODELS = '''<div class="mask" id="mask"></div>
-<div id="puppy-run"><img alt="小狗奔跑"></div>
+<div id="puppy-run"><div class="run-sprite"></div></div>
 <div class="modal" id="m-quiz">
   <h3>判断快测<button class="m-close">✕</button></h3>
   <div class="sel-row" id="qz-chips"></div>

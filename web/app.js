@@ -193,68 +193,101 @@ function injectDogEnds(){
     d.className = "ch-end";
     d.innerHTML = `<div class="dog-stage">
       <svg class="dog-chain" viewBox="0 0 230 180" aria-hidden="true">
-        <path class="chain-path" d=""/><circle class="chain-anchor" cx="18" cy="18" r="5"/><circle class="chain-ring" r="7"/>
+        <path class="chain-strap" d=""/><g class="chain-links"></g><circle class="chain-clasp" r="4.5"/><circle class="chain-anchor" r="5"/><circle class="chain-ring" r="6"/>
       </svg>
-      <div class="dog-body"><img class="ch-dog" alt="戴着项圈的小狗" draggable="false"><span class="blush bl"></span><span class="blush br"></span></div>
-      <span class="dog-hint">拉一拉项圈</span>
+      <div class="dog-body"><img class="ch-dog" alt="戴着项圈的小狗" draggable="false">
+        <div class="dog-head"><img class="head-img" alt="" draggable="false"><span class="blush bl"></span><span class="blush br"></span></div>
+      </div>
+      <span class="dog-hint">拉一拉狗绳</span>
     </div>`;
     ch.appendChild(d);
   });
-  $$(".ch-end .ch-dog").forEach(i => { i.src = DOG_END; });
+  $$(".ch-end .ch-dog, .ch-end .head-img").forEach(i => { i.src = DOG_END; });
   bindDogPull();
 }
 function bindDogPull(){
   $$(".dog-stage").forEach(stage => {
     const body = stage.querySelector(".dog-body");
+    const head = stage.querySelector(".dog-head");
     const blushes = stage.querySelectorAll(".blush");
-    const path = stage.querySelector(".chain-path");
+    const strap = stage.querySelector(".chain-strap");
+    const links = stage.querySelector(".chain-links");
+    const clasp = stage.querySelector(".chain-clasp");
+    const anchor = stage.querySelector(".chain-anchor");
     const ring = stage.querySelector(".chain-ring");
     const hint = stage.querySelector(".dog-hint");
-    const MAX = 46, K = 110, DAMP = 7.5;
-    // 舞台 230x180；狗盒 148px，左上角 (41,16)；项圈金环在狗图 (45.5%, 65.5%)
+    const R = 52, K = 130, DAMP = 9;
     const DOG_X = 41, DOG_Y = 16, DOG_S = 148;
-    const RING_X = DOG_X + 0.455 * DOG_S, RING_Y = DOG_Y + 0.655 * DOG_S;
-    const st = { x:0, y:0, vx:0, vy:0, tx:0, ty:0, drag:null, raf:0 };
-    const settled = () => !st.drag && Math.hypot(st.x, st.y) < .4 && Math.hypot(st.vx, st.vy) < .4;
+    const PIVOT = { x: DOG_X + 0.47 * DOG_S, y: DOG_Y + 0.66 * DOG_S };
+    const RING = { x: DOG_X + 0.455 * DOG_S, y: DOG_Y + 0.655 * DOG_S };
+    const A = { x: 18, y: 18 };
+    const st = { ax:0, ay:0, vx:0, vy:0, tx:0, ty:0, drag:null, raf:0 };
+    const settled = () => !st.drag && Math.hypot(st.ax, st.ay) < .4 && Math.hypot(st.vx, st.vy) < .4;
     function render(){
-      body.style.transform = `translate(${st.x.toFixed(2)}px, ${st.y.toFixed(2)}px) rotate(${(-4 + st.x * 0.09).toFixed(2)}deg)`;
-      const p = Math.min(1, Math.hypot(st.x, st.y) / MAX);
-      blushes.forEach(b => { b.style.opacity = (p * .92).toFixed(3); });
-      const rx = RING_X + st.x, ry = RING_Y + st.y;
+      const fx = st.ax / R, fy = st.ay / R;
+      const hx = fx * 10, hy = fy * 8, rot = fx * 14;
+      head.style.transform = `translate(${hx.toFixed(2)}px, ${hy.toFixed(2)}px) rotate(${rot.toFixed(2)}deg)`;
+      const p = Math.min(1, Math.hypot(st.ax, st.ay) / R);
+      blushes.forEach(b => { b.style.opacity = (p * .95).toFixed(3); });
+      const rad = rot * Math.PI / 180;
+      const ox = RING.x - PIVOT.x, oy = RING.y - PIVOT.y;
+      const rx = PIVOT.x + ox * Math.cos(rad) - oy * Math.sin(rad) + hx;
+      const ry = PIVOT.y + ox * Math.sin(rad) + oy * Math.cos(rad) + hy;
       ring.setAttribute("cx", rx.toFixed(1)); ring.setAttribute("cy", ry.toFixed(1));
-      const dist = Math.hypot(rx - 18, ry - 18);
-      const sag = Math.max(5, Math.min(40, 55 - dist * 0.28));
-      path.setAttribute("d", `M 18 18 Q ${((18 + rx) / 2).toFixed(1)} ${((18 + ry) / 2 + sag).toFixed(1)} ${rx.toFixed(1)} ${ry.toFixed(1)}`);
+      clasp.setAttribute("cx", rx.toFixed(1)); clasp.setAttribute("cy", ry.toFixed(1));
+      const ax = A.x + st.ax, ay = A.y + st.ay;
+      anchor.setAttribute("cx", ax.toFixed(1)); anchor.setAttribute("cy", ay.toFixed(1));
+      const dist = Math.hypot(rx - ax, ry - ay);
+      const sag = Math.max(4, Math.min(40, 58 - dist * 0.3));
+      const mx = (ax + rx) / 2, my = (ay + ry) / 2 + sag;
+      const B = t => ({ x: (1-t)*(1-t)*ax + 2*(1-t)*t*mx + t*t*rx, y: (1-t)*(1-t)*ay + 2*(1-t)*t*my + t*t*ry });
+      const j = B(0.86);
+      strap.setAttribute("d", `M ${ax.toFixed(1)} ${ay.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${j.x.toFixed(1)} ${j.y.toFixed(1)}`);
+      let lk = "";
+      for (let i = 1; i <= 4; i++) {
+        const q = B(0.86 + 0.14 * i / 4);
+        lk += `<circle cx="${q.x.toFixed(1)}" cy="${q.y.toFixed(1)}" r="3.2"/>`;
+      }
+      links.innerHTML = lk;
     }
     function start(){
       const raf = cb => document.hidden ? setTimeout(cb, 16) : requestAnimationFrame(cb);
       const loop = () => {
         if (st.drag) {
-          st.x += (st.tx - st.x) * .35; st.y += (st.ty - st.y) * .35;
+          st.ax += (st.tx - st.ax) * .35; st.ay += (st.ty - st.ay) * .35;
         } else {
           const dt = 1 / 60;
-          st.vx += (-K * st.x - DAMP * st.vx) * dt; st.vy += (-K * st.y - DAMP * st.vy) * dt;
-          st.x += st.vx * dt; st.y += st.vy * dt;
+          st.vx += (-K * st.ax - DAMP * st.vx) * dt; st.vy += (-K * st.ay - DAMP * st.vy) * dt;
+          st.ax += st.vx * dt; st.ay += st.vy * dt;
         }
         render();
-        if (settled()) { st.x = st.y = st.vx = st.vy = 0; render(); st.raf = 0; return; }
+        if (settled()) { st.ax = st.ay = st.vx = st.vy = 0; render(); st.raf = 0; return; }
         st.raf = raf(loop);
       };
       st.raf = raf(loop);
     }
     body.addEventListener("pointerdown", e => {
       e.preventDefault();
-      body.setPointerCapture(e.pointerId);
-      st.drag = { px: e.clientX, py: e.clientY };
+      try { body.setPointerCapture(e.pointerId); } catch(err) {}
+      const r = stage.getBoundingClientRect();
+      st.drag = { w: r.width, h: r.height };
+      const px = e.clientX - r.left, py = e.clientY - r.top;
+      const dx = px - A.x, dy = py - A.y;
+      const d = Math.hypot(dx, dy);
+      const eff = d > R ? R + (d - R) * .2 : d;
+      const k = d ? eff / d : 0;
+      st.tx = dx * k; st.ty = dy * k;
       st.raf || start();
       stage.classList.add("grabbing");
       hint.classList.add("off");
     });
     body.addEventListener("pointermove", e => {
       if (!st.drag) return;
-      const dx = e.clientX - st.drag.px, dy = e.clientY - st.drag.py;
+      const r = stage.getBoundingClientRect();
+      const px = e.clientX - r.left, py = e.clientY - r.top;
+      const dx = px - A.x, dy = py - A.y;
       const d = Math.hypot(dx, dy);
-      const eff = d > MAX ? MAX + (d - MAX) * .25 : d;
+      const eff = d > R ? R + (d - R) * .2 : d;
       const k = d ? eff / d : 0;
       st.tx = dx * k; st.ty = dy * k;
     });
@@ -267,13 +300,19 @@ function bindDogPull(){
     body.addEventListener("pointercancel", end);
   });
 }
-let PUP_T = null;
+let PUP_T = null, PUP_F = null;
+const RUN_FRAMES = ["5% 10%", "95.3% 11.1%", "94.3% 90.7%", "2.9% 86.8%"];
 function puppyRun(){
   const el = $("#puppy-run"); if (!el || typeof DOG_RUN === "undefined" || !DOG_RUN) return;
-  el.querySelector("img").src = DOG_RUN;
+  const sp = el.querySelector(".run-sprite");
+  sp.style.backgroundImage = `url("${DOG_RUN}")`;
   el.classList.remove("run"); void el.offsetWidth; el.classList.add("run");
+  let f = 0;
+  const tick = () => { sp.style.backgroundPosition = RUN_FRAMES[f % 4]; f++; };
+  tick();
+  clearInterval(PUP_F); PUP_F = setInterval(tick, 110);
   clearTimeout(PUP_T);
-  PUP_T = setTimeout(() => el.classList.remove("run"), 1050);
+  PUP_T = setTimeout(() => { el.classList.remove("run"); clearInterval(PUP_F); }, 1400);
 }
 
 /* ---------- 挖空 ---------- */
