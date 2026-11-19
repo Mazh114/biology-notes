@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """从 notes.html / notes2.html 生成 web/index.html、web/m1.html、web/m2.html"""
 import re, json, pathlib, html as H, base64
+from m1_data import M1CARDS, M1QUIZ
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 WEB = pathlib.Path(__file__).resolve().parent
@@ -337,6 +338,8 @@ def main():
         "m1": parse_book("notes.html", "m1", "必修1《分子与细胞》", "GAOKAO BIOLOGY · 必修一", "课本边角小字 · 易错点 · 易考点 全收录"),
         "m2": parse_book("notes2.html", "m2", "必修2《遗传与进化》", "GAOKAO BIOLOGY · 必修二", "课本边角小字 · 易错点 · 易考点 全收录"),
     }
+    books["m1"]["cards"] = M1CARDS
+    books["m1"]["quiz"] = M1QUIZ
     books["m2"]["quiz"].extend(M2QUIZ)
     bad = validate_xrefs(books)
     for x in bad:

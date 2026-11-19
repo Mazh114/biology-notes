@@ -1551,7 +1551,8 @@ function bindToolbar(){
 function bindQuizChips(){
   const box = $("#qz-chips"); if (!box) return;
   box.innerHTML = `<button class="sel-chip on" data-k="all">全部</button>`
-    + BOOK.chapters.map((c, i) => `<button class="sel-chip" data-k="c${i}">${esc(c.n)} ${esc(c.t)}</button>`).join("");
+    + BOOK.chapters.map((c, i) => ({ c, i })).filter(({ i }) => BOOK.quiz.some(q => q.ch === i))
+      .map(({ c, i }) => `<button class="sel-chip" data-k="c${i}">${esc(c.n)} ${esc(c.t)}</button>`).join("");
   box.querySelectorAll(".sel-chip").forEach(b => b.addEventListener("click", () => {
     box.querySelectorAll(".sel-chip").forEach(x => x.classList.toggle("on", x === b));
     openQuiz(b.dataset.k);
@@ -1560,7 +1561,8 @@ function bindQuizChips(){
 function bindCardChips(){
   const box = $("#fc-chips"); if (!box) return;
   box.innerHTML = `<button class="sel-chip on" data-k="all">全部</button>`
-    + BOOK.chapters.map((c, i) => `<button class="sel-chip" data-k="c${i}">${esc(c.n)} ${esc(c.t)}</button>`).join("");
+    + BOOK.chapters.map((c, i) => ({ c, i })).filter(({ i }) => BOOK.cards.some(q => q.ch === i))
+      .map(({ c, i }) => `<button class="sel-chip" data-k="c${i}">${esc(c.n)} ${esc(c.t)}</button>`).join("");
   box.querySelectorAll(".sel-chip").forEach(b => b.addEventListener("click", () => {
     box.querySelectorAll(".sel-chip").forEach(x => x.classList.toggle("on", x === b));
     openCards(b.dataset.k);
