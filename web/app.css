@@ -204,9 +204,11 @@ html[data-theme="dark"] .k.cz.open { background:linear-gradient(transparent 62%,
   display:flex; align-items:center; justify-content:center; text-align:center; padding:24px 28px;
   font-size:16.5px; line-height:1.85; cursor:pointer; transition:transform .4s; transform-style:preserve-3d; }
 .fc-card.flip { transform:rotateY(180deg); }
-.fc-face { backface-visibility:hidden; -webkit-backface-visibility:hidden; max-height:280px; overflow:auto; }
+.fc-face { backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+/* overflow 会破坏 Chromium 对无自身 transform 元素的背面剔除，故只放在有 rotateY 的背面；翻转后直接隐藏正面兜底 */
+.fc-card.flip .fc-face:not(.back) { visibility:hidden; }
 .fc-face.back { position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  transform:rotateY(180deg); font-size:14px; color:var(--ink); }
+  transform:rotateY(180deg); font-size:14px; color:var(--ink); background:var(--bg); border-radius:inherit; overflow:auto; }
 .fc-term { font-weight:700; color:var(--pri); font-size:20px; }
 .fc-hint { position:absolute; bottom:8px; left:0; right:0; text-align:center; color:var(--mut); font-size:11px; }
 .fc-btns { display:flex; gap:12px; }
