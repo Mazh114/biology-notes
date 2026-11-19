@@ -272,6 +272,9 @@ def home_shell(books):
     for b in books.values():
         metas.append({"id": b["id"], "label": b["label"], "file": b["id"] + ".html", "sub": b["sub"],
                       "secs": sum(len(c["secs"]) or 1 for c in b["chapters"]), "chN": len(b["chapters"]),
+                      "chT": [c["t"] for c in b["chapters"]],
+                      "chNs": [c["n"] for c in b["chapters"]],
+                      "chSecs": [len(c["secs"]) or 1 for c in b["chapters"]],
                       "quizN": len(b["quiz"]), "cardN": len(b["cards"])})
         quiz.extend(b["quiz"]); cards.extend(b["cards"]); search.extend(b["search"])
     home = {"books": metas, "quiz": quiz, "cards": cards, "search": search}
@@ -290,6 +293,8 @@ def home_shell(books):
   <div class="home-grid" id="home-books"></div>
   <h3 style="margin-top:28px">学习统计 · <span id="hs-user" style="color:var(--pri)"></span></h3>
   <div class="stat-grid" id="home-stats"></div>
+  <h3 style="margin-top:28px">复习进度（按章 · 已看完节数 ÷ 该章总节数）</h3>
+  <div id="home-prog"></div>
   <p class="foot-note">学习进度按用户保存在本机浏览器中 · 生成于 {TODAY}</p>
 </div>
 {MODELS}'''

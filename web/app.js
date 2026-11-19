@@ -59,12 +59,12 @@ function buildTOC(){
     const box = b.parentElement;
     box.classList.toggle("open");
     if (e.target.closest(".m-dot")) return;
-    if (window.innerWidth > 900) { puppyRun(); jumpTo(b.dataset.jump, {}); }
+    if (window.innerWidth > 900) { puppyRun(); jumpTo(b.dataset.jump, { instant: true }); }
   }));
   $$(".toc-sec").forEach(b => b.addEventListener("click", e => {
     if (e.target.closest(".m-dot")) return;
     puppyRun();
-    jumpTo(b.dataset.jump, {});
+    jumpTo(b.dataset.jump, { instant: true });
   }));
   refreshSidebarState();
 }
@@ -73,8 +73,10 @@ function refreshSidebarState(){
     const ch = CHS[+box.dataset.ch];
     const sids = ch.secEls.length ? ch.secEls.map(h => h.id) : [ch.el.id];
     const read = sids.filter(s => (U().visited[DATA.id]||[]).includes(s)).length;
-    const done = sids.filter(s => U().mastery[s] === 2).length;
-    box.querySelector(".prog").textContent = done === sids.length ? "已掌握" : `${read}/${sids.length}`;
+    const pct = Math.min(100, Math.round(read / sids.length * 100));
+    const prog = box.querySelector(".prog");
+    prog.textContent = pct + "%";
+    prog.title = `已读 ${read}/${sids.length} 节`;
   });
 }
 function cycleMastery(sid, dot){
@@ -168,7 +170,7 @@ document.addEventListener("click", e => {
     BACK.push({ id: cur ? cur.id : CHS[0].el.id, y: scrollY, label: label });
     const sid = "c" + a.dataset.c + (a.dataset.s ? "s" + a.dataset.s : "");
     puppyRun();
-    jumpTo(sid, {});
+    jumpTo(sid, { instant: true });
     showBack();
   } else {
     e.preventDefault();
@@ -181,7 +183,7 @@ document.addEventListener("click", e => {
 $("#xback") && $("#xback").addEventListener("click", () => {
   puppyRun();
   const top = BACK.pop();
-  if (top) { jumpTo(top.id, { afterScroll: () => window.scrollTo({ top: top.y, behavior: "smooth" }) }); showBack(); }
+  if (top) { window.scrollTo(0, top.y); showBack(); }
 });
 
 /* ---------- 小狗彩蛋 ---------- */
@@ -441,7 +443,7 @@ function renderSearch(qs){
       <div class="sp-t">${esc(r.chT)} · ${esc(r.t)}</div><div class="sp-c">${hl(r.x, qs)}</div></button>`).join("")
     : `<div class="sp-empty">没有找到相关知识点</div>`;
   box.querySelectorAll(".sp-item").forEach(b => b.addEventListener("click", () => {
-    closeModal(); jumpTo(b.dataset.jump, {});
+    closeModal(); jumpTo(b.dataset.jump, { instant: true });
   }));
 }
 function hl(text, q){
@@ -581,7 +583,7 @@ function bindToolbar(){
   $("#btn-cards").addEventListener("click", () => openModal("#m-cards"));
   $("#btn-dice").addEventListener("click", openDice);
   $("#btn-theme").addEventListener("click", toggleTheme);
-  $("#btn-top").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  $("#btn-top").addEventListener("click", () => window.scrollTo(0, 0));
   $("#search-in").addEventListener("click", () => openSearch());
   $("#sp-input").addEventListener("input", e => renderSearch(e.target.value));
   $("#dice-again").addEventListener("click", openDice);
@@ -636,13 +638,23 @@ function bootHome(){
     return `<a class="book-card" href="${b.file}">
       <h2>${esc(b.label)}</h2><div class="bc-sub">${esc(b.sub)}</div>
       <div class="bar"><i style="width:${pct}%"></i></div>
-      <div class="bc-meta"><span>已读 ${read} / ${b.secs} 节</span><span>${b.chN} 章</span><span>判断题 ${b.quizN} 条</span><span>闪卡 ${b.cardN} 张</span></div></a>`;
+      <div class="bc-meta"><span>总进度 ${pct}%</span><span>已读 ${read} / ${b.secs} 节</span><span>${b.chN} 章</span><span>判断题 ${b.quizN} 条</span><span>闪卡 ${b.cardN} 张</span></div></a>`;
   }).join("");
   $("#home-books").addEventListener("click", e => {
     const a = e.target.closest("a.book-card"); if (!a) return;
-    e.preventDefault(); puppyRun();
-    setTimeout(() => { location.href = a.getAttribute("href"); }, 750);
+    e.preventDefault();
+    location.href = a.getAttribute("href");
   });
+  $("#home-prog").innerHTML = HOME.books.map(b => {
+    const vis = u.visited[b.id] || [];
+    const rows = b.chT.map((t, i) => {
+      const n = b.chSecs[i];
+      const r = vis.filter(id => id === "c" + i || id.startsWith("c" + i + "s")).length;
+      const p = Math.min(100, Math.round(r / n * 100));
+      return `<div class="pr-row"><span class="pr-n">${esc(b.chNs[i])}</span><span class="pr-t" title="${esc(t)}">${esc(t)}</span><span class="pr-bar"><i style="width:${p}%"></i></span><b class="pr-pct">${p}%</b><span class="pr-det">${r}/${n} 节</span></div>`;
+    }).join("");
+    return `<div class="pr-book"><div class="pr-head">${esc(b.label)} · 总进度 ${Math.min(100, Math.round((u.visited[b.id] || []).length / b.secs * 100))}%</div>${rows}</div>`;
+  }).join("");
   const qzBest = Math.max(0, ...Object.values(u.quiz).map(r => r.best || 0));
   $("#home-stats").innerHTML = `
     <div class="stat"><b>${(u.visited.m1 || []).length + (u.visited.m2 || []).length}</b><span>累计已读节数</span></div>

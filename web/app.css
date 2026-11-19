@@ -243,6 +243,20 @@ kbd { border:1px solid var(--line); border-bottom-width:2px; border-radius:5px; 
 .stat b { display:block; font-size:22px; color:var(--pri); }
 .stat span { font-size:12px; color:var(--mut); }
 
+/* ---------- 每章复习进度 ---------- */
+.pr-book { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px 18px 10px; margin-bottom:14px; }
+.pr-head { font-size:13.5px; font-weight:700; color:var(--ac,var(--pri)); padding-bottom:8px; border-bottom:1px solid var(--line); }
+.pr-row { display:flex; align-items:center; gap:10px; padding:7px 0; border-bottom:1px dashed var(--line); }
+.pr-row:last-child { border-bottom:0; }
+.pr-n { flex:none; width:24px; height:24px; border-radius:7px; background:var(--ac,var(--pri)); color:#fff;
+  font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.pr-t { flex:none; width:200px; font-size:12.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.pr-bar { flex:1; height:8px; border-radius:99px; background:var(--bg); border:1px solid var(--line); overflow:hidden; }
+.pr-bar i { display:block; height:100%; background:linear-gradient(90deg,var(--pri),#22c55e); }
+.pr-pct { flex:none; width:44px; text-align:right; font-size:12.5px; color:var(--pri); }
+.pr-det { flex:none; width:60px; text-align:right; font-size:11px; color:var(--mut); }
+@media (max-width: 640px) { .pr-t { width:120px; } .pr-det { display:none; } }
+
 /* ---------- 响应式 ---------- */
 @media (max-width: 900px) {
   .sidebar { position:fixed; left:0; top:0; box-shadow:0 0 40px rgba(2,8,20,.3); }
