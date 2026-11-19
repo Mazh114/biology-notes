@@ -299,7 +299,7 @@ def book_shell(book, content, alt):
 </div>
 {MODELS}'''
     data = f"const BOOK={jdump(book)}, DATA=BOOK; BOOK.altLabel={jdump(alt)}; const XREFS={jdump(XREFS)};" \
-           f"const DOG_END={jdump(b64img('dog_end.jpg'))}, DOG_RUN={jdump(b64img('dog_run.jpg'))};"
+           f"const DOG_PULL=[{jdump(b64img('dog_pull1.jpg'))},{jdump(b64img('dog_pull2.jpg'))},{jdump(b64img('dog_pull3.jpg'))},{jdump(b64img('dog_pull4.jpg'))}], DOG_RUN={jdump(b64img('dog_run.jpg'))};"
     return shell(f"{book['label']} · 必背知识点（交互版）", book["id"], inner, data)
 
 def home_shell(books):
@@ -328,7 +328,7 @@ def home_shell(books):
   <p class="foot-note">学习进度按用户保存在本机浏览器中 · 生成于 {TODAY}</p>
 </div>
 {MODELS}'''
-    return shell("高中生物必背知识点 · 交互复习", "home", inner, f"const HOME={jdump(home)}; const DOG_END='', DOG_RUN={jdump(b64img('dog_run.jpg'))};")
+    return shell("高中生物必背知识点 · 交互复习", "home", inner, f"const HOME={jdump(home)}; const DOG_PULL=null, DOG_RUN={jdump(b64img('dog_run.jpg'))};")
 
 def main():
     global TODAY

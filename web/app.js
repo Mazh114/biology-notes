@@ -186,7 +186,7 @@ $("#xback") && $("#xback").addEventListener("click", () => {
 
 /* ---------- 小狗彩蛋 ---------- */
 function injectDogEnds(){
-  if (typeof DOG_END === "undefined" || !DOG_END) return;
+  if (typeof DOG_PULL === "undefined" || !DOG_PULL) return;
   $$(".chapter").forEach(ch => {
     if (ch.querySelector(".dog-stage")) return;
     const d = document.createElement("div");
@@ -195,21 +195,19 @@ function injectDogEnds(){
       <svg class="dog-chain" viewBox="0 0 230 180" aria-hidden="true">
         <path class="chain-strap" d=""/><g class="chain-links"></g><circle class="chain-clasp" r="4.5"/><circle class="chain-anchor" r="5"/><circle class="chain-ring" r="6"/>
       </svg>
-      <div class="dog-body"><img class="ch-dog" alt="戴着项圈的小狗" draggable="false">
-        <div class="dog-head"><img class="head-img" alt="" draggable="false"><span class="blush bl"></span><span class="blush br"></span></div>
-      </div>
+      <div class="dog-body"><img class="ch-dog" alt="戴着项圈的小狗" draggable="false"></div>
       <span class="dog-hint">拉一拉狗绳</span>
     </div>`;
     ch.appendChild(d);
   });
-  $$(".ch-end .ch-dog, .ch-end .head-img").forEach(i => { i.src = DOG_END; });
+  DOG_PULL.forEach(src => { const im = new Image(); im.src = src; });
+  $$(".ch-end .ch-dog").forEach(i => { i.src = DOG_PULL[0]; });
   bindDogPull();
 }
 function bindDogPull(){
   $$(".dog-stage").forEach(stage => {
     const body = stage.querySelector(".dog-body");
-    const head = stage.querySelector(".dog-head");
-    const blushes = stage.querySelectorAll(".blush");
+    const img = stage.querySelector(".ch-dog");
     const strap = stage.querySelector(".chain-strap");
     const links = stage.querySelector(".chain-links");
     const clasp = stage.querySelector(".chain-clasp");
@@ -218,29 +216,25 @@ function bindDogPull(){
     const hint = stage.querySelector(".dog-hint");
     const R = 52, K = 130, DAMP = 9;
     const DOG_X = 41, DOG_Y = 16, DOG_S = 148;
-    const PIVOT = { x: DOG_X + 0.47 * DOG_S, y: DOG_Y + 0.66 * DOG_S };
-    const RING = { x: DOG_X + 0.455 * DOG_S, y: DOG_Y + 0.655 * DOG_S };
+    const RING = { x: DOG_X + 0.46 * DOG_S, y: DOG_Y + 0.668 * DOG_S };
     const A = { x: 18, y: 18 };
-    const st = { ax:0, ay:0, vx:0, vy:0, tx:0, ty:0, drag:null, raf:0 };
+    const T = [0.15, 0.45, 0.78];
+    ring.setAttribute("cx", RING.x.toFixed(1)); ring.setAttribute("cy", RING.y.toFixed(1));
+    clasp.setAttribute("cx", RING.x.toFixed(1)); clasp.setAttribute("cy", RING.y.toFixed(1));
+    const st = { ax:0, ay:0, vx:0, vy:0, tx:0, ty:0, drag:null, raf:0, f:0 };
     const settled = () => !st.drag && Math.hypot(st.ax, st.ay) < .4 && Math.hypot(st.vx, st.vy) < .4;
     function render(){
-      const fx = st.ax / R, fy = st.ay / R;
-      const hx = fx * 10, hy = fy * 8, rot = fx * 14;
-      head.style.transform = `translate(${hx.toFixed(2)}px, ${hy.toFixed(2)}px) rotate(${rot.toFixed(2)}deg)`;
       const p = Math.min(1, Math.hypot(st.ax, st.ay) / R);
-      blushes.forEach(b => { b.style.opacity = (p * .95).toFixed(3); });
-      const rad = rot * Math.PI / 180;
-      const ox = RING.x - PIVOT.x, oy = RING.y - PIVOT.y;
-      const rx = PIVOT.x + ox * Math.cos(rad) - oy * Math.sin(rad) + hx;
-      const ry = PIVOT.y + ox * Math.sin(rad) + oy * Math.cos(rad) + hy;
-      ring.setAttribute("cx", rx.toFixed(1)); ring.setAttribute("cy", ry.toFixed(1));
-      clasp.setAttribute("cx", rx.toFixed(1)); clasp.setAttribute("cy", ry.toFixed(1));
+      while (st.f < 3 && p >= T[st.f] + 0.02) st.f++;
+      while (st.f > 0 && p <= T[st.f - 1] - 0.02) st.f--;
+      const src = DOG_PULL[st.f];
+      if (img.getAttribute("src") !== src) img.setAttribute("src", src);
       const ax = A.x + st.ax, ay = A.y + st.ay;
       anchor.setAttribute("cx", ax.toFixed(1)); anchor.setAttribute("cy", ay.toFixed(1));
-      const dist = Math.hypot(rx - ax, ry - ay);
+      const dist = Math.hypot(RING.x - ax, RING.y - ay);
       const sag = Math.max(4, Math.min(40, 58 - dist * 0.3));
-      const mx = (ax + rx) / 2, my = (ay + ry) / 2 + sag;
-      const B = t => ({ x: (1-t)*(1-t)*ax + 2*(1-t)*t*mx + t*t*rx, y: (1-t)*(1-t)*ay + 2*(1-t)*t*my + t*t*ry });
+      const mx = (ax + RING.x) / 2, my = (ay + RING.y) / 2 + sag;
+      const B = t => ({ x: (1-t)*(1-t)*ax + 2*(1-t)*t*mx + t*t*RING.x, y: (1-t)*(1-t)*ay + 2*(1-t)*t*my + t*t*RING.y });
       const j = B(0.86);
       strap.setAttribute("d", `M ${ax.toFixed(1)} ${ay.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${j.x.toFixed(1)} ${j.y.toFixed(1)}`);
       let lk = "";
