@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>必修2《遗传与进化》 · 必背知识点（交互版）</title>
+<style>/* 生物必背知识点 · 交互版  */
+* { box-sizing: border-box; }
+:root {
+  --bg:#eef2f6; --panel:#fff; --ink:#1e293b; --mut:#64748b; --line:#dbe2ea;
+  --pri:#0e7490; --pri-soft:#e0f2fe; --gold:#b45309; --kbg:#fde68a;
+  --side-w:270px; --rad:10px;
+  --c-warn:#e11d48; --c-note:#4f46e5; --c-exam:#0d9488; --c-exp:#9333ea;
+}
+html[data-theme="dark"] {
+  --bg:#0a1220; --panel:#111b2e; --ink:#d9e4f2; --mut:#8ba1b9; --line:#24344d;
+  --pri:#38bdf8; --pri-soft:#0c2a42; --gold:#fbbf24; --kbg:rgba(253,230,138,.22);
+  --c-warn:#fb7185; --c-note:#818cf8; --c-exam:#2dd4bf; --c-exp:#c084fc;
+}
+html, body { margin:0; padding:0; }
+body { font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg); color:var(--ink); font-size:15px; line-height:1.75; }
+button { font-family:inherit; cursor:pointer; }
+a { color:var(--pri); }
+
+/* ---------- 布局骨架 ---------- */
+.app { display:flex; min-height:100vh; }
+.main { flex:1; min-width:0; display:flex; flex-direction:column; }
+
+/* ---------- 侧边栏 ---------- */
+.sidebar { width:var(--side-w); flex:none; background:var(--panel); border-right:1px solid var(--line);
+  display:flex; flex-direction:column; height:100vh; position:sticky; top:0; z-index:40;
+  transition:margin .25s ease; }
+body.side-collapsed .sidebar { margin-left:calc(-1 * var(--side-w)); }
+.side-head { display:flex; align-items:center; gap:8px; padding:14px 14px 10px; }
+.side-brand { font-weight:800; font-size:15px; color:var(--ink); text-decoration:none; letter-spacing:.04em; }
+.side-brand small { display:block; font-weight:500; font-size:10.5px; color:var(--mut); letter-spacing:.18em; }
+.side-collapse { margin-left:auto; border:1px solid var(--line); background:none; color:var(--mut);
+  border-radius:8px; width:28px; height:28px; font-size:14px; line-height:1; }
+.side-collapse:hover { color:var(--pri); border-color:var(--pri); }
+.side-user { margin:2px 12px 8px; }
+.user-chip { width:100%; display:flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid var(--line);
+  border-radius:10px; background:var(--bg); color:var(--ink); font-size:13px; }
+.user-chip:hover { border-color:var(--pri); }
+.user-chip .u-dot { width:22px; height:22px; border-radius:50%; background:var(--pri); color:#fff; font-size:11px;
+  display:flex; align-items:center; justify-content:center; flex:none; }
+.user-chip .u-name { flex:1; text-align:left; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.user-chip .u-arr { color:var(--mut); font-size:11px; }
+.side-search { padding:0 12px 10px; }
+.side-search input { width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:10px;
+  background:var(--bg); color:var(--ink); font-size:13px; outline:none; }
+.side-search input:focus { border-color:var(--pri); }
+.toc { flex:1; overflow-y:auto; padding:4px 8px 30px; }
+.toc-ch { margin-bottom:4px; }
+.toc-ch-head { width:100%; display:flex; align-items:center; gap:8px; padding:7px 8px; border:0; background:none;
+  border-radius:8px; color:var(--ink); font-size:13.5px; font-weight:600; text-align:left; }
+.toc-ch-head:hover { background:var(--pri-soft); }
+.toc-ch-head .n { flex:none; width:24px; height:24px; border-radius:7px; background:var(--ac,var(--pri)); color:#fff;
+  font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.toc-ch-head .t { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.toc-ch-head .prog { flex:none; font-size:10.5px; color:var(--mut); }
+.toc-ch-head .arr { flex:none; color:var(--mut); font-size:10px; transition:transform .2s; }
+.toc-ch.open .toc-ch-head .arr { transform:rotate(90deg); }
+.toc-secs { display:none; padding:2px 0 4px 14px; }
+.toc-ch.open .toc-secs { display:block; }
+.toc-sec { display:flex; align-items:center; gap:6px; width:100%; border:0; background:none; text-align:left;
+  padding:5px 8px; border-radius:8px; color:var(--mut); font-size:12.5px; }
+.toc-sec:hover { color:var(--ink); background:var(--pri-soft); }
+.toc-sec.active { color:var(--pri); font-weight:700; background:var(--pri-soft); }
+.toc-sec .st { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.m-dot { flex:none; width:9px; height:9px; border-radius:50%; border:1.5px solid var(--line); background:transparent; padding:0; }
+.m-dot.m1 { background:#3b82f6; border-color:#3b82f6; }
+.m-dot.m2 { background:#22c55e; border-color:#22c55e; }
+.side-expand { position:fixed; left:0; top:50%; transform:translateY(-50%); z-index:39; border:1px solid var(--line);
+  background:var(--panel); color:var(--mut); border-radius:0 10px 10px 0; padding:14px 6px; font-size:14px; display:none; }
+body.side-collapsed .side-expand { display:block; }
+
+/* ---------- 顶栏 ---------- */
+.topbar { position:sticky; top:0; z-index:30; background:color-mix(in srgb, var(--panel) 88%, transparent);
+  backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+.topbar-in { display:flex; align-items:center; gap:10px; padding:10px 20px; flex-wrap:wrap; }
+.crumb { font-size:13px; color:var(--mut); min-width:0; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.crumb b { color:var(--ink); }
+.tools { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.tbtn { border:1px solid var(--line); background:var(--panel); color:var(--ink); border-radius:9px;
+  padding:5px 11px; font-size:12.5px; white-space:nowrap; }
+.tbtn:hover { border-color:var(--pri); color:var(--pri); }
+.tbtn.on { background:var(--pri); border-color:var(--pri); color:#fff; }
+.cloze-group { display:flex; align-items:center; border:1px solid var(--line); border-radius:9px; overflow:hidden; }
+.cloze-group .cg-label { padding:5px 9px; font-size:12.5px; color:var(--mut); background:var(--bg); }
+.cloze-group .tbtn { border:0; border-left:1px solid var(--line); border-radius:0; }
+.readbar { height:3px; background:transparent; }
+/* ---------- 内容区 ---------- */
+.content { max-width:920px; width:100%; margin:0 auto; padding:26px 26px 90px; }
+.hero { background:linear-gradient(155deg,#0b1f33 0%,#123a5c 45%,#0e5e52 100%); color:#fff;
+  border-radius:14px; padding:30px 32px 26px; margin-bottom:26px; }
+.hero .h-badge { display:inline-block; font-size:11px; letter-spacing:.3em; border:1px solid rgba(255,255,255,.45);
+  border-radius:99px; padding:4px 14px; color:#cfe8dd; }
+.hero h1 { margin:16px 0 4px; font-size:27px; letter-spacing:.04em; line-height:1.4; }
+.hero .h-sub { color:#9fd8c4; font-size:13.5px; letter-spacing:.12em; margin:0; }
+.hero .h-owner { margin:16px 0 0; color:#ffe9b8; font-weight:700; font-size:15px; letter-spacing:.08em; }
+.hero .h-meta { margin-top:12px; color:#a8bccb; font-size:12px; display:flex; gap:18px; flex-wrap:wrap; }
+
+.chapter { background:var(--panel); border:1px solid var(--line); border-radius:14px;
+  padding:22px 26px 24px; margin-bottom:26px; scroll-margin-top:74px; }
+.ch-head { display:flex; align-items:center; gap:14px; padding-bottom:12px; border-bottom:2px solid var(--ac,var(--pri)); margin-bottom:16px; }
+.ch-num { width:44px; height:44px; border-radius:12px; background:var(--ac,var(--pri)); color:#fff; flex:none;
+  font-size:19px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.ch-head h1 { margin:0; font-size:21px; letter-spacing:.03em; }
+.ch-sub { margin:2px 0 0; font-size:12px; color:var(--mut); }
+.ch-flash { border-radius:6px; animation:flashBg 1.6s ease 1; }
+@keyframes flashBg { 0% { background:color-mix(in srgb, var(--ac,var(--pri)) 22%, transparent); }
+  100% { background:transparent; } }
+
+h2 { font-size:17px; color:var(--ac,var(--pri)); margin:20px 0 8px; padding-left:10px;
+  border-left:4px solid var(--ac,var(--pri)); scroll-margin-top:74px; }
+h3 { font-size:15px; margin:12px 0 4px; }
+p { margin:6px 0; }
+ul,ol { margin:6px 0; padding-left:1.6em; }
+li { margin:3px 0; }
+b { font-weight:600; }
+sub,sup { font-size:70%; }
+.k { font-weight:600; background:linear-gradient(transparent 62%, var(--kbg) 62%); padding:0 1px; border-radius:2px; }
+table { border-collapse:collapse; width:100%; margin:8px 0 12px; }
+th,td { border:1px solid var(--line); padding:6px 9px; vertical-align:top; font-size:13.5px; line-height:1.6; text-align:left; }
+th { font-weight:600; background:var(--bg); }
+.table-scroll { overflow-x:auto; }
+
+.bx { border-radius:10px; padding:12px 15px; margin:10px 0 14px; }
+.bx .bx-tag { display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.12em; color:#fff;
+  border-radius:99px; padding:2px 11px 3px; margin-bottom:6px; }
+.note { background:color-mix(in srgb, var(--c-note) 10%, var(--panel)); border-left:4px solid var(--c-note); }
+.note .bx-tag { background:var(--c-note); }
+.warn { background:color-mix(in srgb, var(--c-warn) 9%, var(--panel)); border-left:4px solid var(--c-warn); }
+.warn .bx-tag { background:var(--c-warn); }
+.exam { background:color-mix(in srgb, var(--c-exam) 10%, var(--panel)); border-left:4px solid var(--c-exam); }
+.exam .bx-tag { background:var(--c-exam); }
+.exp { background:color-mix(in srgb, var(--c-exp) 9%, var(--panel)); border-left:4px solid var(--c-exp); }
+.exp .bx-tag { background:var(--c-exp); }
+.fgrid { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 12px; }
+.fcard { flex:1 1 260px; background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-size:13px; }
+.fcard b { color:var(--ac,var(--pri)); }
+.fcard .fm { display:block; font-family:Menlo,monospace; font-size:12.5px; margin-top:4px; }
+.flow { background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:10px 14px; font-size:13.5px; margin:8px 0 12px; }
+.flow b { color:var(--ac,var(--pri)); }
+.recap { background:color-mix(in srgb, var(--ac,var(--pri)) 8%, var(--panel)); border:1px solid var(--ac,var(--pri));
+  border-radius:12px; padding:12px 16px; margin-top:14px; }
+/* ---------- 挖空 ---------- */
+.k.cz { color:transparent !important; text-shadow:none; background:repeating-linear-gradient(45deg,
+  color-mix(in srgb, var(--ink) 22%, transparent) 0 5px, transparent 5px 9px); border-radius:3px;
+  cursor:pointer; transition:background .15s; min-width:2em; }
+.k.cz:hover { background:repeating-linear-gradient(45deg,
+  color-mix(in srgb, var(--pri) 40%, transparent) 0 5px, transparent 5px 9px); }
+.k.cz.open { color:inherit !important; background:linear-gradient(transparent 62%, #86efac 62%); cursor:default; }
+html[data-theme="dark"] .k.cz.open { background:linear-gradient(transparent 62%, rgba(134,239,172,.4) 62%); }
+
+/* ---------- 互链 ---------- */
+.xref { color:var(--pri); text-decoration:none; border-bottom:1px dashed var(--pri); cursor:pointer; padding:0 1px; }
+.xref:hover { background:var(--pri-soft); border-bottom-style:solid; }
+.xback { position:fixed; right:22px; bottom:22px; z-index:45; display:none; align-items:center; gap:8px;
+  background:var(--pri); color:#fff; border:0; border-radius:99px; padding:10px 18px; font-size:13px; font-weight:600;
+  box-shadow:0 6px 22px rgba(14,116,144,.4); max-width:46vw; }
+.xback.show { display:flex; }
+.xback span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+/* ---------- 浮动/菜单 ---------- */
+.float-menu { position:fixed; z-index:60; background:var(--panel); border:1px solid var(--line); border-radius:12px;
+  box-shadow:0 10px 34px rgba(2,8,20,.18); padding:6px; min-width:200px; }
+.fm-item { display:flex; width:100%; border:0; background:none; color:var(--ink); text-align:left; padding:9px 12px;
+  border-radius:8px; font-size:13.5px; gap:8px; align-items:center; }
+.fm-item:hover { background:var(--pri-soft); }
+.fm-item.cur { color:var(--pri); font-weight:700; }
+.fm-item.danger { color:var(--c-warn); }
+.fm-sep { height:1px; background:var(--line); margin:4px 6px; }
+
+/* ---------- 遮罩与弹窗 ---------- */
+.mask { position:fixed; inset:0; background:rgba(4,10,20,.5); z-index:70; display:none; }
+.mask.show { display:block; }
+.modal { position:fixed; z-index:71; left:50%; top:50%; transform:translate(-50%,-50%); width:min(680px,92vw);
+  max-height:86vh; overflow:auto; background:var(--panel); border:1px solid var(--line); border-radius:16px;
+  padding:22px 26px; display:none; }
+.modal.show { display:block; }
+.modal h3 { margin:0 0 14px; font-size:17px; display:flex; align-items:center; }
+.modal .m-close { margin-left:auto; border:1px solid var(--line); background:none; color:var(--mut);
+  border-radius:8px; width:28px; height:28px; font-size:13px; }
+.sel-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+.sel-chip { border:1px solid var(--line); background:var(--bg); color:var(--ink); border-radius:99px;
+  padding:5px 14px; font-size:12.5px; }
+.sel-chip.on { background:var(--pri); border-color:var(--pri); color:#fff; }
+
+/* ---------- 判断快测 ---------- */
+.qz-meta { color:var(--mut); font-size:12.5px; margin-bottom:10px; }
+.qz-stem { background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:16px 18px;
+  font-size:15px; line-height:1.8; margin-bottom:16px; }
+.qz-btns { display:flex; gap:12px; }
+.qz-btns button { flex:1; padding:12px; font-size:16px; font-weight:700; border-radius:12px; border:1.5px solid var(--line);
+  background:var(--bg); color:var(--ink); }
+.qz-btns button:hover { border-color:var(--pri); }
+.qz-fb { margin-top:14px; border-radius:10px; padding:12px 14px; font-size:13.5px; line-height:1.7; display:none; }
+.qz-fb.show { display:block; }
+.qz-fb.ok { background:color-mix(in srgb,#22c55e 12%, var(--panel)); border:1px solid #22c55e; }
+.qz-fb.no { background:color-mix(in srgb,var(--c-warn) 10%, var(--panel)); border:1px solid var(--c-warn); }
+.qz-next { margin-top:14px; width:100%; padding:10px; font-size:14px; font-weight:700; border-radius:10px;
+  border:0; background:var(--pri); color:#fff; display:none; }
+.qz-next.show { display:block; }
+
+/* ---------- 闪卡 ---------- */
+.fc-box { perspective:1200px; margin-bottom:16px; }
+.fc-card { position:relative; min-height:190px; border-radius:14px; border:1px solid var(--line); background:var(--bg);
+  display:flex; align-items:center; justify-content:center; text-align:center; padding:24px 28px;
+  font-size:16.5px; line-height:1.85; cursor:pointer; transition:transform .4s; transform-style:preserve-3d; }
+.fc-card.flip { transform:rotateY(180deg); }
+.fc-face { backface-visibility:hidden; -webkit-backface-visibility:hidden; max-height:280px; overflow:auto; }
+.fc-face.back { position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  transform:rotateY(180deg); font-size:14px; color:var(--ink); }
+.fc-term { font-weight:700; color:var(--pri); font-size:20px; }
+.fc-hint { position:absolute; bottom:8px; left:0; right:0; text-align:center; color:var(--mut); font-size:11px; }
+.fc-btns { display:flex; gap:12px; }
+.fc-btns button { flex:1; padding:11px; font-size:14.5px; font-weight:700; border-radius:10px; border:1.5px solid var(--line); background:var(--bg); }
+/* ---------- 搜索面板 ---------- */
+.sp-input { width:100%; padding:11px 14px; font-size:15px; border:1.5px solid var(--pri); border-radius:12px;
+  background:var(--bg); color:var(--ink); outline:none; margin-bottom:12px; }
+.sp-list { max-height:52vh; overflow:auto; }
+.sp-item { display:block; width:100%; text-align:left; border:0; background:none; color:var(--ink);
+  padding:10px 12px; border-radius:10px; }
+.sp-item:hover, .sp-item.cur { background:var(--pri-soft); }
+.sp-item .sp-t { font-size:13.5px; font-weight:600; }
+.sp-item .sp-c { font-size:12px; color:var(--mut); margin-top:2px; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sp-item .sp-c mark { background:none; color:var(--gold); font-weight:700; }
+.sp-empty { color:var(--mut); font-size:13px; padding:16px; text-align:center; }
+kbd { border:1px solid var(--line); border-bottom-width:2px; border-radius:5px; padding:0 5px; font-size:11px; color:var(--mut); }
+
+/* ---------- 统计 / 落地页 ---------- */
+.home-wrap { max-width:1020px; margin:0 auto; padding:34px 24px 90px; }
+.home-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px; }
+.book-card { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:22px 24px;
+  display:block; text-decoration:none; color:var(--ink); position:relative; overflow:hidden; }
+.book-card:hover { border-color:var(--pri); transform:translateY(-2px); transition:.2s; }
+.book-card h2 { margin:0 0 4px; font-size:19px; border:0; padding:0; color:var(--ink); }
+.book-card .bc-sub { color:var(--mut); font-size:12.5px; margin-bottom:14px; }
+.book-card .bc-meta { display:flex; gap:16px; font-size:12.5px; color:var(--mut); flex-wrap:wrap; }
+.bar { height:8px; border-radius:99px; background:var(--bg); border:1px solid var(--line); overflow:hidden; margin:10px 0 6px; }
+.bar i { display:block; height:100%; background:linear-gradient(90deg,var(--pri),#22c55e); }
+.stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-top:16px; }
+.stat { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+.stat b { display:block; font-size:22px; color:var(--pri); }
+.stat span { font-size:12px; color:var(--mut); }
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 900px) {
+  .sidebar { position:fixed; left:0; top:0; box-shadow:0 0 40px rgba(2,8,20,.3); }
+  body.side-collapsed .sidebar { margin-left:calc(-1 * var(--side-w) - 10px); }
+  .side-collapse { display:none; }
+  .side-expand { display:none !important; }
+  .hamb { display:inline-block !important; }
+  .content { padding:18px 14px 90px; }
+  .chapter { padding:16px 16px 20px; }
+  .hero { padding:22px 20px; }
+}
+.hamb { display:none; border:1px solid var(--line); background:var(--panel); color:var(--ink);
+  border-radius:9px; padding:5px 11px; font-size:13px; }
+.foot-note { text-align:center; color:var(--mut); font-size:12px; padding:26px 0 40px; }
+
+/* ---------- 小狗彩蛋 ---------- */
+.ch-end { margin:34px 0 6px; display:flex; justify-content:center; }
+.dog-stage { position:relative; width:230px; height:180px; touch-action:none; -webkit-user-select:none; user-select:none; }
+.dog-chain { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:2; overflow:visible; }
+.chain-path { fill:none; stroke:#d8a63c; stroke-width:3; stroke-linecap:round; stroke-dasharray:5 7; opacity:.9; }
+.chain-anchor { fill:#b98a2e; }
+.chain-ring { fill:rgba(255,255,255,.15); stroke:#d8a63c; stroke-width:3.5; }
+.dog-body { position:absolute; left:41px; top:16px; width:148px; height:148px; z-index:1;
+  cursor:grab; will-change:transform; }
+.dog-stage.grabbing .dog-body { cursor:grabbing; }
+.ch-dog { width:100%; height:100%; object-fit:cover; border-radius:50%; border:3px solid var(--line);
+  box-shadow:0 10px 24px rgba(2,8,20,.12); pointer-events:none; -webkit-user-drag:none; }
+.blush { position:absolute; width:18%; height:13%; border-radius:50%; pointer-events:none; opacity:0;
+  background:radial-gradient(closest-side, rgba(240,62,62,.9), rgba(240,62,62,0)); filter:blur(1px); }
+.blush.bl { left:21%; top:34%; }
+.blush.br { left:55%; top:33%; }
+.dog-hint { position:absolute; left:50%; bottom:-6px; transform:translateX(-50%); font-size:11px;
+  color:var(--mut); background:var(--panel); border:1px solid var(--line); border-radius:999px;
+  padding:2px 10px; white-space:nowrap; transition:opacity .4s; pointer-events:none; }
+.dog-hint.off { opacity:0; }
+#puppy-run { position:fixed; left:50%; top:50%; width:132px; height:132px; margin:-66px 0 0 -66px;
+  z-index:998; pointer-events:none; opacity:0; }
+#puppy-run img { width:100%; height:100%; object-fit:cover; border-radius:50%; border:4px solid #fff;
+  box-shadow:0 14px 36px rgba(2,8,20,.30); }
+#puppy-run.run { animation:puppy-dash 1s ease-in-out forwards; }
+#puppy-run.run img { animation:puppy-hop .5s ease-in-out 2; }
+@keyframes puppy-dash {
+  0% { opacity:0; transform:translateX(-44vw) rotate(-12deg); }
+  15% { opacity:1; }
+  50% { transform:translateX(0) rotate(5deg); }
+  85% { opacity:1; }
+  100% { opacity:0; transform:translateX(44vw) rotate(12deg); } }
+@keyframes puppy-hop {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-16px); } }
+
+
+</style>
+</head>
+<body data-book="m2">
+<div class="app">
+  <aside class="sidebar"><div class="side-head"><a class="side-brand" href="index.html">生物必背知识点<small>INTERACTIVE · 交互复习版</small></a><button class="side-collapse" id="side-collapse" title="收起侧边栏">«</button></div>
+      <div class="side-user"><button class="user-chip" id="user-chip"><span class="u-dot" id="u-dot"></span><span class="u-name" id="u-name"></span><span class="u-arr">▾</span></button></div>
+      <div class="side-search"><input id="search-in" placeholder="搜索知识点…（Ctrl K）" readonly></div>
+      <nav class="toc" id="toc"></nav></aside>
+  <button class="side-expand" id="side-expand" title="展开侧边栏">»</button>
+  <div class="main"><div class="topbar"><div class="topbar-in">
+        <button class="hamb" id="btn-menu">目录</button>
+        <div class="crumb" id="crumb"></div>
+        <div class="tools">
+          <div class="cloze-group"><span class="cg-label">挖空</span><button class="tbtn" data-mode="off">关</button><button class="tbtn" data-mode="half">半数</button><button class="tbtn" data-mode="all">全部</button></div>
+          <button class="tbtn" id="btn-quiz">判断快测</button>
+          <button class="tbtn" id="btn-cards">闪卡</button>
+          <button class="tbtn" id="btn-dice">抽背</button>
+          <button class="tbtn" id="btn-theme">夜间</button>
+          <button class="tbtn" id="btn-top">顶部</button>
+        </div>
+      </div><div class="readbar" id="readbar"><i></i></div></div>
+    <div class="content">
+<header class="hero">
+    <span class="h-badge">GAOKAO BIOLOGY · 必修二</span>
+    <h1>必修2《遗传与进化》 · 必背知识点</h1>
+    <p class="h-sub">课本边角小字 · 易错点 · 易考点 全收录</p>
+    <p class="h-owner">zzh专属生物复习资料</p>
+    <div class="h-meta"><span>9 章 · 50 节</span><span>判断题 33 条</span><span>闪卡 80 张</span><span>知识点互链 97 组</span></div>
+  </header>
+<section class="chapter" style="--ac:#2563EB">
+  <div class="ch-head">
+    <div class="ch-num">01</div>
+    <div><h1>减数分裂和受精作用</h1>
+      <div class="ch-sub">必修2 第1章第1节 · 配图判读、曲线分析与配子异常是高考主线</div>
+    </div>
+  </div>
+
+  <h2>减数分裂的概念（背诵）</h2>
+  <p><span class="k">减数分裂</span>：进行有性生殖的生物，在产生成熟生殖细胞时进行的染色体数目减半的细胞分裂。<b>染色体复制一次，细胞连续分裂两次</b>，结果成熟生殖细胞中染色体数目比原始生殖细胞<b>减少一半</b>。</p>
+
+  <h2>分裂过程</h2>
+  <div class="flow"><b>精子形成：</b>精原细胞 →（复制）→ 初级精母细胞 →（减Ⅰ：同源染色体分离、细胞质均分）→ 2个次级精母细胞 →（减Ⅱ：着丝粒分裂）→ 精细胞 →（变形）→ 4个精子</div>
+  <div class="flow"><b>卵细胞形成：</b>卵原细胞 → 初级卵母细胞 →（减Ⅰ<b>不均等</b>分裂）→ 次级卵母细胞 + 第一极体 →（减Ⅱ不均等 / 均等）→ 1个卵细胞 + 3个极体（极体退化消失）</div>
+
+  <h3>关键概念</h3>
+  <ul>
+    <li><span class="k">同源染色体</span>：减Ⅰ中配对的两条染色体，形状大小一般相同，一条来自父方、一条来自母方。</li>
+    <li><span class="k">联会</span>：同源染色体两两配对（减Ⅰ前期）；联会后每对同源染色体含4条染色单体，称<span class="k">四分体</span>（1四分体=1对同源=2条染色体=4条单体=2个着丝粒）。</li>
+    <li><span class="k">交叉互换</span>：四分体时期，同源染色体的<b>非姐妹染色单体</b>之间交换对应片段（属于基因重组）。</li>
+    <li><b>减Ⅰ后期</b>：同源染色体分离（等位基因随之分离），非同源染色体自由组合；<b>减Ⅱ后期</b>：着丝粒分裂，姐妹染色单体分开。</li>
+  </ul>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <p><b>图像三步判断：</b>①无同源染色体→减Ⅱ；②有同源且同源分离→减Ⅰ后期，有同源且着丝粒分裂→有丝分裂后期；③<b>不均等分裂→雌性</b>（初级/次级卵母细胞），均等分裂→雄性或极体。</p>
+  </div>
+
+  <div class="fgrid">
+    <div class="fcard"><b>核 DNA 加倍</b>：减Ⅰ前间期（复制）<span class="fm">染色体数不变</span></div>
+    <div class="fcard"><b>核 DNA / 染色体减半</b>：减Ⅰ末期<span class="fm">同源染色体分离入两子细胞</span></div>
+    <div class="fcard"><b>染色体暂时加倍</b>：减Ⅱ后期<span class="fm">着丝粒分裂；减Ⅱ全程无同源</span></div>
+  </div>
+
+  <h2>配子种类与规律</h2>
+  <div class="fgrid">
+    <div class="fcard"><b>1个精原细胞</b><span class="fm">2种4个精子（两两相同、互补）</span></div>
+    <div class="fcard"><b>1个卵原细胞</b><span class="fm">1种1个卵细胞</span></div>
+    <div class="fcard"><b>个体配子种类</b><span class="fm">n对同源染色体（不考虑互换）→ 2<sup>n</sup> 种</span></div>
+    <div class="fcard"><b>互换率</b><span class="fm">发生交换的初级精母细胞比例 = 重组型配子比例 × 2</span></div>
+  </div>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <p><b>异常配子：</b>减Ⅰ同源染色体未分离→<b>4个配子全部异常</b>；减Ⅱ着丝粒分裂后单体未移向两极→<b>2个正常、2个异常</b>。异常精子 X<sup>b</sup>Y 与 X 卵结合→XXY（21 三体综合征的形成机理与之同类，见课后题）；减Ⅱ时 Y 单体未分开→含 YY 的精子→XYY。</p>
+  </div>
+
+  <h2>受精作用</h2>
+  <ul>
+    <li>过程：精子<b>头部</b>进入卵细胞，尾部留外；<span class="k">透明带反应</span>、<span class="k">卵细胞膜反应</span>阻止多个精子入卵。</li>
+    <li>意义（背诵）：受精卵的染色体数目<b>恢复到本物种体细胞数目</b>，其中一半来自精子、一半来自卵细胞；配子多样性 + 精卵随机结合 → 同一双亲后代呈多样性。</li>
+    <li>减数分裂使染色体减半、受精作用使之恢复，对维持每种生物<b>前后代染色体数目的恒定</b>，以及遗传和变异，都具有重要意义。</li>
+  </ul>
+
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <p><b>观察蝗虫精母细胞减数分裂实验（P24）</b>：选雄性生殖器官——精母细胞数量多且持续分裂，而卵巢中减Ⅱ常未完成、形成的卵细胞少；装片中视野方向不一的分裂相多；雄蜂（单倍体）无同源染色体，经特殊的假减数分裂仍能产生精子，且具有一整套基因。</p>
+  </div>
+
+  <div class="bx exp"><span class="bx-tag">高考真题链接</span>
+    <p>山东卷（2022/2023/2024/2026）反复考查：减Ⅱ姐妹染色单体互锁、环状染色体交换后子细胞基因组成、配子异常的成因判定——核心抓手是"减Ⅰ异常→全异常；减Ⅱ异常→半数异常"。</p>
+  </div>
+</section>
+<section class="chapter" style="--ac:#0891B2">
+  <div class="ch-head">
+    <div class="ch-num">02</div>
+    <div><h1>基因的分离定律</h1>
+      <div class="ch-sub">必修2 第1章第2节 · 假说-演绎法与显隐性判断是方法学核心</div>
+    </div>
+  </div>
+
+  <h2>实验材料与基本操作</h2>
+  <ul>
+    <li><b>豌豆优点</b>：①自花传粉、闭花受粉，自然状态下都是纯种；②具有易于区分的相对性状；③生长周期短、后代数量大；④花大，易操作。</li>
+    <li><b>果蝇优点</b>：易饲养、繁殖快、后代数量多；相对性状多而明显；染色体少、易观察。<b>玉米优点</b>：繁殖快、后代多；相对性状明显；雌雄同株异花，杂交易操作。</li>
+    <li><b>人工异花传粉</b>：花蕾期人工去雄 → 套袋 → 人工授粉 → 再套袋（母本去雄须在开花前）。</li>
+  </ul>
+
+  <h3>基本概念</h3>
+  <ul>
+    <li><span class="k">自交</span>：基因型相同个体间交配（闭花授粉、同株授粉）；<b>杂交</b>：基因型不同个体交配；<b>测交</b>：与隐性纯合子杂交。</li>
+    <li><span class="k">相对性状</span>：一种生物同一种性状的不同表现类型；<b>性状分离</b>：杂种后代中同时出现显性性状和隐性性状。</li>
+    <li><span class="k">等位基因</span>：同源染色体相同位置上控制相对性状的基因（纯合子同位置为相同基因；本质区别是碱基排列顺序不同）。</li>
+    <li><b>融合遗传</b>≠不完全显性：紫茉莉红×白→粉花，粉花自交后代 1红:2粉:1白，可重新出现红、白，属于<b>颗粒遗传</b>。</li>
+  </ul>
+
+  <h2>假说-演绎法（背诵）</h2>
+  <div class="flow"><b>四步：</b>提出问题 → 提出假说 → 演绎推理（若假说成立，测交后代应为 1:1）→ 实验验证（实际 1:1）→ 得出结论</div>
+  <ul>
+    <li>假说内容：①生物性状由<b>遗传因子</b>决定；②体细胞中遗传因子<b>成对</b>存在；③形成配子时每对遗传因子<b>分离</b>，分别进入不同配子；④受精时雌雄配子<b>随机结合</b>。</li>
+    <li>核心：F<sub>1</sub> 产生<b>数量相等的两种配子</b>。测交后代比例反映被测个体配子种类及比例。</li>
+  </ul>
+
+  <h2>分离定律的实质与验证</h2>
+  <p><b>实质（背诵·P32）</b>：杂合子细胞中，位于一对同源染色体上的等位基因具有一定的独立性；在减数分裂形成配子时，<span class="k">等位基因随同源染色体的分开而分离</span>，独立地随配子遗传给后代（减Ⅰ后期）。</p>
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <p>符合分离定律<b>不一定出现 3:1</b>，3:1 成立需同时满足：①配子成活率均等；②基因型个体成活率均等；③子代数目足够多；④完全显性；⑤等位基因仅一对且无致死。<b>最能说明实质的是 F<sub>1</sub> 产生配子比为 1:1</b>。</p>
+  </div>
+
+  <h3>特殊分离比</h3>
+  <div class="fgrid">
+    <div class="fcard"><b>显性纯合致死</b><span class="fm">杂合子自交 → 显:隐 = 2:1</span></div>
+    <div class="fcard"><b>隐性纯合致死</b><span class="fm">杂合子自交 → 后代全显性</span></div>
+    <div class="fcard"><b>配子致死</b><span class="fm">如 AB 雄配子致死 → 5:3:3:1 变式（见第3章）</span></div>
+  </div>
+
+  <h2>应用一：显隐性判断</h2>
+  <ul>
+    <li><b>定义法（杂交）</b>：两不同性状亲本杂交，子代只出现一种性状→子代性状为显性；同性状亲本杂交出现分离→新性状为隐性。</li>
+    <li><b>自交法</b>：自交后代出现性状分离→亲本为显性（适用于植物，最简便）。</li>
+    <li>动物判断显隐性：多对杂交统计比例（单次交配后代少，不能直接下结论）。</li>
+  </ul>
+
+  <h2>应用二：纯合子/杂合子鉴定</h2>
+  <table>
+    <tr><th>方法</th><th>操作与判断</th><th>适用</th></tr>
+    <tr><td>自交</td><td>后代无性状分离→纯合子；有分离→杂合子</td><td>植物（最简便）</td></tr>
+    <tr><td>测交</td><td>×隐性纯合子，子代一种性状→纯合；两种→杂合</td><td>动物（雄性需与多只隐性雌性交配）、植物均可</td></tr>
+    <tr><td>花粉鉴定</td><td>两种花粉1:1→杂合（如糯性与非糯性碘染）</td><td>仅部分特殊植物，最直接证明</td></tr>
+  </table>
+
+  <h2>应用三：连续自交与自由交配</h2>
+  <div class="fgrid">
+    <div class="fcard"><b>杂合子连续自交 n 代</b><span class="fm">Aa 占 (1/2)<sup>n</sup>；纯合子 1−(1/2)<sup>n</sup>；显纯=隐纯=[1−(1/2)<sup>n</sup>]/2</span></div>
+    <div class="fcard"><b>连续自交逐代淘汰 aa</b><span class="fm">AA:Aa 比例每代不变，淘汰后按比例重新归一化</span></div>
+    <div class="fcard"><b>自由交配</b><span class="fm">基因频率不变，基因型频率自 F<sub>1</sub> 起稳定（遗传平衡）</span></div>
+  </div>
+
+  <div class="bx exam"><span class="bx-tag">高频考点</span>
+    <p><b>性状分离比模拟实验</b>：甲乙两桶代表雌雄生殖器官，彩球代表配子，两色球代表两种配子；随机抓取组合模拟<b>雌雄配子随机结合</b>。要求：每桶两色球数量相等、抓取随机、记录后放回摇匀、重复 30 次以上以减少误差。</p>
+  </div>
+</section>
+<section class="chapter" style="--ac:#D97706">
+  <div class="ch-head">
+    <div class="ch-num">03</div>
+    <div><h1>基因的自由组合定律</h1>
+      <div class="ch-sub">必修2 第1章第2节 · 9:3:3:1 变式与两对基因位置判断是解题难点</div>
+    </div>
+  </div>
+
+  <h2>两对相对性状的杂交实验</h2>
+  <ul>
+    <li>F<sub>1</sub> 全为黄圆（黄对绿、圆对皱均为显性）；F<sub>2</sub> 出现亲本没有的<span class="k">重组类型</span>，四种表现型之比 <b>9:3:3:1</b>。</li>
+    <li>每一对相对性状单独分析均符合<b>分离定律</b>（黄:绿=3:1，圆:皱=3:1）。</li>
+    <li>F<sub>2</sub> 结构：4种纯合子各占 1/16；4种单杂合子各占 2/16；双杂合子 YyRr 占 4/16。</li>
+    <li>测交结果 <b>1:1:1:1</b>，可检测 F<sub>1</sub> 配子种类及比例、基因型、纯合杂合。</li>
+  </ul>
+
+  <h2>实质（背诵）</h2>
+  <p><span class="k">同源染色体上的等位基因分离的同时，非同源染色体上的非等位基因自由组合</span>（减Ⅰ后期）。两定律<b>同时进行、同时起作用</b>；自由组合发生在<b>产生配子</b>时，配子的随机结合不属于自由组合。</p>
+
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <p>非等位基因不一定位于非同源染色体上——同一条染色体上的多个基因也是非等位基因，但<b>不能自由组合</b>（连锁）。"非同源染色体自由组合，使所有非等位基因自由组合"错误。</p>
+  </div>
+
+  <h2>解题方法：先分后合（乘法原理）</h2>
+  <ul>
+    <li>正推：AaBb×Aabb → 子代基因型 3×2=6 种，表现型 2×2=4 种；某基因型概率=两对概率相乘。</li>
+    <li>逆推：由子代表现型及比例倒推双亲基因型（先拆分每对性状）。</li>
+    <li>两种遗传病概率：每对先算，再乘（自由组合为前提）。</li>
+    <li>分解组合法的前提是<b>两对基因独立遗传</b>（配子中比例互不干扰）；若配子比例随搭配改变则不适用（连锁）。</li>
+  </ul>
+
+  <h2>9:3:3:1 的变式（高频）</h2>
+  <table>
+    <tr><th>F<sub>2</sub> 分离比</th><th>原因（配子致死类用棋盘法：列出配子→删除致死→重新归纳）</th></tr>
+    <tr><td>5:3:3:1</td><td>AB 的雄配子或雌配子致死</td></tr>
+    <tr><td>7:3:1:1</td><td>Ab 的雄配子或雌配子致死</td></tr>
+    <tr><td>7:1:3:1</td><td>aB 的雄配子或雌配子致死</td></tr>
+    <tr><td>8:2:2</td><td>ab 的雄配子或雌配子致死</td></tr>
+    <tr><td>6:3:2:1</td><td>AA 或 BB 显性纯合致死</td></tr>
+    <tr><td>4:2:2:1</td><td>AA 和 BB 同时显性纯合致死</td></tr>
+    <tr><td>3:1</td><td>aa 或 bb 隐性纯合致死</td></tr>
+    <tr><td>9:3:3</td><td>aabb 受精卵（胚胎）致死</td></tr>
+  </table>
+
+  <h2>验证自由组合的四种方法</h2>
+  <ul>
+    <li>自交法：F<sub>1</sub>（AaBb）自交后代 9:3:3:1；</li>
+    <li>测交法：后代 1:1:1:1；</li>
+    <li>花粉鉴定法：四种花粉 1:1:1:1；</li>
+    <li>单倍体育种法：花药培养加倍后四种表现型 1:1:1:1。</li>
+  </ul>
+
+  <h2>两对基因的位置判断（连锁与互换）</h2>
+  <div class="fgrid">
+    <div class="fcard"><b>同一对同源染色体·不考虑互换</b><span class="fm">完全连锁：自交后代全显性或 显:隐=3:1（比例型同单基因）；测交后代 1:1</span></div>
+    <div class="fcard"><b>同一对同源染色体·考虑互换</b><span class="fm">重组型配子少：测交后代两多两少；自交后代两种单显性比例<b>始终相等</b></span></div>
+    <div class="fcard"><b>亲本型判断</b><span class="fm">aabb 占比＞1/16 → ab 为亲本型配子；＜1/16 → ab 为重组型配子</span></div>
+  </div>
+
+  <h2>杂交育种</h2>
+  <div class="flow"><b>植物：</b>选纯合双亲杂交 → F<sub>1</sub> 自交 → F<sub>2</sub> 选优 → 连续自交至不再发生性状分离（可用分区域种植法加快）。<br><b>动物：</b>杂交 → 选优 → 与隐性（或双隐）类型测交检验纯合度，不通过逐代自交。</div>
+  <p>若所需优良性状为种子（果实）性状，当年即可收获选用；若为植株性状，需种到植株表现性状再选。</p>
+
+  <div class="bx exam"><span class="bx-tag">高频考点</span>
+    <p><b>2022 山东卷</b>：6种纯合突变体互交判突变基因——"突×突→突"为相同基因突变（非等位），"突×突→野"为不同基因突变。</p>
+  </div>
+</section>
+<section class="chapter" style="--ac:#DC2626">
+  <div class="ch-head">
+    <div class="ch-num">04</div>
+    <div><h1>基因在染色体上、伴性遗传与人类遗传病</h1>
+      <div class="ch-sub">必修2 第2章 · 系谱图判断与正反交设计是考试必出题型</div>
+    </div>
+  </div>
+
+  <h2>萨顿假说（类比推理法）</h2>
+  <p>依据：基因和染色体的行为存在<b>明显的平行关系</b>——①基因在体细胞中成对、染色体也成对；②体细胞中一对基因一个来自父方一个来自母方，同源染色体亦然；③形成配子时成对的基因（染色体）一个进入配子；④非同源染色体自由组合时，非同源染色体上的非等位基因也自由组合。结论：基因在染色体上。</p>
+
+  <h2>摩尔根实验（假说-演绎法）</h2>
+  <ul>
+    <li>提出问题：F<sub>1</sub> 全红眼、F<sub>2</sub> 3:1 且白眼只在雄性中出现。</li>
+    <li>假说：控制白眼的基因 w 位于 <b>X 染色体上</b>，Y 染色体上不含其等位基因。</li>
+    <li>验证：F<sub>1</sub> 红眼雌 × 白眼雄 → 4种表型 1:1:1:1；<b>关键证据</b>是白眼雌 × F<sub>1</sub> 红眼雄 → 子代雌全红、雄全白（1:1）。</li>
+    <li>结论：基因在染色体上；后又发明测定基因相对位置的方法（三点测交），证明基因在染色体上<span class="k">呈线性排列</span>。</li>
+  </ul>
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <p>测交实验不能排除"基因位于 XY 同源区段"的假说——可用<b>反交实验</b>（白眼雌 × 红眼雄）排除：若子代雌全红、雄全白且与假说预测矛盾即可排除。荧光标记的 DNA 探针与染色体杂交可直观显示基因位置。</p>
+  </div>
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <p>基因并非全部位于染色体上：线粒体、叶绿体、原核拟核与质粒、病毒中的基因无染色体。X、Y 染色体同源区段存在等位基因，非同源区段没有。果蝇的 Y 染色体比 X 大（P31）。</p>
+  </div>
+
+  <h2>性别决定与伴性遗传</h2>
+  <ul>
+    <li>XY 型：含两个 X 为雌性，XY 为雄性；性别比例 1:1 的原因是含 X 与含 Y 的精子比例 1:1。ZW 型：ZZ 雄、ZW 雌（鸟类、蛾类）。</li>
+    <li>性别决定不全是 XY/ZW：有的取决于染色体数目，有的取决于环境（如后螠）；雌雄同体生物无性染色体。</li>
+  </ul>
+  <table>
+    <tr><th>类型</th><th>实例</th><th>特点</th></tr>
+    <tr><td>伴X隐性</td><td>红绿色盲、血友病</td><td>隔代遗传；男患者多于女；女病其父、子必病（交叉遗传）</td></tr>
+    <tr><td>伴X显性</td><td>抗维生素D佝偻病</td><td>世代连续；女患者多于男；男病其母、女必病</td></tr>
+    <tr><td>伴Y</td><td>外耳道多毛症</td><td>限雄遗传，父传子、子传孙，世代连续，无显隐之分</td></tr>
+    <tr><td>细胞质</td><td>线粒体基因病</td><td>母系遗传：子女表现型与母亲相同</td></tr>
+  </table>
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <p>XY 同源区段（Ⅰ）：基因男女都可患病，男患病率可能≠女；X 特有区段（Ⅱ）：隐性病男＞女；Y 特有区段（Ⅲ）：患者全为男性。伴X隐性致病基因：男患者只能来自母亲、只能传给女儿。</p>
+  </div>
+
+  <h2>遗传系谱图判断（准确/最可能）</h2>
+  <div class="flow"><b>三步：</b>先排除伴Y遗传和细胞质遗传（母系）→ 判显隐性："无中生有为隐性，有中生无为显性" → 判位置：<b>女病其父、子全病→伴X隐性</b>；男病其母、女全病→伴X显性；否则常染色体。"可能"与"最可能"审题：可能一般有多种，最可能只有一种。</div>
+
+  <h3>正反交的应用（一代交配判位置）</h3>
+  <ul>
+    <li>未知显隐性：正反交结果不同（有性别差异）→伴X；结果相同（无性别差异）→常染色体；后代总与母本相同→细胞质遗传。</li>
+    <li>已知显隐性：用"同隐异显"（隐性雌 × 显性纯合雄）判断常/伴X。</li>
+    <li>判断父本/母本来源致死：双杂合子分别作父本、母本分别测交比较。</li>
+  </ul>
+
+  <h2>人类遗传病</h2>
+  <ul>
+    <li><b>单基因遗传病</b>：受一对等位基因控制，符合分离定律（白化病、红绿色盲、抗维生素D佝偻病）。</li>
+    <li><b>多基因遗传病</b>：两对以上等位基因控制，群体发病率高，<b>易受环境影响</b>（原发性高血压、青少年型糖尿病）。</li>
+    <li><b>染色体异常遗传病</b>：猫叫综合征=5号染色体片段缺失；21三体综合征=体细胞多一条21号染色体（是"三条染色体"而非三个染色体组）。</li>
+  </ul>
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <p>五个"不一定"：携带致病基因不一定患病（女性携带者）；不携带致病基因也可能患病（染色体异常病）；先天性疾病不一定遗传；家族性疾病不一定遗传（缺维生素A夜盲）；遗传病不一定出生即表现。人类所有的病不都是基因病。</p>
+  </div>
+  <div class="bx exam"><span class="bx-tag">高频考点</span>
+    <p><b>调查</b>：发病率→在广大人群随机抽样、群体足够大、选发病率较高的<b>单基因</b>遗传病；遗传方式→在<b>患者家系</b>中调查。多基因遗传病易受环境影响，不宜作为调查对象。<b>基因组测序</b>：人测 24 条（22常+X+Y），玉米（2n=20）测 11 条，果蝇同理。</p>
+  </div>
+
+  <div class="bx exp"><span class="bx-tag">高考真题链接</span>
+    <p>伴X基因频率在男女中相等（交叉遗传）：男性中发病率 7% → X<sup>b</sup>% =7% → 女性 0.49%。XYY 患儿成因：父方减Ⅱ时两条 Y 未分开进入同一精子。</p>
+  </div>
+</section>
+<section class="chapter" style="--ac:#7C3AED">
+  <div class="ch-head">
+    <div class="ch-num">05</div>
+    <div><h1>DNA 是主要的遗传物质</h1>
+      <div class="ch-sub">必修2 第3章第1节 · 三大经典实验的过程、结论与异常分析必须记准</div>
+    </div>
+  </div>
+
+  <h2>肺炎链球菌转化实验</h2>
+  <ul>
+    <li><b>材料特点</b>：S型菌有多糖类荚膜、有毒、菌落光滑；R型菌无荚膜、无毒、菌落粗糙（P43）。</li>
+    <li><b>格里菲思体内转化</b>：加热杀死的S型菌 + 活R型菌 → 小鼠死亡，体内分离出活S型菌 → 加热杀死的S型菌中含有"<span class="k">转化因子</span>"，使R型转化为S型。</li>
+    <li><b>艾弗里体外转化</b>：S型菌破碎→去除绝大部分糖类、蛋白质和脂质制成细胞提取物→分别加入蛋白酶、RNA酶、酯酶、<b>DNA酶</b>（减法原理：每组特异性去除一种物质）→只有 DNA 酶组转化消失 → <b>DNA 是遗传物质</b>，蛋白质等不是。</li>
+  </ul>
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <p>加热致死后 DNA 仍保持活性的原因：80~100℃ 时蛋白质变性失活，而 DNA 双链解开、温度恢复后可复性（P43 小字）。转化的实质是<b>基因重组</b>；转化效率低，只有少部分R型菌转化。艾弗里实验还证明 DNA 可在同种生物不同个体间转移（为基因工程奠基，Ca²⁺处理大肠杆菌=人工转化）。</p>
+  </div>
+
+  <h2>噬菌体侵染细菌实验</h2>
+  <div class="flow"><b>四步：</b>①标记噬菌体：先分别用含 ³⁵S、³²P 的培养基培养大肠杆菌，再用其培养噬菌体 → ②侵染未标记的大肠杆菌 → ③搅拌（使吸附在细菌上的噬菌体与细菌分离）→ ④离心（轻的噬菌体颗粒进上清液，重的细菌留沉淀）→ ⑤检测放射性</div>
+  <div class="fgrid">
+    <div class="fcard"><b>³⁵S 标记蛋白质</b><span class="fm">理论上沉淀物无放射性；实测有少量→搅拌不充分，噬菌体仍吸附在细菌表面</span></div>
+    <div class="fcard"><b>³²P 标记 DNA</b><span class="fm">理论上上清液无放射性；实测有少量→保温过短（未全部侵入）或过长（细菌裂解释放子代）</span></div>
+    <div class="fcard"><b>结论</b><span class="fm">DNA 是遗传物质，蛋白质不是（有争议说"没证明"）</span></div>
+  </div>
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <p>①不能用培养基直接培养噬菌体（病毒必须寄生）；②³⁵S、³²P 必须<b>分两组</b>分别标记（同位素检测只能定位不能辨元素）；③不能标记 C、H、O、N（DNA 与蛋白质共有）；④短时间保温=让噬菌体充分侵染又不裂解释放；⑤实验<b>间接证明</b> DNA 能自我复制、指导蛋白质合成，不能证明 DNA 可产生可遗传变异；⑥子代噬菌体只有少数被 ³²P 标记。</p>
+  </div>
+
+  <h2>烟草花叶病毒的重建实验</h2>
+  <ul>
+    <li>烟草花叶病毒侵染烟草细胞时，RNA 与蛋白质<b>没有分开</b>（完整病毒侵入），故 TMV 实验不能用噬菌体的操作思路（噬菌体只向细菌注入 DNA，两者天然分开）。</li>
+    <li>方法：人工<b>分离提纯</b> RNA 与蛋白质，分别感染烟草 → RNA 组出现病斑并分离出正常 TMV → <b>RNA 是烟草花叶病毒的遗传物质</b>。</li>
+  </ul>
+
+  <h2>总结与辨析</h2>
+  <div class="bx exam"><span class="bx-tag">高频考点</span>
+    <p><b>实验共同设计思路（考填空）</b>：将 DNA、蛋白质等物质<b>分开，单独、直接观察</b>各自的作用（分离提纯法/减法原理/同位素标记）。</p>
+    <p><b>结论</b>：真核、原核生物及 DNA 病毒的遗传物质都是 DNA；少数病毒（HIV、流感、新冠、烟草花叶病毒）是 RNA → <b>DNA 是主要的遗传物质</b>（统计分析结论，非实验直接验证）。细胞生物的遗传物质只能是 DNA。</p>
+  </div>
+  <div class="bx exp"><span class="bx-tag">高考真题链接</span>
+    <p>2017 全国Ⅰ卷：判断新病毒类型需甲、乙两组相互印证——用标记特定碱基（如分别标记 T 或 U）的宿主细胞培养病毒，检测子代放射性确定核酸种类。</p>
+  </div>
+</section>
+<section class="chapter" style="--ac:#059669">
+  <div class="ch-head">
+    <div class="ch-num">06</div>
+    <div><h1>DNA 的结构、基因的本质与 DNA 复制</h1>
+      <div class="ch-sub">必修2 第3章第2、3节 · 碱基计算与半保留复制证据是计算题主线</div>
+    </div>
+  </div>
+
+  <h2>DNA 双螺旋结构的特点（背诵·P50）</h2>
+  <ul>
+    <li>由<b>两条脱氧核苷酸长链</b>构成，按<b>反向平行</b>方式盘旋成双螺旋结构。</li>
+    <li><b>外侧</b>：脱氧核糖与磷酸交替连接构成基本骨架；<b>内侧</b>：碱基通过氢键形成碱基对（A=T，G≡C），遵循<span class="k">碱基互补配对原则</span>。</li>
+    <li>A=T 之间<b>2个</b>氢键，G≡C 之间<b>3个</b>氢键 → <b>G-C 碱基对越多 DNA 越稳定</b>（耐高温）。</li>
+    <li>1个双链 DNA 含 <b>2个游离磷酸基团、0个游离脱氧核糖</b>；每个磷酸基团连接1~2个脱氧核糖（2个游离磷酸各只连1个），每个脱氧核糖连接1~2个磷酸。</li>
+    <li>模型构建：沃森、克里克（构建物理模型）；富兰克林拍摄"<b>照片51号</b>"（X射线衍射）；威尔金斯展示照片；查哥夫法则（A=T、G=C）提供化学依据。</li>
+  </ul>
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <p>两条链反向平行的意义：DNA 两条链走向相反，使碱基对能整齐配对排布（P50）。酶与化学键：解旋酶、高温断<b>氢键</b>；DNA 聚合酶、DNA 连接酶形成<b>磷酸二酯键</b>；限制酶、DNA 酶破坏磷酸二酯键。</p>
+  </div>
+
+  <h2>碱基计算</h2>
+  <div class="fgrid">
+    <div class="fcard"><b>不互补碱基之和恒定</b><span class="fm">A+G = T+C = 50%</span></div>
+    <div class="fcard"><b>互补碱基比例相等</b><span class="fm">单链(A+T)% = 互补链(A+T)% = 双链(A+T)%</span></div>
+    <div class="fcard"><b>氢键数</b><span class="fm">n对碱基中G-C有m对：2(n−m)+3m = 2n+m</span></div>
+    <div class="fcard"><b>磷酸二酯键</b><span class="fm">2n−2 个（n为碱基对数）</span></div>
+  </div>
+
+  <h2>遗传信息与基因的本质（背诵）</h2>
+  <ul>
+    <li><span class="k">遗传信息</span>：基因中 4 种碱基（脱氧核苷酸）的排列顺序。多样性：碱基对的数目和排列顺序千变万化；特异性：每种生物有特定的碱基排列顺序（β-珠蛋白基因1700对→4<sup>1700</sup> 种排列）。</li>
+    <li><span class="k">基因</span>：通常是有<span class="k">遗传效应</span>的 DNA 片段。基因在 DNA 上<b>不连续分布</b>（被碱基序列分隔）；染色体是 DNA 的主要载体，基因在染色体上呈线性排列；RNA 病毒的基因在 RNA 上。</li>
+    <li>数量关系：1条染色体含1个（无单体）或2个（有单体）DNA，DNA 上有许多基因；基因中脱氧核苷酸排列顺序代表遗传信息。</li>
+  </ul>
+
+  <h2>DNA 的复制（背诵·P56）</h2>
+  <div class="fgrid">
+    <div class="fcard"><b>时间</b><span class="fm">有丝分裂间期、减数第一次分裂前的间期</span></div>
+    <div class="fcard"><b>场所</b><span class="fm">主要细胞核；其次线粒体、叶绿体；原核在拟核、质粒</span></div>
+    <div class="fcard"><b>条件</b><span class="fm">模板（两条母链）、原料（4种游离脱氧核苷酸）、能量、酶（解旋酶、DNA聚合酶等）</span></div>
+    <div class="fcard"><b>过程</b><span class="fm">解旋 → 合成子链 → 重新螺旋（边解旋边复制）</span></div>
+    <div class="fcard"><b>特点</b><span class="fm">半保留复制；多起点、双向复制</span></div>
+    <div class="fcard"><b>结果与意义</b><span class="fm">1个DNA→2个完全相同的DNA；保持遗传信息连续性</span></div>
+  </div>
+  <div class="bx exam"><span class="bx-tag">高频考点</span>
+    <p><b>准确复制的原因</b>：①独特的双螺旋结构提供精确模板；②碱基互补配对保证准确进行。<b>方向</b>：DNA 聚合酶只能催化子链 5'→3' 延伸（从引物 3' 端连接脱氧核苷酸）→ 后随链形成<span class="k">冈崎片段</span>（不连续，由 DNA 连接酶连接）；两条链反向平行+酶的方向性 → 双向复制。<b>引物</b>：DNA 聚合酶不能从头合成，需 RNA 引物，随后被替换保证准确性。</p>
+  </div>
+
+  <h3>半保留复制的实验证据（梅塞尔森、斯塔尔）</h3>
+  <ul>
+    <li>方法：假说-演绎法 + <b>同位素标记技术</b>（¹⁵N）+ <b>密度梯度离心技术</b>。</li>
+    <li>流程：¹⁵N 大肠杆菌多代培养 → 转入 ¹⁴N 培养基繁殖两代 → 提取 DNA 离心。</li>
+    <li>预期：若子代Ⅰ为轻、重两条带→全保留；若子代Ⅰ一条<b>中密度带</b>→排除全保留（可能半保留或分散）；子代Ⅱ出现中、轻两条带→排除分散，<b>肯定是半保留复制</b>。</li>
+    <li>离心法三类：差速离心（分离细胞器）、密度梯度离心（本实验）、沉淀离心（噬菌体实验、DNA 粗提取、制备细胞膜）。</li>
+  </ul>
+
+  <h3>复制计算（图解法）</h3>
+  <div class="fgrid">
+    <div class="fcard"><b>n 次复制后 DNA</b><span class="fm">共 2<sup>n</sup> 个；含¹⁵N的 2 个；只含¹⁴N的 2<sup>n</sup>−2 个</span></div>
+    <div class="fcard"><b>脱氧核苷酸链</b><span class="fm">共 2<sup>n+1</sup> 条；含¹⁵N的链 2 条；含¹⁴N的 2<sup>n+1</sup>−2 条</span></div>
+    <div class="fcard"><b>消耗某种脱氧核苷酸</b><span class="fm">亲代含 m 个：n 次共耗 m(2<sup>n</sup>−1)；第 n 次耗 m·2<sup>n−1</sup></span></div>
+  </div>
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <p>看清"碱基个数"还是"碱基对数"；"培养几代"=复制几次。有丝分裂标记分析：第一次分裂中、后期每条染色体都带标记；第二次分裂后期一半染色体带标记；子细胞带标记染色体 0~2n 条。</p>
+  </div>
+
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <p>真核生物 DNA 多个复制起点→多个复制泡，加快复制速率（果蝇图题）。复制方式补充：θ型（细菌环状 DNA）、D环型（线粒体 DNA）、滚环复制。</p>
+  </div>
+</section>
+<section class="chapter" style="--ac:#0284C7">
+  <div class="ch-head">
+    <div class="ch-num">07</div>
+    <div><h1>基因的表达</h1>
+      <div class="ch-sub">必修2 第4章 · 转录翻译全程、中心法则与表观遗传</div>
+    </div>
+  </div>
+
+  <h2>RNA 与密码子</h2>
+  <ul>
+    <li><b>RNA 适合做信使的原因（P65）</b>：能储存遗传信息；一般为单链、比 DNA 短，能通过核孔从细胞核转移到细胞质。</li>
+    <li><b>3种 RNA</b>：mRNA——携带遗传信息，翻译的模板；tRNA——识别并转运氨基酸、识别密码子；rRNA——构成核糖体，催化肽键形成。RNA 还是 RNA 病毒的遗传物质、少数酶的成分。3种 RNA 都是转录产物，都参与翻译。</li>
+    <li><span class="k">密码子</span>：mRNA 上决定一个氨基酸的 3 个相邻碱基，共 4³=64 种（3 种终止密码子、61 种决定氨基酸）；<span class="k">反密码子</span>在 tRNA 上。一种密码子只决定一种氨基酸，一种氨基酸可由一种或多种密码子决定。</li>
+  </ul>
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <p><b>简并性意义（P67 思考·讨论）</b>：①碱基改变可能不改变氨基酸，增强容错性；②多种密码子编码同一氨基酸可保证翻译速度。通用性：所有生物共用一套密码子（病毒基因导入宿主仍表达病毒蛋白）。特殊：原核 GUG 可作起始密码子；UGA 特殊情况编码硒代半胱氨酸。</p>
+  </div>
+
+  <h2>转录</h2>
+  <ul>
+    <li><b>场所</b>：主要细胞核（也在线粒体、叶绿体、拟核、质粒）；<b>模板</b>：DNA 的一条链（模板链/反义链）；<b>原料</b>：4种游离核糖核苷酸；<b>酶</b>：RNA 聚合酶（兼具解旋、识别结合启动子、连接磷酸二酯键功能）；产物 mRNA 等。</li>
+    <li>mRNA 延伸方向 <b>5'→3'</b>；转录与复制都遵循碱基互补配对，保证信息传递准确。</li>
+    <li><span class="k">启动子</span>：基因上游，RNA 聚合酶识别结合位点，<b>本身不被转录</b>；<span class="k">终止子</span>：编码区下游，终止转录（RNA 水平形成茎-环结构）。</li>
+    <li>起始密码子、终止密码子位于 <b>mRNA</b> 上；一个基因的有义链可能是另一基因的反义链。</li>
+  </ul>
+
+  <h2>翻译</h2>
+  <ul>
+    <li><b>场所</b>：核糖体；<b>模板</b>：mRNA；<b>原料</b>：20种氨基酸；<b>搬运工</b>：tRNA（一种 tRNA 只转运一种氨基酸）；<b>方向</b>：核糖体沿 mRNA 由 5'→3' 移动（肽链从 N 端向 C 端合成），mRNA 不移动。</li>
+    <li>核糖体有 2 个 tRNA 结合位点；氨基酸间脱水缩合形成<span class="k">肽键</span>；遇终止密码子合成终止。</li>
+    <li><b>准确翻译的原因</b>：mRNA 提供精确模板 + 碱基互补配对（密码子-反密码子）。</li>
+    <li><b>多聚核糖体（P69）</b>：一个 mRNA 上结合多个核糖体同时翻译→少量 mRNA 迅速合成大量蛋白质；按肽链长短判断先后（长的在前）。各核糖体产物<b>完全相同</b>。</li>
+    <li><b>时空</b>：真核——核内转录、质内翻译，时空分隔；原核——<b>边转录边翻译</b>；线粒体、叶绿体同原核。</li>
+  </ul>
+
+  <h2>数量关系与中心法则</h2>
+  <div class="fcard" style="width:100%"><b>碱基数比例</b><span class="fm">基因 : mRNA : 氨基酸 ≈ 6 : 3 : 1；实际不符原因：内含子转录后被剪切、非编码区不转录、终止密码子不编码氨基酸、肽链加工剪切</span></div>
+  <ul>
+    <li><b>中心法则</b>：DNA复制、转录、翻译三主线 + RNA复制（烟草花叶病毒）+ 逆转录（HIV）。</li>
+    <li>RNA 复制酶、逆转录酶由<b>病毒自身基因组编码、在宿主细胞合成</b>。</li>
+    <li>体现基因两大功能：<b>传递遗传信息</b>（复制）与<b>表达遗传信息</b>（转录、翻译）。</li>
+    <li>不同细胞：分裂旺盛细胞三条途径都有；高度分化细胞只有转录翻译；哺乳动物成熟红细胞无。</li>
+    <li>遗传密码破译（P70）：尼伦伯格体外合成实验——人工多聚尿嘧啶核苷酸（UUU）→多聚苯丙氨酸；需除去提取液中 DNA 和 mRNA 排除干扰。</li>
+  </ul>
+
+  <h2>基因与性状的关系（背诵·P71）</h2>
+  <ul>
+    <li><b>间接控制</b>：基因通过控制<span class="k">酶的合成控制代谢过程</span>，进而控制性状——白化病（酪氨酸酶）、豌豆皱粒（淀粉分支酶）。</li>
+    <li><b>直接控制</b>：基因通过控制<span class="k">蛋白质的结构</span>直接控制性状——镰刀型细胞贫血（血红蛋白）、囊性纤维化（CFTR）。</li>
+    <li>基因与性状<b>不都是一一对应</b>：一个基因可影响多个性状，一个性状可受多个基因影响；<b>表型 = 基因型 + 环境</b>（单双眼皮、表型模拟）。</li>
+    <li>细胞分化的实质：基因的<span class="k">选择性表达</span>；不同细胞 mRNA 不同，但 tRNA、rRNA 无差异。</li>
+  </ul>
+
+  <h2>表观遗传（P74）</h2>
+  <ul>
+    <li><b>概念（背诵）</b>：生物体基因的<span class="k">碱基序列保持不变</span>，但<span class="k">基因表达和表型发生可遗传变化</span>的现象。</li>
+    <li><b>机制</b>：①DNA 甲基化；②组蛋白甲基化/乙酰化；③RNA 干扰——主要影响<b>转录</b>过程。</li>
+    <li>特点：可遗传、可逆（甲基化可去）；<b>不遵循孟德尔遗传规律</b>；通过有丝分裂、减数分裂传递。</li>
+    <li>实例：柳穿鱼花形、小鼠毛色、蜂王浆使幼虫发育成蜂王（减少 DNA 甲基化改变基因表达）。</li>
+  </ul>
+  <div class="bx exp"><span class="bx-tag">高考真题链接</span>
+    <p>遗传印记（甲基化随配子重建）常考：亲代雌鼠某基因来自父方（雄配子印记去甲基化）；反义 RNA 与 mRNA 形成双链阻断翻译=基因沉默，杂交分子含 4 种核苷酸、4 种碱基。</p>
+  </div>
+</section>
+<section class="chapter" style="--ac:#DB2777">
+  <div class="ch-head">
+    <div class="ch-num">08</div>
+    <div><h1>基因突变、基因重组和染色体变异</h1>
+      <div class="ch-sub">必修2 第5章 · 三种可遗传变异比较与育种方法选择</div>
+    </div>
+  </div>
+
+  <h2>基因突变</h2>
+  <ul>
+    <li><b>概念（背诵·P81）</b>：DNA 分子中发生碱基的<span class="k">替换、增添或缺失</span>，而引起的基因<span class="k">碱基序列的改变</span>。</li>
+    <li><b>时间</b>：主要是有丝分裂前的间期、减数第一次分裂前的间期（DNA 复制时出现差错）；<b>原因</b>：物理、化学、生物因素（诱发）+ 自发突变。</li>
+    <li><b>5个特点</b>：<span class="k">普遍性、随机性、不定向性、低频性、多害少利性</span>。</li>
+    <li><b>意义</b>：产生新基因的途径；生物变异的<b>根本来源</b>；为生物进化提供原材料。</li>
+  </ul>
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <p><b>一定改变</b>：碱基序列、遗传信息、基因种类（突变产生原基因的等位基因）；<b>不一定改变</b>：氨基酸序列（密码子简并性）、生物性状（隐性突变、突变发生在非编码区或内含子、个别氨基酸改变不影响蛋白功能）；基因数目和位置不变。<b>能否遗传</b>：发生在配子中→遵循遗传规律传给后代；体细胞→一般不能（植物可通过无性生殖）；父方细胞质基因突变一般不传子代。基因突变光镜下不可见；红细胞（无核无线粒体）不会突变。</p>
+  </div>
+  <ul>
+    <li><b>显性/隐性突变判断</b>：将突变体与未突变体（野生型）杂交——子一代全为野生型→隐性突变；子一代全为突变型或突变型∶野生型＝1∶1→显性突变。例：矮秆小麦 × 高秆小麦，子一代全为高秆→矮秆为隐性突变。</li>
+    <li><b>诱变育种</b>：物理/化学因素处理萌发的种子或幼苗（分裂旺盛处）；提高突变率、较短时间获得更多变异类型、大幅改良性状；但有利变异少、盲目，需处理大量材料（太空育种：选刚萌发种子，因复制时易突变；返回后不定向、显性性状不一定是纯合）。</li>
+    <li><b>细胞癌变</b>：原癌基因（调控细胞正常生长分裂）突变或过量表达 + 抑癌基因（阻止细胞不正常增殖）突变，一般需累积 5~6 个基因突变；癌细胞特征：无限增殖、形态结构改变、糖蛋白减少易扩散转移、无接触抑制。</li>
+  </ul>
+
+  <h2>基因重组</h2>
+  <ul>
+    <li><b>类型</b>：①减Ⅰ后期——非同源染色体上非等位基因<b>自由组合</b>；②减Ⅰ前期（四分体时期）——同源染色体非姐妹染色单体间<b>交叉互换</b>。</li>
+    <li><b>本质</b>：原有基因的重新组合，<b>产生新基因型，不产生新基因</b>。广义还包括基因工程、肺炎链球菌的转化。</li>
+    <li><b>意义</b>：生物变异的来源之一；形成生物多样性的重要原因；为进化提供原材料（配子多样化→有性生殖加快进化，P84/P122）。</li>
+    <li>判断：基因重组不发生在受精作用中；姐妹染色单体间"交换"不属于基因重组；Aa 自交的性状分离是等位基因分离所致，不是基因重组。</li>
+  </ul>
+
+  <h2>三种可遗传变异的比较</h2>
+  <table>
+    <tr><th>项目</th><th>基因突变</th><th>基因重组</th><th>染色体变异</th></tr>
+    <tr><td>适用范围</td><td>所有生物（含病毒）均可发生</td><td>真核生物有性生殖核基因；人工基因工程</td><td>真核生物</td></tr>
+    <tr><td>发生时间</td><td>间期（DNA复制时）</td><td>减Ⅰ前期、减Ⅰ后期</td><td>随时可发生</td></tr>
+    <tr><td>结果</td><td>产生新基因</td><td>产生新基因型</td><td>基因数目或排列顺序改变</td></tr>
+    <tr><td>光镜观察</td><td>不可见（分子水平）</td><td>不可见</td><td><b>可见</b>（细胞水平）</td></tr>
+    <tr><td>意义</td><td>变异的根本来源</td><td>变异来源之一</td><td>变异来源之一</td></tr>
+  </table>
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <p><b>互换 vs 易位</b>：互换发生在<b>同源染色体</b>的非姐妹染色单体之间（基因重组，不可见）；易位发生在<b>非同源染色体</b>之间（染色体结构变异，可见）。<b>基因突变 vs 染色体缺失</b>：基因突变是基因内若干碱基对的改变；染色体缺失是 DNA 上若干基因的缺失。姐妹染色单体上出现等位基因：基因突变或交叉互换均可导致。</p>
+  </div>
+
+  <h2>染色体结构变异</h2>
+  <p>四种类型：<span class="k">缺失</span>（猫叫综合征=5号缺失）、<span class="k">重复</span>、<span class="k">倒位</span>、<span class="k">易位</span>——基因的<b>数目或排列顺序</b>发生改变。判读依据：染色体上基因数目或排列顺序改变；联会时可出现缺失环、重复环、倒位环、十字形（易位）。</p>
+
+  <h2>染色体数目变异与染色体组</h2>
+  <ul>
+    <li><span class="k">染色体组</span>（背诵·P87）：细胞中的一组<b>非同源染色体</b>，形态和功能各不相同，携带着控制生物生长发育的全部遗传信息。</li>
+    <li><b>组数判断</b>：①同种形态染色体有几条→几个组；②基因型中同一字母（不分大小写）出现几次→几个组（AaBb=2组、AAaaBbbb=4组）。</li>
+    <li><b>二倍体</b>：受精卵发育、含2个组；<b>多倍体</b>：受精卵发育、含3个及以上组；<span class="k">单倍体</span>：体细胞染色体数与本物种<b>配子</b>相同——由配子直接发育，不论几个组都是单倍体（雄蜂、四倍体的单倍体含2组）。</li>
+    <li>育性：染色体组为偶数、能联会→一般可育；奇数→联会紊乱→高度不育（三倍体、骡）。异源多倍体的单倍体加倍后仍可能是杂合子。</li>
+  </ul>
+
+  <h2>育种方法</h2>
+  <table>
+    <tr><th>方法</th><th>原理</th><th>方法要点</th><th>优缺点</th></tr>
+    <tr><td>杂交育种</td><td>基因重组</td><td>杂交→自交→选优→连续自交至纯合</td><td>集中双亲优良性状、操作简单；时间长</td></tr>
+    <tr><td>诱变育种</td><td>基因突变</td><td>物理化学因素处理萌发种子/幼苗</td><td>提高突变率、大幅改良；盲目、需大量材料</td></tr>
+    <tr><td>单倍体育种</td><td>染色体数目变异</td><td>花药离体培养→单倍体幼苗→秋水仙素加倍→纯合子</td><td><b>明显缩短育种年限</b>，后代全纯合；技术复杂</td></tr>
+    <tr><td>多倍体育种</td><td>染色体数目变异</td><td>秋水仙素/低温处理萌发的种子或幼苗</td><td>茎秆粗壮、果实种子大、营养高；发育迟缓、结实率低</td></tr>
+    <tr><td>基因工程</td><td>基因重组</td><td>定向改造生物性状（外源基因表达）</td><td>定向、高效；克服远缘杂交不亲和</td></tr>
+  </table>
+  <ul>
+    <li><b>秋水仙素/低温原理</b>：作用于<b>分裂前期</b>，抑制<span class="k">纺锤体形成</span>→染色体不能移向两极→细胞不分裂→染色体数目加倍（秋水仙素诱导基因突变则作用于间期）。</li>
+    <li><b>无子西瓜</b>（P91）：二倍体×四倍体→三倍体种子→种下，授二倍体花粉刺激子房发育→三倍体无子西瓜（联会紊乱不育故无子）。两次授粉：第一次授粉（四倍体 × 二倍体）获得三倍体种子；第二次给三倍体植株授二倍体花粉，花粉提供生长素类刺激，使子房发育成果实。无子性状<b>可遗传</b>（三倍体本身可经组织培养繁殖）。</li>
+    <li><b>无子番茄</b>：生长素处理未受粉雌蕊→<b>遗传物质不变、不可遗传</b>。判断可遗传的唯一依据：<b>遗传物质是否改变</b>。</li>
+  </ul>
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <p><b>低温诱导染色体数目变化实验（P89）</b>：卡诺氏液固定形态→95%酒精冲洗→解离（15%HCl:95%酒精=1:1）→漂洗→甲紫染色→制片观察；解离后细胞已死亡，看不到动态过程；间期细胞最多、加倍的只是少数。</p>
+  </div>
+</section>
+<section class="chapter" style="--ac:#EA580C">
+  <div class="ch-head">
+    <div class="ch-num">09</div>
+    <div><h1>生物的进化</h1>
+      <div class="ch-sub">必修2 第6章 · 现代生物进化理论五大要点与基因频率计算</div>
+    </div>
+  </div>
+
+  <h2>进化理论的发展</h2>
+  <ul>
+    <li><b>拉马克</b>：用进废退、获得性遗传——进步：否定物种不变论、所有生物由更古老生物进化而来；局限：认为变异是定向的（环境变化直接导致物种改变）。</li>
+    <li><b>达尔文</b>：①共同由来学说（所有生物由原始的共同祖先进化而来，揭示生物的统一性）；②自然选择学说——<b>过度繁殖（基础）、生存斗争（动力）、遗传变异（内因）、适者生存（结果）</b>，揭示生物的多样性和适应性。</li>
+    <li>自然选择学说局限（P109）：对遗传变异的认识局限于<b>性状水平</b>，不能解释本质；研究对象局限于<b>个体水平</b>；认为物种形成是渐变的，不能解释物种大爆发。</li>
+  </ul>
+
+  <h2>共同由来学说的证据</h2>
+  <ul>
+    <li><span class="k">化石</span>：保存在地层中的古代生物遗体、遗物或生活痕迹——研究生物进化<b>最直接、最重要</b>的证据；越早地层生物越低等、越简单，证实生物由共同祖先经漫长地质年代逐渐进化（简单→复杂、低等→高等、水生→陆生，P101）。</li>
+    <li>比较解剖学：同源器官（人的上肢与其他脊椎动物前肢结构一致）→共同祖先，适应不同环境出现形态功能差异。</li>
+    <li>胚胎学：人及脊椎动物胚胎发育都经历鳃裂、尾阶段。</li>
+    <li>细胞和分子水平：都含 DNA、细胞色素 C 氨基酸序列高度相似、密码子通用、都遵循中心法则；DNA/蛋白质差异大小反映亲缘关系远近与出现顺序。</li>
+  </ul>
+
+  <h2>适应的形成（P107-108）</h2>
+  <ul>
+    <li><b>适应的两层含义</b>：形态结构适合完成一定功能；形态结构及其功能适合该生物在一定环境中生存和繁殖。</li>
+    <li><b>特点</b>：普遍性（拟态、保护色）+ <b>相对性</b>（雷鸟换白羽遇降雪延迟易被天敌发现）——根本原因：遗传的稳定性与环境不断变化之间的矛盾；适应性特征是对<b>之前</b>环境适应的结果。</li>
+    <li>拉马克：适应=用进废退+获得性遗传；达尔文：适应的来源是<span class="k">可遗传变异</span>，适应是<span class="k">自然选择</span>的结果。</li>
+    <li><b>适应形成的必要条件（背诵）</b>：群体中出现<span class="k">可遗传的有利变异</span>和环境的<span class="k">定向选择</span>。</li>
+  </ul>
+
+  <h2>用进化观点解释现象</h2>
+  <ul>
+    <li><b>细菌抗药性</b>：达尔文——繁殖中产生各种可遗传变异（含抗药性强变异），抗生素使抗药弱者大量死亡、抗药强者生存繁殖，抗药个体增多；现代——抗生素滥用使耐药菌生存繁殖机会增加，耐药基因频率逐年上升形成超级细菌。</li>
+    <li><b>防止超级细菌</b>：建立耐药预警机制，耐药率超限时及时更换抗生素，将耐药率控制在低水平（抑制单一抗生素的定向选择）。</li>
+    <li>变异发生在环境选择<b>之前</b>（不定向），环境只起<b>选择</b>作用——拉马克认为环境变化在前、生物为适应环境产生变异是错误的。</li>
+  </ul>
+
+  <h2>现代生物进化理论（背诵·P123）</h2>
+  <ul>
+    <li><span class="k">适应是自然选择的结果</span>；<span class="k">种群是生物进化的基本单位</span>。</li>
+    <li><span class="k">突变和基因重组提供进化的原材料</span>，自然选择使种群基因频率<b>定向</b>改变，进而通过<b>隔离</b>形成新物种。</li>
+    <li>进化过程是<b>生物与生物、生物与环境协同进化</b>的过程；<b>生物多样性是协同进化的结果</b>。</li>
+  </ul>
+
+  <h2>种群基因频率与基因库</h2>
+  <div class="fgrid">
+    <div class="fcard"><b>种群 / 基因库 / 基因频率</b><span class="fm">生活在一定区域的同种生物全部个体；全部基因；某个基因占全部等位基因数的比值</span></div>
+    <div class="fcard"><b>定义法</b><span class="fm">某基因频率 = 该基因数 ÷ 全部等位基因数（伴X：男 = Xⁿ% ÷ (X+Y)）</span></div>
+    <div class="fcard"><b>遗传平衡定律</b><span class="fm">5条件：种群极大、随机交配、无突变、无选择、无迁入迁出；p²+2pq+q²，AA=p²、Aa=2pq、aa=q²</span></div>
+  </div>
+  <div class="bx warn"><span class="bx-tag">易错警示</span>
+    <p><b>进化的实质</b>：种群基因频率的<b>定向改变</b>（自然选择决定进化方向）。引起基因频率改变的因素：突变和基因重组、自然选择、迁入迁出、遗传漂变等。<b>变异不定向，不能决定进化方向</b>，只提供原材料；自发突变频率低但种群巨大，突变和重组的随机组合数极大。自然选择直接作用对象是生物个体（表型），本质是改变种群的基因频率。</p>
+  </div>
+
+  <h2>隔离与物种形成</h2>
+  <ul>
+    <li><span class="k">物种</span>（P116）：能在自然状态下相互交配并产生<b>可育后代</b>的一群生物。<span class="k">隔离</span>：不同种群间个体在自然条件下<b>不能自由交配或不能产生可育后代</b>的现象；实质=阻断基因交流。</li>
+    <li><span class="k">生殖隔离</span>范畴：不能交配、杂种不活（胚胎致死）、杂种不育（骡子联会紊乱）；地理隔离只是阻碍基因交流，<b>不一定</b>形成新物种。</li>
+    <li><b>物种形成三环节</b>：突变和基因重组（原材料）→ 自然选择（决定进化方向）→ 隔离（物种形成的必要条件）；新物种形成的标志=<span class="k">生殖隔离</span>。</li>
+    <li>关系：基因频率改变→一定发生进化，但不一定形成新物种；只有基因库差异达到不能实现基因交流的程度才形成新物种。</li>
+    <li>四倍体西瓜与二倍体杂交所得三倍体不育，故四倍体是新物种；三倍体西瓜、骡不是物种（无性生殖生物以表型特征区分）。</li>
+  </ul>
+
+  <h2>协同进化与生物多样性</h2>
+  <ul>
+    <li><span class="k">协同进化</span>（P121）：<b>不同物种之间</b>、<b>生物与无机环境之间</b>在相互影响中不断进化和发展；结果=形成生物多样性。</li>
+    <li>捕食者作用（P119）：捕食个体数量多的物种，避免一种或少数几种生物占绝对优势（<b>收割理论</b>）；吃掉年老病弱幼小个体促进种群发展；促进协同进化。</li>
+    <li><b>生物多样性三个层次</b>：<span class="k">基因（遗传）多样性、物种多样性、生态系统多样性</span>；形成过程：由原始生命进化出原核→真核→多细胞→各类生物。</li>
+  </ul>
+  <div class="bx note"><span class="bx-tag">边角小字</span>
+    <p><b>探究抗生素对细菌的选择作用（P115）</b>：抑菌圈直径逐代变小=耐药菌比例升高；结论：耐药性来自可遗传变异（基因突变），抗生素起定向选择作用。</p>
+  </div>
+  <div class="bx exp"><span class="bx-tag">高考真题链接</span>
+    <p>ZW 型基因频率计算：雌性 ZaW%=10% → 种群短口器雌性占 5%；遗传平衡计算伴X性状：男 7%→女 0.49%。拓展概念：中性学说（中性突变靠遗传漂变固定）、遗传漂变（小种群随机波动更显著）。</p>
+  </div>
+</section>
+    </div>
+    <div class="foot-note">人教版（2019年版）高中生物学 · 数据保存在本机浏览器 · 生成于 2026-11-19</div>
+  </div>
+</div>
+<div class="mask" id="mask"></div>
+<div id="puppy-run"><img alt="小狗奔跑"></div>
+<div class="modal" id="m-quiz">
+  <h3>判断快测<button class="m-close">✕</button></h3>
+  <div class="sel-row" id="qz-chips"></div>
+  <div class="qz-meta" id="qz-meta">点击上方章节标签开始练习，每轮 10 题</div>
+  <div class="qz-stem" id="qz-stem">每题给出一个说法，判断它正确（√）还是错误（×），答完立即显示解析。</div>
+  <div class="qz-btns" id="qz-btns" style="display:none"><button id="qz-yes">√ 对</button><button id="qz-no">× 错</button></div>
+  <div class="qz-fb" id="qz-fb"></div>
+  <button class="qz-next" id="qz-next">下一题</button>
+</div>
+<div class="modal" id="m-cards">
+  <h3>闪卡自测<button class="m-close">✕</button></h3>
+  <div class="sel-row" id="fc-chips"></div>
+  <div class="qz-meta" id="fc-meta">点击上方章节标签开始</div>
+  <div class="fc-box" id="fc-box"><div class="fc-card"><div class="fc-face"><div class="fc-term">正面：知识点</div><div class="fc-hint">点击卡片翻转查看解释</div></div><div class="fc-face back"><div>背面：所在条目原文</div></div></div></div>
+  <div class="fc-btns" id="fc-btns" style="display:none"><button class="no" id="fc-no">没记住</button><button class="yes" id="fc-yes">记住了</button></div>
+</div>
+<div class="modal" id="m-search">
+  <h3>搜索知识点&nbsp;<kbd>Ctrl</kbd> <kbd>K</kbd><button class="m-close">✕</button></h3>
+  <input class="sp-input" id="sp-input" placeholder="输入关键词，如：秋水仙素 / 质壁分离 / 密码子">
+  <div class="sp-list" id="sp-list"></div>
+</div>
+<div class="modal" id="m-dice">
+  <h3>随机抽背<button class="m-close">✕</button></h3>
+  <div class="qz-stem"><div class="fc-term" id="dice-term"></div><div id="dice-ctx" style="margin-top:10px;font-size:13.5px"></div></div>
+  <button class="qz-next show" id="dice-again">换一个</button>
+</div>
+<button class="xback" id="xback">← <span></span></button>
+<script>const BOOK={"id": "m2", "label": "必修2《遗传与进化》", "badge": "GAOKAO BIOLOGY · 必修二", "sub": "课本边角小字 · 易错点 · 易考点 全收录", "chapters": [{"n": "01", "t": "减数分裂和受精作用", "s": "", "secs": ["减数分裂的概念（背诵）", "分裂过程", "配子种类与规律", "受精作用"]}, {"n": "02", "t": "基因的分离定律", "s": "", "secs": ["实验材料与基本操作", "假说-演绎法（背诵）", "分离定律的实质与验证", "应用一：显隐性判断", "应用二：纯合子/杂合子鉴定", "应用三：连续自交与自由交配"]}, {"n": "03", "t": "基因的自由组合定律", "s": "", "secs": ["两对相对性状的杂交实验", "实质（背诵）", "解题方法：先分后合（乘法原理）", "9:3:3:1 的变式（高频）", "验证自由组合的四种方法", "两对基因的位置判断（连锁与互换）", "杂交育种"]}, {"n": "04", "t": "基因在染色体上、伴性遗传与人类遗传病", "s": "", "secs": ["萨顿假说（类比推理法）", "摩尔根实验（假说-演绎法）", "性别决定与伴性遗传", "遗传系谱图判断（准确/最可能）", "人类遗传病"]}, {"n": "05", "t": "DNA 是主要的遗传物质", "s": "", "secs": ["肺炎链球菌转化实验", "噬菌体侵染细菌实验", "烟草花叶病毒的重建实验", "总结与辨析"]}, {"n": "06", "t": "DNA 的结构、基因的本质与 DNA 复制", "s": "", "secs": ["DNA 双螺旋结构的特点（背诵·P50）", "碱基计算", "遗传信息与基因的本质（背诵）", "DNA 的复制（背诵·P56）"]}, {"n": "07", "t": "基因的表达", "s": "", "secs": ["RNA 与密码子", "转录", "翻译", "数量关系与中心法则", "基因与性状的关系（背诵·P71）", "表观遗传（P74）"]}, {"n": "08", "t": "基因突变、基因重组和染色体变异", "s": "", "secs": ["基因突变", "基因重组", "三种可遗传变异的比较", "染色体结构变异", "染色体数目变异与染色体组", "育种方法"]}, {"n": "09", "t": "生物的进化", "s": "", "secs": ["进化理论的发展", "共同由来学说的证据", "适应的形成（P107-108）", "用进化观点解释现象", "现代生物进化理论（背诵·P123）", "种群基因频率与基因库", "隔离与物种形成", "协同进化与生物多样性"]}], "quiz": [{"q": "1 个精原细胞经减数分裂可产生 4 种精子", "a": false, "e": "两两相同、互补，实为 2 种 4 个", "ch": 0}, {"q": "减Ⅱ后期着丝粒分裂，染色体数目暂时加倍", "a": true, "e": "减Ⅱ全程无同源染色体", "ch": 0}, {"q": "减Ⅰ同源染色体未分离，产生的 4 个配子全部异常", "a": true, "e": "减Ⅱ异常则只有一半配子异常", "ch": 0}, {"q": "减Ⅱ着丝粒分裂后单体未移向两极，4 个配子同样全部异常", "a": false, "e": "2 个正常、2 个异常", "ch": 0}, {"q": "受精卵的染色体数目恢复到本物种体细胞数目", "a": true, "e": "减数分裂减半 + 受精恢复，维持前后代染色体数目恒定", "ch": 0}, {"q": "杂合子 Aa 自交后代的性状分离比为 3:1", "a": true, "e": "", "ch": 1}, {"q": "杂合子测交后代的显隐比为 3:1", "a": false, "e": "测交后代为 1:1，比例反映被测个体配子种类及比例", "ch": 1}, {"q": "显性纯合致死时，杂合子自交后代显:隐 = 2:1", "a": true, "e": "AA 致死，存活个体为 Aa:aa = 2:1", "ch": 1}, {"q": "隐性纯合致死时，杂合子自交后代全为隐性", "a": false, "e": "后代全为显性", "ch": 1}, {"q": "非同源染色体上的非等位基因自由组合发生在减Ⅰ后期", "a": true, "e": "", "ch": 2}, {"q": "AaBb 测交后代四种表现型的比例为 9:3:3:1", "a": false, "e": "测交为 1:1:1:1；9:3:3:1 是自交结果", "ch": 2}, {"q": "不考虑互换，n 对同源染色体的个体可产生 2ⁿ 种配子", "a": true, "e": "", "ch": 2}, {"q": "红绿色盲是伴 X 染色体隐性遗传病", "a": true, "e": "男患者多于女患者，存在交叉遗传", "ch": 3}, {"q": "抗维生素 D 佝偻病是常染色体显性遗传病", "a": false, "e": "伴 X 染色体显性遗传，女多于男、世代连续", "ch": 3}, {"q": "调查遗传病发病率应在患者家系中抽样", "a": false, "e": "发病率在广大人群中随机抽样；家系调查用于确定遗传方式", "ch": 3}, {"q": "噬菌体侵染细菌实验证明 DNA 是遗传物质", "a": true, "e": "", "ch": 4}, {"q": "TMV 实验证明 RNA 是烟草花叶病毒的遗传物质", "a": true, "e": "RNA 病毒的基因在 RNA 上", "ch": 4}, {"q": "所有生物的遗传物质都是 DNA", "a": false, "e": "RNA 病毒以 RNA 为遗传物质，故称 DNA 是主要的遗传物质", "ch": 4}, {"q": "DNA 双链中每个磷酸基团都连接 2 个脱氧核糖", "a": false, "e": "每个磷酸连接 1~2 个脱氧核糖，两端 2 个游离磷酸各只连 1 个", "ch": 5}, {"q": "DNA 复制 n 代后共 2ⁿ 个 DNA，含亲代链的只有 2 个", "a": true, "e": "半保留复制", "ch": 5}, {"q": "人类基因组测序需测定 24 条染色体", "a": true, "e": "22 条常染色体 + X + Y", "ch": 5}, {"q": "翻译的直接模板是 DNA", "a": false, "e": "翻译模板是 mRNA", "ch": 6}, {"q": "密码子位于 mRNA 上，反密码子位于 tRNA 上", "a": true, "e": "", "ch": 6}, {"q": "中心法则包括 DNA 复制、转录和翻译等信息传递过程", "a": true, "e": "", "ch": 6}, {"q": "基因突变能产生新基因，是生物变异的根本来源", "a": true, "e": "为生物进化提供原材料", "ch": 7}, {"q": "秋水仙素诱导多倍体的原理是抑制纺锤体形成", "a": true, "e": "作用于分裂前期；诱导基因突变则作用于间期", "ch": 7}, {"q": "21 三体综合征是由基因突变引起的遗传病", "a": false, "e": "染色体异常遗传病（体细胞多一条 21 号染色体）", "ch": 7}, {"q": "单倍体的体细胞染色体数目与本物种配子相同", "a": true, "e": "", "ch": 7}, {"q": "受精作用过程中会发生基因重组", "a": false, "e": "基因重组不发生在受精作用中", "ch": 7}, {"q": "生物进化的基本单位是种群", "a": true, "e": "", "ch": 8}, {"q": "生物进化的实质是种群基因频率的改变", "a": true, "e": "自然选择使基因频率定向改变", "ch": 8}, {"q": "共同进化只发生在不同物种之间", "a": false, "e": "还包括生物与无机环境之间", "ch": 8}, {"q": "新物种形成的标志是产生生殖隔离", "a": true, "e": "隔离是物种形成的必要条件", "ch": 8}], "cards": [{"t": "核 DNA 加倍", "c": "染色体数不变", "ch": 0}, {"t": "核 DNA / 染色体减半", "c": "同源染色体分离入两子细胞", "ch": 0}, {"t": "染色体暂时加倍", "c": "着丝粒分裂；减Ⅱ全程无同源", "ch": 0}, {"t": "1个精原细胞", "c": "2种4个精子（两两相同、互补）", "ch": 0}, {"t": "1个卵原细胞", "c": "1种1个卵细胞", "ch": 0}, {"t": "个体配子种类", "c": "n对同源染色体（不考虑互换）→ 2n 种", "ch": 0}, {"t": "互换率", "c": "发生交换的初级精母细胞比例 = 重组型配子比例 × 2", "ch": 0}, {"t": "同源染色体", "c": "同源染色体：减Ⅰ中配对的两条染色体，形状大小一般相同，一条来自父方、一条来自母方。", "ch": 0}, {"t": "联会", "c": "联会：同源染色体两两配对（减Ⅰ前期）；联会后每对同源染色体含4条染色单体，称四分体（1四分体=1对同源=2条染色体=4条单体=2个着丝粒）。", "ch": 0}, {"t": "四分体", "c": "联会：同源染色体两两配对（减Ⅰ前期）；联会后每对同源染色体含4条染色单体，称四分体（1四分体=1对同源=2条染色体=4条单体=2个着丝粒）。", "ch": 0}, {"t": "交叉互换", "c": "交叉互换：四分体时期，同源染色体的非姐妹染色单体之间交换对应片段（属于基因重组）。", "ch": 0}, {"t": "透明带反应", "c": "过程：精子头部进入卵细胞，尾部留外；透明带反应、卵细胞膜反应阻止多个精子入卵。", "ch": 0}, {"t": "卵细胞膜反应", "c": "过程：精子头部进入卵细胞，尾部留外；透明带反应、卵细胞膜反应阻止多个精子入卵。", "ch": 0}, {"t": "显性纯合致死", "c": "杂合子自交 → 显:隐 = 2:1", "ch": 1}, {"t": "隐性纯合致死", "c": "杂合子自交 → 后代全显性", "ch": 1}, {"t": "配子致死", "c": "如 AB 雄配子致死 → 5:3:3:1 变式（见第3章）", "ch": 1}, {"t": "杂合子连续自交 n 代", "c": "Aa 占 (1/2)n；纯合子 1−(1/2)n；显纯=隐纯=[1−(1/2)n]/2", "ch": 1}, {"t": "连续自交逐代淘汰 aa", "c": "AA:Aa 比例每代不变，淘汰后按比例重新归一化", "ch": 1}, {"t": "自由交配", "c": "基因频率不变，基因型频率自 F1 起稳定（遗传平衡）", "ch": 1}, {"t": "自交", "c": "自交：基因型相同个体间交配（闭花授粉、同株授粉）；杂交：基因型不同个体交配；测交：与隐性纯合子杂交。", "ch": 1}, {"t": "相对性状", "c": "相对性状：一种生物同一种性状的不同表现类型；性状分离：杂种后代中同时出现显性性状和隐性性状。", "ch": 1}, {"t": "等位基因", "c": "等位基因：同源染色体相同位置上控制相对性状的基因（纯合子同位置为相同基因；本质区别是碱基排列顺序不同）。", "ch": 1}, {"t": "同一对同源染色体·不考虑互换", "c": "完全连锁：自交后代全显性或 显:隐=3:1（比例型同单基因）；测交后代 1:1", "ch": 2}, {"t": "同一对同源染色体·考虑互换", "c": "重组型配子少：测交后代两多两少；自交后代两种单显性比例始终相等", "ch": 2}, {"t": "亲本型判断", "c": "aabb 占比＞1/16 → ab 为亲本型配子；＜1/16 → ab 为重组型配子", "ch": 2}, {"t": "重组类型", "c": "F1 全为黄圆（黄对绿、圆对皱均为显性）；F2 出现亲本没有的重组类型，四种表现型之比 9:3:3:1。", "ch": 2}, {"t": "呈线性排列", "c": "结论：基因在染色体上；后又发明测定基因相对位置的方法（三点测交），证明基因在染色体上呈线性排列。", "ch": 3}, {"t": "³⁵S 标记蛋白质", "c": "理论上沉淀物无放射性；实测有少量→搅拌不充分，噬菌体仍吸附在细菌表面", "ch": 4}, {"t": "³²P 标记 DNA", "c": "理论上上清液无放射性；实测有少量→保温过短（未全部侵入）或过长（细菌裂解释放子代）", "ch": 4}, {"t": "结论", "c": "DNA 是遗传物质，蛋白质不是（有争议说\"没证明\"）", "ch": 4}, {"t": "转化因子", "c": "格里菲思体内转化：加热杀死的S型菌 + 活R型菌 → 小鼠死亡，体内分离出活S型菌 → 加热杀死的S型菌中含有\"转化因子\"，使R型转化为S型。", "ch": 4}, {"t": "不互补碱基之和恒定", "c": "A+G = T+C = 50%", "ch": 5}, {"t": "互补碱基比例相等", "c": "单链(A+T)% = 互补链(A+T)% = 双链(A+T)%", "ch": 5}, {"t": "氢键数", "c": "n对碱基中G-C有m对：2(n−m)+3m = 2n+m", "ch": 5}, {"t": "磷酸二酯键", "c": "2n−2 个（n为碱基对数）", "ch": 5}, {"t": "时间", "c": "有丝分裂间期、减数第一次分裂前的间期", "ch": 5}, {"t": "场所", "c": "主要细胞核；其次线粒体、叶绿体；原核在拟核、质粒", "ch": 5}, {"t": "条件", "c": "模板（两条母链）、原料（4种游离脱氧核苷酸）、能量、酶（解旋酶、DNA聚合酶等）", "ch": 5}, {"t": "过程", "c": "解旋 → 合成子链 → 重新螺旋（边解旋边复制）", "ch": 5}, {"t": "特点", "c": "半保留复制；多起点、双向复制", "ch": 5}, {"t": "结果与意义", "c": "1个DNA→2个完全相同的DNA；保持遗传信息连续性", "ch": 5}, {"t": "n 次复制后 DNA", "c": "共 2n 个；含¹⁵N的 2 个；只含¹⁴N的 2n−2 个", "ch": 5}, {"t": "脱氧核苷酸链", "c": "共 2n+1 条；含¹⁵N的链 2 条；含¹⁴N的 2n+1−2 条", "ch": 5}, {"t": "消耗某种脱氧核苷酸", "c": "亲代含 m 个：n 次共耗 m(2n−1)；第 n 次耗 m·2n−1", "ch": 5}, {"t": "碱基互补配对原则", "c": "外侧：脱氧核糖与磷酸交替连接构成基本骨架；内侧：碱基通过氢键形成碱基对（A=T，G≡C），遵循碱基互补配对原则。", "ch": 5}, {"t": "遗传信息", "c": "遗传信息：基因中 4 种碱基（脱氧核苷酸）的排列顺序。多样性：碱基对的数目和排列顺序千变万化；特异性：每种生物有特定的碱基排列顺序（β-珠蛋白基因1700对→41700 种排列）。", "ch": 5}, {"t": "基因", "c": "基因：通常是有遗传效应的 DNA 片段。基因在 DNA 上不连续分布（被碱基序列分隔）；染色体是 DNA 的主要载体，基因在染色体上呈线性排列；RNA 病毒的基因在 RNA 上。", "ch": 5}, {"t": "遗传效应", "c": "基因：通常是有遗传效应的 DNA 片段。基因在 DNA 上不连续分布（被碱基序列分隔）；染色体是 DNA 的主要载体，基因在染色体上呈线性排列；RNA 病毒的基因在 RNA 上。", "ch": 5}, {"t": "密码子", "c": "密码子：mRNA 上决定一个氨基酸的 3 个相邻碱基，共 4³=64 种（3 种终止密码子、61 种决定氨基酸）；反密码子在 tRNA 上。一种密码子只决定一种氨基酸，一种氨基酸可由一种或多种密码子决定。", "ch": 6}, {"t": "反密码子", "c": "密码子：mRNA 上决定一个氨基酸的 3 个相邻碱基，共 4³=64 种（3 种终止密码子、61 种决定氨基酸）；反密码子在 tRNA 上。一种密码子只决定一种氨基酸，一种氨基酸可由一种或多种密码子决定。", "ch": 6}, {"t": "启动子", "c": "启动子：基因上游，RNA 聚合酶识别结合位点，本身不被转录；终止子：编码区下游，终止转录（RNA 水平形成茎-环结构）。", "ch": 6}, {"t": "终止子", "c": "启动子：基因上游，RNA 聚合酶识别结合位点，本身不被转录；终止子：编码区下游，终止转录（RNA 水平形成茎-环结构）。", "ch": 6}, {"t": "肽键", "c": "核糖体有 2 个 tRNA 结合位点；氨基酸间脱水缩合形成肽键；遇终止密码子合成终止。", "ch": 6}, {"t": "酶的合成控制代谢过程", "c": "间接控制：基因通过控制酶的合成控制代谢过程，进而控制性状——白化病（酪氨酸酶）、豌豆皱粒（淀粉分支酶）。", "ch": 6}, {"t": "蛋白质的结构", "c": "直接控制：基因通过控制蛋白质的结构直接控制性状——镰刀型细胞贫血（血红蛋白）、囊性纤维化（CFTR）。", "ch": 6}, {"t": "选择性表达", "c": "细胞分化的实质：基因的选择性表达；不同细胞 mRNA 不同，但 tRNA、rRNA 无差异。", "ch": 6}, {"t": "碱基序列保持不变", "c": "概念（背诵）：生物体基因的碱基序列保持不变，但基因表达和表型发生可遗传变化的现象。", "ch": 6}, {"t": "基因表达和表型发生可遗传变化", "c": "概念（背诵）：生物体基因的碱基序列保持不变，但基因表达和表型发生可遗传变化的现象。", "ch": 6}, {"t": "替换、增添或缺失", "c": "概念（背诵·P81）：DNA 分子中发生碱基的替换、增添或缺失，而引起的基因碱基序列的改变。", "ch": 7}, {"t": "碱基序列的改变", "c": "概念（背诵·P81）：DNA 分子中发生碱基的替换、增添或缺失，而引起的基因碱基序列的改变。", "ch": 7}, {"t": "普遍性、随机性、不定向性、低频性、多害少利性", "c": "5个特点：普遍性、随机性、不定向性、低频性、多害少利性。", "ch": 7}, {"t": "染色体组", "c": "染色体组（背诵·P87）：细胞中的一组非同源染色体，形态和功能各不相同，携带着控制生物生长发育的全部遗传信息。", "ch": 7}, {"t": "单倍体", "c": "二倍体：受精卵发育、含2个组；多倍体：受精卵发育、含3个及以上组；单倍体：体细胞染色体数与本物种配子相同——由配子直接发育，不论几个组都是单倍体（雄蜂、四倍体的单倍体含2组）。", "ch": 7}, {"t": "纺锤体形成", "c": "秋水仙素/低温原理：作用于分裂前期，抑制纺锤体形成→染色体不能移向两极→细胞不分裂→染色体数目加倍（秋水仙素诱导基因突变则作用于间期）。", "ch": 7}, {"t": "种群 / 基因库 / 基因频率", "c": "生活在一定区域的同种生物全部个体；全部基因；某个基因占全部等位基因数的比值", "ch": 8}, {"t": "定义法", "c": "某基因频率 = 该基因数 ÷ 全部等位基因数（伴X：男 = Xⁿ% ÷ (X+Y)）", "ch": 8}, {"t": "遗传平衡定律", "c": "5条件：种群极大、随机交配、无突变、无选择、无迁入迁出；p²+2pq+q²，AA=p²、Aa=2pq、aa=q²", "ch": 8}, {"t": "化石", "c": "化石：保存在地层中的古代生物遗体、遗物或生活痕迹——研究生物进化最直接、最重要的证据；越早地层生物越低等、越简单，证实生物由共同祖先经漫长地质年代逐渐进化（简单→复杂、低等→高等、水生→陆生，P101）。", "ch": 8}, {"t": "可遗传变异", "c": "拉马克：适应=用进废退+获得性遗传；达尔文：适应的来源是可遗传变异，适应是自然选择的结果。", "ch": 8}, {"t": "自然选择", "c": "拉马克：适应=用进废退+获得性遗传；达尔文：适应的来源是可遗传变异，适应是自然选择的结果。", "ch": 8}, {"t": "可遗传的有利变异", "c": "适应形成的必要条件（背诵）：群体中出现可遗传的有利变异和环境的定向选择。", "ch": 8}, {"t": "定向选择", "c": "适应形成的必要条件（背诵）：群体中出现可遗传的有利变异和环境的定向选择。", "ch": 8}, {"t": "适应是自然选择的结果", "c": "适应是自然选择的结果；种群是生物进化的基本单位。", "ch": 8}, {"t": "种群是生物进化的基本单位", "c": "适应是自然选择的结果；种群是生物进化的基本单位。", "ch": 8}, {"t": "突变和基因重组提供进化的原材料", "c": "突变和基因重组提供进化的原材料，自然选择使种群基因频率定向改变，进而通过隔离形成新物种。", "ch": 8}, {"t": "物种", "c": "物种（P116）：能在自然状态下相互交配并产生可育后代的一群生物。隔离：不同种群间个体在自然条件下不能自由交配或不能产生可育后代的现象；实质=阻断基因交流。", "ch": 8}, {"t": "隔离", "c": "物种（P116）：能在自然状态下相互交配并产生可育后代的一群生物。隔离：不同种群间个体在自然条件下不能自由交配或不能产生可育后代的现象；实质=阻断基因交流。", "ch": 8}, {"t": "生殖隔离", "c": "生殖隔离范畴：不能交配、杂种不活（胚胎致死）、杂种不育（骡子联会紊乱）；地理隔离只是阻碍基因交流，不一定形成新物种。", "ch": 8}, {"t": "协同进化", "c": "协同进化（P121）：不同物种之间、生物与无机环境之间在相互影响中不断进化和发展；结果=形成生物多样性。", "ch": 8}, {"t": "基因（遗传）多样性、物种多样性、生态系统多样性", "c": "生物多样性三个层次：基因（遗传）多样性、物种多样性、生态系统多样性；形成过程：由原始生命进化出原核→真核→多细胞→各类生物。", "ch": 8}], "search": [{"id": "c0", "ch": 0, "chT": "减数分裂和受精作用", "t": "减数分裂和受精作用", "terms": "", "x": "01 减数分裂和受精作用 必修2 第1章第1节 · 配图判读、曲线分析与配子异常是高考主线"}, {"id": "c0s0", "ch": 0, "chT": "减数分裂和受精作用", "t": "减数分裂的概念（背诵）", "terms": "减数分裂", "x": "减数分裂的概念（背诵） 减数分裂：进行有性生殖的生物，在产生成熟生殖细胞时进行的染色体数目减半的细胞分裂。染色体复制一次，细胞连续分裂两次，结果成熟生殖细胞中染色体数目比原始生殖细胞减少一半。"}, {"id": "c0s1", "ch": 0, "chT": "减数分裂和受精作用", "t": "分裂过程", "terms": "同源染色体 联会 四分体 交叉互换", "x": "分裂过程 精子形成：精原细胞 →（复制）→ 初级精母细胞 →（减Ⅰ：同源染色体分离、细胞质均分）→ 2个次级精母细胞 →（减Ⅱ：着丝粒分裂）→ 精细胞 →（变形）→ 4个精子 卵细胞形成：卵原细胞 → 初级卵母细胞 →（减Ⅰ不均等分裂）→ 次级卵母细胞 + 第一极体 →（减Ⅱ不均等 / 均等）→ 1个卵细胞 + 3个极体（极体退化消失） 关键概念 同源染色体：减Ⅰ中配对的两条染色体，形状大小一般相同，一条来自父方、一条来自母方。 联会：同源染色体两两配对（减Ⅰ前期）；联会后每对同源染色体含4条染色单体，称四分体（1四分体=1对同源=2条染色体=4条单体=2个着丝粒）。 交叉互换：四分体时期，同源染色体的非姐妹染色单体之间交换对应片段（属于基因重组）。 减Ⅰ后期：同源染色体分离（等位基因随之分离），非同源染色体自由组合；减Ⅱ后期：着丝粒分裂，姐妹染色单体分开。 易错警示 图像三步判断：①无同源染色体→减Ⅱ；②有同源且同源分离→减Ⅰ"}, {"id": "c0s2", "ch": 0, "chT": "减数分裂和受精作用", "t": "配子种类与规律", "terms": "", "x": "配子种类与规律 1个精原细胞2种4个精子（两两相同、互补） 1个卵原细胞1种1个卵细胞 个体配子种类n对同源染色体（不考虑互换）→ 2n 种 互换率发生交换的初级精母细胞比例 = 重组型配子比例 × 2 易错警示 异常配子：减Ⅰ同源染色体未分离→4个配子全部异常；减Ⅱ着丝粒分裂后单体未移向两极→2个正常、2个异常。异常精子 XbY 与 X 卵结合→XXY（21 三体综合征的形成机理与之同类，见课后题）；减Ⅱ时 Y 单体未分开→含 YY 的精子→XYY。"}, {"id": "c0s3", "ch": 0, "chT": "减数分裂和受精作用", "t": "受精作用", "terms": "透明带反应 卵细胞膜反应", "x": "受精作用 过程：精子头部进入卵细胞，尾部留外；透明带反应、卵细胞膜反应阻止多个精子入卵。 意义（背诵）：受精卵的染色体数目恢复到本物种体细胞数目，其中一半来自精子、一半来自卵细胞；配子多样性 + 精卵随机结合 → 同一双亲后代呈多样性。 减数分裂使染色体减半、受精作用使之恢复，对维持每种生物前后代染色体数目的恒定，以及遗传和变异，都具有重要意义。 边角小字 观察蝗虫精母细胞减数分裂实验（P24）：选雄性生殖器官——精母细胞数量多且持续分裂，而卵巢中减Ⅱ常未完成、形成的卵细胞少；装片中视野方向不一的分裂相多；雄蜂（单倍体）无同源染色体，经特殊的假减数分裂仍能产生精子，且具有一整套基因。 高考真题链接 山东卷（2022/2023/2024/2026）反复考查：减Ⅱ姐妹染色单体互锁、环状染色体交换后子细胞基因组成、配子异常的成因判定——核心抓手是\"减Ⅰ异常→全异常；减Ⅱ异常→半数异常\"。"}, {"id": "c1", "ch": 1, "chT": "基因的分离定律", "t": "基因的分离定律", "terms": "", "x": "02 基因的分离定律 必修2 第1章第2节 · 假说-演绎法与显隐性判断是方法学核心"}, {"id": "c1s0", "ch": 1, "chT": "基因的分离定律", "t": "实验材料与基本操作", "terms": "自交 相对性状 等位基因", "x": "实验材料与基本操作 豌豆优点：①自花传粉、闭花受粉，自然状态下都是纯种；②具有易于区分的相对性状；③生长周期短、后代数量大；④花大，易操作。 果蝇优点：易饲养、繁殖快、后代数量多；相对性状多而明显；染色体少、易观察。玉米优点：繁殖快、后代多；相对性状明显；雌雄同株异花，杂交易操作。 人工异花传粉：花蕾期人工去雄 → 套袋 → 人工授粉 → 再套袋（母本去雄须在开花前）。 基本概念 自交：基因型相同个体间交配（闭花授粉、同株授粉）；杂交：基因型不同个体交配；测交：与隐性纯合子杂交。 相对性状：一种生物同一种性状的不同表现类型；性状分离：杂种后代中同时出现显性性状和隐性性状。 等位基因：同源染色体相同位置上控制相对性状的基因（纯合子同位置为相同基因；本质区别是碱基排列顺序不同）。 融合遗传≠不完全显性：紫茉莉红×白→粉花，粉花自交后代 1红:2粉:1白，可重新出现红、白，属于颗粒遗传。"}, {"id": "c1s1", "ch": 1, "chT": "基因的分离定律", "t": "假说-演绎法（背诵）", "terms": "", "x": "假说-演绎法（背诵） 四步：提出问题 → 提出假说 → 演绎推理（若假说成立，测交后代应为 1:1）→ 实验验证（实际 1:1）→ 得出结论 假说内容：①生物性状由遗传因子决定；②体细胞中遗传因子成对存在；③形成配子时每对遗传因子分离，分别进入不同配子；④受精时雌雄配子随机结合。 核心：F1 产生数量相等的两种配子。测交后代比例反映被测个体配子种类及比例。"}, {"id": "c1s2", "ch": 1, "chT": "基因的分离定律", "t": "分离定律的实质与验证", "terms": "等位基因随同源染色体的分开而分离", "x": "分离定律的实质与验证 实质（背诵·P32）：杂合子细胞中，位于一对同源染色体上的等位基因具有一定的独立性；在减数分裂形成配子时，等位基因随同源染色体的分开而分离，独立地随配子遗传给后代（减Ⅰ后期）。 易错警示 符合分离定律不一定出现 3:1，3:1 成立需同时满足：①配子成活率均等；②基因型个体成活率均等；③子代数目足够多；④完全显性；⑤等位基因仅一对且无致死。最能说明实质的是 F1 产生配子比为 1:1。 特殊分离比 显性纯合致死杂合子自交 → 显:隐 = 2:1 隐性纯合致死杂合子自交 → 后代全显性 配子致死如 AB 雄配子致死 → 5:3:3:1 变式（见第3章）"}, {"id": "c1s3", "ch": 1, "chT": "基因的分离定律", "t": "应用一：显隐性判断", "terms": "", "x": "应用一：显隐性判断 定义法（杂交）：两不同性状亲本杂交，子代只出现一种性状→子代性状为显性；同性状亲本杂交出现分离→新性状为隐性。 自交法：自交后代出现性状分离→亲本为显性（适用于植物，最简便）。 动物判断显隐性：多对杂交统计比例（单次交配后代少，不能直接下结论）。"}, {"id": "c1s4", "ch": 1, "chT": "基因的分离定律", "t": "应用二：纯合子/杂合子鉴定", "terms": "", "x": "应用二：纯合子/杂合子鉴定 方法操作与判断适用 自交后代无性状分离→纯合子；有分离→杂合子植物（最简便） 测交×隐性纯合子，子代一种性状→纯合；两种→杂合动物（雄性需与多只隐性雌性交配）、植物均可 花粉鉴定两种花粉1:1→杂合（如糯性与非糯性碘染）仅部分特殊植物，最直接证明"}, {"id": "c1s5", "ch": 1, "chT": "基因的分离定律", "t": "应用三：连续自交与自由交配", "terms": "", "x": "应用三：连续自交与自由交配 杂合子连续自交 n 代Aa 占 (1/2)n；纯合子 1−(1/2)n；显纯=隐纯=[1−(1/2)n]/2 连续自交逐代淘汰 aaAA:Aa 比例每代不变，淘汰后按比例重新归一化 自由交配基因频率不变，基因型频率自 F1 起稳定（遗传平衡） 高频考点 性状分离比模拟实验：甲乙两桶代表雌雄生殖器官，彩球代表配子，两色球代表两种配子；随机抓取组合模拟雌雄配子随机结合。要求：每桶两色球数量相等、抓取随机、记录后放回摇匀、重复 30 次以上以减少误差。"}, {"id": "c2", "ch": 2, "chT": "基因的自由组合定律", "t": "基因的自由组合定律", "terms": "", "x": "03 基因的自由组合定律 必修2 第1章第2节 · 9:3:3:1 变式与两对基因位置判断是解题难点"}, {"id": "c2s0", "ch": 2, "chT": "基因的自由组合定律", "t": "两对相对性状的杂交实验", "terms": "重组类型", "x": "两对相对性状的杂交实验 F1 全为黄圆（黄对绿、圆对皱均为显性）；F2 出现亲本没有的重组类型，四种表现型之比 9:3:3:1。 每一对相对性状单独分析均符合分离定律（黄:绿=3:1，圆:皱=3:1）。 F2 结构：4种纯合子各占 1/16；4种单杂合子各占 2/16；双杂合子 YyRr 占 4/16。 测交结果 1:1:1:1，可检测 F1 配子种类及比例、基因型、纯合杂合。"}, {"id": "c2s1", "ch": 2, "chT": "基因的自由组合定律", "t": "实质（背诵）", "terms": "同源染色体上的等位基因分离的同时，非同源染色体上的非等位基因自由组合", "x": "实质（背诵） 同源染色体上的等位基因分离的同时，非同源染色体上的非等位基因自由组合（减Ⅰ后期）。两定律同时进行、同时起作用；自由组合发生在产生配子时，配子的随机结合不属于自由组合。 易错警示 非等位基因不一定位于非同源染色体上——同一条染色体上的多个基因也是非等位基因，但不能自由组合（连锁）。\"非同源染色体自由组合，使所有非等位基因自由组合\"错误。"}, {"id": "c2s2", "ch": 2, "chT": "基因的自由组合定律", "t": "解题方法：先分后合（乘法原理）", "terms": "", "x": "解题方法：先分后合（乘法原理） 正推：AaBb×Aabb → 子代基因型 3×2=6 种，表现型 2×2=4 种；某基因型概率=两对概率相乘。 逆推：由子代表现型及比例倒推双亲基因型（先拆分每对性状）。 两种遗传病概率：每对先算，再乘（自由组合为前提）。 分解组合法的前提是两对基因独立遗传（配子中比例互不干扰）；若配子比例随搭配改变则不适用（连锁）。"}, {"id": "c2s3", "ch": 2, "chT": "基因的自由组合定律", "t": "9:3:3:1 的变式（高频）", "terms": "", "x": "9:3:3:1 的变式（高频） F2 分离比原因（配子致死类用棋盘法：列出配子→删除致死→重新归纳） 5:3:3:1AB 的雄配子或雌配子致死 7:3:1:1Ab 的雄配子或雌配子致死 7:1:3:1aB 的雄配子或雌配子致死 8:2:2ab 的雄配子或雌配子致死 6:3:2:1AA 或 BB 显性纯合致死 4:2:2:1AA 和 BB 同时显性纯合致死 3:1aa 或 bb 隐性纯合致死 9:3:3aabb 受精卵（胚胎）致死"}, {"id": "c2s4", "ch": 2, "chT": "基因的自由组合定律", "t": "验证自由组合的四种方法", "terms": "", "x": "验证自由组合的四种方法 自交法：F1（AaBb）自交后代 9:3:3:1； 测交法：后代 1:1:1:1； 花粉鉴定法：四种花粉 1:1:1:1； 单倍体育种法：花药培养加倍后四种表现型 1:1:1:1。"}, {"id": "c2s5", "ch": 2, "chT": "基因的自由组合定律", "t": "两对基因的位置判断（连锁与互换）", "terms": "", "x": "两对基因的位置判断（连锁与互换） 同一对同源染色体·不考虑互换完全连锁：自交后代全显性或 显:隐=3:1（比例型同单基因）；测交后代 1:1 同一对同源染色体·考虑互换重组型配子少：测交后代两多两少；自交后代两种单显性比例始终相等 亲本型判断aabb 占比＞1/16 → ab 为亲本型配子；＜1/16 → ab 为重组型配子"}, {"id": "c2s6", "ch": 2, "chT": "基因的自由组合定律", "t": "杂交育种", "terms": "", "x": "杂交育种 植物：选纯合双亲杂交 → F1 自交 → F2 选优 → 连续自交至不再发生性状分离（可用分区域种植法加快）。动物：杂交 → 选优 → 与隐性（或双隐）类型测交检验纯合度，不通过逐代自交。 若所需优良性状为种子（果实）性状，当年即可收获选用；若为植株性状，需种到植株表现性状再选。 高频考点 2022 山东卷：6种纯合突变体互交判突变基因——\"突×突→突\"为相同基因突变（非等位），\"突×突→野\"为不同基因突变。"}, {"id": "c3", "ch": 3, "chT": "基因在染色体上、伴性遗传与人类遗传病", "t": "基因在染色体上、伴性遗传与人类遗传病", "terms": "", "x": "04 基因在染色体上、伴性遗传与人类遗传病 必修2 第2章 · 系谱图判断与正反交设计是考试必出题型"}, {"id": "c3s0", "ch": 3, "chT": "基因在染色体上、伴性遗传与人类遗传病", "t": "萨顿假说（类比推理法）", "terms": "", "x": "萨顿假说（类比推理法） 依据：基因和染色体的行为存在明显的平行关系——①基因在体细胞中成对、染色体也成对；②体细胞中一对基因一个来自父方一个来自母方，同源染色体亦然；③形成配子时成对的基因（染色体）一个进入配子；④非同源染色体自由组合时，非同源染色体上的非等位基因也自由组合。结论：基因在染色体上。"}, {"id": "c3s1", "ch": 3, "chT": "基因在染色体上、伴性遗传与人类遗传病", "t": "摩尔根实验（假说-演绎法）", "terms": "呈线性排列", "x": "摩尔根实验（假说-演绎法） 提出问题：F1 全红眼、F2 3:1 且白眼只在雄性中出现。 假说：控制白眼的基因 w 位于 X 染色体上，Y 染色体上不含其等位基因。 验证：F1 红眼雌 × 白眼雄 → 4种表型 1:1:1:1；关键证据是白眼雌 × F1 红眼雄 → 子代雌全红、雄全白（1:1）。 结论：基因在染色体上；后又发明测定基因相对位置的方法（三点测交），证明基因在染色体上呈线性排列。 边角小字 测交实验不能排除\"基因位于 XY 同源区段\"的假说——可用反交实验（白眼雌 × 红眼雄）排除：若子代雌全红、雄全白且与假说预测矛盾即可排除。荧光标记的 DNA 探针与染色体杂交可直观显示基因位置。 易错警示 基因并非全部位于染色体上：线粒体、叶绿体、原核拟核与质粒、病毒中的基因无染色体。X、Y 染色体同源区段存在等位基因，非同源区段没有。果蝇的 Y 染色体比 X 大（P31）。"}, {"id": "c3s2", "ch": 3, "chT": "基因在染色体上、伴性遗传与人类遗传病", "t": "性别决定与伴性遗传", "terms": "", "x": "性别决定与伴性遗传 XY 型：含两个 X 为雌性，XY 为雄性；性别比例 1:1 的原因是含 X 与含 Y 的精子比例 1:1。ZW 型：ZZ 雄、ZW 雌（鸟类、蛾类）。 性别决定不全是 XY/ZW：有的取决于染色体数目，有的取决于环境（如后螠）；雌雄同体生物无性染色体。 类型实例特点 伴X隐性红绿色盲、血友病隔代遗传；男患者多于女；女病其父、子必病（交叉遗传） 伴X显性抗维生素D佝偻病世代连续；女患者多于男；男病其母、女必病 伴Y外耳道多毛症限雄遗传，父传子、子传孙，世代连续，无显隐之分 细胞质线粒体基因病母系遗传：子女表现型与母亲相同 易错警示 XY 同源区段（Ⅰ）：基因男女都可患病，男患病率可能≠女；X 特有区段（Ⅱ）：隐性病男＞女；Y 特有区段（Ⅲ）：患者全为男性。伴X隐性致病基因：男患者只能来自母亲、只能传给女儿。"}, {"id": "c3s3", "ch": 3, "chT": "基因在染色体上、伴性遗传与人类遗传病", "t": "遗传系谱图判断（准确/最可能）", "terms": "", "x": "遗传系谱图判断（准确/最可能） 三步：先排除伴Y遗传和细胞质遗传（母系）→ 判显隐性：\"无中生有为隐性，有中生无为显性\" → 判位置：女病其父、子全病→伴X隐性；男病其母、女全病→伴X显性；否则常染色体。\"可能\"与\"最可能\"审题：可能一般有多种，最可能只有一种。 正反交的应用（一代交配判位置） 未知显隐性：正反交结果不同（有性别差异）→伴X；结果相同（无性别差异）→常染色体；后代总与母本相同→细胞质遗传。 已知显隐性：用\"同隐异显\"（隐性雌 × 显性纯合雄）判断常/伴X。 判断父本/母本来源致死：双杂合子分别作父本、母本分别测交比较。"}, {"id": "c3s4", "ch": 3, "chT": "基因在染色体上、伴性遗传与人类遗传病", "t": "人类遗传病", "terms": "", "x": "人类遗传病 单基因遗传病：受一对等位基因控制，符合分离定律（白化病、红绿色盲、抗维生素D佝偻病）。 多基因遗传病：两对以上等位基因控制，群体发病率高，易受环境影响（原发性高血压、青少年型糖尿病）。 染色体异常遗传病：猫叫综合征=5号染色体片段缺失；21三体综合征=体细胞多一条21号染色体（是\"三条染色体\"而非三个染色体组）。 易错警示 五个\"不一定\"：携带致病基因不一定患病（女性携带者）；不携带致病基因也可能患病（染色体异常病）；先天性疾病不一定遗传；家族性疾病不一定遗传（缺维生素A夜盲）；遗传病不一定出生即表现。人类所有的病不都是基因病。 高频考点 调查：发病率→在广大人群随机抽样、群体足够大、选发病率较高的单基因遗传病；遗传方式→在患者家系中调查。多基因遗传病易受环境影响，不宜作为调查对象。基因组测序：人测 24 条（22常+X+Y），玉米（2n=20）测 11 条，果蝇同理。 高考真题链接 伴X基因频率在男女中相等（交叉遗"}, {"id": "c4", "ch": 4, "chT": "DNA 是主要的遗传物质", "t": "DNA 是主要的遗传物质", "terms": "", "x": "05 DNA 是主要的遗传物质 必修2 第3章第1节 · 三大经典实验的过程、结论与异常分析必须记准"}, {"id": "c4s0", "ch": 4, "chT": "DNA 是主要的遗传物质", "t": "肺炎链球菌转化实验", "terms": "转化因子", "x": "肺炎链球菌转化实验 材料特点：S型菌有多糖类荚膜、有毒、菌落光滑；R型菌无荚膜、无毒、菌落粗糙（P43）。 格里菲思体内转化：加热杀死的S型菌 + 活R型菌 → 小鼠死亡，体内分离出活S型菌 → 加热杀死的S型菌中含有\"转化因子\"，使R型转化为S型。 艾弗里体外转化：S型菌破碎→去除绝大部分糖类、蛋白质和脂质制成细胞提取物→分别加入蛋白酶、RNA酶、酯酶、DNA酶（减法原理：每组特异性去除一种物质）→只有 DNA 酶组转化消失 → DNA 是遗传物质，蛋白质等不是。 边角小字 加热致死后 DNA 仍保持活性的原因：80~100℃ 时蛋白质变性失活，而 DNA 双链解开、温度恢复后可复性（P43 小字）。转化的实质是基因重组；转化效率低，只有少部分R型菌转化。艾弗里实验还证明 DNA 可在同种生物不同个体间转移（为基因工程奠基，Ca²⁺处理大肠杆菌=人工转化）。"}, {"id": "c4s1", "ch": 4, "chT": "DNA 是主要的遗传物质", "t": "噬菌体侵染细菌实验", "terms": "", "x": "噬菌体侵染细菌实验 四步：①标记噬菌体：先分别用含 ³⁵S、³²P 的培养基培养大肠杆菌，再用其培养噬菌体 → ②侵染未标记的大肠杆菌 → ③搅拌（使吸附在细菌上的噬菌体与细菌分离）→ ④离心（轻的噬菌体颗粒进上清液，重的细菌留沉淀）→ ⑤检测放射性 ³⁵S 标记蛋白质理论上沉淀物无放射性；实测有少量→搅拌不充分，噬菌体仍吸附在细菌表面 ³²P 标记 DNA理论上上清液无放射性；实测有少量→保温过短（未全部侵入）或过长（细菌裂解释放子代） 结论DNA 是遗传物质，蛋白质不是（有争议说\"没证明\"） 易错警示 ①不能用培养基直接培养噬菌体（病毒必须寄生）；②³⁵S、³²P 必须分两组分别标记（同位素检测只能定位不能辨元素）；③不能标记 C、H、O、N（DNA 与蛋白质共有）；④短时间保温=让噬菌体充分侵染又不裂解释放；⑤实验间接证明 DNA 能自我复制、指导蛋白质合成，不能证明 DNA 可产生可遗传变异；⑥子代噬菌体只有少数被 ³²"}, {"id": "c4s2", "ch": 4, "chT": "DNA 是主要的遗传物质", "t": "烟草花叶病毒的重建实验", "terms": "", "x": "烟草花叶病毒的重建实验 烟草花叶病毒侵染烟草细胞时，RNA 与蛋白质没有分开（完整病毒侵入），故 TMV 实验不能用噬菌体的操作思路（噬菌体只向细菌注入 DNA，两者天然分开）。 方法：人工分离提纯 RNA 与蛋白质，分别感染烟草 → RNA 组出现病斑并分离出正常 TMV → RNA 是烟草花叶病毒的遗传物质。"}, {"id": "c4s3", "ch": 4, "chT": "DNA 是主要的遗传物质", "t": "总结与辨析", "terms": "", "x": "总结与辨析 高频考点 实验共同设计思路（考填空）：将 DNA、蛋白质等物质分开，单独、直接观察各自的作用（分离提纯法/减法原理/同位素标记）。 结论：真核、原核生物及 DNA 病毒的遗传物质都是 DNA；少数病毒（HIV、流感、新冠、烟草花叶病毒）是 RNA → DNA 是主要的遗传物质（统计分析结论，非实验直接验证）。细胞生物的遗传物质只能是 DNA。 高考真题链接 2017 全国Ⅰ卷：判断新病毒类型需甲、乙两组相互印证——用标记特定碱基（如分别标记 T 或 U）的宿主细胞培养病毒，检测子代放射性确定核酸种类。"}, {"id": "c5", "ch": 5, "chT": "DNA 的结构、基因的本质与 DNA 复制", "t": "DNA 的结构、基因的本质与 DNA 复制", "terms": "", "x": "06 DNA 的结构、基因的本质与 DNA 复制 必修2 第3章第2、3节 · 碱基计算与半保留复制证据是计算题主线"}, {"id": "c5s0", "ch": 5, "chT": "DNA 的结构、基因的本质与 DNA 复制", "t": "DNA 双螺旋结构的特点（背诵·P50）", "terms": "碱基互补配对原则", "x": "DNA 双螺旋结构的特点（背诵·P50） 由两条脱氧核苷酸长链构成，按反向平行方式盘旋成双螺旋结构。 外侧：脱氧核糖与磷酸交替连接构成基本骨架；内侧：碱基通过氢键形成碱基对（A=T，G≡C），遵循碱基互补配对原则。 A=T 之间2个氢键，G≡C 之间3个氢键 → G-C 碱基对越多 DNA 越稳定（耐高温）。 1个双链 DNA 含 2个游离磷酸基团、0个游离脱氧核糖；每个磷酸基团连接1~2个脱氧核糖（2个游离磷酸各只连1个），每个脱氧核糖连接1~2个磷酸。 模型构建：沃森、克里克（构建物理模型）；富兰克林拍摄\"照片51号\"（X射线衍射）；威尔金斯展示照片；查哥夫法则（A=T、G=C）提供化学依据。 边角小字 两条链反向平行的意义：DNA 两条链走向相反，使碱基对能整齐配对排布（P50）。酶与化学键：解旋酶、高温断氢键；DNA 聚合酶、DNA 连接酶形成磷酸二酯键；限制酶、DNA 酶破坏磷酸二酯键。"}, {"id": "c5s1", "ch": 5, "chT": "DNA 的结构、基因的本质与 DNA 复制", "t": "碱基计算", "terms": "", "x": "碱基计算 不互补碱基之和恒定A+G = T+C = 50% 互补碱基比例相等单链(A+T)% = 互补链(A+T)% = 双链(A+T)% 氢键数n对碱基中G-C有m对：2(n−m)+3m = 2n+m 磷酸二酯键2n−2 个（n为碱基对数）"}, {"id": "c5s2", "ch": 5, "chT": "DNA 的结构、基因的本质与 DNA 复制", "t": "遗传信息与基因的本质（背诵）", "terms": "遗传信息 基因 遗传效应", "x": "遗传信息与基因的本质（背诵） 遗传信息：基因中 4 种碱基（脱氧核苷酸）的排列顺序。多样性：碱基对的数目和排列顺序千变万化；特异性：每种生物有特定的碱基排列顺序（β-珠蛋白基因1700对→41700 种排列）。 基因：通常是有遗传效应的 DNA 片段。基因在 DNA 上不连续分布（被碱基序列分隔）；染色体是 DNA 的主要载体，基因在染色体上呈线性排列；RNA 病毒的基因在 RNA 上。 数量关系：1条染色体含1个（无单体）或2个（有单体）DNA，DNA 上有许多基因；基因中脱氧核苷酸排列顺序代表遗传信息。"}, {"id": "c5s3", "ch": 5, "chT": "DNA 的结构、基因的本质与 DNA 复制", "t": "DNA 的复制（背诵·P56）", "terms": "冈崎片段", "x": "DNA 的复制（背诵·P56） 时间有丝分裂间期、减数第一次分裂前的间期 场所主要细胞核；其次线粒体、叶绿体；原核在拟核、质粒 条件模板（两条母链）、原料（4种游离脱氧核苷酸）、能量、酶（解旋酶、DNA聚合酶等） 过程解旋 → 合成子链 → 重新螺旋（边解旋边复制） 特点半保留复制；多起点、双向复制 结果与意义1个DNA→2个完全相同的DNA；保持遗传信息连续性 高频考点 准确复制的原因：①独特的双螺旋结构提供精确模板；②碱基互补配对保证准确进行。方向：DNA 聚合酶只能催化子链 5'→3' 延伸（从引物 3' 端连接脱氧核苷酸）→ 后随链形成冈崎片段（不连续，由 DNA 连接酶连接）；两条链反向平行+酶的方向性 → 双向复制。引物：DNA 聚合酶不能从头合成，需 RNA 引物，随后被替换保证准确性。 半保留复制的实验证据（梅塞尔森、斯塔尔） 方法：假说-演绎法 + 同位素标记技术（¹⁵N）+ 密度梯度离心技术。 流程：¹⁵N "}, {"id": "c6", "ch": 6, "chT": "基因的表达", "t": "基因的表达", "terms": "", "x": "07 基因的表达 必修2 第4章 · 转录翻译全程、中心法则与表观遗传"}, {"id": "c6s0", "ch": 6, "chT": "基因的表达", "t": "RNA 与密码子", "terms": "密码子 反密码子", "x": "RNA 与密码子 RNA 适合做信使的原因（P65）：能储存遗传信息；一般为单链、比 DNA 短，能通过核孔从细胞核转移到细胞质。 3种 RNA：mRNA——携带遗传信息，翻译的模板；tRNA——识别并转运氨基酸、识别密码子；rRNA——构成核糖体，催化肽键形成。RNA 还是 RNA 病毒的遗传物质、少数酶的成分。3种 RNA 都是转录产物，都参与翻译。 密码子：mRNA 上决定一个氨基酸的 3 个相邻碱基，共 4³=64 种（3 种终止密码子、61 种决定氨基酸）；反密码子在 tRNA 上。一种密码子只决定一种氨基酸，一种氨基酸可由一种或多种密码子决定。 边角小字 简并性意义（P67 思考·讨论）：①碱基改变可能不改变氨基酸，增强容错性；②多种密码子编码同一氨基酸可保证翻译速度。通用性：所有生物共用一套密码子（病毒基因导入宿主仍表达病毒蛋白）。特殊：原核 GUG 可作起始密码子；UGA 特殊情况编码硒代半胱氨酸。"}, {"id": "c6s1", "ch": 6, "chT": "基因的表达", "t": "转录", "terms": "启动子 终止子", "x": "转录 场所：主要细胞核（也在线粒体、叶绿体、拟核、质粒）；模板：DNA 的一条链（模板链/反义链）；原料：4种游离核糖核苷酸；酶：RNA 聚合酶（兼具解旋、识别结合启动子、连接磷酸二酯键功能）；产物 mRNA 等。 mRNA 延伸方向 5'→3'；转录与复制都遵循碱基互补配对，保证信息传递准确。 启动子：基因上游，RNA 聚合酶识别结合位点，本身不被转录；终止子：编码区下游，终止转录（RNA 水平形成茎-环结构）。 起始密码子、终止密码子位于 mRNA 上；一个基因的有义链可能是另一基因的反义链。"}, {"id": "c6s2", "ch": 6, "chT": "基因的表达", "t": "翻译", "terms": "肽键", "x": "翻译 场所：核糖体；模板：mRNA；原料：20种氨基酸；搬运工：tRNA（一种 tRNA 只转运一种氨基酸）；方向：核糖体沿 mRNA 由 5'→3' 移动（肽链从 N 端向 C 端合成），mRNA 不移动。 核糖体有 2 个 tRNA 结合位点；氨基酸间脱水缩合形成肽键；遇终止密码子合成终止。 准确翻译的原因：mRNA 提供精确模板 + 碱基互补配对（密码子-反密码子）。 多聚核糖体（P69）：一个 mRNA 上结合多个核糖体同时翻译→少量 mRNA 迅速合成大量蛋白质；按肽链长短判断先后（长的在前）。各核糖体产物完全相同。 时空：真核——核内转录、质内翻译，时空分隔；原核——边转录边翻译；线粒体、叶绿体同原核。"}, {"id": "c6s3", "ch": 6, "chT": "基因的表达", "t": "数量关系与中心法则", "terms": "", "x": "数量关系与中心法则 碱基数比例基因 : mRNA : 氨基酸 ≈ 6 : 3 : 1；实际不符原因：内含子转录后被剪切、非编码区不转录、终止密码子不编码氨基酸、肽链加工剪切 中心法则：DNA复制、转录、翻译三主线 + RNA复制（烟草花叶病毒）+ 逆转录（HIV）。 RNA 复制酶、逆转录酶由病毒自身基因组编码、在宿主细胞合成。 体现基因两大功能：传递遗传信息（复制）与表达遗传信息（转录、翻译）。 不同细胞：分裂旺盛细胞三条途径都有；高度分化细胞只有转录翻译；哺乳动物成熟红细胞无。 遗传密码破译（P70）：尼伦伯格体外合成实验——人工多聚尿嘧啶核苷酸（UUU）→多聚苯丙氨酸；需除去提取液中 DNA 和 mRNA 排除干扰。"}, {"id": "c6s4", "ch": 6, "chT": "基因的表达", "t": "基因与性状的关系（背诵·P71）", "terms": "酶的合成控制代谢过程 蛋白质的结构 选择性表达", "x": "基因与性状的关系（背诵·P71） 间接控制：基因通过控制酶的合成控制代谢过程，进而控制性状——白化病（酪氨酸酶）、豌豆皱粒（淀粉分支酶）。 直接控制：基因通过控制蛋白质的结构直接控制性状——镰刀型细胞贫血（血红蛋白）、囊性纤维化（CFTR）。 基因与性状不都是一一对应：一个基因可影响多个性状，一个性状可受多个基因影响；表型 = 基因型 + 环境（单双眼皮、表型模拟）。 细胞分化的实质：基因的选择性表达；不同细胞 mRNA 不同，但 tRNA、rRNA 无差异。"}, {"id": "c6s5", "ch": 6, "chT": "基因的表达", "t": "表观遗传（P74）", "terms": "碱基序列保持不变 基因表达和表型发生可遗传变化", "x": "表观遗传（P74） 概念（背诵）：生物体基因的碱基序列保持不变，但基因表达和表型发生可遗传变化的现象。 机制：①DNA 甲基化；②组蛋白甲基化/乙酰化；③RNA 干扰——主要影响转录过程。 特点：可遗传、可逆（甲基化可去）；不遵循孟德尔遗传规律；通过有丝分裂、减数分裂传递。 实例：柳穿鱼花形、小鼠毛色、蜂王浆使幼虫发育成蜂王（减少 DNA 甲基化改变基因表达）。 高考真题链接 遗传印记（甲基化随配子重建）常考：亲代雌鼠某基因来自父方（雄配子印记去甲基化）；反义 RNA 与 mRNA 形成双链阻断翻译=基因沉默，杂交分子含 4 种核苷酸、4 种碱基。"}, {"id": "c7", "ch": 7, "chT": "基因突变、基因重组和染色体变异", "t": "基因突变、基因重组和染色体变异", "terms": "", "x": "08 基因突变、基因重组和染色体变异 必修2 第5章 · 三种可遗传变异比较与育种方法选择"}, {"id": "c7s0", "ch": 7, "chT": "基因突变、基因重组和染色体变异", "t": "基因突变", "terms": "替换、增添或缺失 碱基序列的改变 普遍性、随机性、不定向性、低频性、多害少利性", "x": "基因突变 概念（背诵·P81）：DNA 分子中发生碱基的替换、增添或缺失，而引起的基因碱基序列的改变。 时间：主要是有丝分裂前的间期、减数第一次分裂前的间期（DNA 复制时出现差错）；原因：物理、化学、生物因素（诱发）+ 自发突变。 5个特点：普遍性、随机性、不定向性、低频性、多害少利性。 意义：产生新基因的途径；生物变异的根本来源；为生物进化提供原材料。 易错警示 一定改变：碱基序列、遗传信息、基因种类（突变产生原基因的等位基因）；不一定改变：氨基酸序列（密码子简并性）、生物性状（隐性突变、突变发生在非编码区或内含子、个别氨基酸改变不影响蛋白功能）；基因数目和位置不变。能否遗传：发生在配子中→遵循遗传规律传给后代；体细胞→一般不能（植物可通过无性生殖）；父方细胞质基因突变一般不传子代。基因突变光镜下不可见；红细胞（无核无线粒体）不会突变。 显性/隐性突变判断：将突变体与未突变体（野生型）杂交——子一代全为野生型→隐性突变；子一"}, {"id": "c7s1", "ch": 7, "chT": "基因突变、基因重组和染色体变异", "t": "基因重组", "terms": "", "x": "基因重组 类型：①减Ⅰ后期——非同源染色体上非等位基因自由组合；②减Ⅰ前期（四分体时期）——同源染色体非姐妹染色单体间交叉互换。 本质：原有基因的重新组合，产生新基因型，不产生新基因。广义还包括基因工程、肺炎链球菌的转化。 意义：生物变异的来源之一；形成生物多样性的重要原因；为进化提供原材料（配子多样化→有性生殖加快进化，P84/P122）。 判断：基因重组不发生在受精作用中；姐妹染色单体间\"交换\"不属于基因重组；Aa 自交的性状分离是等位基因分离所致，不是基因重组。"}, {"id": "c7s2", "ch": 7, "chT": "基因突变、基因重组和染色体变异", "t": "三种可遗传变异的比较", "terms": "", "x": "三种可遗传变异的比较 项目基因突变基因重组染色体变异 适用范围所有生物（含病毒）均可发生真核生物有性生殖核基因；人工基因工程真核生物 发生时间间期（DNA复制时）减Ⅰ前期、减Ⅰ后期随时可发生 结果产生新基因产生新基因型基因数目或排列顺序改变 光镜观察不可见（分子水平）不可见可见（细胞水平） 意义变异的根本来源变异来源之一变异来源之一 易错警示 互换 vs 易位：互换发生在同源染色体的非姐妹染色单体之间（基因重组，不可见）；易位发生在非同源染色体之间（染色体结构变异，可见）。基因突变 vs 染色体缺失：基因突变是基因内若干碱基对的改变；染色体缺失是 DNA 上若干基因的缺失。姐妹染色单体上出现等位基因：基因突变或交叉互换均可导致。"}, {"id": "c7s3", "ch": 7, "chT": "基因突变、基因重组和染色体变异", "t": "染色体结构变异", "terms": "缺失 重复 倒位 易位", "x": "染色体结构变异 四种类型：缺失（猫叫综合征=5号缺失）、重复、倒位、易位——基因的数目或排列顺序发生改变。判读依据：染色体上基因数目或排列顺序改变；联会时可出现缺失环、重复环、倒位环、十字形（易位）。"}, {"id": "c7s4", "ch": 7, "chT": "基因突变、基因重组和染色体变异", "t": "染色体数目变异与染色体组", "terms": "染色体组 单倍体", "x": "染色体数目变异与染色体组 染色体组（背诵·P87）：细胞中的一组非同源染色体，形态和功能各不相同，携带着控制生物生长发育的全部遗传信息。 组数判断：①同种形态染色体有几条→几个组；②基因型中同一字母（不分大小写）出现几次→几个组（AaBb=2组、AAaaBbbb=4组）。 二倍体：受精卵发育、含2个组；多倍体：受精卵发育、含3个及以上组；单倍体：体细胞染色体数与本物种配子相同——由配子直接发育，不论几个组都是单倍体（雄蜂、四倍体的单倍体含2组）。 育性：染色体组为偶数、能联会→一般可育；奇数→联会紊乱→高度不育（三倍体、骡）。异源多倍体的单倍体加倍后仍可能是杂合子。"}, {"id": "c7s5", "ch": 7, "chT": "基因突变、基因重组和染色体变异", "t": "育种方法", "terms": "纺锤体形成", "x": "育种方法 方法原理方法要点优缺点 杂交育种基因重组杂交→自交→选优→连续自交至纯合集中双亲优良性状、操作简单；时间长 诱变育种基因突变物理化学因素处理萌发种子/幼苗提高突变率、大幅改良；盲目、需大量材料 单倍体育种染色体数目变异花药离体培养→单倍体幼苗→秋水仙素加倍→纯合子明显缩短育种年限，后代全纯合；技术复杂 多倍体育种染色体数目变异秋水仙素/低温处理萌发的种子或幼苗茎秆粗壮、果实种子大、营养高；发育迟缓、结实率低 基因工程基因重组定向改造生物性状（外源基因表达）定向、高效；克服远缘杂交不亲和 秋水仙素/低温原理：作用于分裂前期，抑制纺锤体形成→染色体不能移向两极→细胞不分裂→染色体数目加倍（秋水仙素诱导基因突变则作用于间期）。 无子西瓜（P91）：二倍体×四倍体→三倍体种子→种下，授二倍体花粉刺激子房发育→三倍体无子西瓜（联会紊乱不育故无子）。两次授粉：第一次授粉（四倍体 × 二倍体）获得三倍体种子；第二次给三倍体植株授二倍"}, {"id": "c8", "ch": 8, "chT": "生物的进化", "t": "生物的进化", "terms": "", "x": "09 生物的进化 必修2 第6章 · 现代生物进化理论五大要点与基因频率计算"}, {"id": "c8s0", "ch": 8, "chT": "生物的进化", "t": "进化理论的发展", "terms": "", "x": "进化理论的发展 拉马克：用进废退、获得性遗传——进步：否定物种不变论、所有生物由更古老生物进化而来；局限：认为变异是定向的（环境变化直接导致物种改变）。 达尔文：①共同由来学说（所有生物由原始的共同祖先进化而来，揭示生物的统一性）；②自然选择学说——过度繁殖（基础）、生存斗争（动力）、遗传变异（内因）、适者生存（结果），揭示生物的多样性和适应性。 自然选择学说局限（P109）：对遗传变异的认识局限于性状水平，不能解释本质；研究对象局限于个体水平；认为物种形成是渐变的，不能解释物种大爆发。"}, {"id": "c8s1", "ch": 8, "chT": "生物的进化", "t": "共同由来学说的证据", "terms": "化石", "x": "共同由来学说的证据 化石：保存在地层中的古代生物遗体、遗物或生活痕迹——研究生物进化最直接、最重要的证据；越早地层生物越低等、越简单，证实生物由共同祖先经漫长地质年代逐渐进化（简单→复杂、低等→高等、水生→陆生，P101）。 比较解剖学：同源器官（人的上肢与其他脊椎动物前肢结构一致）→共同祖先，适应不同环境出现形态功能差异。 胚胎学：人及脊椎动物胚胎发育都经历鳃裂、尾阶段。 细胞和分子水平：都含 DNA、细胞色素 C 氨基酸序列高度相似、密码子通用、都遵循中心法则；DNA/蛋白质差异大小反映亲缘关系远近与出现顺序。"}, {"id": "c8s2", "ch": 8, "chT": "生物的进化", "t": "适应的形成（P107-108）", "terms": "可遗传变异 自然选择 可遗传的有利变异 定向选择", "x": "适应的形成（P107-108） 适应的两层含义：形态结构适合完成一定功能；形态结构及其功能适合该生物在一定环境中生存和繁殖。 特点：普遍性（拟态、保护色）+ 相对性（雷鸟换白羽遇降雪延迟易被天敌发现）——根本原因：遗传的稳定性与环境不断变化之间的矛盾；适应性特征是对之前环境适应的结果。 拉马克：适应=用进废退+获得性遗传；达尔文：适应的来源是可遗传变异，适应是自然选择的结果。 适应形成的必要条件（背诵）：群体中出现可遗传的有利变异和环境的定向选择。"}, {"id": "c8s3", "ch": 8, "chT": "生物的进化", "t": "用进化观点解释现象", "terms": "", "x": "用进化观点解释现象 细菌抗药性：达尔文——繁殖中产生各种可遗传变异（含抗药性强变异），抗生素使抗药弱者大量死亡、抗药强者生存繁殖，抗药个体增多；现代——抗生素滥用使耐药菌生存繁殖机会增加，耐药基因频率逐年上升形成超级细菌。 防止超级细菌：建立耐药预警机制，耐药率超限时及时更换抗生素，将耐药率控制在低水平（抑制单一抗生素的定向选择）。 变异发生在环境选择之前（不定向），环境只起选择作用——拉马克认为环境变化在前、生物为适应环境产生变异是错误的。"}, {"id": "c8s4", "ch": 8, "chT": "生物的进化", "t": "现代生物进化理论（背诵·P123）", "terms": "适应是自然选择的结果 种群是生物进化的基本单位 突变和基因重组提供进化的原材料", "x": "现代生物进化理论（背诵·P123） 适应是自然选择的结果；种群是生物进化的基本单位。 突变和基因重组提供进化的原材料，自然选择使种群基因频率定向改变，进而通过隔离形成新物种。 进化过程是生物与生物、生物与环境协同进化的过程；生物多样性是协同进化的结果。"}, {"id": "c8s5", "ch": 8, "chT": "生物的进化", "t": "种群基因频率与基因库", "terms": "", "x": "种群基因频率与基因库 种群 / 基因库 / 基因频率生活在一定区域的同种生物全部个体；全部基因；某个基因占全部等位基因数的比值 定义法某基因频率 = 该基因数 ÷ 全部等位基因数（伴X：男 = Xⁿ% ÷ (X+Y)） 遗传平衡定律5条件：种群极大、随机交配、无突变、无选择、无迁入迁出；p²+2pq+q²，AA=p²、Aa=2pq、aa=q² 易错警示 进化的实质：种群基因频率的定向改变（自然选择决定进化方向）。引起基因频率改变的因素：突变和基因重组、自然选择、迁入迁出、遗传漂变等。变异不定向，不能决定进化方向，只提供原材料；自发突变频率低但种群巨大，突变和重组的随机组合数极大。自然选择直接作用对象是生物个体（表型），本质是改变种群的基因频率。"}, {"id": "c8s6", "ch": 8, "chT": "生物的进化", "t": "隔离与物种形成", "terms": "物种 隔离 生殖隔离", "x": "隔离与物种形成 物种（P116）：能在自然状态下相互交配并产生可育后代的一群生物。隔离：不同种群间个体在自然条件下不能自由交配或不能产生可育后代的现象；实质=阻断基因交流。 生殖隔离范畴：不能交配、杂种不活（胚胎致死）、杂种不育（骡子联会紊乱）；地理隔离只是阻碍基因交流，不一定形成新物种。 物种形成三环节：突变和基因重组（原材料）→ 自然选择（决定进化方向）→ 隔离（物种形成的必要条件）；新物种形成的标志=生殖隔离。 关系：基因频率改变→一定发生进化，但不一定形成新物种；只有基因库差异达到不能实现基因交流的程度才形成新物种。 四倍体西瓜与二倍体杂交所得三倍体不育，故四倍体是新物种；三倍体西瓜、骡不是物种（无性生殖生物以表型特征区分）。"}, {"id": "c8s7", "ch": 8, "chT": "生物的进化", "t": "协同进化与生物多样性", "terms": "协同进化 基因（遗传）多样性、物种多样性、生态系统多样性", "x": "协同进化与生物多样性 协同进化（P121）：不同物种之间、生物与无机环境之间在相互影响中不断进化和发展；结果=形成生物多样性。 捕食者作用（P119）：捕食个体数量多的物种，避免一种或少数几种生物占绝对优势（收割理论）；吃掉年老病弱幼小个体促进种群发展；促进协同进化。 生物多样性三个层次：基因（遗传）多样性、物种多样性、生态系统多样性；形成过程：由原始生命进化出原核→真核→多细胞→各类生物。 边角小字 探究抗生素对细菌的选择作用（P115）：抑菌圈直径逐代变小=耐药菌比例升高；结论：耐药性来自可遗传变异（基因突变），抗生素起定向选择作用。 高考真题链接 ZW 型基因频率计算：雌性 ZaW%=10% → 种群短口器雌性占 5%；遗传平衡计算伴X性状：男 7%→女 0.49%。拓展概念：中性学说（中性突变靠遗传漂变固定）、遗传漂变（小种群随机波动更显著）。"}]}, DATA=BOOK; BOOK.altLabel="必修1《分子与细胞》"; const XREFS=[{"t": "减数分裂", "b": "m2", "c": 0, "s": 1}, {"t": "受精作用", "b": "m2", "c": 0, "s": 3}, {"t": "四分体", "b": "m2", "c": 0, "s": 1}, {"t": "同源染色体", "b": "m2", "c": 0, "s": 1}, {"t": "等位基因", "b": "m2", "c": 1, "s": 2}, {"t": "假说-演绎法", "v": ["假说—演绎法"], "b": "m2", "c": 1, "s": 1}, {"t": "性状分离", "b": "m2", "c": 1, "s": 2}, {"t": "测交", "b": "m2", "c": 1, "s": 2}, {"t": "自由组合定律", "b": "m2", "c": 2}, {"t": "自由组合", "b": "m2", "c": 2}, {"t": "连锁", "b": "m2", "c": 2, "s": 5}, {"t": "互换", "b": "m2", "c": 2, "s": 5}, {"t": "伴性遗传", "b": "m2", "c": 3, "s": 2}, {"t": "性染色体", "b": "m2", "c": 3, "s": 2}, {"t": "血友病", "b": "m2", "c": 3, "s": 4}, {"t": "系谱图", "b": "m2", "c": 3, "s": 3}, {"t": "肺炎链球菌", "b": "m2", "c": 4, "s": 0}, {"t": "噬菌体", "b": "m2", "c": 4, "s": 1}, {"t": "烟草花叶病毒", "b": "m2", "c": 4, "s": 2}, {"t": "DNA 复制", "v": ["DNA复制", "DNA 的复制"], "b": "m2", "c": 5, "s": 3}, {"t": "解旋酶", "b": "m2", "c": 5, "s": 3}, {"t": "碱基互补配对", "b": "m2", "c": 5, "s": 0}, {"t": "双螺旋", "b": "m2", "c": 5, "s": 0}, {"t": "反密码子", "b": "m2", "c": 6, "s": 0}, {"t": "密码子", "b": "m2", "c": 6, "s": 0}, {"t": "转录", "b": "m2", "c": 6, "s": 1}, {"t": "翻译", "b": "m2", "c": 6, "s": 2}, {"t": "中心法则", "b": "m2", "c": 6, "s": 3}, {"t": "表观遗传", "b": "m2", "c": 6, "s": 5}, {"t": "基因突变", "b": "m2", "c": 7, "s": 0}, {"t": "基因重组", "b": "m2", "c": 7, "s": 1}, {"t": "染色体变异", "b": "m2", "c": 7, "s": 2}, {"t": "染色体组", "b": "m2", "c": 7, "s": 4}, {"t": "单倍体", "b": "m2", "c": 7, "s": 4}, {"t": "多倍体", "b": "m2", "c": 7, "s": 4}, {"t": "花药离体培养", "b": "m2", "c": 7, "s": 4}, {"t": "秋水仙素", "b": "m1", "c": 10, "s": 4}, {"t": "杂交育种", "b": "m2", "c": 7, "s": 5}, {"t": "诱变育种", "b": "m2", "c": 7, "s": 5}, {"t": "基因频率", "b": "m2", "c": 8, "s": 5}, {"t": "基因库", "b": "m2", "c": 8, "s": 5}, {"t": "遗传漂变", "b": "m2", "c": 8, "s": 5}, {"t": "生殖隔离", "b": "m2", "c": 8, "s": 6}, {"t": "地理隔离", "b": "m2", "c": 8, "s": 6}, {"t": "自然选择", "b": "m2", "c": 8, "s": 4}, {"t": "协同进化", "b": "m2", "c": 8, "s": 7}, {"t": "有丝分裂", "b": "m1", "c": 10, "s": 1}, {"t": "姐妹染色单体", "b": "m1", "c": 10, "s": 1}, {"t": "着丝粒", "b": "m1", "c": 10, "s": 1}, {"t": "纺锤体", "b": "m1", "c": 10, "s": 1}, {"t": "细胞周期", "b": "m1", "c": 10, "s": 0}, {"t": "细胞分化", "b": "m1", "c": 11, "s": 0}, {"t": "全能性", "b": "m1", "c": 11, "s": 1}, {"t": "细胞凋亡", "b": "m1", "c": 11, "s": 3}, {"t": "细胞衰老", "b": "m1", "c": 11, "s": 2}, {"t": "端粒", "b": "m1", "c": 11, "s": 2}, {"t": "自由基", "b": "m1", "c": 11, "s": 2}, {"t": "癌细胞", "b": "m2", "c": 7, "s": 0}, {"t": "有氧呼吸", "b": "m1", "c": 8, "s": 2}, {"t": "无氧呼吸", "b": "m1", "c": 8, "s": 3}, {"t": "细胞呼吸", "b": "m1", "c": 8}, {"t": "光反应", "b": "m1", "c": 9, "s": 2}, {"t": "暗反应", "b": "m1", "c": 9, "s": 2}, {"t": "类囊体", "b": "m1", "c": 9, "s": 0}, {"t": "化能合成", "b": "m1", "c": 9, "s": 5}, {"t": "主动运输", "b": "m1", "c": 6, "s": 3}, {"t": "自由扩散", "b": "m1", "c": 6, "s": 3}, {"t": "协助扩散", "b": "m1", "c": 6, "s": 3}, {"t": "胞吐", "b": "m1", "c": 6, "s": 3}, {"t": "胞吞", "b": "m1", "c": 6, "s": 3}, {"t": "载体蛋白", "b": "m1", "c": 6, "s": 3}, {"t": "通道蛋白", "b": "m1", "c": 6, "s": 3}, {"t": "质壁分离", "b": "m1", "c": 6, "s": 2}, {"t": "渗透作用", "b": "m1", "c": 6, "s": 0}, {"t": "半透膜", "b": "m1", "c": 6, "s": 0}, {"t": "核糖体", "b": "m1", "c": 5, "s": 1}, {"t": "线粒体", "b": "m1", "c": 5, "s": 2}, {"t": "叶绿体", "b": "m1", "c": 5, "s": 2}, {"t": "高尔基体", "b": "m1", "c": 5, "s": 1}, {"t": "溶酶体", "b": "m1", "c": 5, "s": 1}, {"t": "中心体", "b": "m1", "c": 5, "s": 1}, {"t": "内质网", "b": "m1", "c": 5, "s": 1}, {"t": "分泌蛋白", "b": "m1", "c": 5, "s": 3}, {"t": "生物膜系统", "b": "m1", "c": 5, "s": 4}, {"t": "流动镶嵌模型", "b": "m1", "c": 4, "s": 2}, {"t": "细胞膜", "b": "m1", "c": 4, "s": 2}, {"t": "细胞核", "b": "m1", "c": 4, "s": 4}, {"t": "核孔", "b": "m1", "c": 4, "s": 4}, {"t": "细胞壁", "b": "m1", "c": 4, "s": 3}, {"t": "脱水缩合", "b": "m1", "c": 3, "s": 0}, {"t": "肽键", "b": "m1", "c": 3, "s": 0}, {"t": "必需氨基酸", "b": "m1", "c": 3, "s": 0}, {"t": "核酸", "b": "m1", "c": 3, "s": 1}, {"t": "斐林试剂", "b": "m1", "c": 1, "s": 1}, {"t": "双缩脲", "b": "m1", "c": 1, "s": 1}, {"t": "还原糖", "b": "m1", "c": 1, "s": 1}, {"t": "ATP", "b": "m1", "c": 7, "s": 4}];const DOG_END="data:image/jpeg;base64,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", DOG_RUN="data:image/jpeg;base64,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";</script>
+<script>
+/* 生物必背知识点 · 交互版 逻辑 */
+"use strict";
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const KEY = "bio_interactive_v2";
+
+/* ---------- 用户数据存储 ---------- */
+let store = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch(e){ return null; } })() || { users:{}, current:null };
+function saveStore(){ localStorage.setItem(KEY, JSON.stringify(store)); }
+function defUser(){ return { created:Date.now(), visited:{}, mastery:{}, cloze:{revealed:0,secs:{}},
+  quiz:{}, cards:{known:{},seen:0}, theme:"light", clozeMode:"off", side:true, last:{} }; }
+function curUser(){
+  if (!store.current || !store.users[store.current]) store.current = Object.keys(store.users)[0] || null;
+  if (!store.current) { store.users["默认用户"] = defUser(); store.current = "默认用户"; saveStore(); }
+  return store.users[store.current];
+}
+const U = () => curUser();
+
+/* ---------- 主题 ---------- */
+function applyTheme(){ document.documentElement.dataset.theme = U().theme || "light"; }
+function toggleTheme(){ const u=U(); u.theme = (u.theme==="dark") ? "light" : "dark"; saveStore(); applyTheme(); }
+
+/* ---------- 章节结构（书籍页） ---------- */
+let SECS = [];      // {id, el, chIdx, chT, title}
+let CHS  = [];      // {i, n, t, el, secEls:[h2]}
+function buildStructure(){
+  const chaps = $$(".chapter");
+  chaps.forEach((el, i) => {
+    el.id = "c" + i;
+    const meta = (BOOK && BOOK.chapters[i]) || { n:String(i+1), t: el.querySelector(".ch-head h1")?.textContent || "" };
+    const h2s = [...el.querySelectorAll("h2")];
+    h2s.forEach((h, j) => { h.id = "c" + i + "s" + j; });
+    CHS.push({ i, n: meta.n, t: meta.t, el, secEls: h2s });
+    if (h2s.length === 0) SECS.push({ id: el.id, el, chIdx: i, chT: meta.t, title: meta.t });
+    h2s.forEach((h, j) => {
+      SECS.push({ id: h.id, el: h, chIdx: i, chT: meta.t, title: h.textContent });
+    });
+  });
+}
+
+/* ---------- 侧边目录 ---------- */
+function buildTOC(){
+  const toc = $("#toc"); if (!toc) return;
+  toc.innerHTML = CHS.map(ch => {
+    const secs = ch.secEls.length ? ch.secEls.map(h =>
+      `<button class="toc-sec" data-jump="${h.id}" data-sid="${h.id}"><span class="st">${esc(h.textContent)}</span><span class="m-dot" title="掌握度"></span></button>`
+    ).join("") : `<button class="toc-sec" data-jump="${ch.el.id}" data-sid="${ch.el.id}"><span class="st">本章速览</span><span class="m-dot" title="掌握度"></span></button>`;
+    return `<div class="toc-ch" data-ch="${ch.i}">
+      <button class="toc-ch-head" data-jump="${ch.el.id}" data-sid="${ch.el.id}">
+        <span class="n" style="background:var(--ac, var(--pri))">${esc(ch.n)}</span><span class="t">${esc(ch.t)}</span>
+        <span class="prog"></span><span class="arr">▶</span>
+      </button><div class="toc-secs">${secs}</div></div>`;
+  }).join("");
+  $$(".toc-sec .m-dot, .toc-ch-head .m-dot").forEach(b => b.addEventListener("click", e => {
+    e.stopPropagation(); cycleMastery(b.closest("[data-sid]").dataset.sid, b);
+  }));
+  $$(".toc-ch-head").forEach(b => b.addEventListener("click", e => {
+    const box = b.parentElement;
+    box.classList.toggle("open");
+    if (e.target.closest(".m-dot")) return;
+    if (window.innerWidth > 900) { puppyRun(); jumpTo(b.dataset.jump, {}); }
+  }));
+  $$(".toc-sec").forEach(b => b.addEventListener("click", e => {
+    if (e.target.closest(".m-dot")) return;
+    puppyRun();
+    jumpTo(b.dataset.jump, {});
+  }));
+  refreshSidebarState();
+}
+function refreshSidebarState(){
+  $$(".toc-ch").forEach(box => {
+    const ch = CHS[+box.dataset.ch];
+    const sids = ch.secEls.length ? ch.secEls.map(h => h.id) : [ch.el.id];
+    const read = sids.filter(s => (U().visited[DATA.id]||[]).includes(s)).length;
+    const done = sids.filter(s => U().mastery[s] === 2).length;
+    box.querySelector(".prog").textContent = done === sids.length ? "已掌握" : `${read}/${sids.length}`;
+  });
+}
+function cycleMastery(sid, dot){
+  const u = U(); const cur = u.mastery[sid] || 0;
+  u.mastery[sid] = (cur + 1) % 3; saveStore();
+  syncDots();
+}
+function syncDots(){
+  $$("[data-sid]").forEach(el => {
+    const d = el.querySelector(".m-dot"); if (!d) return;
+    const m = U().mastery[el.dataset.sid] || 0;
+    d.className = "m-dot" + (m === 1 ? " m1" : m === 2 ? " m2" : "");
+    d.title = ["标记：学习中", "标记：已掌握", "清除标记"][m];
+  });
+  refreshSidebarState();
+}
+
+/* ---------- 跳转 / 滚动 ---------- */
+let BACK = [];   // 页内互链返回栈 {id, y, label}
+function jumpTo(id, opts){
+  const el = document.getElementById(id); if (!el) return;
+  el.scrollIntoView({ behavior: opts.instant ? "auto" : "smooth", block: opts.block || "start" });
+  if (opts.flash !== false) {
+    const box = el.closest(".chapter") || el;
+    box.classList.remove("ch-flash"); void box.offsetWidth; box.classList.add("ch-flash");
+    setTimeout(() => box.classList.remove("ch-flash"), 1700);
+  }
+  if (window.innerWidth <= 900) document.body.classList.add("side-collapsed");
+  if (opts.afterScroll) setTimeout(opts.afterScroll, 450);
+}
+function showBack(){
+  const pill = $("#xback"); if (!pill) return;
+  const top = BACK[BACK.length - 1];
+  if (top) { pill.querySelector("span").textContent = "返回：" + top.label; pill.classList.add("show"); }
+  else pill.classList.remove("show");
+}
+/* ---------- 互链 ---------- */
+function buildXrefs(){
+  if (typeof XREFS === "undefined" || !XREFS.length) return;
+  const sidOf = (bk, c, s) => (bk === DATA.id ? "" : bk + ".html") + "#c" + c + (s == null ? "" : "s" + s);
+  const entries = XREFS.slice().sort((a, b) => (b.t || "").length - (a.t || "").length);
+  $$(".chapter").forEach(chEl => {
+    const chIdx = +chEl.id.slice(1);
+    const headText = chEl.querySelector(".ch-head")?.textContent || "";
+    const used = new Set();
+    const walker = document.createTreeWalker(chEl, NodeFilter.SHOW_TEXT, {
+      acceptNode(n) {
+        const p = n.parentElement;
+        if (!p || p.closest("a, .k, h1, h2, h3, .bx-tag, script, style, .ch-head")) return NodeFilter.FILTER_REJECT;
+        return n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      let text = node.nodeValue, hits = [];
+      entries.forEach(en => {
+        const key = en.t;
+        if (used.has(key)) return;
+        const terms = en.v ? [en.t, ...en.v] : [en.t];
+        if (headText.includes(en.t)) return;
+        for (const t of terms) {
+          const pos = text.indexOf(t);
+          if (pos >= 0) { hits.push({ pos, t, en }); break; }
+        }
+      });
+      if (!hits.length) return;
+      hits.sort((a, b) => a.pos - b.pos);
+      const frag = document.createDocumentFragment();
+      let last = 0;
+      hits.forEach(h => {
+        if (h.pos < last) return;
+        frag.appendChild(document.createTextNode(text.slice(last, h.pos)));
+        const a = document.createElement("a");
+        a.className = "xref"; a.href = sidOf(h.en.b, h.en.c, h.en.s); a.textContent = h.t;
+        a.dataset.b = h.en.b; a.dataset.c = h.en.c; a.dataset.s = h.en.s == null ? "" : h.en.s;
+        used.add(h.en.t);
+        frag.appendChild(a);
+        last = h.pos + h.t.length;
+      });
+      frag.appendChild(document.createTextNode(text.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
+  });
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest("a.xref"); if (!a) return;
+  const label = a.textContent + " → " + (a.dataset.b === DATA.id ? "本书" : (BOOK.altLabel)) ;
+  if (a.dataset.b === DATA.id) {
+    e.preventDefault();
+    const cur = activeSec();
+    BACK.push({ id: cur ? cur.id : CHS[0].el.id, y: scrollY, label: label });
+    const sid = "c" + a.dataset.c + (a.dataset.s ? "s" + a.dataset.s : "");
+    puppyRun();
+    jumpTo(sid, {});
+    showBack();
+  } else {
+    e.preventDefault();
+    const cur = activeSec();
+    try { sessionStorage.setItem("bio_back", JSON.stringify({ url: location.pathname.split("/").pop(), sid: cur ? cur.id : "", y: scrollY, label: "返回：" + cur?.title })); } catch(err){}
+    puppyRun();
+    setTimeout(() => { location.href = a.dataset.b + ".html#c" + a.dataset.c + (a.dataset.s ? "s" + a.dataset.s : ""); }, 750);
+  }
+});
+$("#xback") && $("#xback").addEventListener("click", () => {
+  puppyRun();
+  const top = BACK.pop();
+  if (top) { jumpTo(top.id, { afterScroll: () => window.scrollTo({ top: top.y, behavior: "smooth" }) }); showBack(); }
+});
+
+/* ---------- 小狗彩蛋 ---------- */
+function injectDogEnds(){
+  if (typeof DOG_END === "undefined" || !DOG_END) return;
+  $$(".chapter").forEach(ch => {
+    if (ch.querySelector(".dog-stage")) return;
+    const d = document.createElement("div");
+    d.className = "ch-end";
+    d.innerHTML = `<div class="dog-stage">
+      <svg class="dog-chain" viewBox="0 0 230 180" aria-hidden="true">
+        <path class="chain-path" d=""/><circle class="chain-anchor" cx="18" cy="18" r="5"/><circle class="chain-ring" r="7"/>
+      </svg>
+      <div class="dog-body"><img class="ch-dog" alt="戴着项圈的小狗" draggable="false"><span class="blush bl"></span><span class="blush br"></span></div>
+      <span class="dog-hint">拉一拉项圈</span>
+    </div>`;
+    ch.appendChild(d);
+  });
+  $$(".ch-end .ch-dog").forEach(i => { i.src = DOG_END; });
+  bindDogPull();
+}
+function bindDogPull(){
+  $$(".dog-stage").forEach(stage => {
+    const body = stage.querySelector(".dog-body");
+    const blushes = stage.querySelectorAll(".blush");
+    const path = stage.querySelector(".chain-path");
+    const ring = stage.querySelector(".chain-ring");
+    const hint = stage.querySelector(".dog-hint");
+    const MAX = 46, K = 110, DAMP = 7.5;
+    // 舞台 230x180；狗盒 148px，左上角 (41,16)；项圈金环在狗图 (45.5%, 65.5%)
+    const DOG_X = 41, DOG_Y = 16, DOG_S = 148;
+    const RING_X = DOG_X + 0.455 * DOG_S, RING_Y = DOG_Y + 0.655 * DOG_S;
+    const st = { x:0, y:0, vx:0, vy:0, tx:0, ty:0, drag:null, raf:0 };
+    const settled = () => !st.drag && Math.hypot(st.x, st.y) < .4 && Math.hypot(st.vx, st.vy) < .4;
+    function render(){
+      body.style.transform = `translate(${st.x.toFixed(2)}px, ${st.y.toFixed(2)}px) rotate(${(-4 + st.x * 0.09).toFixed(2)}deg)`;
+      const p = Math.min(1, Math.hypot(st.x, st.y) / MAX);
+      blushes.forEach(b => { b.style.opacity = (p * .92).toFixed(3); });
+      const rx = RING_X + st.x, ry = RING_Y + st.y;
+      ring.setAttribute("cx", rx.toFixed(1)); ring.setAttribute("cy", ry.toFixed(1));
+      const dist = Math.hypot(rx - 18, ry - 18);
+      const sag = Math.max(5, Math.min(40, 55 - dist * 0.28));
+      path.setAttribute("d", `M 18 18 Q ${((18 + rx) / 2).toFixed(1)} ${((18 + ry) / 2 + sag).toFixed(1)} ${rx.toFixed(1)} ${ry.toFixed(1)}`);
+    }
+    function start(){
+      const raf = cb => document.hidden ? setTimeout(cb, 16) : requestAnimationFrame(cb);
+      const loop = () => {
+        if (st.drag) {
+          st.x += (st.tx - st.x) * .35; st.y += (st.ty - st.y) * .35;
+        } else {
+          const dt = 1 / 60;
+          st.vx += (-K * st.x - DAMP * st.vx) * dt; st.vy += (-K * st.y - DAMP * st.vy) * dt;
+          st.x += st.vx * dt; st.y += st.vy * dt;
+        }
+        render();
+        if (settled()) { st.x = st.y = st.vx = st.vy = 0; render(); st.raf = 0; return; }
+        st.raf = raf(loop);
+      };
+      st.raf = raf(loop);
+    }
+    body.addEventListener("pointerdown", e => {
+      e.preventDefault();
+      body.setPointerCapture(e.pointerId);
+      st.drag = { px: e.clientX, py: e.clientY };
+      st.raf || start();
+      stage.classList.add("grabbing");
+      hint.classList.add("off");
+    });
+    body.addEventListener("pointermove", e => {
+      if (!st.drag) return;
+      const dx = e.clientX - st.drag.px, dy = e.clientY - st.drag.py;
+      const d = Math.hypot(dx, dy);
+      const eff = d > MAX ? MAX + (d - MAX) * .25 : d;
+      const k = d ? eff / d : 0;
+      st.tx = dx * k; st.ty = dy * k;
+    });
+    const end = () => {
+      if (!st.drag) return;
+      st.drag = null; st.tx = st.ty = 0;
+      stage.classList.remove("grabbing");
+    };
+    body.addEventListener("pointerup", end);
+    body.addEventListener("pointercancel", end);
+  });
+}
+let PUP_T = null;
+function puppyRun(){
+  const el = $("#puppy-run"); if (!el || typeof DOG_RUN === "undefined" || !DOG_RUN) return;
+  el.querySelector("img").src = DOG_RUN;
+  el.classList.remove("run"); void el.offsetWidth; el.classList.add("run");
+  clearTimeout(PUP_T);
+  PUP_T = setTimeout(() => el.classList.remove("run"), 1050);
+}
+
+/* ---------- 挖空 ---------- */
+function setupCloze(){
+  const ks = $$(".content .k");
+  ks.forEach((k, i) => k.dataset.ci = i);
+  applyClozeMode();
+}
+function applyClozeMode(){
+  const mode = U().clozeMode || "off";
+  $$(".content .k").forEach(k => {
+    const on = mode === "all" || (mode === "half" && (+k.dataset.ci % 2 === 0));
+    k.classList.remove("cz", "open");
+    if (on) k.classList.add("cz");
+  });
+  $$(".cloze-group .tbtn").forEach(b => b.classList.toggle("on", b.dataset.mode === mode));
+}
+document.addEventListener("click", e => {
+  const k = e.target.closest(".k.cz"); if (!k) return;
+  if (!k.classList.contains("open")) {
+    k.classList.add("open");
+    const u = U(); u.cloze.revealed = (u.cloze.revealed || 0) + 1;
+    const sid = k.closest("h2") ? k.closest("h2").id : k.closest(".chapter")?.id;
+    if (sid) { u.cloze.secs[sid] = (u.cloze.secs[sid] || 0) + 1; }
+    saveStore(); refreshSidebarState();
+  } else { k.classList.remove("open"); }
+});
+/* ---------- 判断快测 ---------- */
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+let QZ = null;
+function openQuiz(chKey){
+  const bank = (typeof BOOK !== "undefined" && BOOK ? BOOK.quiz : HOME.quiz).map(q => ({ ...q }));
+  const list = shuffle(chKey === "all" ? bank : bank.filter(q => "c" + q.ch === chKey)).slice(0, 10);
+  if (!list.length) { alert("该章节暂无判断题"); return; }
+  QZ = { list, i: 0, score: 0, key: chKey, answered: false };
+  openModal("#m-quiz");
+  renderQuiz();
+}
+function renderQuiz(){
+  const q = QZ.list[QZ.i];
+  $("#qz-meta").textContent = `第 ${QZ.i + 1} / ${QZ.list.length} 题 · 当前得分 ${QZ.score}`;
+  $("#qz-stem").textContent = q.q;
+  $("#qz-fb").className = "qz-fb"; $("#qz-fb").innerHTML = "";
+  $("#qz-next").classList.remove("show");
+  $("#qz-btns").style.display = "flex";
+}
+function answerQuiz(v){
+  if (QZ.answered) return;
+  const q = QZ.list[QZ.i]; QZ.answered = true;
+  const ok = (v === q.a);
+  if (ok) QZ.score++;
+  const fb = $("#qz-fb");
+  fb.className = "qz-fb show " + (ok ? "ok" : "no");
+  fb.innerHTML = `<b>${ok ? "回答正确" : "回答错误"}。</b>正确答案：${q.a ? "√ 对" : "× 错"}${q.e ? "<br>" + esc(q.e) : ""}`;
+  $("#qz-btns").style.display = "none";
+  const isLast = QZ.i === QZ.list.length - 1;
+  $("#qz-next").textContent = isLast ? "查看成绩" : "下一题";
+  $("#qz-next").classList.add("show");
+}
+function quizNext(){
+  if (QZ.ended) { QZ.ended = false; openQuiz(QZ.key); return; }
+  if (QZ.i < QZ.list.length - 1) { QZ.i++; QZ.answered = false; renderQuiz(); return; }
+  const u = U(); const rec = u.quiz[QZ.key] || { best: 0, attempts: 0 };
+  rec.attempts++; rec.best = Math.max(rec.best, QZ.score); rec.last = Date.now();
+  u.quiz[QZ.key] = rec; saveStore();
+  $("#qz-meta").textContent = `本轮成绩`;
+  $("#qz-stem").innerHTML = `<span style="font-size:34px;font-weight:800;color:var(--pri)">${QZ.score} / ${QZ.list.length}</span>
+    <div style="margin-top:8px;font-size:13.5px;color:var(--mut)">历史最佳 ${rec.best} / ${QZ.list.length} · 已练习 ${rec.attempts} 轮</div>`;
+  $("#qz-fb").className = "qz-fb"; $("#qz-next").textContent = "再来一轮";
+  QZ.answered = false;
+  QZ.ended = true;
+  QZ.score = 0;
+}
+
+/* ---------- 闪卡 ---------- */
+let FC = null;
+function openCards(chKey){
+  const bank = (typeof BOOK !== "undefined" && BOOK ? BOOK.cards : HOME.cards).map(c => ({ ...c }));
+  let list = shuffle(chKey === "all" ? bank : bank.filter(c => "c" + c.ch === chKey));
+  if (!list.length) { alert("暂无闪卡"); return; }
+  FC = { list, i: 0, yes: 0, no: 0 };
+  openModal("#m-cards"); renderCard();
+}
+function renderCard(){
+  const c = FC.list[FC.i];
+  const box = $("#fc-box");
+  box.innerHTML = `<div class="fc-card" id="fc-card">
+    <div class="fc-face"><div class="fc-term">${esc(c.t)}</div><div class="fc-hint">点击卡片查看释义</div></div>
+    <div class="fc-face back"><div>${esc(c.c)}</div></div></div>`;
+  const card = $("#fc-card");
+  card.addEventListener("click", () => card.classList.toggle("flip"));
+  $("#fc-meta").textContent = `第 ${FC.i + 1} / ${FC.list.length} 张 · 记住 ${FC.yes} · 没记住 ${FC.no}`;
+  $("#fc-btns").style.display = "flex";
+}
+function rateCard(yes){
+  const c = FC.list[FC.i]; const u = U();
+  u.cards.known[c.t] = yes ? 1 : 0; u.cards.seen = (u.cards.seen || 0) + 1;
+  yes ? FC.yes++ : FC.no++; saveStore();
+  if (FC.i < FC.list.length - 1) { FC.i++; renderCard(); return; }
+  $("#fc-meta").textContent = "本轮完成";
+  $("#fc-box").innerHTML = `<div class="fc-card"><div class="fc-face"><div class="fc-term">记住 ${FC.yes} / ${FC.list.length}</div>
+    <div class="fc-hint">没记住 ${FC.no} 张 · 再来一轮巩固</div></div></div>`;
+  $("#fc-btns").style.display = "none";
+}
+
+/* ---------- 搜索 ---------- */
+function searchAll(qs){
+  const q = qs.trim().toLowerCase(); if (!q) return [];
+  const idx = typeof BOOK !== "undefined" && BOOK ? DATA.search : HOME.search;
+  const out = [];
+  idx.forEach(it => {
+    const hay = (it.t + " " + it.chT + " " + (it.terms || "") + " " + it.x).toLowerCase();
+    if (!hay.includes(q)) return;
+    let score = 0;
+    if (it.t.toLowerCase().includes(q)) score += 6;
+    if ((it.terms || "").toLowerCase().includes(q)) score += 4;
+    if (it.chT.toLowerCase().includes(q)) score += 2;
+    out.push({ ...it, score });
+  });
+  return out.sort((a, b) => b.score - a.score).slice(0, 20);
+}
+function openSearch(prefill){
+  openModal("#m-search");
+  const inp = $("#sp-input"); inp.value = prefill || ""; inp.focus();
+  renderSearch(inp.value);
+}
+function renderSearch(qs){
+  const res = searchAll(qs);
+  const box = $("#sp-list");
+  box.innerHTML = res.length ? res.map((r, i) =>
+    `<button class="sp-item${i === 0 ? " cur" : ""}" data-jump="${r.id}">
+      <div class="sp-t">${esc(r.chT)} · ${esc(r.t)}</div><div class="sp-c">${hl(r.x, qs)}</div></button>`).join("")
+    : `<div class="sp-empty">没有找到相关知识点</div>`;
+  box.querySelectorAll(".sp-item").forEach(b => b.addEventListener("click", () => {
+    closeModal(); jumpTo(b.dataset.jump, {});
+  }));
+}
+function hl(text, q){
+  const t = esc(text.slice(0, 90)); if (!q) return t;
+  const i = t.toLowerCase().indexOf(q.toLowerCase());
+  return i < 0 ? t : t.slice(0, i) + "<mark>" + t.slice(i, i + q.length) + "</mark>" + t.slice(i + q.length);
+}
+/* ---------- 弹窗 ---------- */
+function openModal(sel){ $$(".modal").forEach(m => m.classList.remove("show")); $(sel).classList.add("show"); $("#mask").classList.add("show"); }
+function closeModal(){ $$(".modal").forEach(m => m.classList.remove("show")); $("#mask").classList.remove("show"); }
+
+/* ---------- 用户菜单 ---------- */
+function openUserMenu(anchor){
+  closeFloat();
+  const m = document.createElement("div"); m.className = "float-menu"; m.id = "float-user";
+  const names = Object.keys(store.users);
+  m.innerHTML = names.map(n =>
+    `<button class="fm-item${n === store.current ? " cur" : ""}" data-u="${esc(n)}">● ${esc(n)}${n === store.current ? "（当前）" : ""}</button>`).join("")
+    + `<div class="fm-sep"></div><button class="fm-item" id="fm-add">＋ 新建用户</button>`
+    + (names.length > 1 ? `<button class="fm-item danger" id="fm-del">删除当前用户数据</button>` : "")
+    + `<div class="fm-sep"></div><div style="padding:6px 12px;font-size:11.5px;color:var(--mut);line-height:1.6">学习数据保存在本机浏览器，<br>不同用户互不影响。</div>`;
+  document.body.appendChild(m);
+  const r = anchor.getBoundingClientRect();
+  m.style.top = (r.bottom + 8) + "px";
+  m.style.left = Math.min(r.left, innerWidth - m.offsetWidth - 10) + "px";
+  m.querySelectorAll("[data-u]").forEach(b => b.addEventListener("click", () => {
+    store.current = b.dataset.u; saveStore(); location.reload();
+  }));
+  $("#fm-add").addEventListener("click", () => {
+    const name = (prompt("新用户名称：") || "").trim();
+    if (!name) return;
+    if (store.users[name]) { alert("该用户已存在"); return; }
+    store.users[name] = defUser(); store.current = name; saveStore(); location.reload();
+  });
+  const del = $("#fm-del");
+  if (del) del.addEventListener("click", () => {
+    if (!confirm(`删除「${store.current}」的全部学习数据？不可恢复。`)) return;
+    delete store.users[store.current];
+    store.current = Object.keys(store.users)[0] || null; saveStore(); location.reload();
+  });
+  setTimeout(() => document.addEventListener("click", closeFloatOnce), 0);
+}
+function closeFloatOnce(e){ if (!e.target.closest("#float-user")) closeFloat(); }
+function closeFloat(){ const m = $("#float-user"); if (m) m.remove(); document.removeEventListener("click", closeFloatOnce); }
+function bindUserChip(){
+  const chip = $("#user-chip"); if (!chip) return;
+  const render = () => { $("#u-name").textContent = store.current; $("#u-dot").textContent = (store.current || "客").slice(0, 1); };
+  render();
+  chip.addEventListener("click", e => { e.stopPropagation(); if ($("#float-user")) { closeFloat(); return; } openUserMenu(chip); });
+}
+
+/* ---------- 滚动监听 ---------- */
+let NAV = [], activeId = null, saveTimer = null;
+function activeSec(){ return NAV.find(s => s.id === activeId); }
+function markVisited(nav){
+  const u = U(); const arr = u.visited[DATA.id] = u.visited[DATA.id] || [];
+  const track = nav.isSec || nav.solo;
+  if (track && !arr.includes(nav.id)) { arr.push(nav.id); saveStore(); refreshSidebarState(); }
+}
+function onScroll(){
+  const st = scrollY + 140;
+  let cur = NAV[0];
+  for (const s of NAV) { if (s.top <= st) cur = s; else break; }
+  if (cur && cur.id !== activeId) {
+    activeId = cur.id; markVisited(cur);
+    $$(".toc-sec").forEach(b => b.classList.toggle("active", b.dataset.jump === cur.id));
+    if (cur.chIdx != null) {
+      const box = $(`.toc-ch[data-ch="${cur.chIdx}"]`);
+      if (box) box.classList.add("open");
+      $("#crumb").innerHTML = `<b>${esc(BOOK.label)}</b> · ${esc(cur.chT)} · ${esc(cur.title)}`;
+    }
+  }
+  const h = document.documentElement.scrollHeight - innerHeight;
+  const bar = $("#readbar i"); if (bar) bar.style.width = (h > 0 ? Math.min(100, scrollY / h * 100) : 0) + "%";
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(savePos, 900);
+}
+function measureNav(){ NAV.forEach(s => { s.top = s.el.getBoundingClientRect().top + scrollY; }); }
+function savePos(){
+  if (!activeId) return;
+  U().last[DATA.id] = { sid: activeId, y: Math.round(scrollY), ts: Date.now() }; saveStore();
+}
+function savePositionNow(){ savePos(); }
+
+/* ---------- 初始化（书籍页） ---------- */
+function bootBook(){
+  applyTheme();
+  const chaps = $$(".chapter");
+  chaps.forEach((el, i) => {
+    el.id = "c" + i;
+    const meta = BOOK.chapters[i] || { n: String(i + 1), t: el.querySelector(".ch-head h1")?.textContent || "" };
+    const h2s = [...el.querySelectorAll("h2")];
+    h2s.forEach((h, j) => { h.id = "c" + i + "s" + j; });
+    CHS.push({ i, n: meta.n, t: meta.t, el, secEls: h2s });
+    NAV.push({ id: el.id, el, chIdx: i, chT: meta.t, title: meta.t, isSec: false, solo: h2s.length === 0 });
+    h2s.forEach(h => NAV.push({ id: h.id, el: h, chIdx: i, chT: meta.t, title: h.textContent, isSec: true }));
+  });
+  buildTOC();
+  buildXrefs();
+  injectDogEnds();
+  setupCloze();
+  syncDots();
+  bindToolbar();
+  bindUserChip();
+  bindQuizChips(); bindCardChips();
+  measureNav();
+  // 跨册返回按钮
+  try {
+    const b = sessionStorage.getItem("bio_back");
+    if (b) { const pill = $("#xback"); pill.querySelector("span").textContent = JSON.parse(b).label; pill.classList.add("show"); }
+  } catch(e){}
+  // 目标定位：hash > 上次位置
+  const restore = () => {
+    const ret = sessionStorage.getItem("bio_return");
+    if (ret) { try { const { y } = JSON.parse(ret); window.scrollTo(0, y); } catch(e){} sessionStorage.removeItem("bio_return"); measureNav(); onScroll(); return; }
+    const h = location.hash.slice(1);
+    if (h && document.getElementById(h)) { activeId = h; jumpTo(h, { instant: true, flash: false }); measureNav(); onScroll(); return; }
+    const last = U().last[DATA.id];
+    if (last && document.getElementById(last.sid)) {
+      jumpTo(last.sid, { instant: true, flash: false, afterScroll: () => window.scrollTo(0, last.y) });
+    }
+    measureNav(); onScroll();
+  };
+  setTimeout(restore, 250);
+  window.addEventListener("scroll", () => requestAnimationFrame(onScroll), { passive: true });
+  window.addEventListener("beforeunload", savePositionNow);
+  onScroll();
+}
+/* ---------- 工具栏绑定 ---------- */
+function bindToolbar(){
+  $("#btn-menu").addEventListener("click", () => document.body.classList.toggle("side-collapsed"));
+  $("#side-collapse").addEventListener("click", () => { document.body.classList.add("side-collapsed"); U().side = false; saveStore(); });
+  $("#side-expand").addEventListener("click", () => { document.body.classList.remove("side-collapsed"); U().side = true; saveStore(); });
+  if (U().side === false && window.innerWidth > 900) document.body.classList.add("side-collapsed");
+  $$(".cloze-group .tbtn").forEach(b => b.addEventListener("click", () => { U().clozeMode = b.dataset.mode; saveStore(); applyClozeMode(); }));
+  $("#btn-quiz").addEventListener("click", () => openModal("#m-quiz"));
+  $("#btn-cards").addEventListener("click", () => openModal("#m-cards"));
+  $("#btn-dice").addEventListener("click", openDice);
+  $("#btn-theme").addEventListener("click", toggleTheme);
+  $("#btn-top").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  $("#search-in").addEventListener("click", () => openSearch());
+  $("#sp-input").addEventListener("input", e => renderSearch(e.target.value));
+  $("#dice-again").addEventListener("click", openDice);
+  $("#qz-yes").addEventListener("click", () => answerQuiz(true));
+  $("#qz-no").addEventListener("click", () => answerQuiz(false));
+  $("#qz-next").addEventListener("click", quizNext);
+  $("#fc-yes").addEventListener("click", () => rateCard(true));
+  $("#fc-no").addEventListener("click", () => rateCard(false));
+  $$(".m-close").forEach(b => b.addEventListener("click", closeModal));
+  $("#mask").addEventListener("click", closeModal);
+  document.addEventListener("keydown", e => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); openSearch(); }
+    if (e.key === "Escape") closeModal();
+  });
+}
+function bindQuizChips(){
+  const box = $("#qz-chips"); if (!box) return;
+  box.innerHTML = `<button class="sel-chip on" data-k="all">全部</button>`
+    + BOOK.chapters.map((c, i) => `<button class="sel-chip" data-k="c${i}">${esc(c.n)} ${esc(c.t)}</button>`).join("");
+  box.querySelectorAll(".sel-chip").forEach(b => b.addEventListener("click", () => {
+    box.querySelectorAll(".sel-chip").forEach(x => x.classList.toggle("on", x === b));
+    openQuiz(b.dataset.k);
+  }));
+}
+function bindCardChips(){
+  const box = $("#fc-chips"); if (!box) return;
+  box.innerHTML = `<button class="sel-chip on" data-k="all">全部</button>`
+    + BOOK.chapters.map((c, i) => `<button class="sel-chip" data-k="c${i}">${esc(c.n)} ${esc(c.t)}</button>`).join("");
+  box.querySelectorAll(".sel-chip").forEach(b => b.addEventListener("click", () => {
+    box.querySelectorAll(".sel-chip").forEach(x => x.classList.toggle("on", x === b));
+    openCards(b.dataset.k);
+  }));
+}
+function openDice(){
+  const bank = typeof BOOK !== "undefined" && BOOK ? BOOK.cards : HOME.cards;
+  const c = bank[Math.floor(Math.random() * bank.length)];
+  openModal("#m-dice");
+  $("#dice-term").textContent = c.t;
+  $("#dice-ctx").textContent = c.c;
+}
+
+/* ---------- 落地页 ---------- */
+function bootHome(){
+  applyTheme(); bindUserChip();
+  $("#hs-user").textContent = store.current || "";
+  const u = U();
+  $("#home-books").innerHTML = HOME.books.map(b => {
+    const read = (u.visited[b.id] || []).length;
+    const pct = Math.min(100, Math.round(read / b.secs * 100));
+    return `<a class="book-card" href="${b.file}">
+      <h2>${esc(b.label)}</h2><div class="bc-sub">${esc(b.sub)}</div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <div class="bc-meta"><span>已读 ${read} / ${b.secs} 节</span><span>${b.chN} 章</span><span>判断题 ${b.quizN} 条</span><span>闪卡 ${b.cardN} 张</span></div></a>`;
+  }).join("");
+  $("#home-books").addEventListener("click", e => {
+    const a = e.target.closest("a.book-card"); if (!a) return;
+    e.preventDefault(); puppyRun();
+    setTimeout(() => { location.href = a.getAttribute("href"); }, 750);
+  });
+  const qzBest = Math.max(0, ...Object.values(u.quiz).map(r => r.best || 0));
+  $("#home-stats").innerHTML = `
+    <div class="stat"><b>${(u.visited.m1 || []).length + (u.visited.m2 || []).length}</b><span>累计已读节数</span></div>
+    <div class="stat"><b>${u.cloze.revealed || 0}</b><span>挖空已回忆次数</span></div>
+    <div class="stat"><b>${u.cards.seen || 0}</b><span>闪卡练习张数</span></div>
+    <div class="stat"><b>${qzBest}</b><span>判断题单轮最佳（满分10）</span></div>`;
+  $("#btn-dice2").addEventListener("click", openDice);
+  $("#btn-theme2").addEventListener("click", toggleTheme);
+  $$(".m-close").forEach(b => b.addEventListener("click", closeModal));
+  $("#mask").addEventListener("click", closeModal);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+}
+
+/* ---------- 启动 ---------- */
+if (document.body.dataset.book === "home") bootHome(); else bootBook();
+
+
+</script>
+</body>
+</html>

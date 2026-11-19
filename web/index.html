@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>高中生物必背知识点 · 交互复习</title>
+<style>/* 生物必背知识点 · 交互版  */
+* { box-sizing: border-box; }
+:root {
+  --bg:#eef2f6; --panel:#fff; --ink:#1e293b; --mut:#64748b; --line:#dbe2ea;
+  --pri:#0e7490; --pri-soft:#e0f2fe; --gold:#b45309; --kbg:#fde68a;
+  --side-w:270px; --rad:10px;
+  --c-warn:#e11d48; --c-note:#4f46e5; --c-exam:#0d9488; --c-exp:#9333ea;
+}
+html[data-theme="dark"] {
+  --bg:#0a1220; --panel:#111b2e; --ink:#d9e4f2; --mut:#8ba1b9; --line:#24344d;
+  --pri:#38bdf8; --pri-soft:#0c2a42; --gold:#fbbf24; --kbg:rgba(253,230,138,.22);
+  --c-warn:#fb7185; --c-note:#818cf8; --c-exam:#2dd4bf; --c-exp:#c084fc;
+}
+html, body { margin:0; padding:0; }
+body { font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg); color:var(--ink); font-size:15px; line-height:1.75; }
+button { font-family:inherit; cursor:pointer; }
+a { color:var(--pri); }
+
+/* ---------- 布局骨架 ---------- */
+.app { display:flex; min-height:100vh; }
+.main { flex:1; min-width:0; display:flex; flex-direction:column; }
+
+/* ---------- 侧边栏 ---------- */
+.sidebar { width:var(--side-w); flex:none; background:var(--panel); border-right:1px solid var(--line);
+  display:flex; flex-direction:column; height:100vh; position:sticky; top:0; z-index:40;
+  transition:margin .25s ease; }
+body.side-collapsed .sidebar { margin-left:calc(-1 * var(--side-w)); }
+.side-head { display:flex; align-items:center; gap:8px; padding:14px 14px 10px; }
+.side-brand { font-weight:800; font-size:15px; color:var(--ink); text-decoration:none; letter-spacing:.04em; }
+.side-brand small { display:block; font-weight:500; font-size:10.5px; color:var(--mut); letter-spacing:.18em; }
+.side-collapse { margin-left:auto; border:1px solid var(--line); background:none; color:var(--mut);
+  border-radius:8px; width:28px; height:28px; font-size:14px; line-height:1; }
+.side-collapse:hover { color:var(--pri); border-color:var(--pri); }
+.side-user { margin:2px 12px 8px; }
+.user-chip { width:100%; display:flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid var(--line);
+  border-radius:10px; background:var(--bg); color:var(--ink); font-size:13px; }
+.user-chip:hover { border-color:var(--pri); }
+.user-chip .u-dot { width:22px; height:22px; border-radius:50%; background:var(--pri); color:#fff; font-size:11px;
+  display:flex; align-items:center; justify-content:center; flex:none; }
+.user-chip .u-name { flex:1; text-align:left; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.user-chip .u-arr { color:var(--mut); font-size:11px; }
+.side-search { padding:0 12px 10px; }
+.side-search input { width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:10px;
+  background:var(--bg); color:var(--ink); font-size:13px; outline:none; }
+.side-search input:focus { border-color:var(--pri); }
+.toc { flex:1; overflow-y:auto; padding:4px 8px 30px; }
+.toc-ch { margin-bottom:4px; }
+.toc-ch-head { width:100%; display:flex; align-items:center; gap:8px; padding:7px 8px; border:0; background:none;
+  border-radius:8px; color:var(--ink); font-size:13.5px; font-weight:600; text-align:left; }
+.toc-ch-head:hover { background:var(--pri-soft); }
+.toc-ch-head .n { flex:none; width:24px; height:24px; border-radius:7px; background:var(--ac,var(--pri)); color:#fff;
+  font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.toc-ch-head .t { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.toc-ch-head .prog { flex:none; font-size:10.5px; color:var(--mut); }
+.toc-ch-head .arr { flex:none; color:var(--mut); font-size:10px; transition:transform .2s; }
+.toc-ch.open .toc-ch-head .arr { transform:rotate(90deg); }
+.toc-secs { display:none; padding:2px 0 4px 14px; }
+.toc-ch.open .toc-secs { display:block; }
+.toc-sec { display:flex; align-items:center; gap:6px; width:100%; border:0; background:none; text-align:left;
+  padding:5px 8px; border-radius:8px; color:var(--mut); font-size:12.5px; }
+.toc-sec:hover { color:var(--ink); background:var(--pri-soft); }
+.toc-sec.active { color:var(--pri); font-weight:700; background:var(--pri-soft); }
+.toc-sec .st { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.m-dot { flex:none; width:9px; height:9px; border-radius:50%; border:1.5px solid var(--line); background:transparent; padding:0; }
+.m-dot.m1 { background:#3b82f6; border-color:#3b82f6; }
+.m-dot.m2 { background:#22c55e; border-color:#22c55e; }
+.side-expand { position:fixed; left:0; top:50%; transform:translateY(-50%); z-index:39; border:1px solid var(--line);
+  background:var(--panel); color:var(--mut); border-radius:0 10px 10px 0; padding:14px 6px; font-size:14px; display:none; }
+body.side-collapsed .side-expand { display:block; }
+
+/* ---------- 顶栏 ---------- */
+.topbar { position:sticky; top:0; z-index:30; background:color-mix(in srgb, var(--panel) 88%, transparent);
+  backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+.topbar-in { display:flex; align-items:center; gap:10px; padding:10px 20px; flex-wrap:wrap; }
+.crumb { font-size:13px; color:var(--mut); min-width:0; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.crumb b { color:var(--ink); }
+.tools { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.tbtn { border:1px solid var(--line); background:var(--panel); color:var(--ink); border-radius:9px;
+  padding:5px 11px; font-size:12.5px; white-space:nowrap; }
+.tbtn:hover { border-color:var(--pri); color:var(--pri); }
+.tbtn.on { background:var(--pri); border-color:var(--pri); color:#fff; }
+.cloze-group { display:flex; align-items:center; border:1px solid var(--line); border-radius:9px; overflow:hidden; }
+.cloze-group .cg-label { padding:5px 9px; font-size:12.5px; color:var(--mut); background:var(--bg); }
+.cloze-group .tbtn { border:0; border-left:1px solid var(--line); border-radius:0; }
+.readbar { height:3px; background:transparent; }
+/* ---------- 内容区 ---------- */
+.content { max-width:920px; width:100%; margin:0 auto; padding:26px 26px 90px; }
+.hero { background:linear-gradient(155deg,#0b1f33 0%,#123a5c 45%,#0e5e52 100%); color:#fff;
+  border-radius:14px; padding:30px 32px 26px; margin-bottom:26px; }
+.hero .h-badge { display:inline-block; font-size:11px; letter-spacing:.3em; border:1px solid rgba(255,255,255,.45);
+  border-radius:99px; padding:4px 14px; color:#cfe8dd; }
+.hero h1 { margin:16px 0 4px; font-size:27px; letter-spacing:.04em; line-height:1.4; }
+.hero .h-sub { color:#9fd8c4; font-size:13.5px; letter-spacing:.12em; margin:0; }
+.hero .h-owner { margin:16px 0 0; color:#ffe9b8; font-weight:700; font-size:15px; letter-spacing:.08em; }
+.hero .h-meta { margin-top:12px; color:#a8bccb; font-size:12px; display:flex; gap:18px; flex-wrap:wrap; }
+
+.chapter { background:var(--panel); border:1px solid var(--line); border-radius:14px;
+  padding:22px 26px 24px; margin-bottom:26px; scroll-margin-top:74px; }
+.ch-head { display:flex; align-items:center; gap:14px; padding-bottom:12px; border-bottom:2px solid var(--ac,var(--pri)); margin-bottom:16px; }
+.ch-num { width:44px; height:44px; border-radius:12px; background:var(--ac,var(--pri)); color:#fff; flex:none;
+  font-size:19px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.ch-head h1 { margin:0; font-size:21px; letter-spacing:.03em; }
+.ch-sub { margin:2px 0 0; font-size:12px; color:var(--mut); }
+.ch-flash { border-radius:6px; animation:flashBg 1.6s ease 1; }
+@keyframes flashBg { 0% { background:color-mix(in srgb, var(--ac,var(--pri)) 22%, transparent); }
+  100% { background:transparent; } }
+
+h2 { font-size:17px; color:var(--ac,var(--pri)); margin:20px 0 8px; padding-left:10px;
+  border-left:4px solid var(--ac,var(--pri)); scroll-margin-top:74px; }
+h3 { font-size:15px; margin:12px 0 4px; }
+p { margin:6px 0; }
+ul,ol { margin:6px 0; padding-left:1.6em; }
+li { margin:3px 0; }
+b { font-weight:600; }
+sub,sup { font-size:70%; }
+.k { font-weight:600; background:linear-gradient(transparent 62%, var(--kbg) 62%); padding:0 1px; border-radius:2px; }
+table { border-collapse:collapse; width:100%; margin:8px 0 12px; }
+th,td { border:1px solid var(--line); padding:6px 9px; vertical-align:top; font-size:13.5px; line-height:1.6; text-align:left; }
+th { font-weight:600; background:var(--bg); }
+.table-scroll { overflow-x:auto; }
+
+.bx { border-radius:10px; padding:12px 15px; margin:10px 0 14px; }
+.bx .bx-tag { display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.12em; color:#fff;
+  border-radius:99px; padding:2px 11px 3px; margin-bottom:6px; }
+.note { background:color-mix(in srgb, var(--c-note) 10%, var(--panel)); border-left:4px solid var(--c-note); }
+.note .bx-tag { background:var(--c-note); }
+.warn { background:color-mix(in srgb, var(--c-warn) 9%, var(--panel)); border-left:4px solid var(--c-warn); }
+.warn .bx-tag { background:var(--c-warn); }
+.exam { background:color-mix(in srgb, var(--c-exam) 10%, var(--panel)); border-left:4px solid var(--c-exam); }
+.exam .bx-tag { background:var(--c-exam); }
+.exp { background:color-mix(in srgb, var(--c-exp) 9%, var(--panel)); border-left:4px solid var(--c-exp); }
+.exp .bx-tag { background:var(--c-exp); }
+.fgrid { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 12px; }
+.fcard { flex:1 1 260px; background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-size:13px; }
+.fcard b { color:var(--ac,var(--pri)); }
+.fcard .fm { display:block; font-family:Menlo,monospace; font-size:12.5px; margin-top:4px; }
+.flow { background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:10px 14px; font-size:13.5px; margin:8px 0 12px; }
+.flow b { color:var(--ac,var(--pri)); }
+.recap { background:color-mix(in srgb, var(--ac,var(--pri)) 8%, var(--panel)); border:1px solid var(--ac,var(--pri));
+  border-radius:12px; padding:12px 16px; margin-top:14px; }
+/* ---------- 挖空 ---------- */
+.k.cz { color:transparent !important; text-shadow:none; background:repeating-linear-gradient(45deg,
+  color-mix(in srgb, var(--ink) 22%, transparent) 0 5px, transparent 5px 9px); border-radius:3px;
+  cursor:pointer; transition:background .15s; min-width:2em; }
+.k.cz:hover { background:repeating-linear-gradient(45deg,
+  color-mix(in srgb, var(--pri) 40%, transparent) 0 5px, transparent 5px 9px); }
+.k.cz.open { color:inherit !important; background:linear-gradient(transparent 62%, #86efac 62%); cursor:default; }
+html[data-theme="dark"] .k.cz.open { background:linear-gradient(transparent 62%, rgba(134,239,172,.4) 62%); }
+
+/* ---------- 互链 ---------- */
+.xref { color:var(--pri); text-decoration:none; border-bottom:1px dashed var(--pri); cursor:pointer; padding:0 1px; }
+.xref:hover { background:var(--pri-soft); border-bottom-style:solid; }
+.xback { position:fixed; right:22px; bottom:22px; z-index:45; display:none; align-items:center; gap:8px;
+  background:var(--pri); color:#fff; border:0; border-radius:99px; padding:10px 18px; font-size:13px; font-weight:600;
+  box-shadow:0 6px 22px rgba(14,116,144,.4); max-width:46vw; }
+.xback.show { display:flex; }
+.xback span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+/* ---------- 浮动/菜单 ---------- */
+.float-menu { position:fixed; z-index:60; background:var(--panel); border:1px solid var(--line); border-radius:12px;
+  box-shadow:0 10px 34px rgba(2,8,20,.18); padding:6px; min-width:200px; }
+.fm-item { display:flex; width:100%; border:0; background:none; color:var(--ink); text-align:left; padding:9px 12px;
+  border-radius:8px; font-size:13.5px; gap:8px; align-items:center; }
+.fm-item:hover { background:var(--pri-soft); }
+.fm-item.cur { color:var(--pri); font-weight:700; }
+.fm-item.danger { color:var(--c-warn); }
+.fm-sep { height:1px; background:var(--line); margin:4px 6px; }
+
+/* ---------- 遮罩与弹窗 ---------- */
+.mask { position:fixed; inset:0; background:rgba(4,10,20,.5); z-index:70; display:none; }
+.mask.show { display:block; }
+.modal { position:fixed; z-index:71; left:50%; top:50%; transform:translate(-50%,-50%); width:min(680px,92vw);
+  max-height:86vh; overflow:auto; background:var(--panel); border:1px solid var(--line); border-radius:16px;
+  padding:22px 26px; display:none; }
+.modal.show { display:block; }
+.modal h3 { margin:0 0 14px; font-size:17px; display:flex; align-items:center; }
+.modal .m-close { margin-left:auto; border:1px solid var(--line); background:none; color:var(--mut);
+  border-radius:8px; width:28px; height:28px; font-size:13px; }
+.sel-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+.sel-chip { border:1px solid var(--line); background:var(--bg); color:var(--ink); border-radius:99px;
+  padding:5px 14px; font-size:12.5px; }
+.sel-chip.on { background:var(--pri); border-color:var(--pri); color:#fff; }
+
+/* ---------- 判断快测 ---------- */
+.qz-meta { color:var(--mut); font-size:12.5px; margin-bottom:10px; }
+.qz-stem { background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:16px 18px;
+  font-size:15px; line-height:1.8; margin-bottom:16px; }
+.qz-btns { display:flex; gap:12px; }
+.qz-btns button { flex:1; padding:12px; font-size:16px; font-weight:700; border-radius:12px; border:1.5px solid var(--line);
+  background:var(--bg); color:var(--ink); }
+.qz-btns button:hover { border-color:var(--pri); }
+.qz-fb { margin-top:14px; border-radius:10px; padding:12px 14px; font-size:13.5px; line-height:1.7; display:none; }
+.qz-fb.show { display:block; }
+.qz-fb.ok { background:color-mix(in srgb,#22c55e 12%, var(--panel)); border:1px solid #22c55e; }
+.qz-fb.no { background:color-mix(in srgb,var(--c-warn) 10%, var(--panel)); border:1px solid var(--c-warn); }
+.qz-next { margin-top:14px; width:100%; padding:10px; font-size:14px; font-weight:700; border-radius:10px;
+  border:0; background:var(--pri); color:#fff; display:none; }
+.qz-next.show { display:block; }
+
+/* ---------- 闪卡 ---------- */
+.fc-box { perspective:1200px; margin-bottom:16px; }
+.fc-card { position:relative; min-height:190px; border-radius:14px; border:1px solid var(--line); background:var(--bg);
+  display:flex; align-items:center; justify-content:center; text-align:center; padding:24px 28px;
+  font-size:16.5px; line-height:1.85; cursor:pointer; transition:transform .4s; transform-style:preserve-3d; }
+.fc-card.flip { transform:rotateY(180deg); }
+.fc-face { backface-visibility:hidden; -webkit-backface-visibility:hidden; max-height:280px; overflow:auto; }
+.fc-face.back { position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  transform:rotateY(180deg); font-size:14px; color:var(--ink); }
+.fc-term { font-weight:700; color:var(--pri); font-size:20px; }
+.fc-hint { position:absolute; bottom:8px; left:0; right:0; text-align:center; color:var(--mut); font-size:11px; }
+.fc-btns { display:flex; gap:12px; }
+.fc-btns button { flex:1; padding:11px; font-size:14.5px; font-weight:700; border-radius:10px; border:1.5px solid var(--line); background:var(--bg); }
+/* ---------- 搜索面板 ---------- */
+.sp-input { width:100%; padding:11px 14px; font-size:15px; border:1.5px solid var(--pri); border-radius:12px;
+  background:var(--bg); color:var(--ink); outline:none; margin-bottom:12px; }
+.sp-list { max-height:52vh; overflow:auto; }
+.sp-item { display:block; width:100%; text-align:left; border:0; background:none; color:var(--ink);
+  padding:10px 12px; border-radius:10px; }
+.sp-item:hover, .sp-item.cur { background:var(--pri-soft); }
+.sp-item .sp-t { font-size:13.5px; font-weight:600; }
+.sp-item .sp-c { font-size:12px; color:var(--mut); margin-top:2px; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; }
+.sp-item .sp-c mark { background:none; color:var(--gold); font-weight:700; }
+.sp-empty { color:var(--mut); font-size:13px; padding:16px; text-align:center; }
+kbd { border:1px solid var(--line); border-bottom-width:2px; border-radius:5px; padding:0 5px; font-size:11px; color:var(--mut); }
+
+/* ---------- 统计 / 落地页 ---------- */
+.home-wrap { max-width:1020px; margin:0 auto; padding:34px 24px 90px; }
+.home-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px; }
+.book-card { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:22px 24px;
+  display:block; text-decoration:none; color:var(--ink); position:relative; overflow:hidden; }
+.book-card:hover { border-color:var(--pri); transform:translateY(-2px); transition:.2s; }
+.book-card h2 { margin:0 0 4px; font-size:19px; border:0; padding:0; color:var(--ink); }
+.book-card .bc-sub { color:var(--mut); font-size:12.5px; margin-bottom:14px; }
+.book-card .bc-meta { display:flex; gap:16px; font-size:12.5px; color:var(--mut); flex-wrap:wrap; }
+.bar { height:8px; border-radius:99px; background:var(--bg); border:1px solid var(--line); overflow:hidden; margin:10px 0 6px; }
+.bar i { display:block; height:100%; background:linear-gradient(90deg,var(--pri),#22c55e); }
+.stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-top:16px; }
+.stat { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+.stat b { display:block; font-size:22px; color:var(--pri); }
+.stat span { font-size:12px; color:var(--mut); }
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 900px) {
+  .sidebar { position:fixed; left:0; top:0; box-shadow:0 0 40px rgba(2,8,20,.3); }
+  body.side-collapsed .sidebar { margin-left:calc(-1 * var(--side-w) - 10px); }
+  .side-collapse { display:none; }
+  .side-expand { display:none !important; }
+  .hamb { display:inline-block !important; }
+  .content { padding:18px 14px 90px; }
+  .chapter { padding:16px 16px 20px; }
+  .hero { padding:22px 20px; }
+}
+.hamb { display:none; border:1px solid var(--line); background:var(--panel); color:var(--ink);
+  border-radius:9px; padding:5px 11px; font-size:13px; }
+.foot-note { text-align:center; color:var(--mut); font-size:12px; padding:26px 0 40px; }
+
+/* ---------- 小狗彩蛋 ---------- */
+.ch-end { margin:34px 0 6px; display:flex; justify-content:center; }
+.dog-stage { position:relative; width:230px; height:180px; touch-action:none; -webkit-user-select:none; user-select:none; }
+.dog-chain { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:2; overflow:visible; }
+.chain-path { fill:none; stroke:#d8a63c; stroke-width:3; stroke-linecap:round; stroke-dasharray:5 7; opacity:.9; }
+.chain-anchor { fill:#b98a2e; }
+.chain-ring { fill:rgba(255,255,255,.15); stroke:#d8a63c; stroke-width:3.5; }
+.dog-body { position:absolute; left:41px; top:16px; width:148px; height:148px; z-index:1;
+  cursor:grab; will-change:transform; }
+.dog-stage.grabbing .dog-body { cursor:grabbing; }
+.ch-dog { width:100%; height:100%; object-fit:cover; border-radius:50%; border:3px solid var(--line);
+  box-shadow:0 10px 24px rgba(2,8,20,.12); pointer-events:none; -webkit-user-drag:none; }
+.blush { position:absolute; width:18%; height:13%; border-radius:50%; pointer-events:none; opacity:0;
+  background:radial-gradient(closest-side, rgba(240,62,62,.9), rgba(240,62,62,0)); filter:blur(1px); }
+.blush.bl { left:21%; top:34%; }
+.blush.br { left:55%; top:33%; }
+.dog-hint { position:absolute; left:50%; bottom:-6px; transform:translateX(-50%); font-size:11px;
+  color:var(--mut); background:var(--panel); border:1px solid var(--line); border-radius:999px;
+  padding:2px 10px; white-space:nowrap; transition:opacity .4s; pointer-events:none; }
+.dog-hint.off { opacity:0; }
+#puppy-run { position:fixed; left:50%; top:50%; width:132px; height:132px; margin:-66px 0 0 -66px;
+  z-index:998; pointer-events:none; opacity:0; }
+#puppy-run img { width:100%; height:100%; object-fit:cover; border-radius:50%; border:4px solid #fff;
+  box-shadow:0 14px 36px rgba(2,8,20,.30); }
+#puppy-run.run { animation:puppy-dash 1s ease-in-out forwards; }
+#puppy-run.run img { animation:puppy-hop .5s ease-in-out 2; }
+@keyframes puppy-dash {
+  0% { opacity:0; transform:translateX(-44vw) rotate(-12deg); }
+  15% { opacity:1; }
+  50% { transform:translateX(0) rotate(5deg); }
+  85% { opacity:1; }
+  100% { opacity:0; transform:translateX(44vw) rotate(12deg); } }
+@keyframes puppy-hop {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-16px); } }
+
+
+</style>
+</head>
+<body data-book="home">
+<div class="home-wrap">
+  <header class="hero">
+    <span class="h-badge">GAOKAO BIOLOGY · 人教版</span>
+    <h1>高中生物必背知识点 · 交互复习</h1>
+    <p class="h-sub">目录导航 · 挖空自测 · 知识点互链 · 判断快测 · 闪卡</p>
+    <p class="h-owner">zzh专属生物复习资料</p>
+    <div class="h-meta" style="margin-top:14px"><button class="user-chip" id="user-chip" style="width:auto"><span class="u-dot" id="u-dot"></span><span class="u-name" id="u-name"></span><span class="u-arr">▾ 切换用户</span></button></div>
+  </header>
+  <div class="sel-row" style="margin-bottom:18px">
+    <button class="tbtn" id="btn-dice2">随机抽背一张</button>
+    <button class="tbtn" id="btn-theme2">夜间模式</button>
+  </div>
+  <div class="home-grid" id="home-books"></div>
+  <h3 style="margin-top:28px">学习统计 · <span id="hs-user" style="color:var(--pri)"></span></h3>
+  <div class="stat-grid" id="home-stats"></div>
+  <p class="foot-note">学习进度按用户保存在本机浏览器中 · 生成于 2026-11-19</p>
+</div>
+<div class="mask" id="mask"></div>
+<div id="puppy-run"><img alt="小狗奔跑"></div>
+<div class="modal" id="m-quiz">
+  <h3>判断快测<button class="m-close">✕</button></h3>
+  <div class="sel-row" id="qz-chips"></div>
+  <div class="qz-meta" id="qz-meta">点击上方章节标签开始练习，每轮 10 题</div>
+  <div class="qz-stem" id="qz-stem">每题给出一个说法，判断它正确（√）还是错误（×），答完立即显示解析。</div>
+  <div class="qz-btns" id="qz-btns" style="display:none"><button id="qz-yes">√ 对</button><button id="qz-no">× 错</button></div>
+  <div class="qz-fb" id="qz-fb"></div>
+  <button class="qz-next" id="qz-next">下一题</button>
+</div>
+<div class="modal" id="m-cards">
+  <h3>闪卡自测<button class="m-close">✕</button></h3>
+  <div class="sel-row" id="fc-chips"></div>
+  <div class="qz-meta" id="fc-meta">点击上方章节标签开始</div>
+  <div class="fc-box" id="fc-box"><div class="fc-card"><div class="fc-face"><div class="fc-term">正面：知识点</div><div class="fc-hint">点击卡片翻转查看解释</div></div><div class="fc-face back"><div>背面：所在条目原文</div></div></div></div>
+  <div class="fc-btns" id="fc-btns" style="display:none"><button class="no" id="fc-no">没记住</button><button class="yes" id="fc-yes">记住了</button></div>
+</div>
+<div class="modal" id="m-search">
+  <h3>搜索知识点&nbsp;<kbd>Ctrl</kbd> <kbd>K</kbd><button class="m-close">✕</button></h3>
+  <input class="sp-input" id="sp-input" placeholder="输入关键词，如：秋水仙素 / 质壁分离 / 密码子">
+  <div class="sp-list" id="sp-list"></div>
+</div>
+<div class="modal" id="m-dice">
+  <h3>随机抽背<button class="m-close">✕</button></h3>
+  <div class="qz-stem"><div class="fc-term" id="dice-term"></div><div id="dice-ctx" style="margin-top:10px;font-size:13.5px"></div></div>
+  <button class="qz-next show" id="dice-again">换一个</button>
+</div>
+<button class="xback" id="xback">← <span></span></button>
+<script>const HOME={"books": [{"id": "m1", "label": "必修1《分子与细胞》", "file": "m1.html", "sub": "课本边角小字 · 易错点 · 易考点 全收录", "secs": 56, "chN": 13, "quizN": 18, "cardN": 297}, {"id": "m2", "label": "必修2《遗传与进化》", "file": "m2.html", "sub": "课本边角小字 · 易错点 · 易考点 全收录", "secs": 50, "chN": 9, "quizN": 33, "cardN": 80}], "quiz": [{"q": "只要有氨基和羧基就是组成蛋白质的氨基酸", "a": false, "e": "必须连在同一个碳原子上", "ch": 3}, {"q": "易错警示 无线粒体一定不能进行有氧呼吸", "a": false, "e": "好氧细菌（醋酸杆菌等）无线粒体，有氧呼吸酶分布在细胞膜上", "ch": 5}, {"q": "加热与酶促反应机理相同", "a": false, "e": "加热给反应物能量，酶降低活化能", "ch": 7}, {"q": "ATP 与 ADP 相互转化是可逆反应", "a": false, "e": "物质可逆、能量与酶不可逆", "ch": 7}, {"q": "所有酶都在核糖体上合成", "a": false, "e": "RNA 类酶不是", "ch": 7}, {"q": "活细胞都能产生酶", "a": false, "e": "哺乳动物成熟红细胞不能", "ch": 7}, {"q": "没有线粒体就不能进行有氧呼吸", "a": false, "e": "", "ch": 8}, {"q": "线粒体能直接利用葡萄糖", "a": false, "e": "葡萄糖在细胞质基质分解为丙酮酸后才进入线粒体", "ch": 8}, {"q": "无氧呼吸不需要 O₂，最终有 [H] 积累", "a": false, "e": "[H] 用于还原丙酮酸", "ch": 8}, {"q": "光合作用产生的 ATP 远多于呼吸产生", "a": false, "e": "两者量级相当（判断题常考）", "ch": 9}, {"q": "停止光照后暗反应立即停止", "a": false, "e": "NADPH、ATP 有少量存量，暗反应可持续短暂进行", "ch": 9}, {"q": "细胞分裂间期是决定增殖快慢最关键的时期", "a": true, "e": "时间占比大、物质准备在此完成——S 期开始后分裂活动一旦启动会持续到完成", "ch": 10}, {"q": "细胞凋亡由遗传机制决定、与环境因素无关", "a": false, "e": "环境因素可诱导凋亡相关基因表达", "ch": 11}, {"q": "凋亡细胞内酶活性都降低", "a": false, "e": "凋亡相关酶（DNase、Caspase）活性升高", "ch": 11}, {"q": "被病原体感染的细胞死亡属于坏死", "a": false, "e": "被病毒感染的细胞被效应 T 细胞诱导清除属于凋亡", "ch": 11}, {"q": "个体发育中分裂、分化、衰老、凋亡对机体都有积极意义", "a": true, "e": "", "ch": 11}, {"q": "分化后细胞不能再分裂增殖", "a": false, "e": "造血干细胞等仍可分裂", "ch": 11}, {"q": "已分化细胞都有全能性", "a": false, "e": "需离体+条件才能表达", "ch": 11}, {"q": "1 个精原细胞经减数分裂可产生 4 种精子", "a": false, "e": "两两相同、互补，实为 2 种 4 个", "ch": 0}, {"q": "减Ⅱ后期着丝粒分裂，染色体数目暂时加倍", "a": true, "e": "减Ⅱ全程无同源染色体", "ch": 0}, {"q": "减Ⅰ同源染色体未分离，产生的 4 个配子全部异常", "a": true, "e": "减Ⅱ异常则只有一半配子异常", "ch": 0}, {"q": "减Ⅱ着丝粒分裂后单体未移向两极，4 个配子同样全部异常", "a": false, "e": "2 个正常、2 个异常", "ch": 0}, {"q": "受精卵的染色体数目恢复到本物种体细胞数目", "a": true, "e": "减数分裂减半 + 受精恢复，维持前后代染色体数目恒定", "ch": 0}, {"q": "杂合子 Aa 自交后代的性状分离比为 3:1", "a": true, "e": "", "ch": 1}, {"q": "杂合子测交后代的显隐比为 3:1", "a": false, "e": "测交后代为 1:1，比例反映被测个体配子种类及比例", "ch": 1}, {"q": "显性纯合致死时，杂合子自交后代显:隐 = 2:1", "a": true, "e": "AA 致死，存活个体为 Aa:aa = 2:1", "ch": 1}, {"q": "隐性纯合致死时，杂合子自交后代全为隐性", "a": false, "e": "后代全为显性", "ch": 1}, {"q": "非同源染色体上的非等位基因自由组合发生在减Ⅰ后期", "a": true, "e": "", "ch": 2}, {"q": "AaBb 测交后代四种表现型的比例为 9:3:3:1", "a": false, "e": "测交为 1:1:1:1；9:3:3:1 是自交结果", "ch": 2}, {"q": "不考虑互换，n 对同源染色体的个体可产生 2ⁿ 种配子", "a": true, "e": "", "ch": 2}, {"q": "红绿色盲是伴 X 染色体隐性遗传病", "a": true, "e": "男患者多于女患者，存在交叉遗传", "ch": 3}, {"q": "抗维生素 D 佝偻病是常染色体显性遗传病", "a": false, "e": "伴 X 染色体显性遗传，女多于男、世代连续", "ch": 3}, {"q": "调查遗传病发病率应在患者家系中抽样", "a": false, "e": "发病率在广大人群中随机抽样；家系调查用于确定遗传方式", "ch": 3}, {"q": "噬菌体侵染细菌实验证明 DNA 是遗传物质", "a": true, "e": "", "ch": 4}, {"q": "TMV 实验证明 RNA 是烟草花叶病毒的遗传物质", "a": true, "e": "RNA 病毒的基因在 RNA 上", "ch": 4}, {"q": "所有生物的遗传物质都是 DNA", "a": false, "e": "RNA 病毒以 RNA 为遗传物质，故称 DNA 是主要的遗传物质", "ch": 4}, {"q": "DNA 双链中每个磷酸基团都连接 2 个脱氧核糖", "a": false, "e": "每个磷酸连接 1~2 个脱氧核糖，两端 2 个游离磷酸各只连 1 个", "ch": 5}, {"q": "DNA 复制 n 代后共 2ⁿ 个 DNA，含亲代链的只有 2 个", "a": true, "e": "半保留复制", "ch": 5}, {"q": "人类基因组测序需测定 24 条染色体", "a": true, "e": "22 条常染色体 + X + Y", "ch": 5}, {"q": "翻译的直接模板是 DNA", "a": false, "e": "翻译模板是 mRNA", "ch": 6}, {"q": "密码子位于 mRNA 上，反密码子位于 tRNA 上", "a": true, "e": "", "ch": 6}, {"q": "中心法则包括 DNA 复制、转录和翻译等信息传递过程", "a": true, "e": "", "ch": 6}, {"q": "基因突变能产生新基因，是生物变异的根本来源", "a": true, "e": "为生物进化提供原材料", "ch": 7}, {"q": "秋水仙素诱导多倍体的原理是抑制纺锤体形成", "a": true, "e": "作用于分裂前期；诱导基因突变则作用于间期", "ch": 7}, {"q": "21 三体综合征是由基因突变引起的遗传病", "a": false, "e": "染色体异常遗传病（体细胞多一条 21 号染色体）", "ch": 7}, {"q": "单倍体的体细胞染色体数目与本物种配子相同", "a": true, "e": "", "ch": 7}, {"q": "受精作用过程中会发生基因重组", "a": false, "e": "基因重组不发生在受精作用中", "ch": 7}, {"q": "生物进化的基本单位是种群", "a": true, "e": "", "ch": 8}, {"q": "生物进化的实质是种群基因频率的改变", "a": true, "e": "自然选择使基因频率定向改变", "ch": 8}, {"q": "共同进化只发生在不同物种之间", "a": false, "e": "还包括生物与无机环境之间", "ch": 8}, {"q": "新物种形成的标志是产生生殖隔离", "a": true, "e": "隔离是物种形成的必要条件", "ch": 8}], "cards": [{"t": "施莱登、施旺", "c": "建立者：施莱登、施旺（提出）；魏尔肖补充「细胞通过分裂产生新细胞」。", "ch": 0}, {"t": "魏尔肖", "c": "建立者：施莱登、施旺（提出）；魏尔肖补充「细胞通过分裂产生新细胞」。", "ch": 0}, {"t": "细胞发育而来", "c": "内容（三点）：①细胞是一个有机体，一切动植物都由细胞发育而来，并由细胞和细胞产物构成；②细胞是一个相对独立的单位，既有自己的生命，又对与其他细胞共同组成的整体生命起作用；③新细胞是由老细胞分裂产生的。", "ch": 0}, {"t": "老细胞分裂", "c": "内容（三点）：①细胞是一个有机体，一切动植物都由细胞发育而来，并由细胞和细胞产物构成；②细胞是一个相对独立的单位，既有自己的生命，又对与其他细胞共同组成的整体生命起作用；③新细胞是由老细胞分裂产生的。", "ch": 0}, {"t": "细胞的统一性和生物体结构的统一性", "c": "意义：揭示细胞的统一性和生物体结构的统一性（证明动植物有共同的结构基础与亲缘关系）。", "ch": 0}, {"t": "原核生物、真菌、病毒", "c": "局限：未涉及原核生物、真菌、病毒；未揭示细胞的多样性。", "ch": 0}, {"t": "多样性", "c": "局限：未涉及原核生物、真菌、病毒；未揭示细胞的多样性。", "ch": 0}, {"t": "不完全归纳法", "c": "启示：科学发现离不开技术支持；理论经修正补充而完善；运用了不完全归纳法——结论可信但可能有例外。", "ch": 0}, {"t": "细胞层次即个体层次", "c": "植物没有「系统」层次（六大器官直接构成个体）；单细胞生物没有组织、器官、系统层次，细胞层次即个体层次；病毒没有结构层次（不属于生命系统的任何层次，但属于生物）。", "ch": 0}, {"t": "非生物的环境", "c": "生态系统包括生物群落与非生物的环境（阳光、空气、水等），仍属于生命系统。", "ch": 0}, {"t": "核酸（DNA 或 RNA）+ 蛋白质", "c": "结构：核酸（DNA 或 RNA）+ 蛋白质；无细胞结构，必须寄生在活细胞中才能增殖（培养病毒须用活细胞/活鸡胚，不能用普通培养基）。", "ch": 0}, {"t": "寄生在活细胞", "c": "结构：核酸（DNA 或 RNA）+ 蛋白质；无细胞结构，必须寄生在活细胞中才能增殖（培养病毒须用活细胞/活鸡胚，不能用普通培养基）。", "ch": 0}, {"t": "结构不稳定、易变异", "c": "分类：DNA 病毒（T2 噬菌体、乙肝病毒）；RNA 病毒（HIV、流感病毒、SARS 冠状病毒、新冠病毒）。RNA 病毒遗传物质一般为单链，结构不稳定、易变异，疫苗研发难度大。", "ch": 0}, {"t": "拟核", "c": "拟核：无核膜、核仁，大型环状 DNA 集中分布", "ch": 0}, {"t": "核糖体", "c": "只有核糖体", "ch": 0}, {"t": "肽聚糖", "c": "主要成分肽聚糖（支原体无细胞壁）", "ch": 0}, {"t": "二分裂", "c": "二分裂（不遵循孟德尔遗传定律）", "ch": 0}, {"t": "同时同地进行", "c": "同时同地进行（边转录边翻译）", "ch": 0}, {"t": "叶绿素和藻蓝素", "c": "蓝细菌（原核）：含叶绿素和藻蓝素，能进行光合作用，但没有叶绿体。", "ch": 0}, {"t": "没有叶绿体", "c": "蓝细菌（原核）：含叶绿素和藻蓝素，能进行光合作用，但没有叶绿体。", "ch": 0}, {"t": "质粒", "c": "质粒：小型环状 DNA，存在于绝大多数原核生物中，酵母菌中也存在；是基因工程的常用载体。", "ch": 0}, {"t": "绝大多数原核生物", "c": "质粒：小型环状 DNA，存在于绝大多数原核生物中，酵母菌中也存在；是基因工程的常用载体。", "ch": 0}, {"t": "富营养化（N、P 含量高）", "c": "水华与赤潮：水体富营养化（N、P 含量高）导致蓝细菌和绿藻等大量繁殖，淡水称水华，海水称赤潮。", "ch": 0}, {"t": "64 ÷ 16 = 4", "c": "视野内细胞数目计算：目镜 10×、物镜 10× 时圆形视野中有 64 个充满视野的细胞，换 40× 物镜后为 64 ÷ 16 = 4 个；若细胞呈单行排布，则按长度计算 16 ÷ 4 = 4 个。", "ch": 0}, {"t": "16 ÷ 4 = 4", "c": "视野内细胞数目计算：目镜 10×、物镜 10× 时圆形视野中有 64 个充满视野的细胞，换 40× 物镜后为 64 ÷ 16 = 4 个；若细胞呈单行排布，则按长度计算 16 ÷ 4 = 4 个。", "ch": 0}, {"t": "C 是最基本元素", "c": "C 是最基本元素（碳链构成生物大分子骨架）；鲜重含量最多的是 O，干重含量最多的是 C；占细胞鲜重最多的化合物是水，最多的有机物是蛋白质。", "ch": 1}, {"t": "干重含量最多的是 C", "c": "C 是最基本元素（碳链构成生物大分子骨架）；鲜重含量最多的是 O，干重含量最多的是 C；占细胞鲜重最多的化合物是水，最多的有机物是蛋白质。", "ch": 1}, {"t": "斐林试剂", "c": "斐林试剂：甲液 0.1 g/mL NaOH + 乙液 0.05 g/mL CuSO4，现配现用、等量混合", "ch": 1}, {"t": "浅蓝色 → 棕色 → 砖红色（Cu2O）", "c": "50~65 ℃ 水浴加热约 2 min：浅蓝色 → 棕色 → 砖红色（Cu2O）", "ch": 1}, {"t": "双缩脲试剂", "c": "双缩脲试剂：A 液 0.1 g/mL NaOH 1 mL + B 液 0.01 g/mL CuSO4 3~4 滴", "ch": 1}, {"t": "紫色", "c": "不加热，先加 A 液再加 B 液，呈紫色", "ch": 1}, {"t": "橘黄色", "c": "苏丹Ⅲ染液（橘黄色）或苏丹Ⅳ染液（红色）", "ch": 1}, {"t": "红色", "c": "苏丹Ⅲ染液（橘黄色）或苏丹Ⅳ染液（红色）", "ch": 1}, {"t": "蔗糖不是还原糖", "c": "还原糖：葡萄糖、果糖、麦芽糖、乳糖；蔗糖不是还原糖。选材要求「组织颜色浅、富含待测物」——甘蔗、甜菜（蔗糖非还原糖）、西瓜、番茄（红色干扰）均不合适，常用苹果、梨的匀浆。", "ch": 1}, {"t": "含两个及以上肽键", "c": "双缩脲试剂检测蛋白质要求分子中含两个及以上肽键——二肽不能被检测。", "ch": 1}, {"t": "自由水", "c": "存在形式：自由水（良好溶剂、参与反应、运输物质）与结合水（细胞结构的重要组成成分，如与蛋白质、多糖结合）。", "ch": 1}, {"t": "结合水", "c": "存在形式：自由水（良好溶剂、参与反应、运输物质）与结合水（细胞结构的重要组成成分，如与蛋白质、多糖结合）。", "ch": 1}, {"t": "升高 → 代谢旺盛", "c": "自由水/结合水比值：升高 → 代谢旺盛；降低 → 抗逆性（抗寒、抗旱）增强。冬眠动物、越冬植物比值下降。", "ch": 1}, {"t": "降低 → 抗逆性（抗寒、抗旱）增强", "c": "自由水/结合水比值：升高 → 代谢旺盛；降低 → 抗逆性（抗寒、抗旱）增强。冬眠动物、越冬植物比值下降。", "ch": 1}, {"t": "比热容大", "c": "水的性质：极性分子（良好的溶剂）、液体（氢键缔合）、比热容大（恒温、缓冲温度变化）。", "ch": 1}, {"t": "离子", "c": "存在形式：主要以离子形式存在（少量构成化合物，如 Fe2+ 于血红蛋白、Mg 于叶绿素、P 于核苷酸）。", "ch": 1}, {"t": "血 Ca²⁺过低→抽搐，过高→肌无力", "c": "缺乏症：血 Ca²⁺过低→抽搐，过高→肌无力；缺 Fe → 缺铁性贫血；缺 Mg → 叶片变黄；缺 B → 「花而不实」；缺 I → 甲状腺肿大（大脖子病）。", "ch": 1}, {"t": "Fe²⁺", "c": "血红素：含 Fe²⁺ 的卟啉环辅基；血红蛋白 = 珠蛋白 + 4 个血红素。生物体内没有含 Fe 的氨基酸，Fe 是肽链折叠后与辅基结合的。", "ch": 1}, {"t": "结合水被破坏后细胞死亡", "c": "晒干的种子与烘烤干种子：失去的主要分别是自由水和结合水——结合水被破坏后细胞死亡。", "ch": 1}, {"t": "纤维素不供能", "c": "淀粉储能、可水解供能；纤维素不供能，构成植物细胞壁；糖原暂时储能", "ch": 2}, {"t": "几丁质（壳多糖）", "c": "几丁质（壳多糖）：广泛存在于甲壳类动物和昆虫的外骨骼、真菌的细胞壁中；可用于制作人造皮肤、缝合线等，含 N 元素。", "ch": 2}, {"t": "储能物质", "c": "①细胞内良好的储能物质；②保温；③缓冲、减压，保护内脏", "ch": 2}, {"t": "所有细胞膜（生物膜）", "c": "构成所有细胞膜（生物膜）的重要成分", "ch": 2}, {"t": "脂质的运输", "c": "胆固醇：构成动物细胞膜的重要成分、参与血液中脂质的运输；性激素：促进生殖器官发育与生殖细胞形成；维生素 D：促进肠道对钙和磷的吸收", "ch": 2}, {"t": "钙和磷", "c": "胆固醇：构成动物细胞膜的重要成分、参与血液中脂质的运输；性激素：促进生殖器官发育与生殖细胞形成；维生素 D：促进肠道对钙和磷的吸收", "ch": 2}, {"t": "转变为脂肪", "c": "油料种子（花生、油菜）成熟过程中：光合产物（糖类）转变为脂肪储存，游离脂肪酸减少、脂肪增多，磷脂含量上升。", "ch": 2}, {"t": "水解并转变为糖类", "c": "种子萌发时：脂肪水解并转变为糖类（经过乙醛酸循环途径），自由水含量增多、呼吸作用增强。", "ch": 2}, {"t": "增加", "c": "萌发初期干重先增加（吸收 O2 与 H2O 参与氧化，质量来自氧）后持续减少（呼吸消耗）。", "ch": 2}, {"t": "肽键数 / 脱去水分子数", "c": "= 氨基酸数 − 肽链数（链状）", "ch": 3}, {"t": "至少含氨基 / 羧基数", "c": "= 肽链数（链状，环状为 0；R 基另计）", "ch": 3}, {"t": "N 原子数", "c": "= 氨基酸数 + R 基中 N 数", "ch": 3}, {"t": "O 原子数", "c": "= 各氨基酸 O 之和 − 脱去水数（链状）", "ch": 3}, {"t": "相对分子质量", "c": "= Σ氨基酸 − 18 × 脱水数 − 2 × 二硫键数", "ch": 3}, {"t": "二硫键", "c": "由两个半胱氨酸的巯基（—SH）脱 2 个 H 形成", "ch": 3}, {"t": "不供能", "c": "结构蛋白（肌肉、羽毛、头发）；催化（绝大多数酶）；运输（血红蛋白、通道蛋白、载体蛋白）；调节（胰岛素、生长激素）；免疫（抗体）。正常代谢中蛋白质不供能，仅在病理或衰老状态才氧化分解。", "ch": 3}, {"t": "一个氨基和一个羧基连接在同一个碳原子上", "c": "结构通式：至少含一个氨基和一个羧基连接在同一个碳原子上，该碳原子还连一个氢和一个 R 基。区别在于 R 基不同；有的 R 基中也含氨基或羧基。", "ch": 3}, {"t": "必需氨基酸", "c": "组成人体蛋白质的氨基酸约 21 种，其中 8 种（婴儿 9 种）为必需氨基酸，只能从食物获得，人体不能合成；非必需氨基酸可由转氨基作用合成。", "ch": 3}, {"t": "非必需氨基酸", "c": "组成人体蛋白质的氨基酸约 21 种，其中 8 种（婴儿 9 种）为必需氨基酸，只能从食物获得，人体不能合成；非必需氨基酸可由转氨基作用合成。", "ch": 3}, {"t": "核糖体", "c": "脱水缩合在核糖体上进行：一个氨基酸的羧基与另一个的氨基结合，脱去一分子水，形成肽键（—CO—NH—）。水中 H 来自氨基和羧基，O 只来自羧基。", "ch": 3}, {"t": "肽键（—CO—NH—）", "c": "脱水缩合在核糖体上进行：一个氨基酸的羧基与另一个的氨基结合，脱去一分子水，形成肽键（—CO—NH—）。水中 H 来自氨基和羧基，O 只来自羧基。", "ch": 3}, {"t": "种类、数目、排列顺序", "c": "蛋白质结构多样性直接原因：氨基酸的种类、数目、排列顺序不同 + 肽链盘曲折叠形成的空间结构千差万别；根本原因：基因（DNA）的多样性。", "ch": 3}, {"t": "空间结构", "c": "蛋白质结构多样性直接原因：氨基酸的种类、数目、排列顺序不同 + 肽链盘曲折叠形成的空间结构千差万别；根本原因：基因（DNA）的多样性。", "ch": 3}, {"t": "基因（DNA）的多样性", "c": "蛋白质结构多样性直接原因：氨基酸的种类、数目、排列顺序不同 + 肽链盘曲折叠形成的空间结构千差万别；根本原因：基因（DNA）的多样性。", "ch": 3}, {"t": "肽链间不能形成肽键", "c": "肽链间的连接：二硫键、氢键等（肽链间不能形成肽键）；二硫键可存在于肽链内或肽链间。", "ch": 3}, {"t": "变性", "c": "变性：高温、过酸、过碱、重金属、酒精等破坏空间结构（肽键不断裂），失去活性且不可恢复；变性后仍能用双缩脲试剂检测。高温消毒灭菌、熟鸡蛋易消化的原理。", "ch": 3}, {"t": "不可恢复", "c": "变性：高温、过酸、过碱、重金属、酒精等破坏空间结构（肽键不断裂），失去活性且不可恢复；变性后仍能用双缩脲试剂检测。高温消毒灭菌、熟鸡蛋易消化的原理。", "ch": 3}, {"t": "盐析", "c": "盐析：盐溶液降低蛋白质溶解度使其析出，空间结构不变、活性保持，加水可复溶——可逆。低温也不破坏空间结构。", "ch": 3}, {"t": "加水可复溶", "c": "盐析：盐溶液降低蛋白质溶解度使其析出，空间结构不变、活性保持，加水可复溶——可逆。低温也不破坏空间结构。", "ch": 3}, {"t": "磷酸 + 五碳糖 + 含氮碱基", "c": "核苷酸 = 磷酸 + 五碳糖 + 含氮碱基，连接处：磷酸—酯键连五碳糖。核苷 = 五碳糖 + 碱基（无磷酸）。腺苷 = 腺嘌呤 + 核糖。", "ch": 3}, {"t": "数目与排列顺序", "c": "DNA 多样性：脱氧核苷酸（碱基对）的数目与排列顺序千变万化（数学模型 4n）；特异性：每种 DNA 有特定的排列顺序——DNA 指纹、核酸检测的依据。", "ch": 3}, {"t": "碳链为基本骨架", "c": "生物大分子（多糖、蛋白质、核酸）以碳链为基本骨架，由单体（单体→多聚体）连接而成；「碳原子的排列方式和碳链的长短是生物大分子多样性的基础」（教材 P36）。", "ch": 3}, {"t": "基因的选择性表达", "c": "同一个体不同细胞 DNA 相同（都来自同一受精卵的有丝分裂），RNA 不完全相同（基因的选择性表达）。", "ch": 3}, {"t": "同一个基因", "c": "胰岛素 A、B 链由同一个基因编码，先合成前胰岛素原，加工切除 C 肽后形成 A、B 链。", "ch": 3}, {"t": "分隔开", "c": "①将细胞与外界环境分隔开（保障内部环境相对稳定；也是系统的边界）；②控制物质进出（相对性：控制作用有普遍性和相对性）；③进行细胞间的信息交流。", "ch": 4}, {"t": "控制物质进出", "c": "①将细胞与外界环境分隔开（保障内部环境相对稳定；也是系统的边界）；②控制物质进出（相对性：控制作用有普遍性和相对性）；③进行细胞间的信息交流。", "ch": 4}, {"t": "细胞间的信息交流", "c": "①将细胞与外界环境分隔开（保障内部环境相对稳定；也是系统的边界）；②控制物质进出（相对性：控制作用有普遍性和相对性）；③进行细胞间的信息交流。", "ch": 4}, {"t": "胞间连丝", "c": "信息交流三种方式：化学物质随体液运输（激素—靶细胞受体）；相邻细胞膜直接接触（精卵识别与结合）；相邻细胞形成通道（高等植物细胞的胞间连丝）。", "ch": 4}, {"t": "细胞膜上", "c": "受体位置：蛋白质类（大分子）激素受体在靶细胞细胞膜上；甲状腺激素（小分子脂溶性）和固醇类激素受体在细胞质或细胞核中。", "ch": 4}, {"t": "成熟红细胞", "c": "选材：哺乳动物成熟红细胞——无细胞壁；无细胞核和众多细胞器，排除其他膜干扰；吸水涨破后差速离心得较纯净细胞膜。", "ch": 4}, {"t": "无细胞核和众多细胞器", "c": "选材：哺乳动物成熟红细胞——无细胞壁；无细胞核和众多细胞器，排除其他膜干扰；吸水涨破后差速离心得较纯净细胞膜。", "ch": 4}, {"t": "连续两层", "c": "成分探索历程：欧文顿（脂溶性物质更易通过 → 膜由脂质组成）→ 戈特、格伦德尔（红细胞膜脂质铺展单分子层面积为表面积 2 倍 → 磷脂连续两层）→ 丹尼利、戴维森（表面张力低于油水界面 → 推测附有蛋白质）→ 后发现糖蛋…", "ch": 4}, {"t": "磷脂最丰富", "c": "成分：脂质（约 50%，磷脂最丰富；动物细胞膜还含胆固醇）+ 蛋白质（约 40%）+ 糖类（约 2%~10%，与蛋白质或脂质结合为糖蛋白/糖脂）。功能越复杂的膜，蛋白质的种类和数量越多。", "ch": 4}, {"t": "功能越复杂的膜，蛋白质的种类和数量越多", "c": "成分：脂质（约 50%，磷脂最丰富；动物细胞膜还含胆固醇）+ 蛋白质（约 40%）+ 糖类（约 2%~10%，与蛋白质或脂质结合为糖蛋白/糖脂）。功能越复杂的膜，蛋白质的种类和数量越多。", "ch": 4}, {"t": "磷脂双分子层", "c": "磷脂双分子层构成膜的基本支架，具有流动性；蛋白质分子镶、嵌、贯穿（部分或全部嵌入、贯穿于双层，或附着在表面）——分布是不对称、不均匀的。", "ch": 4}, {"t": "镶、嵌、贯穿", "c": "磷脂双分子层构成膜的基本支架，具有流动性；蛋白质分子镶、嵌、贯穿（部分或全部嵌入、贯穿于双层，或附着在表面）——分布是不对称、不均匀的。", "ch": 4}, {"t": "细胞膜外表面", "c": "糖蛋白（糖被）只分布于细胞膜外表面，与细胞识别、信息传递有关——据此判断膜的内外侧。", "ch": 4}, {"t": "流动性", "c": "流动性实例：变形虫运动与摄食、动物细胞缢裂、细胞融合与受精、巨噬细胞吞噬（胞吞）、分泌蛋白与神经递质释放（胞吐）、质壁分离与复原、细胞吸水膨胀失水皱缩。", "ch": 4}, {"t": "选择透过性", "c": "选择透过性的结构基础：细胞膜上转运蛋白的种类和数量，或转运蛋白空间结构的变化（教材 P66-72）。", "ch": 4}, {"t": "转运蛋白的种类和数量", "c": "选择透过性的结构基础：细胞膜上转运蛋白的种类和数量，或转运蛋白空间结构的变化（教材 P66-72）。", "ch": 4}, {"t": "空间结构的变化", "c": "选择透过性的结构基础：细胞膜上转运蛋白的种类和数量，或转运蛋白空间结构的变化（教材 P66-72）。", "ch": 4}, {"t": "纤维素和果胶", "c": "主要成分：植物——纤维素和果胶；真菌——几丁质；细菌——肽聚糖。全透性（对进出物质无选择性），细胞壁不是系统的边界。功能：支持和保护。", "ch": 4}, {"t": "细胞壁不是系统的边界", "c": "主要成分：植物——纤维素和果胶；真菌——几丁质；细菌——肽聚糖。全透性（对进出物质无选择性），细胞壁不是系统的边界。功能：支持和保护。", "ch": 4}, {"t": "细胞核是遗传信息库，是细胞代谢和遗传的控制中心", "c": "功能（黑体）：细胞核是遗传信息库，是细胞代谢和遗传的控制中心。", "ch": 4}, {"t": "核孔", "c": "结构：核膜（双层膜，外膜连内质网、附核糖体）、核孔（大分子如 mRNA、蛋白质进出的通道，具选择透过性，DNA 不能随意出核，大分子进出需能量）、核仁（与某种 RNA 的合成及核糖体的形成有关）、染色质（DNA+蛋白质，…", "ch": 4}, {"t": "某种 RNA 的合成及核糖体的形成", "c": "结构：核膜（双层膜，外膜连内质网、附核糖体）、核孔（大分子如 mRNA、蛋白质进出的通道，具选择透过性，DNA 不能随意出核，大分子进出需能量）、核仁（与某种 RNA 的合成及核糖体的形成有关）、染色质（DNA+蛋白质，…", "ch": 4}, {"t": "结构完整性", "c": "核质依存：精子和哺乳动物成熟红细胞寿命短；细胞需保持结构完整性。代谢旺盛细胞：核孔数目多、核仁较大。", "ch": 4}, {"t": "核孔数目多、核仁较大", "c": "核质依存：精子和哺乳动物成熟红细胞寿命短；细胞需保持结构完整性。代谢旺盛细胞：核孔数目多、核仁较大。", "ch": 4}, {"t": "大于 2S", "c": "提取人口腔上皮细胞膜脂质铺单分子层面积 大于 2S（含核膜、细胞器膜等）；哺乳动物成熟红细胞则恰好等于 2S；细菌因无核膜等也接近 2S。", "ch": 4}, {"t": "核质比", "c": "双小核草履虫有两个核、肌肉细胞多核：维持正常核质比。", "ch": 4}, {"t": "胶质状", "c": "细胞质 = 细胞质基质（胶质状，细胞代谢的主要场所，含水、无机盐、脂质、糖类、氨基酸、核苷酸、多种酶）+ 细胞器。", "ch": 5}, {"t": "差速离心法", "c": "分离细胞器的方法：差速离心法——细胞核最先沉淀，依次为叶绿体、线粒体与溶酶体、内质网与高尔基体，核糖体最后。", "ch": 5}, {"t": "细胞骨架", "c": "细胞骨架：由蛋白质纤维组成的网架结构；功能：维持细胞形态、锚定支撑细胞器，与细胞运动、分裂、分化及物质运输、能量转化、信息传递等密切相关。", "ch": 5}, {"t": "蛋白质纤维", "c": "细胞骨架：由蛋白质纤维组成的网架结构；功能：维持细胞形态、锚定支撑细胞器，与细胞运动、分裂、分化及物质运输、能量转化、信息传递等密切相关。", "ch": 5}, {"t": "有氧呼吸的主要场所", "c": "有氧呼吸的主要场所（二、三阶段）；「动力车间」；含少量 DNA（半自主）", "ch": 5}, {"t": "光合作用的场所", "c": "绿色植物光合作用的场所；「养料制造车间、能量转换站」", "ch": 5}, {"t": "加工、分类、包装", "c": "对来自内质网的蛋白质加工、分类、包装；植物：与细胞壁形成有关；「发送站」", "ch": 5}, {"t": "无膜", "c": "无膜，rRNA+蛋白质", "ch": 5}, {"t": "合成蛋白质", "c": "合成蛋白质（「生产蛋白质的机器」）；游离型合成胞内蛋白，附着型合成分泌蛋白/膜蛋白", "ch": 5}, {"t": "酸性水解酶", "c": "单层膜，内含多种酸性水解酶（pH≈5）", "ch": 5}, {"t": "高尔基体", "c": "分解衰老损伤的细胞器；吞噬杀死入侵病毒病菌；「消化车间」；来源于高尔基体", "ch": 5}, {"t": "细胞液", "c": "单层膜，内含细胞液（糖类、无机盐、色素、蛋白质）", "ch": 5}, {"t": "动物和低等植物", "c": "与动物和低等植物细胞的有丝分裂有关", "ch": 5}, {"t": "中心体", "c": "能自我复制的细胞器：线粒体、叶绿体（半自主，含环状 DNA）和中心体（间期复制，不含 DNA）。", "ch": 5}, {"t": "蛔虫除外", "c": "真核细胞（蛔虫除外）", "ch": 5}, {"t": "仅用于暗反应 C3 的还原", "c": "仅用于暗反应 C3 的还原", "ch": 5}, {"t": "同位素标记（示踪）法", "c": "研究方法：同位素标记（示踪）法（3H 标记亮氨酸注入豚鼠胰腺腺泡细胞），放射性依次出现于：核糖体 → 内质网 → 高尔基体 → 细胞膜 → 分泌物。", "ch": 5}, {"t": "交通枢纽/转化中心", "c": "膜面积变化：内质网减少；高尔基体先增后减（基本不变）——膜流的交通枢纽/转化中心；细胞膜增加。", "ch": 5}, {"t": "核糖体和中心体无膜，不属于生物膜系统", "c": "组成：细胞膜、核膜 + 细胞器膜（内质网、高尔基体、溶酶体、液泡、线粒体、叶绿体等）。核糖体和中心体无膜，不属于生物膜系统；原核生物有生物膜（细胞膜）但无生物膜系统。", "ch": 5}, {"t": "原核生物有生物膜（细胞膜）但无生物膜系统", "c": "组成：细胞膜、核膜 + 细胞器膜（内质网、高尔基体、溶酶体、液泡、线粒体、叶绿体等）。核糖体和中心体无膜，不属于生物膜系统；原核生物有生物膜（细胞膜）但无生物膜系统。", "ch": 5}, {"t": "叶绿体运动", "c": "原理：叶绿体绿色、扁平椭球形，不需染色可直接观察；观察细胞质流动以叶绿体运动为标志。活细胞的细胞质处于不断流动状态（环流式）。", "ch": 5}, {"t": "光照、室温", "c": "先低倍镜找细胞，再高倍镜观察；黑藻提前在光照、室温下培养可提高流速。同一细胞中叶绿体流动方向一致；若显微镜下顺时针环流，实际也是顺时针（显微镜不上下颠倒旋转方向）。", "ch": 5}, {"t": "亚显微结构", "c": "显微结构（光镜可见）：细胞壁、细胞质、细胞核、核仁、染色体、叶绿体、线粒体、液泡；亚显微结构（需电镜）：细胞膜、内质网膜、核膜厚度、核糖体、细胞骨架（<0.2 μm）。", "ch": 5}, {"t": "水分子（或其他溶剂分子）通过半透膜的扩散", "c": "概念：水分子（或其他溶剂分子）通过半透膜的扩散。方向：双向移动、总体单向。", "ch": 6}, {"t": "半透膜", "c": "条件：①具有半透膜；②膜两侧溶液具有浓度差。", "ch": 6}, {"t": "浓度差", "c": "条件：①具有半透膜；②膜两侧溶液具有浓度差。", "ch": 6}, {"t": "选择透过性膜是生物膜", "c": "半透膜：某些物质可透过而另一些不能透过的多孔性薄膜；选择透过性膜是生物膜，具有选择透过性（活性依赖）。", "ch": 6}, {"t": "仍然较高", "c": "动态平衡时：水分子仍在进出（数目相等），液面高的一侧浓度仍然较高（水柱压力所致）；浓度指物质的量浓度而非质量浓度。", "ch": 6}, {"t": "物质的量浓度", "c": "动态平衡时：水分子仍在进出（数目相等），液面高的一侧浓度仍然较高（水柱压力所致）；浓度指物质的量浓度而非质量浓度。", "ch": 6}, {"t": "先升后降，最终内外相等", "c": "漏斗实验：蔗糖酶加入后，若单糖不能透过半透膜→液面继续上升后稳定；若单糖能透过→先升后降，最终内外相等。", "ch": 6}, {"t": "质壁分离", "c": "质壁分离", "ch": 6}, {"t": "原生质层", "c": "原生质层：细胞膜+液泡膜+两层膜之间的细胞质", "ch": 6}, {"t": "原生质层伸缩性大于细胞壁", "c": "原理：内因——原生质层伸缩性大于细胞壁、原生质层相当于半透膜；外因——外界溶液浓度＞细胞液浓度。", "ch": 6}, {"t": "外表皮", "c": "选材：紫色洋葱鳞片叶外表皮（有大液泡、细胞液紫色便于观察）；黑藻（叶绿体绿色可观察）；洋葱内表皮可发生但不宜观察。", "ch": 6}, {"t": "浸润", "c": "试剂：0.3 g/mL 蔗糖溶液——既明显质壁分离又不致细胞失水死亡。引流法：滴蔗糖/清水+吸水纸吸引，重复几次，目的是让细胞浸润在相应溶液中。", "ch": 6}, {"t": "三次低倍镜观察、自身前后对照", "c": "三次低倍镜观察、自身前后对照：正常态 → 质壁分离 → 复原。第二次观察时质壁分离首先发生在细胞的角隅处；第一次观察不能省略。", "ch": 6}, {"t": "首先发生在细胞的角隅处", "c": "三次低倍镜观察、自身前后对照：正常态 → 质壁分离 → 复原。第二次观察时质壁分离首先发生在细胞的角隅处；第一次观察不能省略。", "ch": 6}, {"t": "外界溶液", "c": "变化分析：失水越多 → 液泡变小、颜色变深、细胞液浓度变大、吸水能力越强；细胞体积略缩小（壁限制）。原生质层与细胞壁之间充满外界溶液（细胞壁全透）。", "ch": 6}, {"t": "主动运输", "c": "自动复原：外界浓度＞细胞液浓度先失水质壁分离，但 K⁺、NO₃⁻ 等被主动运输吸收进入细胞，细胞液浓度升高后渗透吸水复原。能自动复原的溶液：KNO₃、甘油、尿素、乙二醇、葡萄糖（0.5 mol/L 尿素先分离后复原；0.…", "ch": 6}, {"t": "红细胞吸收葡萄糖", "c": "红细胞吸收葡萄糖、水经水通道蛋白、K⁺ 经 K⁺ 通道、Na⁺ 内流、K⁺ 外流", "ch": 6}, {"t": "耗能", "c": "耗能", "ch": 6}, {"t": "载体蛋白", "c": "载体蛋白", "ch": 6}, {"t": "自身构象（空间结构）改变", "c": "载体蛋白：只容许与自身结合部位相适应的分子/离子通过，转运时自身构象（空间结构）改变，如 CFTR 蛋白转运 Cl⁻（氯离子大小与性质与其结合部位相适应）。", "ch": 6}, {"t": "不与运输分子结合", "c": "通道蛋白：只容许大小和电荷相适应的分子通过，不与运输分子结合；水通道蛋白、离子通道。", "ch": 6}, {"t": "主动选择吸收", "c": "主动运输意义：保证细胞按生命活动需要，主动选择吸收所需营养物质，排出代谢废物和对细胞有害的物质（教材 P70）。", "ch": 6}, {"t": "流动性", "c": "胞吞胞吐（大分子等）：依赖膜的流动性，需要膜上蛋白质参与，耗能；跨膜 0 层；运输的不一定是大分子（神经递质小分子也经胞吐）；大分子也可经核孔出（不用胞吞胞吐）。", "ch": 6}, {"t": "降低化学反应的活化能", "c": "作用：催化；机理：降低化学反应的活化能（分子从常态转变为容易发生反应的活跃状态所需的能量）。与加热（给反应物能量）机理不同。", "ch": 7}, {"t": "毕希纳", "c": "本质探索（课本 P79）：巴斯德（发酵与活酵母细胞有关）→ 李比希（酵母死亡裂解后物质起作用）→ 毕希纳（获得无细胞提取液「酿酶」）→ 萨姆纳（提取脲酶结晶，证明是蛋白质）→ 切赫、奥特曼（少数 RNA 也有催化功能）。", "ch": 7}, {"t": "萨姆纳", "c": "本质探索（课本 P79）：巴斯德（发酵与活酵母细胞有关）→ 李比希（酵母死亡裂解后物质起作用）→ 毕希纳（获得无细胞提取液「酿酶」）→ 萨姆纳（提取脲酶结晶，证明是蛋白质）→ 切赫、奥特曼（少数 RNA 也有催化功能）。", "ch": 7}, {"t": "切赫、奥特曼", "c": "本质探索（课本 P79）：巴斯德（发酵与活酵母细胞有关）→ 李比希（酵母死亡裂解后物质起作用）→ 毕希纳（获得无细胞提取液「酿酶」）→ 萨姆纳（提取脲酶结晶，证明是蛋白质）→ 切赫、奥特曼（少数 RNA 也有催化功能）。", "ch": 7}, {"t": "有机物，绝大多数是蛋白质，少数是 RNA", "c": "酶的概念：活细胞产生的、具有催化作用的有机物，绝大多数是蛋白质，少数是 RNA。", "ch": 7}, {"t": "高效性", "c": "高效性：与无机催化剂相比降低活化能更显著——H₂O₂ 实验：3、4 号对照（Fe³⁺ vs 过氧化氢酶），气泡多、卫生香复燃猛。", "ch": 7}, {"t": "专一性", "c": "专一性：每种酶只能催化一种或一类化学反应。两套方案：①「一底物多酶」淀粉+唾液淀粉酶/蔗糖酶，用碘液检测（蔗糖不与碘反应，不能用碘液检蔗糖是否水解）；②「一酶多底物」淀粉/蔗糖+淀粉酶，用斐林试剂（60 ℃ 保温、沸水浴…", "ch": 7}, {"t": "碘液", "c": "专一性：每种酶只能催化一种或一类化学反应。两套方案：①「一底物多酶」淀粉+唾液淀粉酶/蔗糖酶，用碘液检测（蔗糖不与碘反应，不能用碘液检蔗糖是否水解）；②「一酶多底物」淀粉/蔗糖+淀粉酶，用斐林试剂（60 ℃ 保温、沸水浴…", "ch": 7}, {"t": "斐林试剂", "c": "专一性：每种酶只能催化一种或一类化学反应。两套方案：①「一底物多酶」淀粉+唾液淀粉酶/蔗糖酶，用碘液检测（蔗糖不与碘反应，不能用碘液检蔗糖是否水解）；②「一酶多底物」淀粉/蔗糖+淀粉酶，用斐林试剂（60 ℃ 保温、沸水浴…", "ch": 7}, {"t": "作用条件温和", "c": "作用条件温和：适宜温度、pH。过酸过碱、高温破坏空间结构永久失活；低温抑制活性但空间结构稳定，升温可恢复——酶保存：低温、最适 pH。", "ch": 7}, {"t": "低温抑制活性但空间结构稳定，升温可恢复", "c": "作用条件温和：适宜温度、pH。过酸过碱、高温破坏空间结构永久失活；低温抑制活性但空间结构稳定，升温可恢复——酶保存：低温、最适 pH。", "ch": 7}, {"t": "不改变平衡点", "c": "酶促反应原理与催化剂共性：①改变化学反应速率而本身不被消耗；②只能缩短达到平衡的时间，不改变平衡点；③反应前后性质数量不变（但酶自身需要更新）；④都降低活化能。", "ch": 7}, {"t": "先各自保温 5 min 再混合", "c": "冰浴（不变蓝）0 ℃、60 ℃（变蓝浅/消失）、沸水浴（变蓝）三组；先各自保温 5 min 再混合（防止未达预设温度即反应）；沸水浴后自来水冲凉再加碘（100 ℃ 直链淀粉螺旋结构破坏遇碘不变蓝；防止碘蒸发）；不能用 H…", "ch": 7}, {"t": "不能用 H₂O₂ 酶", "c": "冰浴（不变蓝）0 ℃、60 ℃（变蓝浅/消失）、沸水浴（变蓝）三组；先各自保温 5 min 再混合（防止未达预设温度即反应）；沸水浴后自来水冲凉再加碘（100 ℃ 直链淀粉螺旋结构破坏遇碘不变蓝；防止碘蒸发）；不能用 H…", "ch": 7}, {"t": "不能用斐林试剂", "c": "冰浴（不变蓝）0 ℃、60 ℃（变蓝浅/消失）、沸水浴（变蓝）三组；先各自保温 5 min 再混合（防止未达预设温度即反应）；沸水浴后自来水冲凉再加碘（100 ℃ 直链淀粉螺旋结构破坏遇碘不变蓝；防止碘蒸发）；不能用 H…", "ch": 7}, {"t": "不能用淀粉酶", "c": "先加酶+不同 pH 溶液（蒸馏水/HCl/NaOH）再加底物（否则未调 pH 反应已结束）；不能用淀粉酶（淀粉在酸性下自行水解；斐林试剂与酸反应干扰；碱性环境碘与碱反应干扰）", "ch": 7}, {"t": "单位时间内底物减少量或产物生成量", "c": "酶活性：酶催化特定化学反应的能力，用单位时间内底物减少量或产物生成量表示。", "ch": 7}, {"t": "温度、pH 通过影响酶活性", "c": "影响因素分两类：温度、pH 通过影响酶活性影响反应速率；酶浓度、底物浓度通过影响酶与底物接触面积影响速率，不影响酶活性。", "ch": 7}, {"t": "酶浓度、底物浓度通过影响酶与底物接触面积", "c": "影响因素分两类：温度、pH 通过影响酶活性影响反应速率；酶浓度、底物浓度通过影响酶与底物接触面积影响速率，不影响酶活性。", "ch": 7}, {"t": "Km 增大、Vmax 不变", "c": "抑制剂三种：竞争性抑制——抑制剂与底物结构相似，竞争活性中心；Km 增大、Vmax 不变，增加底物浓度可解除。非竞争性抑制——结合活性中心以外必需基团；Km 不变、Vmax 降低，加底物不能解除。反竞争性抑制——只结合酶…", "ch": 7}, {"t": "Km 不变、Vmax 降低", "c": "抑制剂三种：竞争性抑制——抑制剂与底物结构相似，竞争活性中心；Km 增大、Vmax 不变，增加底物浓度可解除。非竞争性抑制——结合活性中心以外必需基团；Km 不变、Vmax 降低，加底物不能解除。反竞争性抑制——只结合酶…", "ch": 7}, {"t": "Km 减小、Vmax 降低", "c": "抑制剂三种：竞争性抑制——抑制剂与底物结构相似，竞争活性中心；Km 增大、Vmax 不变，增加底物浓度可解除。非竞争性抑制——结合活性中心以外必需基团；Km 不变、Vmax 降低，加底物不能解除。反竞争性抑制——只结合酶…", "ch": 7}, {"t": "酶与底物的亲和力", "c": "Km（米氏常数）：反应速率达最大速率一半时的底物浓度，反映酶与底物的亲和力（越小亲和力越大）。", "ch": 7}, {"t": "A—P~P~P", "c": "结构简式 A—P~P~P：A=腺苷（腺嘌呤+核糖）；P=磷酸基团；—普通化学键；~特殊的化学键（远离 A 的那个易断裂，水解释能约 30.54 kJ/mol）。元素：C、H、O、N、P。", "ch": 7}, {"t": "特殊的化学键", "c": "结构简式 A—P~P~P：A=腺苷（腺嘌呤+核糖）；P=磷酸基团；—普通化学键；~特殊的化学键（远离 A 的那个易断裂，水解释能约 30.54 kJ/mol）。元素：C、H、O、N、P。", "ch": 7}, {"t": "直接的能源物质", "c": "功能：直接的能源物质——糖类、脂肪中能量稳定不能直接利用，须转化为 ATP 中活跃化学能。ATP 是物质不是能量；能口服（被消化分解，意义不大）。", "ch": 7}, {"t": "能口服", "c": "功能：直接的能源物质——糖类、脂肪中能量稳定不能直接利用，须转化为 ATP 中活跃化学能。ATP 是物质不是能量；能口服（被消化分解，意义不大）。", "ch": 7}, {"t": "转化迅速且处于动态平衡", "c": "ATP 含量少但供能及时持续：ATP 与 ADP 转化迅速且处于动态平衡；该转化机制是生物界的共性。", "ch": 7}, {"t": "不可逆反应", "c": "ATP ⇄ ADP + Pi + 能量：不可逆反应——酶不同（水解酶/合成酶）、场所不同、物质可逆而能量不可逆。合成能量来源：动物——呼吸作用；植物——呼吸作用+光合作用。", "ch": 7}, {"t": "能量不可逆", "c": "ATP ⇄ ADP + Pi + 能量：不可逆反应——酶不同（水解酶/合成酶）、场所不同、物质可逆而能量不可逆。合成能量来源：动物——呼吸作用；植物——呼吸作用+光合作用。", "ch": 7}, {"t": "货币", "c": "能量流通：吸能反应与 ATP 水解相联系；放能反应与 ATP 合成相联系。ATP 是细胞内流通的能量「货币」。", "ch": 7}, {"t": "总反应式", "c": "C6H12O6 + 6O2 + 6H2O →(酶) 6CO2 + 12H2O + 能量", "ch": 8}, {"t": "元素去向", "c": "CO2 中 O：来自葡萄糖和水", "ch": 8}, {"t": "转移路径", "c": "C：葡萄糖 → 丙酮酸 → CO2", "ch": 8}, {"t": "产酒精型", "c": "C6H12O6 →(酶) 2C2H5OH + 2CO2 + 少量能量", "ch": 8}, {"t": "产乳酸型", "c": "C6H12O6 →(酶) 2C3H6O3 + 少量能量", "ch": 8}, {"t": "共同点", "c": "场所全程在细胞质基质", "ch": 8}, {"t": "条件温和", "c": "与体外燃烧相比：有氧呼吸条件温和；能量逐步释放；一部分储存在 ATP 中。意义：能量逐步转移到 ATP、充分利用；缓慢有序释放维持细胞相对稳定。", "ch": 8}, {"t": "逐步释放", "c": "与体外燃烧相比：有氧呼吸条件温和；能量逐步释放；一部分储存在 ATP 中。意义：能量逐步转移到 ATP、充分利用；缓慢有序释放维持细胞相对稳定。", "ch": 8}, {"t": "兼性厌氧", "c": "酵母菌：真核单细胞真菌，兼性厌氧，繁殖（出芽生殖为主），细胞壁+细胞膜+细胞核+液泡+线粒体。", "ch": 8}, {"t": "对比实验法", "c": "方法：对比实验法（有氧、无氧装置相互对照）。检测 CO₂：澄清石灰水变浑浊；溴麝香草酚蓝水溶液：蓝→绿→黄（由变黄时间长短判断 CO₂ 多少）。检测酒精：酸性（浓硫酸）重铬酸钾：橙色→灰绿色。", "ch": 8}, {"t": "澄清石灰水变浑浊", "c": "方法：对比实验法（有氧、无氧装置相互对照）。检测 CO₂：澄清石灰水变浑浊；溴麝香草酚蓝水溶液：蓝→绿→黄（由变黄时间长短判断 CO₂ 多少）。检测酒精：酸性（浓硫酸）重铬酸钾：橙色→灰绿色。", "ch": 8}, {"t": "溴麝香草酚蓝水溶液：蓝→绿→黄", "c": "方法：对比实验法（有氧、无氧装置相互对照）。检测 CO₂：澄清石灰水变浑浊；溴麝香草酚蓝水溶液：蓝→绿→黄（由变黄时间长短判断 CO₂ 多少）。检测酒精：酸性（浓硫酸）重铬酸钾：橙色→灰绿色。", "ch": 8}, {"t": "酸性（浓硫酸）重铬酸钾：橙色→灰绿色", "c": "方法：对比实验法（有氧、无氧装置相互对照）。检测 CO₂：澄清石灰水变浑浊；溴麝香草酚蓝水溶液：蓝→绿→黄（由变黄时间长短判断 CO₂ 多少）。检测酒精：酸性（浓硫酸）重铬酸钾：橙色→灰绿色。", "ch": 8}, {"t": "NaOH 溶液", "c": "装置要点：空气先经 NaOH 溶液（除去 CO₂，排除干扰）；B 瓶（无氧组）先封口放置一段时间耗尽 O₂ 再连通检测瓶；培养液煮沸灭菌（排除杂菌呼吸干扰）；检测酒精需过滤取滤液（培养液浑浊有色会干扰，且葡萄糖可被重铬酸…", "ch": 8}, {"t": "先封口放置一段时间耗尽 O₂", "c": "装置要点：空气先经 NaOH 溶液（除去 CO₂，排除干扰）；B 瓶（无氧组）先封口放置一段时间耗尽 O₂ 再连通检测瓶；培养液煮沸灭菌（排除杂菌呼吸干扰）；检测酒精需过滤取滤液（培养液浑浊有色会干扰，且葡萄糖可被重铬酸…", "ch": 8}, {"t": "煮沸灭菌", "c": "装置要点：空气先经 NaOH 溶液（除去 CO₂，排除干扰）；B 瓶（无氧组）先封口放置一段时间耗尽 O₂ 再连通检测瓶；培养液煮沸灭菌（排除杂菌呼吸干扰）；检测酒精需过滤取滤液（培养液浑浊有色会干扰，且葡萄糖可被重铬酸…", "ch": 8}, {"t": "过滤取滤液", "c": "装置要点：空气先经 NaOH 溶液（除去 CO₂，排除干扰）；B 瓶（无氧组）先封口放置一段时间耗尽 O₂ 再连通检测瓶；培养液煮沸灭菌（排除杂菌呼吸干扰）；检测酒精需过滤取滤液（培养液浑浊有色会干扰，且葡萄糖可被重铬酸…", "ch": 8}, {"t": "细胞质基质", "c": "细胞质基质", "ch": 8}, {"t": "2 丙酮酸 + [H](NADH)", "c": "葡萄糖 → 2 丙酮酸 + [H](NADH)", "ch": 8}, {"t": "线粒体基质", "c": "线粒体基质", "ch": 8}, {"t": "H₂O", "c": "丙酮酸 + H₂O → CO₂ + [H]", "ch": 8}, {"t": "线粒体内膜", "c": "线粒体内膜", "ch": 8}, {"t": "O₂", "c": "[H] + O₂ → H₂O", "ch": 8}, {"t": "大量 ATP", "c": "大量 ATP（最多）", "ch": 8}, {"t": "存留在酒精或乳酸中", "c": "无氧呼吸释放能量少的原因：葡萄糖中大部分能量存留在酒精或乳酸中；无氧呼吸释放的能量大部分（其余部分）以热能散失。", "ch": 8}, {"t": "控制酶合成的基因不同", "c": "不同生物无氧呼吸产物不同的直接原因：酶种类不同；根本原因：控制酶合成的基因不同。", "ch": 8}, {"t": "O₂ 吸收量 = CO₂ 释放量", "c": "据气体：O₂ 吸收量 = CO₂ 释放量 → 只进行有氧呼吸（或同时有产乳酸无氧呼吸）；CO₂ &gt; O₂ → 有氧呼吸 + 产酒精无氧呼吸（差值 = 无氧呼吸释放的 CO₂，差值的一半 = 酒精量）；只无 CO₂ …", "ch": 8}, {"t": "CO₂ &gt; O₂", "c": "据气体：O₂ 吸收量 = CO₂ 释放量 → 只进行有氧呼吸（或同时有产乳酸无氧呼吸）；CO₂ &gt; O₂ → 有氧呼吸 + 产酒精无氧呼吸（差值 = 无氧呼吸释放的 CO₂，差值的一半 = 酒精量）；只无 CO₂ …", "ch": 8}, {"t": "遮光", "c": "液滴移动法（装置一 NaOH 吸收 CO₂：左移距离 = 有氧呼吸耗 O₂ 量；装置二清水对照：左移 = 耗 O₂ − 放 CO₂，右移 = 放 CO₂ − 耗 O₂）。设死种子（等量灭活）对照排除气压温度物理因素；装置…", "ch": 8}, {"t": "温度（影响酶活性）", "c": "外因：温度（影响酶活性）、O₂ 浓度、CO₂ 浓度（高浓度抑制呼吸）、含水量。", "ch": 8}, {"t": "稻田定期排水（避免无氧呼吸产酒精烂根）", "c": "应用（背诵）：包扎伤口用透气纱布（抑制厌氧菌）；酿酒先通气后密封；花盆松土（促进根有氧呼吸、利于无机盐吸收）；储粮晒干、果蔬低温低氧高 CO₂；破伤风杆菌厌氧需清创；提倡慢跑（避免乳酸堆积）；稻田定期排水（避免无氧呼吸产…", "ch": 8}, {"t": "无水乙醇（有机溶剂）", "c": "色素提取：色素能溶解在无水乙醇（有机溶剂）中；分离：色素在层析液中溶解度不同，溶解度高者随层析液在滤纸上扩散得快。", "ch": 9}, {"t": "层析液中溶解度不同", "c": "色素提取：色素能溶解在无水乙醇（有机溶剂）中；分离：色素在层析液中溶解度不同，溶解度高者随层析液在滤纸上扩散得快。", "ch": 9}, {"t": "SiO₂", "c": "步骤细节：加 SiO₂（研磨充分）、CaCO₃（防止研磨中色素被破坏）；研磨迅速（防乙醇挥发）充分（破坏叶绿体释出色素）；过滤用单层尼龙布（滤纸吸附色素、色素分子不易透过）；滤纸条剪两角（防边缘扩散过快使色素带不齐）；画…", "ch": 9}, {"t": "CaCO₃", "c": "步骤细节：加 SiO₂（研磨充分）、CaCO₃（防止研磨中色素被破坏）；研磨迅速（防乙醇挥发）充分（破坏叶绿体释出色素）；过滤用单层尼龙布（滤纸吸附色素、色素分子不易透过）；滤纸条剪两角（防边缘扩散过快使色素带不齐）；画…", "ch": 9}, {"t": "单层尼龙布", "c": "步骤细节：加 SiO₂（研磨充分）、CaCO₃（防止研磨中色素被破坏）；研磨迅速（防乙醇挥发）充分（破坏叶绿体释出色素）；过滤用单层尼龙布（滤纸吸附色素、色素分子不易透过）；滤纸条剪两角（防边缘扩散过快使色素带不齐）；画…", "ch": 9}, {"t": "细、直、齐", "c": "步骤细节：加 SiO₂（研磨充分）、CaCO₃（防止研磨中色素被破坏）；研磨迅速（防乙醇挥发）充分（破坏叶绿体释出色素）；过滤用单层尼龙布（滤纸吸附色素、色素分子不易透过）；滤纸条剪两角（防边缘扩散过快使色素带不齐）；画…", "ch": 9}, {"t": "滤液细线不能触及层析液", "c": "步骤细节：加 SiO₂（研磨充分）、CaCO₃（防止研磨中色素被破坏）；研磨迅速（防乙醇挥发）充分（破坏叶绿体释出色素）；过滤用单层尼龙布（滤纸吸附色素、色素分子不易透过）；滤纸条剪两角（防边缘扩散过快使色素带不齐）；画…", "ch": 9}, {"t": "Mg", "c": "结果（从上到下）：胡萝卜素（橙黄色，最快）→ 叶黄素（黄色）→ 叶绿素 a（蓝绿色，最宽/含量最多）→ 叶绿素 b（黄绿色）。类胡萝卜素占 1/3（含 C、H 或 C、H、O），叶绿素占 2/3（含 C、H、O、N、Mg…", "ch": 9}, {"t": "吸收、传递、转化光能", "c": "色素功能：吸收、传递、转化光能；叶绿素主要吸收红光和蓝紫光，类胡萝卜素主要吸收蓝紫光；对绿光吸收最少（叶片显绿色）。", "ch": 9}, {"t": "红光和蓝紫光", "c": "色素功能：吸收、传递、转化光能；叶绿素主要吸收红光和蓝紫光，类胡萝卜素主要吸收蓝紫光；对绿光吸收最少（叶片显绿色）。", "ch": 9}, {"t": "水的光解与糖的合成不是同一反应", "c": "希尔反应：离体叶绿体加铁盐（有 H₂O 无 CO₂），光照下放 O₂——说明水的光解与糖的合成不是同一反应；但不能证明 O₂ 中氧全部来自水（未排除叶绿体其他物质干扰、未直接观察氧的转移）。", "ch": 9}, {"t": "鲁宾、卡门（同位素标记法，对比实验）", "c": "鲁宾、卡门（同位素标记法，对比实验）：H₂18O 组放 18O₂，C18O₂ 组放 O₂——证明光合作用释放的 O₂ 全部来自水。", "ch": 9}, {"t": "全部来自水", "c": "鲁宾、卡门（同位素标记法，对比实验）：H₂18O 组放 18O₂，C18O₂ 组放 O₂——证明光合作用释放的 O₂ 全部来自水。", "ch": 9}, {"t": "卡尔文（小球藻、¹⁴CO₂、双向纸层析）", "c": "卡尔文（小球藻、¹⁴CO₂、双向纸层析）：缩短取样时间至 0.5 s，¹⁴C 首先出现在 3-磷酸甘油酸（C₃）→ 5 s 出现在 RuBP（C₅）和六碳糖——C 的转移路径：CO₂ → C₃ →（CH₂O）/C₅。取样…", "ch": 9}, {"t": "煮沸乙醇杀死小球藻", "c": "卡尔文（小球藻、¹⁴CO₂、双向纸层析）：缩短取样时间至 0.5 s，¹⁴C 首先出现在 3-磷酸甘油酸（C₃）→ 5 s 出现在 RuBP（C₅）和六碳糖——C 的转移路径：CO₂ → C₃ →（CH₂O）/C₅。取样…", "ch": 9}, {"t": "类囊体薄膜", "c": "类囊体薄膜", "ch": 9}, {"t": "叶绿体基质", "c": "叶绿体基质", "ch": 9}, {"t": "不直接需光但依赖光反应产物", "c": "多种酶、CO₂；不直接需光但依赖光反应产物", "ch": 9}, {"t": "2C₃", "c": "①CO₂ 固定：CO₂ + C₅ → 2C₃；②C₃ 的还原：C₃ + [H] + ATP →（CH₂O）+ C₅", "ch": 9}, {"t": "活跃化学能", "c": "光能 → NADPH、ATP 中活跃化学能", "ch": 9}, {"t": "稳定化学能", "c": "活跃化学能 → 有机物中稳定化学能", "ch": 9}, {"t": "水的光解", "c": "唯一不需要酶催化的反应：水的光解。", "ch": 9}, {"t": "主动运输", "c": "光反应中 ATP 合成：PQ 载体主动运输泵 H⁺ 入类囊体腔 + 水光解产 H⁺；H⁺ 经 ATP 合酶（协助扩散）回流合成 ATP。", "ch": 9}, {"t": "既消耗水又产生水", "c": "光反应、暗反应都既消耗水又产生水（光解耗水；合成糖类/ATP 产水）——判断正确。", "ch": 9}, {"t": "只用于暗反应", "c": "叶绿体产生的 ATP 只用于暗反应，不用于其他生命活动。", "ch": 9}, {"t": "C₃ 分子数是 C₅ 的 2 倍", "c": "暗反应稳定时，C₃ 分子数是 C₅ 的 2 倍（1 C₅ 固定 1 CO₂ 生成 2 C₃）。", "ch": 9}, {"t": "光补偿点", "c": "光补偿点：光合强度=呼吸强度（植物需整株光合＞呼吸才能生长）；光饱和点以后限制因素为 CO₂ 浓度、温度等。阳生植物补偿点、饱和点均高；阴生植物均低（连续阴雨时阴生植物受影响小）。", "ch": 9}, {"t": "光饱和点", "c": "光补偿点：光合强度=呼吸强度（植物需整株光合＞呼吸才能生长）；光饱和点以后限制因素为 CO₂ 浓度、温度等。阳生植物补偿点、饱和点均高；阴生植物均低（连续阴雨时阴生植物受影响小）。", "ch": 9}, {"t": "真正（总）光合 = 净（表观）光合 + 呼吸消耗", "c": "关键指标：真正（总）光合 = 净（表观）光合 + 呼吸消耗。「制造/产生/固定/合成/消耗」为总光合；「吸收/释放/测定/积累」为净光合。", "ch": 9}, {"t": "硝化细菌", "c": "硝化细菌等：利用体外环境中无机物氧化（NH₃ → HNO₂ → HNO₃）释放的化学能合成有机物。与光合作用同为自养，但能源不同（化学能 vs 光能）。", "ch": 9}, {"t": "浮起的数量", "c": "光合作用影响因素实验（教材 P105）：探究光照强度——调整灯与烧杯距离；CO₂ 浓度——吹气时间或不同浓度 NaHCO₃ 溶液；温度——水浴保温；光质——功率相同的不同色光 LED。因变量：圆形小叶片浮起的数量（或浮起…", "ch": 9}, {"t": "盛水玻璃槽", "c": "光合作用影响因素实验（教材 P105）：探究光照强度——调整灯与烧杯距离；CO₂ 浓度——吹气时间或不同浓度 NaHCO₃ 溶液；温度——水浴保温；光质——功率相同的不同色光 LED。因变量：圆形小叶片浮起的数量（或浮起…", "ch": 9}, {"t": "花青素", "c": "秋叶变黄：低温叶绿素合成受阻且易降解，类胡萝卜素稳定显现黄色；变红：可溶性糖积累形成花青素。遮光条件下叶绿素含量升高、叶绿素 a/b 比值降低（适应蓝紫光比例高的阴生环境）。", "ch": 9}, {"t": "生长和分裂", "c": "细胞增殖：细胞生长和分裂的过程（物质准备+细胞分裂）；是生物体生长、发育、繁殖、遗传的基础。", "ch": 10}, {"t": "表面积与体积之比（相对表面积）", "c": "细胞不能无限长大的原因：①表面积与体积之比（相对表面积）限制——体积越大相对表面积越小，物质运输效率越低；②核质比限制——一个核的控制能力有限。细胞也不能太小（容纳必要结构与物质）。", "ch": 10}, {"t": "核质比", "c": "细胞不能无限长大的原因：①表面积与体积之比（相对表面积）限制——体积越大相对表面积越小，物质运输效率越低；②核质比限制——一个核的控制能力有限。细胞也不能太小（容纳必要结构与物质）。", "ch": 10}, {"t": "细胞周期（黑体）", "c": "细胞周期（黑体）：连续分裂的细胞，从一次分裂完成时开始，到下一次分裂完成时为止；包括分裂间期（约占 90%~95%）和分裂期（M 期）。有丝分裂严格指分裂期。", "ch": 10}, {"t": "一次分裂完成时开始", "c": "细胞周期（黑体）：连续分裂的细胞，从一次分裂完成时开始，到下一次分裂完成时为止；包括分裂间期（约占 90%~95%）和分裂期（M 期）。有丝分裂严格指分裂期。", "ch": 10}, {"t": "下一次分裂完成时为止", "c": "细胞周期（黑体）：连续分裂的细胞，从一次分裂完成时开始，到下一次分裂完成时为止；包括分裂间期（约占 90%~95%）和分裂期（M 期）。有丝分裂严格指分裂期。", "ch": 10}, {"t": "S 期（DNA 复制）", "c": "分裂间期细分：G1（RNA、蛋白质合成，为 S 期准备）、S 期（DNA 复制）、G2（合成微管蛋白等，为 M 期准备）。", "ch": 10}, {"t": "DNA 分子的复制", "c": "完成 DNA 分子的复制和有关蛋白质的合成，细胞适度生长；动物细胞中心粒倍增", "ch": 10}, {"t": "有关蛋白质的合成", "c": "完成 DNA 分子的复制和有关蛋白质的合成，细胞适度生长；动物细胞中心粒倍增", "ch": 10}, {"t": "「膜仁消失显两体」", "c": "「膜仁消失显两体」：核膜核仁消失，出现染色体和纺锤体，染色体散乱分布", "ch": 10}, {"t": "「形定数晰赤道齐」", "c": "「形定数晰赤道齐」：染色体形态稳定、数目清晰，着丝粒整齐排列在赤道板上——观察染色体最佳时期", "ch": 10}, {"t": "赤道板", "c": "「形定数晰赤道齐」：染色体形态稳定、数目清晰，着丝粒整齐排列在赤道板上——观察染色体最佳时期", "ch": 10}, {"t": "「点裂数数加均极」", "c": "「点裂数数加均极」：着丝粒分裂，姐妹染色单体分开成为两条染色体，染色体数目加倍，平均移向两极", "ch": 10}, {"t": "加倍", "c": "「点裂数数加均极」：着丝粒分裂，姐妹染色单体分开成为两条染色体，染色体数目加倍，平均移向两极", "ch": 10}, {"t": "「两消两现重开始」", "c": "「两消两现重开始」：染色体、纺锤体消失，核膜核仁重现", "ch": 10}, {"t": "中心粒发出星射线", "c": "动植物细胞有丝分裂区别：①前期纺锤体形成方式——动物中心粒发出星射线；植物两极发出纺锤丝；②末期细胞质分裂——动物细胞膜中部内陷缢裂；植物赤道板位置出现细胞板扩展成新细胞壁。区分动植物细胞最可靠依据：细胞质分裂方式（有无…", "ch": 10}, {"t": "两极发出纺锤丝", "c": "动植物细胞有丝分裂区别：①前期纺锤体形成方式——动物中心粒发出星射线；植物两极发出纺锤丝；②末期细胞质分裂——动物细胞膜中部内陷缢裂；植物赤道板位置出现细胞板扩展成新细胞壁。区分动植物细胞最可靠依据：细胞质分裂方式（有无…", "ch": 10}, {"t": "细胞膜中部内陷缢裂", "c": "动植物细胞有丝分裂区别：①前期纺锤体形成方式——动物中心粒发出星射线；植物两极发出纺锤丝；②末期细胞质分裂——动物细胞膜中部内陷缢裂；植物赤道板位置出现细胞板扩展成新细胞壁。区分动植物细胞最可靠依据：细胞质分裂方式（有无…", "ch": 10}, {"t": "赤道板位置出现细胞板", "c": "动植物细胞有丝分裂区别：①前期纺锤体形成方式——动物中心粒发出星射线；植物两极发出纺锤丝；②末期细胞质分裂——动物细胞膜中部内陷缢裂；植物赤道板位置出现细胞板扩展成新细胞壁。区分动植物细胞最可靠依据：细胞质分裂方式（有无…", "ch": 10}, {"t": "中心体", "c": "有关细胞器：核糖体（间期合成蛋白质）、中心体（动物、低等植物）、线粒体（供能）、高尔基体（植物末期形成细胞壁）。", "ch": 10}, {"t": "精确地平均分配", "c": "有丝分裂意义（黑体）：将亲代细胞的染色体经过复制后，精确地平均分配到两个子细胞中，保持亲代和子代细胞之间遗传性状的稳定性。", "ch": 10}, {"t": "亲代和子代细胞之间遗传性状的稳定性", "c": "有丝分裂意义（黑体）：将亲代细胞的染色体经过复制后，精确地平均分配到两个子细胞中，保持亲代和子代细胞之间遗传性状的稳定性。", "ch": 10}, {"t": "没有出现纺锤丝和染色体的变化", "c": "过程：细胞核先延长缢裂为二，然后整个细胞从中部缢裂为二。特点：没有出现纺锤丝和染色体的变化（但有 DNA 复制）；过程简单迅速耗能少，核膜核仁不消失。典型实例：蛙的红细胞（高等植物薄壁组织如胚乳细胞中也常见）。", "ch": 10}, {"t": "蛙的红细胞", "c": "过程：细胞核先延长缢裂为二，然后整个细胞从中部缢裂为二。特点：没有出现纺锤丝和染色体的变化（但有 DNA 复制）；过程简单迅速耗能少，核膜核仁不消失。典型实例：蛙的红细胞（高等植物薄壁组织如胚乳细胞中也常见）。", "ch": 10}, {"t": "解离后细胞已死亡", "c": "解离后细胞已死亡——不能观察到连续分裂过程，需移动装片寻找不同时期的细胞。", "ch": 10}, {"t": "呈正方形、排列紧密", "c": "分生区细胞特点：呈正方形、排列紧密；先低倍镜找分生区，再高倍镜观察；视野中间期细胞最多（间期时间最长——各期细胞数目与该期持续时间成正比）。", "ch": 10}, {"t": "间期", "c": "药物：抑制 DNA 复制的抗癌药使细胞停留在间期；秋水仙素抑制纺锤体形成→着丝粒正常分裂但染色体不能移向两极→染色体数目加倍（多倍体育种、中期阻断法）。", "ch": 10}, {"t": "秋水仙素抑制纺锤体形成", "c": "药物：抑制 DNA 复制的抗癌药使细胞停留在间期；秋水仙素抑制纺锤体形成→着丝粒正常分裂但染色体不能移向两极→染色体数目加倍（多倍体育种、中期阻断法）。", "ch": 10}, {"t": "形态、结构和生理功能上发生稳定性差异", "c": "概念（黑体）：在个体发育中，由一个或一种细胞增殖产生的后代，在形态、结构和生理功能上发生稳定性差异的过程。", "ch": 11}, {"t": "基因的选择性表达", "c": "根本原因（实质）：基因的选择性表达（遗传物质 DNA 不变；mRNA、蛋白质种类改变）。", "ch": 11}, {"t": "全套遗传信息（全套基因）", "c": "原因：细胞含有本物种的全套遗传信息（全套基因）。条件：①离体；②适宜的营养、激素等条件。标志：发育成完整个体或分化成其他各种细胞。", "ch": 11}, {"t": "离体", "c": "原因：细胞含有本物种的全套遗传信息（全套基因）。条件：①离体；②适宜的营养、激素等条件。标志：发育成完整个体或分化成其他各种细胞。", "ch": 11}, {"t": "已分化的动物细胞核具有全能性", "c": "实例：植物组织培养（植物细胞全能性）；克隆羊多莉（已分化的动物细胞核具有全能性）。种子萌发长成植株不是体现全能性（胚本身是幼体，属正常发育）。", "ch": 11}, {"t": "不是", "c": "实例：植物组织培养（植物细胞全能性）；克隆羊多莉（已分化的动物细胞核具有全能性）。种子萌发长成植株不是体现全能性（胚本身是幼体，属正常发育）。", "ch": 11}, {"t": "生殖细胞（卵细胞）分化程度高而全能性较高", "c": "一般规律：分化程度越高，全能性越低；但生殖细胞（卵细胞）分化程度高而全能性较高（孤雌生殖）——特例。", "ch": 11}, {"t": "体积增大", "c": "特征口诀「一大一小、一多一少、两慢两低」：细胞核体积增大（核膜内折、染色质收缩）、细胞体积变小；色素（脂褐素）积累；水分减少；酶活性降低、代谢减慢；膜通透性改变、物质运输功能降低。", "ch": 11}, {"t": "体积变小", "c": "特征口诀「一大一小、一多一少、两慢两低」：细胞核体积增大（核膜内折、染色质收缩）、细胞体积变小；色素（脂褐素）积累；水分减少；酶活性降低、代谢减慢；膜通透性改变、物质运输功能降低。", "ch": 11}, {"t": "自由基学说", "c": "自由基学说：异常活泼的带电分子或基团攻击磷脂（破坏生物膜）、DNA（基因突变）、蛋白质（活性下降）→ 细胞衰老。", "ch": 11}, {"t": "端粒学说", "c": "端粒学说：端粒是染色体两端特殊序列的 DNA-蛋白质复合体；细胞每分裂一次端粒缩短一截，内侧正常 DNA 序列受损 → 细胞活动异常。端粒酶（含 RNA 模板的逆转录酶）可补添端粒（生殖细胞、癌细胞中活跃）。", "ch": 11}, {"t": "特殊序列的 DNA-蛋白质复合体", "c": "端粒学说：端粒是染色体两端特殊序列的 DNA-蛋白质复合体；细胞每分裂一次端粒缩短一截，内侧正常 DNA 序列受损 → 细胞活动异常。端粒酶（含 RNA 模板的逆转录酶）可补添端粒（生殖细胞、癌细胞中活跃）。", "ch": 11}, {"t": "细胞普遍衰老的过程", "c": "个体衰老与细胞衰老的关系：单细胞生物——细胞衰老=个体衰老；多细胞生物——个体衰老=细胞普遍衰老的过程，但年轻个体也有衰老细胞，衰老个体也有新生细胞（造血干细胞）。", "ch": 11}, {"t": "自我更新", "c": "正常细胞衰老有利于机体自我更新；延缓衰老：合理营养、多运动、多用脑、不吸烟、心情愉悦。", "ch": 11}, {"t": "细胞凋亡（黑体）", "c": "细胞凋亡（黑体）：由基因所决定的细胞自动结束生命的过程（程序性死亡，主动、生理性、对机体有利）。实例：胚胎发育中尾的消失、指间细胞自动死亡、被病原体感染细胞的清除、成熟个体细胞的自然更新。", "ch": 11}, {"t": "基因所决定的细胞自动结束生命的过程", "c": "细胞凋亡（黑体）：由基因所决定的细胞自动结束生命的过程（程序性死亡，主动、生理性、对机体有利）。实例：胚胎发育中尾的消失、指间细胞自动死亡、被病原体感染细胞的清除、成熟个体细胞的自然更新。", "ch": 11}, {"t": "细胞坏死", "c": "细胞坏死：外界不利因素导致的被动死亡，膜破裂内容物释放引发炎症，对机体有害。长期吸烟肺部细胞病变死亡属于坏死。", "ch": 11}, {"t": "被动", "c": "细胞坏死：外界不利因素导致的被动死亡，膜破裂内容物释放引发炎症，对机体有害。长期吸烟肺部细胞病变死亡属于坏死。", "ch": 11}, {"t": "细胞自噬", "c": "细胞自噬：细胞「吃掉」自身结构和物质——依赖溶酶体清除变性/错误折叠蛋白、衰老损伤细胞器；养分不足时自噬增强；产物可回收利用；激烈的细胞自噬可能诱导细胞凋亡；随年龄增长肌肉细胞自噬减弱。", "ch": 11}, {"t": "溶酶体", "c": "细胞自噬：细胞「吃掉」自身结构和物质——依赖溶酶体清除变性/错误折叠蛋白、衰老损伤细胞器；养分不足时自噬增强；产物可回收利用；激烈的细胞自噬可能诱导细胞凋亡；随年龄增长肌肉细胞自噬减弱。", "ch": 11}, {"t": "激烈的细胞自噬可能诱导细胞凋亡", "c": "细胞自噬：细胞「吃掉」自身结构和物质——依赖溶酶体清除变性/错误折叠蛋白、衰老损伤细胞器；养分不足时自噬增强；产物可回收利用；激烈的细胞自噬可能诱导细胞凋亡；随年龄增长肌肉细胞自噬减弱。", "ch": 11}, {"t": "双层膜自噬泡", "c": "凋亡与自噬形态区别：凋亡形成凋亡小体（单层膜内陷包裹）；自噬形成双层膜自噬泡与溶酶体融合；凋亡一定导致细胞死亡，自噬不一定。", "ch": 11}, {"t": "光合作用与细胞呼吸的综合", "c": "非选择题几乎必考光合作用与细胞呼吸的综合（曲线分析、装置计算、实验设计），其次是细胞增殖图像与实验、酶实验设计。", "ch": 12}, {"t": "教材小字与拓展信息", "c": "近年高考题明显偏好教材小字与拓展信息：磷酸戊糖途径（2022 山东）、瓦堡效应（2020 全国Ⅰ）、CDK1/BYDV（2020 山东）、染色体桥（2020 山东）、细胞焦亡与凋亡对比（2025 山东）、KDEL 回收、…", "ch": 12}, {"t": "核 DNA 加倍", "c": "染色体数不变", "ch": 0}, {"t": "核 DNA / 染色体减半", "c": "同源染色体分离入两子细胞", "ch": 0}, {"t": "染色体暂时加倍", "c": "着丝粒分裂；减Ⅱ全程无同源", "ch": 0}, {"t": "1个精原细胞", "c": "2种4个精子（两两相同、互补）", "ch": 0}, {"t": "1个卵原细胞", "c": "1种1个卵细胞", "ch": 0}, {"t": "个体配子种类", "c": "n对同源染色体（不考虑互换）→ 2n 种", "ch": 0}, {"t": "互换率", "c": "发生交换的初级精母细胞比例 = 重组型配子比例 × 2", "ch": 0}, {"t": "同源染色体", "c": "同源染色体：减Ⅰ中配对的两条染色体，形状大小一般相同，一条来自父方、一条来自母方。", "ch": 0}, {"t": "联会", "c": "联会：同源染色体两两配对（减Ⅰ前期）；联会后每对同源染色体含4条染色单体，称四分体（1四分体=1对同源=2条染色体=4条单体=2个着丝粒）。", "ch": 0}, {"t": "四分体", "c": "联会：同源染色体两两配对（减Ⅰ前期）；联会后每对同源染色体含4条染色单体，称四分体（1四分体=1对同源=2条染色体=4条单体=2个着丝粒）。", "ch": 0}, {"t": "交叉互换", "c": "交叉互换：四分体时期，同源染色体的非姐妹染色单体之间交换对应片段（属于基因重组）。", "ch": 0}, {"t": "透明带反应", "c": "过程：精子头部进入卵细胞，尾部留外；透明带反应、卵细胞膜反应阻止多个精子入卵。", "ch": 0}, {"t": "卵细胞膜反应", "c": "过程：精子头部进入卵细胞，尾部留外；透明带反应、卵细胞膜反应阻止多个精子入卵。", "ch": 0}, {"t": "显性纯合致死", "c": "杂合子自交 → 显:隐 = 2:1", "ch": 1}, {"t": "隐性纯合致死", "c": "杂合子自交 → 后代全显性", "ch": 1}, {"t": "配子致死", "c": "如 AB 雄配子致死 → 5:3:3:1 变式（见第3章）", "ch": 1}, {"t": "杂合子连续自交 n 代", "c": "Aa 占 (1/2)n；纯合子 1−(1/2)n；显纯=隐纯=[1−(1/2)n]/2", "ch": 1}, {"t": "连续自交逐代淘汰 aa", "c": "AA:Aa 比例每代不变，淘汰后按比例重新归一化", "ch": 1}, {"t": "自由交配", "c": "基因频率不变，基因型频率自 F1 起稳定（遗传平衡）", "ch": 1}, {"t": "自交", "c": "自交：基因型相同个体间交配（闭花授粉、同株授粉）；杂交：基因型不同个体交配；测交：与隐性纯合子杂交。", "ch": 1}, {"t": "相对性状", "c": "相对性状：一种生物同一种性状的不同表现类型；性状分离：杂种后代中同时出现显性性状和隐性性状。", "ch": 1}, {"t": "等位基因", "c": "等位基因：同源染色体相同位置上控制相对性状的基因（纯合子同位置为相同基因；本质区别是碱基排列顺序不同）。", "ch": 1}, {"t": "同一对同源染色体·不考虑互换", "c": "完全连锁：自交后代全显性或 显:隐=3:1（比例型同单基因）；测交后代 1:1", "ch": 2}, {"t": "同一对同源染色体·考虑互换", "c": "重组型配子少：测交后代两多两少；自交后代两种单显性比例始终相等", "ch": 2}, {"t": "亲本型判断", "c": "aabb 占比＞1/16 → ab 为亲本型配子；＜1/16 → ab 为重组型配子", "ch": 2}, {"t": "重组类型", "c": "F1 全为黄圆（黄对绿、圆对皱均为显性）；F2 出现亲本没有的重组类型，四种表现型之比 9:3:3:1。", "ch": 2}, {"t": "呈线性排列", "c": "结论：基因在染色体上；后又发明测定基因相对位置的方法（三点测交），证明基因在染色体上呈线性排列。", "ch": 3}, {"t": "³⁵S 标记蛋白质", "c": "理论上沉淀物无放射性；实测有少量→搅拌不充分，噬菌体仍吸附在细菌表面", "ch": 4}, {"t": "³²P 标记 DNA", "c": "理论上上清液无放射性；实测有少量→保温过短（未全部侵入）或过长（细菌裂解释放子代）", "ch": 4}, {"t": "结论", "c": "DNA 是遗传物质，蛋白质不是（有争议说\"没证明\"）", "ch": 4}, {"t": "转化因子", "c": "格里菲思体内转化：加热杀死的S型菌 + 活R型菌 → 小鼠死亡，体内分离出活S型菌 → 加热杀死的S型菌中含有\"转化因子\"，使R型转化为S型。", "ch": 4}, {"t": "不互补碱基之和恒定", "c": "A+G = T+C = 50%", "ch": 5}, {"t": "互补碱基比例相等", "c": "单链(A+T)% = 互补链(A+T)% = 双链(A+T)%", "ch": 5}, {"t": "氢键数", "c": "n对碱基中G-C有m对：2(n−m)+3m = 2n+m", "ch": 5}, {"t": "磷酸二酯键", "c": "2n−2 个（n为碱基对数）", "ch": 5}, {"t": "时间", "c": "有丝分裂间期、减数第一次分裂前的间期", "ch": 5}, {"t": "场所", "c": "主要细胞核；其次线粒体、叶绿体；原核在拟核、质粒", "ch": 5}, {"t": "条件", "c": "模板（两条母链）、原料（4种游离脱氧核苷酸）、能量、酶（解旋酶、DNA聚合酶等）", "ch": 5}, {"t": "过程", "c": "解旋 → 合成子链 → 重新螺旋（边解旋边复制）", "ch": 5}, {"t": "特点", "c": "半保留复制；多起点、双向复制", "ch": 5}, {"t": "结果与意义", "c": "1个DNA→2个完全相同的DNA；保持遗传信息连续性", "ch": 5}, {"t": "n 次复制后 DNA", "c": "共 2n 个；含¹⁵N的 2 个；只含¹⁴N的 2n−2 个", "ch": 5}, {"t": "脱氧核苷酸链", "c": "共 2n+1 条；含¹⁵N的链 2 条；含¹⁴N的 2n+1−2 条", "ch": 5}, {"t": "消耗某种脱氧核苷酸", "c": "亲代含 m 个：n 次共耗 m(2n−1)；第 n 次耗 m·2n−1", "ch": 5}, {"t": "碱基互补配对原则", "c": "外侧：脱氧核糖与磷酸交替连接构成基本骨架；内侧：碱基通过氢键形成碱基对（A=T，G≡C），遵循碱基互补配对原则。", "ch": 5}, {"t": "遗传信息", "c": "遗传信息：基因中 4 种碱基（脱氧核苷酸）的排列顺序。多样性：碱基对的数目和排列顺序千变万化；特异性：每种生物有特定的碱基排列顺序（β-珠蛋白基因1700对→41700 种排列）。", "ch": 5}, {"t": "基因", "c": "基因：通常是有遗传效应的 DNA 片段。基因在 DNA 上不连续分布（被碱基序列分隔）；染色体是 DNA 的主要载体，基因在染色体上呈线性排列；RNA 病毒的基因在 RNA 上。", "ch": 5}, {"t": "遗传效应", "c": "基因：通常是有遗传效应的 DNA 片段。基因在 DNA 上不连续分布（被碱基序列分隔）；染色体是 DNA 的主要载体，基因在染色体上呈线性排列；RNA 病毒的基因在 RNA 上。", "ch": 5}, {"t": "密码子", "c": "密码子：mRNA 上决定一个氨基酸的 3 个相邻碱基，共 4³=64 种（3 种终止密码子、61 种决定氨基酸）；反密码子在 tRNA 上。一种密码子只决定一种氨基酸，一种氨基酸可由一种或多种密码子决定。", "ch": 6}, {"t": "反密码子", "c": "密码子：mRNA 上决定一个氨基酸的 3 个相邻碱基，共 4³=64 种（3 种终止密码子、61 种决定氨基酸）；反密码子在 tRNA 上。一种密码子只决定一种氨基酸，一种氨基酸可由一种或多种密码子决定。", "ch": 6}, {"t": "启动子", "c": "启动子：基因上游，RNA 聚合酶识别结合位点，本身不被转录；终止子：编码区下游，终止转录（RNA 水平形成茎-环结构）。", "ch": 6}, {"t": "终止子", "c": "启动子：基因上游，RNA 聚合酶识别结合位点，本身不被转录；终止子：编码区下游，终止转录（RNA 水平形成茎-环结构）。", "ch": 6}, {"t": "肽键", "c": "核糖体有 2 个 tRNA 结合位点；氨基酸间脱水缩合形成肽键；遇终止密码子合成终止。", "ch": 6}, {"t": "酶的合成控制代谢过程", "c": "间接控制：基因通过控制酶的合成控制代谢过程，进而控制性状——白化病（酪氨酸酶）、豌豆皱粒（淀粉分支酶）。", "ch": 6}, {"t": "蛋白质的结构", "c": "直接控制：基因通过控制蛋白质的结构直接控制性状——镰刀型细胞贫血（血红蛋白）、囊性纤维化（CFTR）。", "ch": 6}, {"t": "选择性表达", "c": "细胞分化的实质：基因的选择性表达；不同细胞 mRNA 不同，但 tRNA、rRNA 无差异。", "ch": 6}, {"t": "碱基序列保持不变", "c": "概念（背诵）：生物体基因的碱基序列保持不变，但基因表达和表型发生可遗传变化的现象。", "ch": 6}, {"t": "基因表达和表型发生可遗传变化", "c": "概念（背诵）：生物体基因的碱基序列保持不变，但基因表达和表型发生可遗传变化的现象。", "ch": 6}, {"t": "替换、增添或缺失", "c": "概念（背诵·P81）：DNA 分子中发生碱基的替换、增添或缺失，而引起的基因碱基序列的改变。", "ch": 7}, {"t": "碱基序列的改变", "c": "概念（背诵·P81）：DNA 分子中发生碱基的替换、增添或缺失，而引起的基因碱基序列的改变。", "ch": 7}, {"t": "普遍性、随机性、不定向性、低频性、多害少利性", "c": "5个特点：普遍性、随机性、不定向性、低频性、多害少利性。", "ch": 7}, {"t": "染色体组", "c": "染色体组（背诵·P87）：细胞中的一组非同源染色体，形态和功能各不相同，携带着控制生物生长发育的全部遗传信息。", "ch": 7}, {"t": "单倍体", "c": "二倍体：受精卵发育、含2个组；多倍体：受精卵发育、含3个及以上组；单倍体：体细胞染色体数与本物种配子相同——由配子直接发育，不论几个组都是单倍体（雄蜂、四倍体的单倍体含2组）。", "ch": 7}, {"t": "纺锤体形成", "c": "秋水仙素/低温原理：作用于分裂前期，抑制纺锤体形成→染色体不能移向两极→细胞不分裂→染色体数目加倍（秋水仙素诱导基因突变则作用于间期）。", "ch": 7}, {"t": "种群 / 基因库 / 基因频率", "c": "生活在一定区域的同种生物全部个体；全部基因；某个基因占全部等位基因数的比值", "ch": 8}, {"t": "定义法", "c": "某基因频率 = 该基因数 ÷ 全部等位基因数（伴X：男 = Xⁿ% ÷ (X+Y)）", "ch": 8}, {"t": "遗传平衡定律", "c": "5条件：种群极大、随机交配、无突变、无选择、无迁入迁出；p²+2pq+q²，AA=p²、Aa=2pq、aa=q²", "ch": 8}, {"t": "化石", "c": "化石：保存在地层中的古代生物遗体、遗物或生活痕迹——研究生物进化最直接、最重要的证据；越早地层生物越低等、越简单，证实生物由共同祖先经漫长地质年代逐渐进化（简单→复杂、低等→高等、水生→陆生，P101）。", "ch": 8}, {"t": "可遗传变异", "c": "拉马克：适应=用进废退+获得性遗传；达尔文：适应的来源是可遗传变异，适应是自然选择的结果。", "ch": 8}, {"t": "自然选择", "c": "拉马克：适应=用进废退+获得性遗传；达尔文：适应的来源是可遗传变异，适应是自然选择的结果。", "ch": 8}, {"t": "可遗传的有利变异", "c": "适应形成的必要条件（背诵）：群体中出现可遗传的有利变异和环境的定向选择。", "ch": 8}, {"t": "定向选择", "c": "适应形成的必要条件（背诵）：群体中出现可遗传的有利变异和环境的定向选择。", "ch": 8}, {"t": "适应是自然选择的结果", "c": "适应是自然选择的结果；种群是生物进化的基本单位。", "ch": 8}, {"t": "种群是生物进化的基本单位", "c": "适应是自然选择的结果；种群是生物进化的基本单位。", "ch": 8}, {"t": "突变和基因重组提供进化的原材料", "c": "突变和基因重组提供进化的原材料，自然选择使种群基因频率定向改变，进而通过隔离形成新物种。", "ch": 8}, {"t": "物种", "c": "物种（P116）：能在自然状态下相互交配并产生可育后代的一群生物。隔离：不同种群间个体在自然条件下不能自由交配或不能产生可育后代的现象；实质=阻断基因交流。", "ch": 8}, {"t": "隔离", "c": "物种（P116）：能在自然状态下相互交配并产生可育后代的一群生物。隔离：不同种群间个体在自然条件下不能自由交配或不能产生可育后代的现象；实质=阻断基因交流。", "ch": 8}, {"t": "生殖隔离", "c": "生殖隔离范畴：不能交配、杂种不活（胚胎致死）、杂种不育（骡子联会紊乱）；地理隔离只是阻碍基因交流，不一定形成新物种。", "ch": 8}, {"t": "协同进化", "c": "协同进化（P121）：不同物种之间、生物与无机环境之间在相互影响中不断进化和发展；结果=形成生物多样性。", "ch": 8}, {"t": "基因（遗传）多样性、物种多样性、生态系统多样性", "c": "生物多样性三个层次：基因（遗传）多样性、物种多样性、生态系统多样性；形成过程：由原始生命进化出原核→真核→多细胞→各类生物。", "ch": 8}], "search": [{"id": "c0", "ch": 0, "chT": "走近细胞", "t": "走近细胞", "terms": "", "x": "01 走近细胞细胞学说 · 生命系统的结构层次 · 病毒 · 真核细胞与原核细胞 · 显微镜使用"}, {"id": "c0s0", "ch": 0, "chT": "走近细胞", "t": "1.1 细胞学说", "terms": "施莱登、施旺 魏尔肖 细胞发育而来 老细胞分裂 细胞的统一性和生物体结构的统一性 原核生物、真菌、病毒 多样性 不完全归纳法", "x": "1.1 细胞学说 建立者：施莱登、施旺（提出）；魏尔肖补充「细胞通过分裂产生新细胞」。 内容（三点）：①细胞是一个有机体，一切动植物都由细胞发育而来，并由细胞和细胞产物构成；②细胞是一个相对独立的单位，既有自己的生命，又对与其他细胞共同组成的整体生命起作用；③新细胞是由老细胞分裂产生的。 意义：揭示细胞的统一性和生物体结构的统一性（证明动植物有共同的结构基础与亲缘关系）。 局限：未涉及原核生物、真菌、病毒；未揭示细胞的多样性。 启示：科学发现离不开技术支持；理论经修正补充而完善；运用了不完全归纳法——结论可信但可能有例外。"}, {"id": "c0s1", "ch": 0, "chT": "走近细胞", "t": "1.2 生命系统的结构层次", "terms": "个体 → 种群 → 群落 → 生态系统 → 生物圈 细胞层次即个体层次 非生物的环境", "x": "1.2 生命系统的结构层次 层次：细胞 → 组织 → 器官 → 系统 → 个体 → 种群 → 群落 → 生态系统 → 生物圈。 植物没有「系统」层次（六大器官直接构成个体）；单细胞生物没有组织、器官、系统层次，细胞层次即个体层次；病毒没有结构层次（不属于生命系统的任何层次，但属于生物）。 生态系统包括生物群落与非生物的环境（阳光、空气、水等），仍属于生命系统。 细胞是最基本的生命系统：单细胞生物一个细胞完成全部生命活动；多细胞生物依赖各种分化的细胞密切合作。"}, {"id": "c0s2", "ch": 0, "chT": "走近细胞", "t": "1.3 病毒", "terms": "核酸（DNA 或 RNA）+ 蛋白质 寄生在活细胞 结构不稳定、易变异", "x": "1.3 病毒 结构：核酸（DNA 或 RNA）+ 蛋白质；无细胞结构，必须寄生在活细胞中才能增殖（培养病毒须用活细胞/活鸡胚，不能用普通培养基）。 分类：DNA 病毒（T2 噬菌体、乙肝病毒）；RNA 病毒（HIV、流感病毒、SARS 冠状病毒、新冠病毒）。RNA 病毒遗传物质一般为单链，结构不稳定、易变异，疫苗研发难度大。 增殖过程：吸附 → 注入核酸（噬菌体注射式；动物病毒多经膜融合或胞吞）→ 合成核酸与蛋白质 → 组装 → 释放。合成场所利用宿主细胞的核糖体、原料和能量。"}, {"id": "c0s3", "ch": 0, "chT": "走近细胞", "t": "1.4 真核细胞与原核细胞", "terms": "拟核 核糖体 肽聚糖 二分裂 同时同地进行 叶绿素和藻蓝素 没有叶绿体 质粒 绝大多数原核生物 富营养化（N、P 含量高） 64 ÷ 16 = 4 16 ÷ 4 = 4", "x": "1.4 真核细胞与原核细胞 比较项原核细胞（蓝细菌、细菌等）真核细胞（动植物、真菌） 细胞核拟核：无核膜、核仁，大型环状 DNA 集中分布有核膜包被的细胞核，染色质（DNA+蛋白质） 染色体无（DNA 不与蛋白质结合）有 细胞器只有核糖体核糖体及其他多种复杂细胞器 细胞壁主要成分肽聚糖（支原体无细胞壁）植物：纤维素和果胶；真菌：几丁质 分裂方式二分裂（不遵循孟德尔遗传定律）有丝分裂、无丝分裂、减数分裂 转录与翻译同时同地进行（边转录边翻译）先后不同空间进行（核内转录、质中翻译） 共同点均有细胞膜、核糖体、DNA 和 RNA，遗传物质均为 DNA；都通过 ATP 供能 蓝细菌（原核）：含叶绿素和藻蓝素，能进行光合作用，但没有叶绿体。 质粒：小型环状 DNA，存在于绝大多数原核生物中，酵母菌中也存在；是基因工程的常用载体。 常见原核生物：蓝细菌（念珠藻、色球藻、颤藻、发菜）、大肠杆菌、乳酸菌、硝化细菌、醋酸杆菌、根瘤菌、支原体（原核"}, {"id": "c1", "ch": 1, "chT": "细胞的元素与化合物 · 水和无机盐", "t": "细胞的元素与化合物 · 水和无机盐", "terms": "", "x": "02 细胞的元素与化合物 · 水和无机盐组成细胞的元素 · 检测生物组织中的糖类、脂肪和蛋白质 · 细胞中的水和无机盐"}, {"id": "c1s0", "ch": 1, "chT": "细胞的元素与化合物 · 水和无机盐", "t": "2.1 组成细胞的元素", "terms": "C 是最基本元素 O 干重含量最多的是 C", "x": "2.1 组成细胞的元素 大量元素：C、H、O、N、P、S、K、Ca、Mg；微量元素：Fe、Mn、Zn、Cu、B、Mo。 C 是最基本元素（碳链构成生物大分子骨架）；鲜重含量最多的是 O，干重含量最多的是 C；占细胞鲜重最多的化合物是水，最多的有机物是蛋白质。 生物界与非生物界的统一性：元素种类大体相同；差异性：元素含量相差很大。"}, {"id": "c1s1", "ch": 1, "chT": "细胞的元素与化合物 · 水和无机盐", "t": "2.2 检测生物组织中的有机物（必背数据）", "terms": "斐林试剂 浅蓝色 → 棕色 → 砖红色（Cu2O） 双缩脲试剂 紫色 橘黄色 红色 蔗糖不是还原糖 甘蔗、甜菜（蔗糖非还原糖）、西瓜、番茄（红色干扰）均不合适 含两个及以上肽键", "x": "2.2 检测生物组织中的有机物（必背数据） 待测物试剂与配制操作与颜色反应 还原糖斐林试剂：甲液 0.1 g/mL NaOH + 乙液 0.05 g/mL CuSO4，现配现用、等量混合50~65 ℃ 水浴加热约 2 min：浅蓝色 → 棕色 → 砖红色（Cu2O） 蛋白质双缩脲试剂：A 液 0.1 g/mL NaOH 1 mL + B 液 0.01 g/mL CuSO4 3~4 滴不加热，先加 A 液再加 B 液，呈紫色 脂肪苏丹Ⅲ染液（橘黄色）或苏丹Ⅳ染液（红色）切片法需显微镜观察；匀浆法可直接观察，不需显微镜 淀粉碘液变蓝 还原糖：葡萄糖、果糖、麦芽糖、乳糖；蔗糖不是还原糖。选材要求「组织颜色浅、富含待测物」——甘蔗、甜菜（蔗糖非还原糖）、西瓜、番茄（红色干扰）均不合适，常用苹果、梨的匀浆。 双缩脲试剂检测蛋白质要求分子中含两个及以上肽键——二肽不能被检测。"}, {"id": "c1s2", "ch": 1, "chT": "细胞的元素与化合物 · 水和无机盐", "t": "2.3 细胞中的水", "terms": "自由水 结合水 升高 → 代谢旺盛 降低 → 抗逆性（抗寒、抗旱）增强 比热容大", "x": "2.3 细胞中的水 存在形式：自由水（良好溶剂、参与反应、运输物质）与结合水（细胞结构的重要组成成分，如与蛋白质、多糖结合）。 自由水/结合水比值：升高 → 代谢旺盛；降低 → 抗逆性（抗寒、抗旱）增强。冬眠动物、越冬植物比值下降。 水的性质：极性分子（良好的溶剂）、液体（氢键缔合）、比热容大（恒温、缓冲温度变化）。 产生水的反应：氨基酸脱水缩合、ATP 合成、有氧呼吸第三阶段、暗反应（糖类合成）；消耗水的反应：多肽水解、有氧呼吸第二阶段、光反应（水的光解）、光合作用的光反应阶段。"}, {"id": "c1s3", "ch": 1, "chT": "细胞的元素与化合物 · 水和无机盐", "t": "2.4 细胞中的无机盐", "terms": "离子 血 Ca²⁺过低→抽搐，过高→肌无力 Fe²⁺ 结合水被破坏后细胞死亡", "x": "2.4 细胞中的无机盐 存在形式：主要以离子形式存在（少量构成化合物，如 Fe2+ 于血红蛋白、Mg 于叶绿素、P 于核苷酸）。 功能：①复杂化合物的组成成分；②维持细胞和生物体的生命活动；③维持细胞的酸碱平衡；④维持细胞的渗透压与形态。 缺乏症：血 Ca²⁺过低→抽搐，过高→肌无力；缺 Fe → 缺铁性贫血；缺 Mg → 叶片变黄；缺 B → 「花而不实」；缺 I → 甲状腺肿大（大脖子病）。 边角小字 血红素：含 Fe²⁺ 的卟啉环辅基；血红蛋白 = 珠蛋白 + 4 个血红素。生物体内没有含 Fe 的氨基酸，Fe 是肽链折叠后与辅基结合的。 等质量的脂肪比糖类含 H 多、含 O 少，氧化分解释放能量多、耗 O 多——脂肪是良好的储能物质。 结合水与抗逆性的关系：结合水比例越高，原生质黏度越大、代谢越慢、抗逆性越强。 易错警示 斐林试剂需现配现用、甲乙液混合后加入，不能像双缩脲那样先后单独加入。 不加热时还原糖与斐林试剂反应极"}, {"id": "c2", "ch": 2, "chT": "糖类和脂质", "t": "糖类和脂质", "terms": "", "x": "03 糖类和脂质细胞中的糖类 · 细胞中的脂质 · 种子成熟与萌发过程中的物质变化"}, {"id": "c2s0", "ch": 2, "chT": "糖类和脂质", "t": "3.1 糖类（主要能源物质）", "terms": "纤维素不供能 几丁质（壳多糖）", "x": "3.1 糖类（主要能源物质） 类别代表物分布与功能 单糖葡萄糖（细胞重要能源）、果糖、半乳糖；核糖、脱氧核糖（构成核酸）不能再水解；葡萄糖是细胞呼吸最常利用的底物 二糖植物：蔗糖（葡萄糖+果糖）、麦芽糖（两分子葡萄糖）；动物：乳糖须水解为单糖才能被吸收；蔗糖、麦芽糖是运输/储存形式 多糖植物：淀粉（储能）、纤维素（细胞壁成分）；动物：糖原（肝糖原、肌糖原）淀粉储能、可水解供能；纤维素不供能，构成植物细胞壁；糖原暂时储能 几丁质（壳多糖）：广泛存在于甲壳类动物和昆虫的外骨骼、真菌的细胞壁中；可用于制作人造皮肤、缝合线等，含 N 元素。"}, {"id": "c2s1", "ch": 2, "chT": "糖类和脂质", "t": "3.2 脂质（C、H、O 为主，有的含 N、P）", "terms": "储能物质 所有细胞膜（生物膜） 脂质的运输 钙和磷", "x": "3.2 脂质（C、H、O 为主，有的含 N、P） 类别功能备注 脂肪①细胞内良好的储能物质；②保温；③缓冲、减压，保护内脏等质量产能比糖类多、耗 O 多；动物脂肪饱和程度高、熔点高 磷脂构成所有细胞膜（生物膜）的重要成分脑、卵细胞、大豆中丰富 固醇胆固醇：构成动物细胞膜的重要成分、参与血液中脂质的运输；性激素：促进生殖器官发育与生殖细胞形成；维生素 D：促进肠道对钙和磷的吸收胆固醇过高会导致血管堵塞，但其本身是必需成分，不可完全缺乏"}, {"id": "c2s2", "ch": 2, "chT": "糖类和脂质", "t": "3.3 种子成熟与萌发过程中的物质变化（课件拓展）", "terms": "转变为脂肪 水解并转变为糖类 增加", "x": "3.3 种子成熟与萌发过程中的物质变化（课件拓展） 油料种子（花生、油菜）成熟过程中：光合产物（糖类）转变为脂肪储存，游离脂肪酸减少、脂肪增多，磷脂含量上升。 种子萌发时：脂肪水解并转变为糖类（经过乙醛酸循环途径），自由水含量增多、呼吸作用增强。 萌发初期干重先增加（吸收 O2 与 H2O 参与氧化，质量来自氧）后持续减少（呼吸消耗）。 边角小字 糖类「甜」与「不甜」与是否为还原糖无关；蔗糖水解产物（葡萄糖+果糖）都是还原糖。 脂肪检测试剂同样可用苏丹Ⅲ/Ⅳ染色后显微镜观察颗粒大小与分布。 植物细胞储能：淀粉；动物细胞储能：糖原和脂肪。纤维素虽然由葡萄糖构成，但不能被人消化（无相应酶）。 易错警示 「糖类是主要能源物质，脂肪是主要储能物质」不要混淆。 所有活细胞都含糖类与脂质；但并非所有细胞都含脂肪（磷脂是膜成分，普遍存在）。 胆固醇过多有害，但缺少会影响膜的稳定性与脂质运输——「胆固醇有害无益」说法错误。"}, {"id": "c3", "ch": 3, "chT": "蛋白质和核酸", "t": "蛋白质和核酸", "terms": "", "x": "04 蛋白质和核酸蛋白质的结构与功能 · 核酸的结构与功能 · 生物大分子以碳链为骨架"}, {"id": "c3s0", "ch": 3, "chT": "蛋白质和核酸", "t": "4.1 蛋白质（生命活动的主要承担者）", "terms": "不供能 一个氨基和一个羧基连接在同一个碳原子上 必需氨基酸 非必需氨基酸 核糖体 肽键（—CO—NH—） 种类、数目、排列顺序 空间结构 基因（DNA）的多样性 肽链间不能形成肽键 变性 不可恢复 盐析 加水可复溶", "x": "4.1 蛋白质（生命活动的主要承担者） 功能（五大类，教材 P28 黑体） 结构蛋白（肌肉、羽毛、头发）；催化（绝大多数酶）；运输（血红蛋白、通道蛋白、载体蛋白）；调节（胰岛素、生长激素）；免疫（抗体）。正常代谢中蛋白质不供能，仅在病理或衰老状态才氧化分解。 基本单位——氨基酸 结构通式：至少含一个氨基和一个羧基连接在同一个碳原子上，该碳原子还连一个氢和一个 R 基。区别在于 R 基不同；有的 R 基中也含氨基或羧基。 组成人体蛋白质的氨基酸约 21 种，其中 8 种（婴儿 9 种）为必需氨基酸，只能从食物获得，人体不能合成；非必需氨基酸可由转氨基作用合成。 必需氨基酸口诀：「携（缬）一（异亮）两（亮）本（苯丙）单（蛋）色（色）书（苏）来（赖）」。 脱水缩合在核糖体上进行：一个氨基酸的羧基与另一个的氨基结合，脱去一分子水，形成肽键（—CO—NH—）。水中 H 来自氨基和羧基，O 只来自羧基。 脱水缩合计算全套公式 肽键数 / 脱"}, {"id": "c3s1", "ch": 3, "chT": "蛋白质和核酸", "t": "4.2 核酸（遗传信息的携带者）", "terms": "磷酸 + 五碳糖 + 含氮碱基 数目与排列顺序 碳链为基本骨架 基因的选择性表达 同一个基因", "x": "4.2 核酸（遗传信息的携带者） 项目DNA（脱氧核糖核酸）RNA（核糖核酸） 元素均为 C、H、O、N、P 基本单位脱氧核糖核苷酸（4 种）核糖核苷酸（4 种） 五碳糖脱氧核糖核糖 碱基A、T、G、CA、U、G、C 结构一般双链，双螺旋一般单链 分布细胞核（染色质）、线粒体、叶绿体、拟核、质粒细胞核、线粒体、叶绿体、核糖体（rRNA） 功能绝大多数生物的遗传物质mRNA 传递遗传信息；tRNA 转运氨基酸；rRNA 构成核糖体；少数 RNA 有催化作用（酶） 核苷酸 = 磷酸 + 五碳糖 + 含氮碱基，连接处：磷酸—酯键连五碳糖。核苷 = 五碳糖 + 碱基（无磷酸）。腺苷 = 腺嘌呤 + 核糖。 DNA 多样性：脱氧核苷酸（碱基对）的数目与排列顺序千变万化（数学模型 4n）；特异性：每种 DNA 有特定的排列顺序——DNA 指纹、核酸检测的依据。 新冠病毒核酸（RNA）有特定核苷酸排列顺序，故可用核酸检测判断感染。 生物类型核"}, {"id": "c4", "ch": 4, "chT": "细胞膜与细胞核", "t": "细胞膜与细胞核", "terms": "", "x": "05 细胞膜与细胞核细胞膜的结构和功能 · 细胞器与生物膜系统前置知识 · 细胞核的结构和功能"}, {"id": "c4s0", "ch": 4, "chT": "细胞膜与细胞核", "t": "5.1 细胞膜的功能（三条，教材 P40-41）", "terms": "分隔开 控制物质进出 细胞间的信息交流 胞间连丝 细胞膜上 甲状腺激素（小分子脂溶性）和固醇类激素受体在细胞质或细胞核中", "x": "5.1 细胞膜的功能（三条，教材 P40-41） ①将细胞与外界环境分隔开（保障内部环境相对稳定；也是系统的边界）；②控制物质进出（相对性：控制作用有普遍性和相对性）；③进行细胞间的信息交流。 信息交流三种方式：化学物质随体液运输（激素—靶细胞受体）；相邻细胞膜直接接触（精卵识别与结合）；相邻细胞形成通道（高等植物细胞的胞间连丝）。 受体位置：蛋白质类（大分子）激素受体在靶细胞细胞膜上；甲状腺激素（小分子脂溶性）和固醇类激素受体在细胞质或细胞核中。 台盼蓝染色：活细胞不让染料进入（膜的选择透过性），死细胞被染蓝——鉴别细胞死活。"}, {"id": "c4s1", "ch": 4, "chT": "细胞膜与细胞核", "t": "5.2 细胞膜的制备与成分（教材 P42-43）", "terms": "成熟红细胞 无细胞核和众多细胞器 连续两层 磷脂最丰富 功能越复杂的膜，蛋白质的种类和数量越多", "x": "5.2 细胞膜的制备与成分（教材 P42-43） 选材：哺乳动物成熟红细胞——无细胞壁；无细胞核和众多细胞器，排除其他膜干扰；吸水涨破后差速离心得较纯净细胞膜。 成分探索历程：欧文顿（脂溶性物质更易通过 → 膜由脂质组成）→ 戈特、格伦德尔（红细胞膜脂质铺展单分子层面积为表面积 2 倍 → 磷脂连续两层）→ 丹尼利、戴维森（表面张力低于油水界面 → 推测附有蛋白质）→ 后发现糖蛋白（1950s，纽伯格等）、糖脂、糖被。 成分：脂质（约 50%，磷脂最丰富；动物细胞膜还含胆固醇）+ 蛋白质（约 40%）+ 糖类（约 2%~10%，与蛋白质或脂质结合为糖蛋白/糖脂）。功能越复杂的膜，蛋白质的种类和数量越多。"}, {"id": "c4s2", "ch": 4, "chT": "细胞膜与细胞核", "t": "5.3 流动镶嵌模型（教材 P44-45，必背）", "terms": "磷脂双分子层 镶、嵌、贯穿 细胞膜外表面 流动性 选择透过性 转运蛋白的种类和数量 空间结构的变化", "x": "5.3 流动镶嵌模型（教材 P44-45，必背） 磷脂双分子层构成膜的基本支架，具有流动性；蛋白质分子镶、嵌、贯穿（部分或全部嵌入、贯穿于双层，或附着在表面）——分布是不对称、不均匀的。 糖蛋白（糖被）只分布于细胞膜外表面，与细胞识别、信息传递有关——据此判断膜的内外侧。 流动性实例：变形虫运动与摄食、动物细胞缢裂、细胞融合与受精、巨噬细胞吞噬（胞吞）、分泌蛋白与神经递质释放（胞吐）、质壁分离与复原、细胞吸水膨胀失水皱缩。 选择透过性的结构基础：细胞膜上转运蛋白的种类和数量，或转运蛋白空间结构的变化（教材 P66-72）。"}, {"id": "c4s3", "ch": 4, "chT": "细胞膜与细胞核", "t": "5.4 细胞壁（教材 P48）", "terms": "纤维素和果胶 细胞壁不是系统的边界", "x": "5.4 细胞壁（教材 P48） 主要成分：植物——纤维素和果胶；真菌——几丁质；细菌——肽聚糖。全透性（对进出物质无选择性），细胞壁不是系统的边界。功能：支持和保护。 去壁方法：酶解法（纤维素酶+果胶酶）——植物细胞吸水不涨破的原因是有细胞壁。"}, {"id": "c4s4", "ch": 4, "chT": "细胞膜与细胞核", "t": "5.5 细胞核（教材 P54-58）", "terms": "细胞核是遗传信息库，是细胞代谢和遗传的控制中心 核孔 选择透过性 某种 RNA 的合成及核糖体的形成 结构完整性 核孔数目多、核仁较大 大于 2S 核质比", "x": "5.5 细胞核（教材 P54-58） 功能（黑体）：细胞核是遗传信息库，是细胞代谢和遗传的控制中心。 结构：核膜（双层膜，外膜连内质网、附核糖体）、核孔（大分子如 mRNA、蛋白质进出的通道，具选择透过性，DNA 不能随意出核，大分子进出需能量）、核仁（与某种 RNA 的合成及核糖体的形成有关）、染色质（DNA+蛋白质，易被碱性染料染成深色）。 染色质与染色体：同一物质在细胞不同时期的两种存在状态——染色质（细丝状，利于复制转录）⇄ 染色体（高度螺旋，利于分裂时平均分配）；前期出现、末期变为染色质。 四个经典实验结论：美西螈核移植——肤色由细胞核控制；蝾螈受精卵横缢——细胞核控制分裂分化；变形虫切割/核移植——细胞核是生命活动控制中心；伞藻嫁接与核移植——形态结构建成由核控制（伞帽形状取决于核）。只做嫁接实验不能完全说明核的作用（假说需核移植验证）。 核质依存：精子和哺乳动物成熟红细胞寿命短；细胞需保持结构完整性。代谢旺盛细胞："}, {"id": "c5", "ch": 5, "chT": "细胞器与生物膜系统", "t": "细胞器与生物膜系统", "terms": "", "x": "06 细胞器与生物膜系统细胞器之间的分工合作 · 分泌蛋白的合成与运输 · 细胞的生物膜系统"}, {"id": "c5s0", "ch": 5, "chT": "细胞器与生物膜系统", "t": "6.1 细胞质与细胞骨架（教材 P47-50）", "terms": "胶质状 差速离心法 细胞骨架 蛋白质纤维", "x": "6.1 细胞质与细胞骨架（教材 P47-50） 细胞质 = 细胞质基质（胶质状，细胞代谢的主要场所，含水、无机盐、脂质、糖类、氨基酸、核苷酸、多种酶）+ 细胞器。 分离细胞器的方法：差速离心法——细胞核最先沉淀，依次为叶绿体、线粒体与溶酶体、内质网与高尔基体，核糖体最后。 细胞骨架：由蛋白质纤维组成的网架结构；功能：维持细胞形态、锚定支撑细胞器，与细胞运动、分裂、分化及物质运输、能量转化、信息传递等密切相关。"}, {"id": "c5s1", "ch": 5, "chT": "细胞器与生物膜系统", "t": "6.2 八大细胞器（识图+功能重点）", "terms": "有氧呼吸的主要场所 光合作用的场所 加工、分类、包装 无膜 合成蛋白质 酸性水解酶 高尔基体 细胞液 动物和低等植物 中心体", "x": "6.2 八大细胞器（识图+功能重点） 细胞器结构功能 线粒体双层膜，内膜折叠成嵴，基质有氧呼吸的主要场所（二、三阶段）；「动力车间」；含少量 DNA（半自主） 叶绿体双层膜，类囊体堆叠成基粒，基质绿色植物光合作用的场所；「养料制造车间、能量转换站」 内质网单层膜，网状粗面：蛋白质合成、加工、运输；光面：脂质合成；增大膜面积 高尔基体单层膜，扁平囊对来自内质网的蛋白质加工、分类、包装；植物：与细胞壁形成有关；「发送站」 核糖体无膜，rRNA+蛋白质合成蛋白质（「生产蛋白质的机器」）；游离型合成胞内蛋白，附着型合成分泌蛋白/膜蛋白 溶酶体单层膜，内含多种酸性水解酶（pH≈5）分解衰老损伤的细胞器；吞噬杀死入侵病毒病菌；「消化车间」；来源于高尔基体 液泡单层膜，内含细胞液（糖类、无机盐、色素、蛋白质）调节植物细胞内环境、保持坚挺 中心体无膜，两个垂直中心粒+周围物质与动物和低等植物细胞的有丝分裂有关 典型细胞：根尖分生区——无叶绿体、"}, {"id": "c5s2", "ch": 5, "chT": "细胞器与生物膜系统", "t": "6.3 线粒体与叶绿体对比（高频）", "terms": "蛔虫除外 仅用于暗反应 C3 的还原 半自主性细胞器", "x": "6.3 线粒体与叶绿体对比（高频） 项目线粒体叶绿体 分布真核细胞（蛔虫除外）植物的绿色部分 增大膜面积方式内膜折叠成嵴类囊体堆叠成基粒 完成生理过程有氧呼吸第二、三阶段光合作用全过程 ATP 去路各项生命活动仅用于暗反应 C3 的还原 相同点均双层膜；均能量转换；均既产水又耗水；均含少量 DNA、RNA（半自主性细胞器）；均与自然界碳循环有关 内共生起源学说证据链（支持观点）：①线粒体、叶绿体有与细菌/蓝细菌相似的裸露环状 DNA 和核糖体；③自身 DNA 指导合成少数蛋白质；④内膜与细菌质膜相似、外膜与真核内膜系统相似；⑥以分裂方式繁殖。不支持：②细菌基因组无内含子而线粒体、叶绿体有；⑤拥有的聚合酶恰说明其「自主但依赖核基因」需辩证判断。"}, {"id": "c5s3", "ch": 5, "chT": "细胞器与生物膜系统", "t": "6.4 分泌蛋白的合成与运输（教材 P51-52，必背）", "terms": "跨膜 0 层 同位素标记（示踪）法 交通枢纽/转化中心", "x": "6.4 分泌蛋白的合成与运输（教材 P51-52，必背） 途径：核糖体（附着型，氨基酸脱水缩合）→ 内质网（初步加工，肽链折叠组装糖基化）→ 囊泡 → 高尔基体（进一步加工分类包装）→ 囊泡 → 细胞膜 → 胞吐。全过程跨膜 0 层，需能量，不需转运蛋白。 研究方法：同位素标记（示踪）法（3H 标记亮氨酸注入豚鼠胰腺腺泡细胞），放射性依次出现于：核糖体 → 内质网 → 高尔基体 → 细胞膜 → 分泌物。 参与分泌蛋白合成的 4 个细胞器：核糖体、内质网、高尔基体、线粒体；5 个有关结构：+ 细胞膜；3 个直接相关的膜结构：内质网膜、高尔基体膜、细胞膜。 膜面积变化：内质网减少；高尔基体先增后减（基本不变）——膜流的交通枢纽/转化中心；细胞膜增加。 需要内质网和高尔基体加工的蛋白：分泌蛋白（消化酶、抗体、蛋白类激素、细胞因子）、膜蛋白、溶酶体水解酶。"}, {"id": "c5s4", "ch": 5, "chT": "细胞器与生物膜系统", "t": "6.5 生物膜系统（教材 P53）", "terms": "核糖体和中心体无膜，不属于生物膜系统 原核生物有生物膜（细胞膜）但无生物膜系统", "x": "6.5 生物膜系统（教材 P53） 组成：细胞膜、核膜 + 细胞器膜（内质网、高尔基体、溶酶体、液泡、线粒体、叶绿体等）。核糖体和中心体无膜，不属于生物膜系统；原核生物有生物膜（细胞膜）但无生物膜系统。 功能（三条必背）：①使细胞具有相对稳定的内部环境，同时在物质运输、能量转换和信息传递中起决定作用；②广阔的膜面积为多种酶提供大量附着位点；③使各类细胞器分工协作、把各种反应分隔开，保证高效有序进行。 结构联系：直接联系（内质网膜→核膜外膜、细胞膜；内质网腔与高尔基体囊泡间接联系）；功能联系：分泌蛋白的合成运输体现。"}, {"id": "c5s5", "ch": 5, "chT": "细胞器与生物膜系统", "t": "6.6 实验：用高倍镜观察叶绿体和细胞质的流动（教材 P49）", "terms": "叶绿体运动 光照、室温 亚显微结构", "x": "6.6 实验：用高倍镜观察叶绿体和细胞质的流动（教材 P49） 原理：叶绿体绿色、扁平椭球形，不需染色可直接观察；观察细胞质流动以叶绿体运动为标志。活细胞的细胞质处于不断流动状态（环流式）。 选材：黑藻幼嫩小叶、藓类叶片或菠菜稍带叶肉的下表皮（叶薄、叶绿体少、易观察）。制片后随时保持有水，防止叶绿体变形。 先低倍镜找细胞，再高倍镜观察；黑藻提前在光照、室温下培养可提高流速。同一细胞中叶绿体流动方向一致；若显微镜下顺时针环流，实际也是顺时针（显微镜不上下颠倒旋转方向）。 意义：细胞质流动为细胞内物质运输创造条件，保障生命活动正常进行。 边角小字 显微结构（光镜可见）：细胞壁、细胞质、细胞核、核仁、染色体、叶绿体、线粒体、液泡；亚显微结构（需电镜）：细胞膜、内质网膜、核膜厚度、核糖体、细胞骨架（ 溶酶体膜不被自身水解酶分解的可能机制（教材 P48 思考）：膜成分被修饰使酶无法识别；膜所带电荷/特定基团排斥酶；膜转运 H⁺ 维持内部酸"}, {"id": "c6", "ch": 6, "chT": "细胞的物质输入和输出", "t": "细胞的物质输入和输出", "terms": "", "x": "07 细胞的物质输入和输出渗透作用 · 质壁分离与复原 · 物质跨膜运输的方式 · 影响跨膜运输的因素"}, {"id": "c6s0", "ch": 6, "chT": "细胞的物质输入和输出", "t": "7.1 渗透作用（教材 P62，必背第三段）", "terms": "水分子（或其他溶剂分子）通过半透膜的扩散 半透膜 浓度差 选择透过性膜是生物膜 仍然较高 物质的量浓度 先升后降，最终内外相等 先甲高后乙高", "x": "7.1 渗透作用（教材 P62，必背第三段） 概念：水分子（或其他溶剂分子）通过半透膜的扩散。方向：双向移动、总体单向。 条件：①具有半透膜；②膜两侧溶液具有浓度差。 半透膜：某些物质可透过而另一些不能透过的多孔性薄膜；选择透过性膜是生物膜，具有选择透过性（活性依赖）。 动态平衡时：水分子仍在进出（数目相等），液面高的一侧浓度仍然较高（水柱压力所致）；浓度指物质的量浓度而非质量浓度。 漏斗实验：蔗糖酶加入后，若单糖不能透过半透膜→液面继续上升后稳定；若单糖能透过→先升后降，最终内外相等。 经典题：等体积等质量浓度的葡萄糖与蔗糖溶液被半透膜隔开——①只允许水通过：葡萄糖一侧（摩尔浓度高）液面升高；②水与葡萄糖可通过、蔗糖不能：先甲高后乙高（葡萄糖先使甲侧升高，后葡萄糖透过使乙侧浓度增大）。"}, {"id": "c6s1", "ch": 6, "chT": "细胞的物质输入和输出", "t": "7.2 动物细胞与植物细胞的吸水和失水", "terms": "质壁分离 原生质层", "x": "7.2 动物细胞与植物细胞的吸水和失水 条件动物细胞（红细胞）成熟植物细胞 外界浓度 = 内部正常无变化正常无变化 外界浓度 &lt; 内部吸水膨胀甚至涨破吸水（膨胀，受细胞壁限制） 外界浓度 &gt; 内部失水皱缩质壁分离 半透膜细胞膜原生质层：细胞膜+液泡膜+两层膜之间的细胞质 成熟植物细胞是一个渗透系统：大液泡 + 半透性原生质层。水进出细胞主要指水经原生质层进出液泡（教材 P63）。"}, {"id": "c6s2", "ch": 6, "chT": "细胞的物质输入和输出", "t": "7.3 实验：观察植物细胞的质壁分离与复原（教材 P64-65）", "terms": "原生质层伸缩性大于细胞壁 外表皮 浸润 三次低倍镜观察、自身前后对照 首先发生在细胞的角隅处 外界溶液 主动运输 能自动复原的溶液：KNO₃、甘油、尿素、乙二醇、葡萄糖", "x": "7.3 实验：观察植物细胞的质壁分离与复原（教材 P64-65） 原理：内因——原生质层伸缩性大于细胞壁、原生质层相当于半透膜；外因——外界溶液浓度＞细胞液浓度。 选材：紫色洋葱鳞片叶外表皮（有大液泡、细胞液紫色便于观察）；黑藻（叶绿体绿色可观察）；洋葱内表皮可发生但不宜观察。 试剂：0.3 g/mL 蔗糖溶液——既明显质壁分离又不致细胞失水死亡。引流法：滴蔗糖/清水+吸水纸吸引，重复几次，目的是让细胞浸润在相应溶液中。 三次低倍镜观察、自身前后对照：正常态 → 质壁分离 → 复原。第二次观察时质壁分离首先发生在细胞的角隅处；第一次观察不能省略。 变化分析：失水越多 → 液泡变小、颜色变深、细胞液浓度变大、吸水能力越强；细胞体积略缩小（壁限制）。原生质层与细胞壁之间充满外界溶液（细胞壁全透）。 自动复原：外界浓度＞细胞液浓度先失水质壁分离，但 K⁺、NO₃⁻ 等被主动运输吸收进入细胞，细胞液浓度升高后渗透吸水复原。能自动复原的溶"}, {"id": "c6s3", "ch": 6, "chT": "细胞的物质输入和输出", "t": "7.4 物质跨膜运输的方式（离子与小分子，教材 P66-70）", "terms": "小部分水、气体（O2、CO2）、脂溶性物质（苯、乙醇、甘油、脂肪酸、尿素、胆固醇、维生素 D、性激素） 红细胞吸收葡萄糖 耗能 载体蛋白 自身构象（空间结构）改变 不与运输分子结合 主动选择吸收 协同转运（离子梯度动力，如 Na⁺-葡萄糖同向转运） 流动性", "x": "7.4 物质跨膜运输的方式（离子与小分子，教材 P66-70） 方式方向能量转运蛋白影响因素实例 自由扩散高→低（顺浓度）不耗能不需要浓度差小部分水、气体（O2、CO2）、脂溶性物质（苯、乙醇、甘油、脂肪酸、尿素、胆固醇、维生素 D、性激素） 协助扩散高→低不耗能载体蛋白或通道蛋白浓度差、转运蛋白数量红细胞吸收葡萄糖、水经水通道蛋白、K⁺ 经 K⁺ 通道、Na⁺ 内流、K⁺ 外流 主动运输低→高（逆浓度）耗能载体蛋白能量、载体蛋白数量大多数离子、肾小管重吸收葡萄糖、小肠吸收葡萄糖与氨基酸 载体蛋白：只容许与自身结合部位相适应的分子/离子通过，转运时自身构象（空间结构）改变，如 CFTR 蛋白转运 Cl⁻（氯离子大小与性质与其结合部位相适应）。 通道蛋白：只容许大小和电荷相适应的分子通过，不与运输分子结合；水通道蛋白、离子通道。 主动运输意义：保证细胞按生命活动需要，主动选择吸收所需营养物质，排出代谢废物和对细胞有害的物质（教材 "}, {"id": "c6s4", "ch": 6, "chT": "细胞的物质输入和输出", "t": "7.5 影响跨膜运输的因素", "terms": "", "x": "7.5 影响跨膜运输的因素 物质浓度：自由扩散——在一定范围内速率随浓度增大而增大后达平台；协助扩散/主动运输——需转运蛋白，会饱和。 氧气浓度：自由扩散/协助扩散不受影响；主动运输在有氧呼吸范围内随 O₂ 增大而增大（能量来自呼吸作用），无氧时仍有一定速率（无氧呼吸供能）。 温度：影响膜流动性、酶活性、呼吸供能。载体蛋白数量：限制最大速率。 边角小字 教材 P74-T2：主动运输的机理图——ATP 水解使载体蛋白磷酸化而改变构象（膜上 Na⁺-K⁺ 泵，每消耗 1 个 ATP 运出 3 个 Na⁺、运入 2 个 K⁺）。 小肠上皮细胞吸收葡萄糖：肠腔侧 Na⁺-葡萄糖同向协同转运（主动运输，动力来自 Na⁺ 电化学梯度）；基底侧葡萄糖经载体协助扩散出细胞；Na⁺ 由 Na-K 泵（ATP）泵出。教材 P69 强调：小肠液中氨基酸、葡萄糖浓度远低于细胞内浓度。 蔗糖运入筛管：H⁺ 泵（①）消耗 ATP 建立 H⁺ 梯度，蔗糖- "}, {"id": "c7", "ch": 7, "chT": "酶与 ATP", "t": "酶与 ATP", "terms": "", "x": "08 酶与 ATP降低化学反应活化能的酶 · 细胞的能量「货币」ATP"}, {"id": "c7s0", "ch": 7, "chT": "酶与 ATP", "t": "8.1 酶的本质与作用机理（教材 P78-80）", "terms": "降低化学反应的活化能 毕希纳 萨姆纳 切赫、奥特曼 有机物，绝大多数是蛋白质，少数是 RNA", "x": "8.1 酶的本质与作用机理（教材 P78-80） 作用：催化；机理：降低化学反应的活化能（分子从常态转变为容易发生反应的活跃状态所需的能量）。与加热（给反应物能量）机理不同。 本质探索（课本 P79）：巴斯德（发酵与活酵母细胞有关）→ 李比希（酵母死亡裂解后物质起作用）→ 毕希纳（获得无细胞提取液「酿酶」）→ 萨姆纳（提取脲酶结晶，证明是蛋白质）→ 切赫、奥特曼（少数 RNA 也有催化功能）。 酶的概念：活细胞产生的、具有催化作用的有机物，绝大多数是蛋白质，少数是 RNA。 合成原料：氨基酸（CHON）或核糖核苷酸（CHONP）；合成场所：核糖体（蛋白质类）或细胞核（真核生物 RNA 类）；作用场所：细胞内外、体外均可。 鉴定蛋白质类酶：双缩脲试剂（紫色）。"}, {"id": "c7s1", "ch": 7, "chT": "酶与 ATP", "t": "8.2 酶的特性与验证实验", "terms": "高效性 专一性 碘液 斐林试剂 作用条件温和 低温抑制活性但空间结构稳定，升温可恢复 不改变平衡点", "x": "8.2 酶的特性与验证实验 高效性：与无机催化剂相比降低活化能更显著——H₂O₂ 实验：3、4 号对照（Fe³⁺ vs 过氧化氢酶），气泡多、卫生香复燃猛。 专一性：每种酶只能催化一种或一类化学反应。两套方案：①「一底物多酶」淀粉+唾液淀粉酶/蔗糖酶，用碘液检测（蔗糖不与碘反应，不能用碘液检蔗糖是否水解）；②「一酶多底物」淀粉/蔗糖+淀粉酶，用斐林试剂（60 ℃ 保温、沸水浴；不能用碘液，因为碘液无法检测蔗糖是否水解）。 作用条件温和：适宜温度、pH。过酸过碱、高温破坏空间结构永久失活；低温抑制活性但空间结构稳定，升温可恢复——酶保存：低温、最适 pH。 酶促反应原理与催化剂共性：①改变化学反应速率而本身不被消耗；②只能缩短达到平衡的时间，不改变平衡点；③反应前后性质数量不变（但酶自身需要更新）；④都降低活化能。"}, {"id": "c7s2", "ch": 7, "chT": "酶与 ATP", "t": "8.3 探究温度、pH 对酶活性的影响（实验设计细节）", "terms": "先各自保温 5 min 再混合 不能用 H₂O₂ 酶 不能用斐林试剂 再 不能用淀粉酶 单位时间内底物减少量或产物生成量 温度、pH 通过影响酶活性 酶浓度、底物浓度通过影响酶与底物接触面积", "x": "8.3 探究温度、pH 对酶活性的影响（实验设计细节） 实验要点与「不能」 温度（淀粉+淀粉酶+碘液）冰浴（不变蓝）0 ℃、60 ℃（变蓝浅/消失）、沸水浴（变蓝）三组；先各自保温 5 min 再混合（防止未达预设温度即反应）；沸水浴后自来水冲凉再加碘（100 ℃ 直链淀粉螺旋结构破坏遇碘不变蓝；防止碘蒸发）；不能用 H₂O₂ 酶（加热本身促进 H₂O₂ 分解）；不能用斐林试剂（需加热检测，低温酶活性恢复造成错觉） pH（H₂O₂+过氧化氢酶）先加酶+不同 pH 溶液（蒸馏水/HCl/NaOH）再加底物（否则未调 pH 反应已结束）；不能用淀粉酶（淀粉在酸性下自行水解；斐林试剂与酸反应干扰；碱性环境碘与碱反应干扰） 酶活性：酶催化特定化学反应的能力，用单位时间内底物减少量或产物生成量表示。 影响因素分两类：温度、pH 通过影响酶活性影响反应速率；酶浓度、底物浓度通过影响酶与底物接触面积影响速率，不影响酶活性。"}, {"id": "c7s3", "ch": 7, "chT": "酶与 ATP", "t": "8.4 激活剂与抑制剂（课件拓展）", "terms": "Km 增大、Vmax 不变 Km 不变、Vmax 降低 Km 减小、Vmax 降低 酶与底物的亲和力", "x": "8.4 激活剂与抑制剂（课件拓展） 激活剂：提高酶活性的物质（无机离子如 Mg²⁺、K⁺、Cl⁻；有机分子如维生素 C、半胱氨酸）。酶原需激活剂激活后才有活性。 抑制剂三种：竞争性抑制——抑制剂与底物结构相似，竞争活性中心；Km 增大、Vmax 不变，增加底物浓度可解除。非竞争性抑制——结合活性中心以外必需基团；Km 不变、Vmax 降低，加底物不能解除。反竞争性抑制——只结合酶-底物复合物（ES）；Km 减小、Vmax 降低。 Km（米氏常数）：反应速率达最大速率一半时的底物浓度，反映酶与底物的亲和力（越小亲和力越大）。"}, {"id": "c7s4", "ch": 7, "chT": "酶与 ATP", "t": "8.5 ATP（教材 P87-89）", "terms": "A—P~P~P 特殊的化学键 ATP 去掉两个磷酸基团（即 AMP，腺苷一磷酸）是 RNA 的基本组成单位之一 直接的能源物质 能口服 转化迅速且处于动态平衡 不可逆反应 能量不可逆 货币", "x": "8.5 ATP（教材 P87-89） 结构简式 A—P~P~P：A=腺苷（腺嘌呤+核糖）；P=磷酸基团；—普通化学键；~特殊的化学键（远离 A 的那个易断裂，水解释能约 30.54 kJ/mol）。元素：C、H、O、N、P。 ATP 彻底水解产物：磷酸、核糖、腺嘌呤；ATP 去掉两个磷酸基团（即 AMP，腺苷一磷酸）是 RNA 的基本组成单位之一（腺嘌呤核糖核苷酸）。 功能：直接的能源物质——糖类、脂肪中能量稳定不能直接利用，须转化为 ATP 中活跃化学能。ATP 是物质不是能量；能口服（被消化分解，意义不大）。 ATP 含量少但供能及时持续：ATP 与 ADP 转化迅速且处于动态平衡；该转化机制是生物界的共性。 ATP ⇄ ADP + Pi + 能量：不可逆反应——酶不同（水解酶/合成酶）、场所不同、物质可逆而能量不可逆。合成能量来源：动物——呼吸作用；植物——呼吸作用+光合作用。 能量流通：吸能反应与 ATP 水解相联系；放"}, {"id": "c8", "ch": 8, "chT": "细胞呼吸", "t": "细胞呼吸", "terms": "", "x": "09 细胞呼吸探究酵母菌的呼吸方式 · 有氧呼吸 · 无氧呼吸 · 细胞呼吸原理的应用"}, {"id": "c8s0", "ch": 8, "chT": "细胞呼吸", "t": "9.1 细胞呼吸的概念与实质（教材 P90）", "terms": "有机物在细胞内经过一系列的氧化分解，生成二氧化碳或其他产物，释放能量并生成 ATP 的过程 条件温和 逐步释放", "x": "9.1 细胞呼吸的概念与实质（教材 P90） 细胞呼吸（黑体）：有机物在细胞内经过一系列的氧化分解，生成二氧化碳或其他产物，释放能量并生成 ATP 的过程。实质：氧化分解有机物、释放能量。 与体外燃烧相比：有氧呼吸条件温和；能量逐步释放；一部分储存在 ATP 中。意义：能量逐步转移到 ATP、充分利用；缓慢有序释放维持细胞相对稳定。"}, {"id": "c8s1", "ch": 8, "chT": "细胞呼吸", "t": "9.2 探究酵母菌细胞的呼吸方式（教材 P91-92）", "terms": "兼性厌氧 对比实验法 澄清石灰水变浑浊 溴麝香草酚蓝水溶液：蓝→绿→黄 酸性（浓硫酸）重铬酸钾：橙色→灰绿色 NaOH 溶液 先封口放置一段时间耗尽 O₂ 煮沸灭菌 过滤取滤液", "x": "9.2 探究酵母菌细胞的呼吸方式（教材 P91-92） 酵母菌：真核单细胞真菌，兼性厌氧，繁殖（出芽生殖为主），细胞壁+细胞膜+细胞核+液泡+线粒体。 方法：对比实验法（有氧、无氧装置相互对照）。检测 CO₂：澄清石灰水变浑浊；溴麝香草酚蓝水溶液：蓝→绿→黄（由变黄时间长短判断 CO₂ 多少）。检测酒精：酸性（浓硫酸）重铬酸钾：橙色→灰绿色。 装置要点：空气先经 NaOH 溶液（除去 CO₂，排除干扰）；B 瓶（无氧组）先封口放置一段时间耗尽 O₂ 再连通检测瓶；培养液煮沸灭菌（排除杂菌呼吸干扰）；检测酒精需过滤取滤液（培养液浑浊有色会干扰，且葡萄糖可被重铬酸钾氧化产生类似颜色）。 有氧组气泵间歇通空气保证供氧；无氧组可加石蜡油/植物油液封。"}, {"id": "c8s2", "ch": 8, "chT": "细胞呼吸", "t": "9.3 有氧呼吸（教材 P92-93）", "terms": "细胞质基质 2 丙酮酸 + [H](NADH) 线粒体基质 H₂O 线粒体内膜 O₂ 大量 ATP", "x": "9.3 有氧呼吸（教材 P92-93） 阶段场所反应物 → 产物能量 第一阶段细胞质基质葡萄糖 → 2 丙酮酸 + [H](NADH)少量 ATP（少量能量） 第二阶段线粒体基质丙酮酸 + H₂O → CO₂ + [H]少量 ATP 第三阶段线粒体内膜[H] + O₂ → H₂O大量 ATP（最多） 总反应式C6H12O6 + 6O2 + 6H2O →(酶) 6CO2 + 12H2O + 能量 元素去向CO2 中 O：来自葡萄糖和水H2O 中 O：来自 O2；H：来自葡萄糖和水 转移路径C：葡萄糖 → 丙酮酸 → CO218O2 → H218O（第三阶段产物） [H] 是 NADH（还原型辅酶Ⅰ），来源于第一、二阶段，只在第三阶段被消耗（与 O₂ 结合）。 有氧呼吸第三阶段机理：电子传递链（NADH→…→O₂），电子传递释放能量驱动 H⁺ 泵至膜间隙建立梯度，H⁺ 经 ATP 合酶回流推动 ATP 合成；电子供体 NADH、受体"}, {"id": "c8s3", "ch": 8, "chT": "细胞呼吸", "t": "9.4 无氧呼吸（教材 P94）", "terms": "存留在酒精或乳酸中 控制酶合成的基因不同", "x": "9.4 无氧呼吸（教材 P94） 产酒精型C6H12O6 →(酶) 2C2H5OH + 2CO2 + 少量能量代表：酵母菌、大多数植物细胞 产乳酸型C6H12O6 →(酶) 2C3H6O3 + 少量能量代表：人及动物细胞、马铃薯块茎、甜菜块根、玉米胚、乳酸菌 共同点场所全程在细胞质基质第一阶段与有氧呼吸相同；只在第一阶段产 ATP 无氧呼吸释放能量少的原因：葡萄糖中大部分能量存留在酒精或乳酸中；无氧呼吸释放的能量大部分（其余部分）以热能散失。 不同生物无氧呼吸产物不同的直接原因：酶种类不同；根本原因：控制酶合成的基因不同。"}, {"id": "c8s4", "ch": 8, "chT": "细胞呼吸", "t": "9.5 呼吸方式的判断（高频方法）", "terms": "O₂ 吸收量 = CO₂ 释放量 CO₂ &gt; O₂ 遮光", "x": "9.5 呼吸方式的判断（高频方法） 据产物：产 H₂O → 一定有有氧呼吸；耗 O₂ → 一定有有氧呼吸；无 CO₂ → 一定为产乳酸无氧呼吸（或死亡）。 据气体：O₂ 吸收量 = CO₂ 释放量 → 只进行有氧呼吸（或同时有产乳酸无氧呼吸）；CO₂ &gt; O₂ → 有氧呼吸 + 产酒精无氧呼吸（差值 = 无氧呼吸释放的 CO₂，差值的一半 = 酒精量）；只无 CO₂ 无 O₂ → 产乳酸无氧呼吸（未死）。 液滴移动法（装置一 NaOH 吸收 CO₂：左移距离 = 有氧呼吸耗 O₂ 量；装置二清水对照：左移 = 耗 O₂ − 放 CO₂，右移 = 放 CO₂ − 耗 O₂）。设死种子（等量灭活）对照排除气压温度物理因素；装置需遮光（绿色材料）；种子需消毒、灭菌。 底物为脂肪时：耗 O₂ &gt; 释放 CO₂（脂肪 H 多 O 少）。"}, {"id": "c8s5", "ch": 8, "chT": "细胞呼吸", "t": "9.6 影响细胞呼吸的因素与应用", "terms": "温度（影响酶活性） R 点：有氧呼吸弱+无氧呼吸被抑制，总呼吸最弱，有机物消耗最少——果蔬储存最适 稻田定期排水（避免无氧呼吸产酒精烂根）", "x": "9.6 影响细胞呼吸的因素与应用 内因：遗传因素（不同生物呼吸速率不同；同一植物生殖器官＞营养器官；幼苗、花期速率高）。 外因：温度（影响酶活性）、O₂ 浓度、CO₂ 浓度（高浓度抑制呼吸）、含水量。 O₂ 浓度曲线关键点：Q 点只无氧呼吸；P 点无氧呼吸消失；QP 段（不含端点）两种呼吸并存；R 点：有氧呼吸弱+无氧呼吸被抑制，总呼吸最弱，有机物消耗最少——果蔬储存最适。 应用（背诵）：包扎伤口用透气纱布（抑制厌氧菌）；酿酒先通气后密封；花盆松土（促进根有氧呼吸、利于无机盐吸收）；储粮晒干、果蔬低温低氧高 CO₂；破伤风杆菌厌氧需清创；提倡慢跑（避免乳酸堆积）；稻田定期排水（避免无氧呼吸产酒精烂根）；长途运输蔬菜充 N₂、调至 R 点对应 O₂ 浓度。 运动时体内主要呼吸方式仍是有氧呼吸；剧烈运动骨骼肌产乳酸——「能量由乳酸分解提供」×（能量来自葡萄糖分解）。 边角小字 教材 P92 科学方法：对比实验——设置两个或两个以上实"}, {"id": "c9", "ch": 9, "chT": "光合作用与能量转化", "t": "光合作用与能量转化", "terms": "", "x": "10 光合作用与能量转化捕获光能的色素和结构 · 光合作用的原理和应用 · 化能合成作用"}, {"id": "c9s0", "ch": 9, "chT": "光合作用与能量转化", "t": "10.1 叶绿体与光合色素（教材 P97-99）", "terms": "无水乙醇（有机溶剂） 层析液中溶解度不同 SiO₂ CaCO₃ 单层尼龙布 细、直、齐 滤液细线不能触及层析液 胡萝卜素（橙黄色，最快）→ 叶黄素（黄色）→ 叶绿素 a（蓝绿色，最宽/含量最多）→ 叶绿素 b（黄绿色） Mg 吸收、传递、转化光能 红光和蓝紫光", "x": "10.1 叶绿体与光合色素（教材 P97-99） 色素提取：色素能溶解在无水乙醇（有机溶剂）中；分离：色素在层析液中溶解度不同，溶解度高者随层析液在滤纸上扩散得快。 步骤细节：加 SiO₂（研磨充分）、CaCO₃（防止研磨中色素被破坏）；研磨迅速（防乙醇挥发）充分（破坏叶绿体释出色素）；过滤用单层尼龙布（滤纸吸附色素、色素分子不易透过）；滤纸条剪两角（防边缘扩散过快使色素带不齐）；画滤液细线要细、直、齐（起点相同），干后重复画 1~2 次（积累色素）；滤液细线不能触及层析液（色素会溶入层析液）；试管口塞棉塞（防层析液挥发）。 结果（从上到下）：胡萝卜素（橙黄色，最快）→ 叶黄素（黄色）→ 叶绿素 a（蓝绿色，最宽/含量最多）→ 叶绿素 b（黄绿色）。类胡萝卜素占 1/3（含 C、H 或 C、H、O），叶绿素占 2/3（含 C、H、O、N、Mg）。 色素功能：吸收、传递、转化光能；叶绿素主要吸收红光和蓝紫光，类胡萝卜素主要吸收蓝紫"}, {"id": "c9s1", "ch": 9, "chT": "光合作用与能量转化", "t": "10.2 光合作用的探索（教材 P100-102）", "terms": "水的光解与糖的合成不是同一反应 鲁宾、卡门（同位素标记法，对比实验） 全部来自水 卡尔文（小球藻、¹⁴CO₂、双向纸层析） 煮沸乙醇杀死小球藻", "x": "10.2 光合作用的探索（教材 P100-102） 恩格尔曼：水绵+好氧细菌，极细光束照射——好氧细菌只向叶绿体被光束照射部位集中，全部曝光时细菌分布在叶绿体所有受光部位。结论：①O₂ 由叶绿体释放，叶绿体是光合作用场所；②叶绿体主要吸收红光和蓝紫光。 希尔反应：离体叶绿体加铁盐（有 H₂O 无 CO₂），光照下放 O₂——说明水的光解与糖的合成不是同一反应；但不能证明 O₂ 中氧全部来自水（未排除叶绿体其他物质干扰、未直接观察氧的转移）。 鲁宾、卡门（同位素标记法，对比实验）：H₂18O 组放 18O₂，C18O₂ 组放 O₂——证明光合作用释放的 O₂ 全部来自水。 卡尔文（小球藻、¹⁴CO₂、双向纸层析）：缩短取样时间至 0.5 s，¹⁴C 首先出现在 3-磷酸甘油酸（C₃）→ 5 s 出现在 RuBP（C₅）和六碳糖——C 的转移路径：CO₂ → C₃ →（CH₂O）/C₅。取样后立即煮沸乙醇杀死小球藻终止反应。 卡尔文"}, {"id": "c9s2", "ch": 9, "chT": "光合作用与能量转化", "t": "10.3 光合作用的过程（教材 P103-104，必背）", "terms": "类囊体薄膜 叶绿体基质 不直接需光但依赖光反应产物 2C₃ 活跃化学能 稳定化学能 水的光解 主动运输 既消耗水又产生水 只用于暗反应", "x": "10.3 光合作用的过程（教材 P103-104，必背） 项目光反应暗反应（卡尔文循环） 场所类囊体薄膜叶绿体基质 条件光、色素、酶、H₂O多种酶、CO₂；不直接需光但依赖光反应产物 物质变化①水的光解：H₂O → [H](NADPH) + O₂；②ATP 合成（ADP+Pi+能量→ATP）①CO₂ 固定：CO₂ + C₅ → 2C₃；②C₃ 的还原：C₃ + [H] + ATP →（CH₂O）+ C₅ 能量变化光能 → NADPH、ATP 中活跃化学能活跃化学能 → 有机物中稳定化学能 联系光反应为暗反应提供 NADPH、ATP；暗反应为光反应提供 ADP、Pi、NADP⁺（相互依存、不可分割） 唯一不需要酶催化的反应：水的光解。 移动方向：NADPH、ATP 由类囊体薄膜 → 叶绿体基质；ADP、Pi、NADP⁺ 由基质 → 类囊体薄膜。 NADPH 作用：①作还原剂还原 C₃；②储存部分能量。ATP 作用：为 C₃ 还原供"}, {"id": "c9s3", "ch": 9, "chT": "光合作用与能量转化", "t": "10.4 条件改变时物质量的短期变化（高频题型）", "terms": "C₃ 分子数是 C₅ 的 2 倍", "x": "10.4 条件改变时物质量的短期变化（高频题型） 条件改变（短暂时间）NADPH/[H]、ATPC₃C₅(CH₂O) 光照减弱 / 停止光照（阴天）减少增加减少减少 CO₂ 供应减少（气孔关闭/降温）增加减少增加减少 光照增强（CO₂ 不变）增加减少增加增加 分析思路：先判断受影响的环节（光反应 or 暗反应），再从「生成速率 vs 消耗速率」比较含量变化。 暗反应稳定时，C₃ 分子数是 C₅ 的 2 倍（1 C₅ 固定 1 CO₂ 生成 2 C₃）。 间隔光照（亮暗交替）比连续光照合成有机物多：暗期光反应产物 NADPH、ATP 继续被利用、基本不积累；连续光照反而利用不充分。"}, {"id": "c9s4", "ch": 9, "chT": "光合作用与能量转化", "t": "10.5 影响光合作用的因素与应用（教材 P105-107）", "terms": "光补偿点 光饱和点 真正（总）光合 = 净（表观）光合 + 呼吸消耗", "x": "10.5 影响光合作用的因素与应用（教材 P105-107） 外因：CO₂ 浓度、光照强度/光质/光照面积/时间、温度（酶活性，主要制约暗反应）、水、矿质元素（N、Mg、P 等）。内因：色素的数量、酶的数量和活性。 光补偿点：光合强度=呼吸强度（植物需整株光合＞呼吸才能生长）；光饱和点以后限制因素为 CO₂ 浓度、温度等。阳生植物补偿点、饱和点均高；阴生植物均低（连续阴雨时阴生植物受影响小）。 关键指标：真正（总）光合 = 净（表观）光合 + 呼吸消耗。「制造/产生/固定/合成/消耗」为总光合；「吸收/释放/测定/积累」为净光合。 午休现象（盛夏晴天）：温度过高蒸腾过强 → 气孔开放程度减小 → CO₂ 吸收减少 → 光合下降（FG 段），主要影响暗反应。 密闭容器一昼夜曲线：I 点低于 A 点 → 光合＞呼吸，植物生长；高于则不能正常生长。 增产措施：「正其行，通其风」、增施有机肥（微生物分解释 CO₂ 与矿质）、施用碳酸氢铵"}, {"id": "c9s5", "ch": 9, "chT": "光合作用与能量转化", "t": "10.6 化能合成作用（教材 P105）", "terms": "硝化细菌 浮起的数量 盛水玻璃槽 花青素", "x": "10.6 化能合成作用（教材 P105） 硝化细菌等：利用体外环境中无机物氧化（NH₃ → HNO₂ → HNO₃）释放的化学能合成有机物。与光合作用同为自养，但能源不同（化学能 vs 光能）。 边角小字（高频细节） 光合作用影响因素实验（教材 P105）：探究光照强度——调整灯与烧杯距离；CO₂ 浓度——吹气时间或不同浓度 NaHCO₃ 溶液；温度——水浴保温；光质——功率相同的不同色光 LED。因变量：圆形小叶片浮起的数量（或浮起相同数量所需时间）。灯与烧杯间加盛水玻璃槽吸热防温度干扰。 秋叶变黄：低温叶绿素合成受阻且易降解，类胡萝卜素稳定显现黄色；变红：可溶性糖积累形成花青素。遮光条件下叶绿素含量升高、叶绿素 a/b 比值降低（适应蓝紫光比例高的阴生环境）。 海洋藻类垂直分布：水层对红橙光吸收多，深水为短波长光——绿藻（浅）、褐藻（中）、红藻（深）。 植物细胞中色素不全在叶绿体：液泡含花青素等；幼嫩茎、果实细胞也含光合色素"}, {"id": "c10", "ch": 10, "chT": "细胞的增殖", "t": "细胞的增殖", "terms": "", "x": "11 细胞的增殖细胞周期 · 有丝分裂各期 · 实验：观察根尖分生区组织细胞的有丝分裂 · 无丝分裂"}, {"id": "c10s0", "ch": 10, "chT": "细胞的增殖", "t": "11.1 细胞增殖与细胞周期（教材 P110-111）", "terms": "生长和分裂 表面积与体积之比（相对表面积） 核质比 细胞周期（黑体） 一次分裂完成时开始 下一次分裂完成时为止 分裂间期（约占 90%~95%）和分裂期（M 期） S 期（DNA 复制）", "x": "11.1 细胞增殖与细胞周期（教材 P110-111） 细胞增殖：细胞生长和分裂的过程（物质准备+细胞分裂）；是生物体生长、发育、繁殖、遗传的基础。 细胞不能无限长大的原因：①表面积与体积之比（相对表面积）限制——体积越大相对表面积越小，物质运输效率越低；②核质比限制——一个核的控制能力有限。细胞也不能太小（容纳必要结构与物质）。 细胞周期（黑体）：连续分裂的细胞，从一次分裂完成时开始，到下一次分裂完成时为止；包括分裂间期（约占 90%~95%）和分裂期（M 期）。有丝分裂严格指分裂期。 有细胞周期的细胞：茎形成层、根尖分生区、皮肤生发层、造血干细胞、癌细胞、受精卵、精原/卵原细胞、肝细胞（受刺激后）等；神经细胞、成熟红细胞、叶肉细胞等无。 分裂间期细分：G1（RNA、蛋白质合成，为 S 期准备）、S 期（DNA 复制）、G2（合成微管蛋白等，为 M 期准备）。"}, {"id": "c10s1", "ch": 10, "chT": "细胞的增殖", "t": "11.2 有丝分裂各期特点（教材 P112-113，必背）", "terms": "DNA 分子的复制 有关蛋白质的合成 「膜仁消失显两体」 「形定数晰赤道齐」 赤道板 「点裂数数加均极」 加倍 「两消两现重开始」 中心粒发出星射线 两极发出纺锤丝 细胞膜中部内陷缢裂 赤道板位置出现细胞板 中心体 精确地平均分配 亲代和子代细胞之间遗传性状的稳定性", "x": "11.2 有丝分裂各期特点（教材 P112-113，必背） 时期主要特点 间期完成 DNA 分子的复制和有关蛋白质的合成，细胞适度生长；动物细胞中心粒倍增 前期「膜仁消失显两体」：核膜核仁消失，出现染色体和纺锤体，染色体散乱分布 中期「形定数晰赤道齐」：染色体形态稳定、数目清晰，着丝粒整齐排列在赤道板上——观察染色体最佳时期 后期「点裂数数加均极」：着丝粒分裂，姐妹染色单体分开成为两条染色体，染色体数目加倍，平均移向两极 末期「两消两现重开始」：染色体、纺锤体消失，核膜核仁重现 动植物细胞有丝分裂区别：①前期纺锤体形成方式——动物中心粒发出星射线；植物两极发出纺锤丝；②末期细胞质分裂——动物细胞膜中部内陷缢裂；植物赤道板位置出现细胞板扩展成新细胞壁。区分动植物细胞最可靠依据：细胞质分裂方式（有无细胞板）。 赤道板是假想平面（不存在），细胞板是真实结构（植物末期出现）。 数目变化口诀：DNA 加倍在间期（S 期）；染色体加倍在后期"}, {"id": "c10s2", "ch": 10, "chT": "细胞的增殖", "t": "11.3 无丝分裂（教材 P115）", "terms": "没有出现纺锤丝和染色体的变化 蛙的红细胞", "x": "11.3 无丝分裂（教材 P115） 过程：细胞核先延长缢裂为二，然后整个细胞从中部缢裂为二。特点：没有出现纺锤丝和染色体的变化（但有 DNA 复制）；过程简单迅速耗能少，核膜核仁不消失。典型实例：蛙的红细胞（高等植物薄壁组织如胚乳细胞中也常见）。"}, {"id": "c10s3", "ch": 10, "chT": "细胞的增殖", "t": "11.4 实验：观察根尖分生区组织细胞的有丝分裂（教材 P116）", "terms": "解离后细胞已死亡 呈正方形、排列紧密", "x": "11.4 实验：观察根尖分生区组织细胞的有丝分裂（教材 P116） 流程：培养根尖（葱/蒜，根长约 5 cm，取 2~3 mm）→ 解离（15% HCl : 95% 酒精 = 1:1，使组织细胞相互分离）→ 漂洗（清水，洗去药液防解离过度）→ 染色（甲紫溶液或醋酸洋红液 3~5 min，使染色体着色）→ 制片（弄碎根尖、压片使细胞分散）→ 镜检。 解离后细胞已死亡——不能观察到连续分裂过程，需移动装片寻找不同时期的细胞。 分生区细胞特点：呈正方形、排列紧密；先低倍镜找分生区，再高倍镜观察；视野中间期细胞最多（间期时间最长——各期细胞数目与该期持续时间成正比）。 选材要求：选分裂期占细胞周期比例大的材料便于观察分裂相。 甲紫溶液是「碱性染料」但 pH 小于 7——碱性/酸性由电离后助色基团所带电荷决定。"}, {"id": "c10s4", "ch": 10, "chT": "细胞的增殖", "t": "11.5 细胞周期调控与同步化（课件拓展）", "terms": "间期 秋水仙素抑制纺锤体形成", "x": "11.5 细胞周期调控与同步化（课件拓展） 检验点系统：G1/S 检验点（细胞是否足够大、DNA 是否损伤）、S 期检验点（DNA 复制是否正确）、G2/M 检验点、纺锤体组装检验点（中期——染色体是否都与纺锤体正确连接，如 MAD2 蛋白监控单附着染色体）、分离后检验点（染色体是否到达两极，决定是否胞质分裂）。 原癌基因（调节细胞周期、控制生长分裂进程）与抑癌基因（阻止细胞不正常增殖）协同维持细胞周期正常。 药物：抑制 DNA 复制的抗癌药使细胞停留在间期；秋水仙素抑制纺锤体形成→着丝粒正常分裂但染色体不能移向两极→染色体数目加倍（多倍体育种、中期阻断法）。 同步化方法：①DNA 合成双阻断法（胸苷/TdR 两次阻断，使细胞停在 G1/S 交界）；②秋水仙素中期阻断法；③血清饥饿法（停滞于间期）。 CDK1 蛋白（2020 山东）：推动间期→分裂期；DNA 复制未完成时 CDK1 磷酸化失活，复制完成后去磷酸化激活。 边角小字"}, {"id": "c11", "ch": 11, "chT": "细胞的分化、衰老和死亡", "t": "细胞的分化、衰老和死亡", "terms": "", "x": "12 细胞的分化、衰老和死亡细胞分化 · 细胞的全能性 · 细胞的衰老 · 细胞的死亡（凋亡与自噬）"}, {"id": "c11s0", "ch": 11, "chT": "细胞的分化、衰老和死亡", "t": "12.1 细胞分化（教材 P118-119）", "terms": "形态、结构和生理功能上发生稳定性差异 基因的选择性表达", "x": "12.1 细胞分化（教材 P118-119） 概念（黑体）：在个体发育中，由一个或一种细胞增殖产生的后代，在形态、结构和生理功能上发生稳定性差异的过程。 特点：普遍性（贯穿生命历程）、持久性/稳定性（一般保持分化后状态直到死亡）、不可逆性。 根本原因（实质）：基因的选择性表达（遗传物质 DNA 不变；mRNA、蛋白质种类改变）。 「不变与变」：不变——DNA、tRNA、rRNA、细胞数目（核 DNA）；改变——mRNA、蛋白质种类、细胞形态结构功能。 分化与分裂的关系：分裂是分化的基础，二者相伴相随；分化程度越高，分裂能力一般越低。 意义：使多细胞生物体中的细胞趋向专门化，有利于提高各种生理功能的效率。"}, {"id": "c11s1", "ch": 11, "chT": "细胞的分化、衰老和死亡", "t": "12.2 细胞的全能性（教材 P120）", "terms": "分裂和分化后，仍具有产生完整有机体或分化成其他各种细胞的潜能和特性 全套遗传信息（全套基因） 离体 已分化的动物细胞核具有全能性 不是 生殖细胞（卵细胞）分化程度高而全能性较高", "x": "12.2 细胞的全能性（教材 P120） 概念（黑体）：细胞经分裂和分化后，仍具有产生完整有机体或分化成其他各种细胞的潜能和特性。 原因：细胞含有本物种的全套遗传信息（全套基因）。条件：①离体；②适宜的营养、激素等条件。标志：发育成完整个体或分化成其他各种细胞。 实例：植物组织培养（植物细胞全能性）；克隆羊多莉（已分化的动物细胞核具有全能性）。种子萌发长成植株不是体现全能性（胚本身是幼体，属正常发育）。 一般规律：分化程度越高，全能性越低；但生殖细胞（卵细胞）分化程度高而全能性较高（孤雌生殖）——特例。 干细胞：全能干细胞（胚胎干细胞，可发育成完整个体）→ 多能干细胞（骨髓造血干细胞）→ 专能干细胞（神经干细胞）；应用：干细胞移植治疗白血病、体外培养组织器官。"}, {"id": "c11s2", "ch": 11, "chT": "细胞的分化、衰老和死亡", "t": "12.3 细胞的衰老（教材 P122-124）", "terms": "体积增大 体积变小 自由基学说 端粒学说 特殊序列的 DNA-蛋白质复合体 细胞普遍衰老的过程 自我更新", "x": "12.3 细胞的衰老（教材 P122-124） 特征口诀「一大一小、一多一少、两慢两低」：细胞核体积增大（核膜内折、染色质收缩）、细胞体积变小；色素（脂褐素）积累；水分减少；酶活性降低、代谢减慢；膜通透性改变、物质运输功能降低。 染色质收缩 → 影响 DNA 解旋 → 影响复制与转录。多数酶活性降低，但与衰老相关的酶活性可升高。 自由基学说：异常活泼的带电分子或基团攻击磷脂（破坏生物膜）、DNA（基因突变）、蛋白质（活性下降）→ 细胞衰老。 端粒学说：端粒是染色体两端特殊序列的 DNA-蛋白质复合体；细胞每分裂一次端粒缩短一截，内侧正常 DNA 序列受损 → 细胞活动异常。端粒酶（含 RNA 模板的逆转录酶）可补添端粒（生殖细胞、癌细胞中活跃）。 个体衰老与细胞衰老的关系：单细胞生物——细胞衰老=个体衰老；多细胞生物——个体衰老=细胞普遍衰老的过程，但年轻个体也有衰老细胞，衰老个体也有新生细胞（造血干细胞）。 正常细胞衰老有利于"}, {"id": "c11s3", "ch": 11, "chT": "细胞的分化、衰老和死亡", "t": "12.4 细胞的死亡（教材 P125-127）", "terms": "细胞凋亡（黑体） 基因所决定的细胞自动结束生命的过程 细胞坏死 被动 细胞自噬 溶酶体 激烈的细胞自噬可能诱导细胞凋亡 双层膜自噬泡", "x": "12.4 细胞的死亡（教材 P125-127） 细胞凋亡（黑体）：由基因所决定的细胞自动结束生命的过程（程序性死亡，主动、生理性、对机体有利）。实例：胚胎发育中尾的消失、指间细胞自动死亡、被病原体感染细胞的清除、成熟个体细胞的自然更新。 意义：完成正常发育、维持内部环境稳定、抵御外界干扰。机理：凋亡信号与膜受体结合 → 信号转导 → 凋亡相关基因表达 → DNase 切割 DNA、Caspase 降解蛋白 → 形成凋亡小体 → 被吞噬清除（内容物不释放到内环境）。 细胞坏死：外界不利因素导致的被动死亡，膜破裂内容物释放引发炎症，对机体有害。长期吸烟肺部细胞病变死亡属于坏死。 细胞自噬：细胞「吃掉」自身结构和物质——依赖溶酶体清除变性/错误折叠蛋白、衰老损伤细胞器；养分不足时自噬增强；产物可回收利用；激烈的细胞自噬可能诱导细胞凋亡；随年龄增长肌肉细胞自噬减弱。 白细胞凋亡速率远快于红细胞（白细胞吞噬病菌，功能损伤大）；胚胎期尾的消"}, {"id": "c12", "ch": 12, "chT": "高考考情速览与复习建议", "t": "高考考情速览与复习建议", "terms": "", "x": "附 高考考情速览与复习建议基于近年全国卷与各省真题的分布规律 必修 1 在高考中通常占选择题 3~4 个，第 1~4 章（细胞概述与分子组成）合计约 6 分。 非选择题几乎必考光合作用与细胞呼吸的综合（曲线分析、装置计算、实验设计），其次是细胞增殖图像与实验、酶实验设计。 近年高考题明显偏好教材小字与拓展信息：磷酸戊糖途径（2022 山东）、瓦堡效应（2020 全国Ⅰ）、CDK1/BYDV（2020 山东）、染色体桥（2020 山东）、细胞焦亡与凋亡对比（2025 山东）、KDEL 回收、Rubisco 光呼吸、C4 与 CAM 途径等。 复习策略：①黑体字定义逐字背；②边角小字按章过一遍；③易错判断题考前自测；④曲线题掌握「生成速率 vs 消耗速率」「总/净光合」「气体量差值」三套方法。 一册在手 · 每日一背 每章按「核心知识 → 边角小字 → "}, {"id": "c0", "ch": 0, "chT": "减数分裂和受精作用", "t": "减数分裂和受精作用", "terms": "", "x": "01 减数分裂和受精作用 必修2 第1章第1节 · 配图判读、曲线分析与配子异常是高考主线"}, {"id": "c0s0", "ch": 0, "chT": "减数分裂和受精作用", "t": "减数分裂的概念（背诵）", "terms": "减数分裂", "x": "减数分裂的概念（背诵） 减数分裂：进行有性生殖的生物，在产生成熟生殖细胞时进行的染色体数目减半的细胞分裂。染色体复制一次，细胞连续分裂两次，结果成熟生殖细胞中染色体数目比原始生殖细胞减少一半。"}, {"id": "c0s1", "ch": 0, "chT": "减数分裂和受精作用", "t": "分裂过程", "terms": "同源染色体 联会 四分体 交叉互换", "x": "分裂过程 精子形成：精原细胞 →（复制）→ 初级精母细胞 →（减Ⅰ：同源染色体分离、细胞质均分）→ 2个次级精母细胞 →（减Ⅱ：着丝粒分裂）→ 精细胞 →（变形）→ 4个精子 卵细胞形成：卵原细胞 → 初级卵母细胞 →（减Ⅰ不均等分裂）→ 次级卵母细胞 + 第一极体 →（减Ⅱ不均等 / 均等）→ 1个卵细胞 + 3个极体（极体退化消失） 关键概念 同源染色体：减Ⅰ中配对的两条染色体，形状大小一般相同，一条来自父方、一条来自母方。 联会：同源染色体两两配对（减Ⅰ前期）；联会后每对同源染色体含4条染色单体，称四分体（1四分体=1对同源=2条染色体=4条单体=2个着丝粒）。 交叉互换：四分体时期，同源染色体的非姐妹染色单体之间交换对应片段（属于基因重组）。 减Ⅰ后期：同源染色体分离（等位基因随之分离），非同源染色体自由组合；减Ⅱ后期：着丝粒分裂，姐妹染色单体分开。 易错警示 图像三步判断：①无同源染色体→减Ⅱ；②有同源且同源分离→减Ⅰ"}, {"id": "c0s2", "ch": 0, "chT": "减数分裂和受精作用", "t": "配子种类与规律", "terms": "", "x": "配子种类与规律 1个精原细胞2种4个精子（两两相同、互补） 1个卵原细胞1种1个卵细胞 个体配子种类n对同源染色体（不考虑互换）→ 2n 种 互换率发生交换的初级精母细胞比例 = 重组型配子比例 × 2 易错警示 异常配子：减Ⅰ同源染色体未分离→4个配子全部异常；减Ⅱ着丝粒分裂后单体未移向两极→2个正常、2个异常。异常精子 XbY 与 X 卵结合→XXY（21 三体综合征的形成机理与之同类，见课后题）；减Ⅱ时 Y 单体未分开→含 YY 的精子→XYY。"}, {"id": "c0s3", "ch": 0, "chT": "减数分裂和受精作用", "t": "受精作用", "terms": "透明带反应 卵细胞膜反应", "x": "受精作用 过程：精子头部进入卵细胞，尾部留外；透明带反应、卵细胞膜反应阻止多个精子入卵。 意义（背诵）：受精卵的染色体数目恢复到本物种体细胞数目，其中一半来自精子、一半来自卵细胞；配子多样性 + 精卵随机结合 → 同一双亲后代呈多样性。 减数分裂使染色体减半、受精作用使之恢复，对维持每种生物前后代染色体数目的恒定，以及遗传和变异，都具有重要意义。 边角小字 观察蝗虫精母细胞减数分裂实验（P24）：选雄性生殖器官——精母细胞数量多且持续分裂，而卵巢中减Ⅱ常未完成、形成的卵细胞少；装片中视野方向不一的分裂相多；雄蜂（单倍体）无同源染色体，经特殊的假减数分裂仍能产生精子，且具有一整套基因。 高考真题链接 山东卷（2022/2023/2024/2026）反复考查：减Ⅱ姐妹染色单体互锁、环状染色体交换后子细胞基因组成、配子异常的成因判定——核心抓手是\"减Ⅰ异常→全异常；减Ⅱ异常→半数异常\"。"}, {"id": "c1", "ch": 1, "chT": "基因的分离定律", "t": "基因的分离定律", "terms": "", "x": "02 基因的分离定律 必修2 第1章第2节 · 假说-演绎法与显隐性判断是方法学核心"}, {"id": "c1s0", "ch": 1, "chT": "基因的分离定律", "t": "实验材料与基本操作", "terms": "自交 相对性状 等位基因", "x": "实验材料与基本操作 豌豆优点：①自花传粉、闭花受粉，自然状态下都是纯种；②具有易于区分的相对性状；③生长周期短、后代数量大；④花大，易操作。 果蝇优点：易饲养、繁殖快、后代数量多；相对性状多而明显；染色体少、易观察。玉米优点：繁殖快、后代多；相对性状明显；雌雄同株异花，杂交易操作。 人工异花传粉：花蕾期人工去雄 → 套袋 → 人工授粉 → 再套袋（母本去雄须在开花前）。 基本概念 自交：基因型相同个体间交配（闭花授粉、同株授粉）；杂交：基因型不同个体交配；测交：与隐性纯合子杂交。 相对性状：一种生物同一种性状的不同表现类型；性状分离：杂种后代中同时出现显性性状和隐性性状。 等位基因：同源染色体相同位置上控制相对性状的基因（纯合子同位置为相同基因；本质区别是碱基排列顺序不同）。 融合遗传≠不完全显性：紫茉莉红×白→粉花，粉花自交后代 1红:2粉:1白，可重新出现红、白，属于颗粒遗传。"}, {"id": "c1s1", "ch": 1, "chT": "基因的分离定律", "t": "假说-演绎法（背诵）", "terms": "", "x": "假说-演绎法（背诵） 四步：提出问题 → 提出假说 → 演绎推理（若假说成立，测交后代应为 1:1）→ 实验验证（实际 1:1）→ 得出结论 假说内容：①生物性状由遗传因子决定；②体细胞中遗传因子成对存在；③形成配子时每对遗传因子分离，分别进入不同配子；④受精时雌雄配子随机结合。 核心：F1 产生数量相等的两种配子。测交后代比例反映被测个体配子种类及比例。"}, {"id": "c1s2", "ch": 1, "chT": "基因的分离定律", "t": "分离定律的实质与验证", "terms": "等位基因随同源染色体的分开而分离", "x": "分离定律的实质与验证 实质（背诵·P32）：杂合子细胞中，位于一对同源染色体上的等位基因具有一定的独立性；在减数分裂形成配子时，等位基因随同源染色体的分开而分离，独立地随配子遗传给后代（减Ⅰ后期）。 易错警示 符合分离定律不一定出现 3:1，3:1 成立需同时满足：①配子成活率均等；②基因型个体成活率均等；③子代数目足够多；④完全显性；⑤等位基因仅一对且无致死。最能说明实质的是 F1 产生配子比为 1:1。 特殊分离比 显性纯合致死杂合子自交 → 显:隐 = 2:1 隐性纯合致死杂合子自交 → 后代全显性 配子致死如 AB 雄配子致死 → 5:3:3:1 变式（见第3章）"}, {"id": "c1s3", "ch": 1, "chT": "基因的分离定律", "t": "应用一：显隐性判断", "terms": "", "x": "应用一：显隐性判断 定义法（杂交）：两不同性状亲本杂交，子代只出现一种性状→子代性状为显性；同性状亲本杂交出现分离→新性状为隐性。 自交法：自交后代出现性状分离→亲本为显性（适用于植物，最简便）。 动物判断显隐性：多对杂交统计比例（单次交配后代少，不能直接下结论）。"}, {"id": "c1s4", "ch": 1, "chT": "基因的分离定律", "t": "应用二：纯合子/杂合子鉴定", "terms": "", "x": "应用二：纯合子/杂合子鉴定 方法操作与判断适用 自交后代无性状分离→纯合子；有分离→杂合子植物（最简便） 测交×隐性纯合子，子代一种性状→纯合；两种→杂合动物（雄性需与多只隐性雌性交配）、植物均可 花粉鉴定两种花粉1:1→杂合（如糯性与非糯性碘染）仅部分特殊植物，最直接证明"}, {"id": "c1s5", "ch": 1, "chT": "基因的分离定律", "t": "应用三：连续自交与自由交配", "terms": "", "x": "应用三：连续自交与自由交配 杂合子连续自交 n 代Aa 占 (1/2)n；纯合子 1−(1/2)n；显纯=隐纯=[1−(1/2)n]/2 连续自交逐代淘汰 aaAA:Aa 比例每代不变，淘汰后按比例重新归一化 自由交配基因频率不变，基因型频率自 F1 起稳定（遗传平衡） 高频考点 性状分离比模拟实验：甲乙两桶代表雌雄生殖器官，彩球代表配子，两色球代表两种配子；随机抓取组合模拟雌雄配子随机结合。要求：每桶两色球数量相等、抓取随机、记录后放回摇匀、重复 30 次以上以减少误差。"}, {"id": "c2", "ch": 2, "chT": "基因的自由组合定律", "t": "基因的自由组合定律", "terms": "", "x": "03 基因的自由组合定律 必修2 第1章第2节 · 9:3:3:1 变式与两对基因位置判断是解题难点"}, {"id": "c2s0", "ch": 2, "chT": "基因的自由组合定律", "t": "两对相对性状的杂交实验", "terms": "重组类型", "x": "两对相对性状的杂交实验 F1 全为黄圆（黄对绿、圆对皱均为显性）；F2 出现亲本没有的重组类型，四种表现型之比 9:3:3:1。 每一对相对性状单独分析均符合分离定律（黄:绿=3:1，圆:皱=3:1）。 F2 结构：4种纯合子各占 1/16；4种单杂合子各占 2/16；双杂合子 YyRr 占 4/16。 测交结果 1:1:1:1，可检测 F1 配子种类及比例、基因型、纯合杂合。"}, {"id": "c2s1", "ch": 2, "chT": "基因的自由组合定律", "t": "实质（背诵）", "terms": "同源染色体上的等位基因分离的同时，非同源染色体上的非等位基因自由组合", "x": "实质（背诵） 同源染色体上的等位基因分离的同时，非同源染色体上的非等位基因自由组合（减Ⅰ后期）。两定律同时进行、同时起作用；自由组合发生在产生配子时，配子的随机结合不属于自由组合。 易错警示 非等位基因不一定位于非同源染色体上——同一条染色体上的多个基因也是非等位基因，但不能自由组合（连锁）。\"非同源染色体自由组合，使所有非等位基因自由组合\"错误。"}, {"id": "c2s2", "ch": 2, "chT": "基因的自由组合定律", "t": "解题方法：先分后合（乘法原理）", "terms": "", "x": "解题方法：先分后合（乘法原理） 正推：AaBb×Aabb → 子代基因型 3×2=6 种，表现型 2×2=4 种；某基因型概率=两对概率相乘。 逆推：由子代表现型及比例倒推双亲基因型（先拆分每对性状）。 两种遗传病概率：每对先算，再乘（自由组合为前提）。 分解组合法的前提是两对基因独立遗传（配子中比例互不干扰）；若配子比例随搭配改变则不适用（连锁）。"}, {"id": "c2s3", "ch": 2, "chT": "基因的自由组合定律", "t": "9:3:3:1 的变式（高频）", "terms": "", "x": "9:3:3:1 的变式（高频） F2 分离比原因（配子致死类用棋盘法：列出配子→删除致死→重新归纳） 5:3:3:1AB 的雄配子或雌配子致死 7:3:1:1Ab 的雄配子或雌配子致死 7:1:3:1aB 的雄配子或雌配子致死 8:2:2ab 的雄配子或雌配子致死 6:3:2:1AA 或 BB 显性纯合致死 4:2:2:1AA 和 BB 同时显性纯合致死 3:1aa 或 bb 隐性纯合致死 9:3:3aabb 受精卵（胚胎）致死"}, {"id": "c2s4", "ch": 2, "chT": "基因的自由组合定律", "t": "验证自由组合的四种方法", "terms": "", "x": "验证自由组合的四种方法 自交法：F1（AaBb）自交后代 9:3:3:1； 测交法：后代 1:1:1:1； 花粉鉴定法：四种花粉 1:1:1:1； 单倍体育种法：花药培养加倍后四种表现型 1:1:1:1。"}, {"id": "c2s5", "ch": 2, "chT": "基因的自由组合定律", "t": "两对基因的位置判断（连锁与互换）", "terms": "", "x": "两对基因的位置判断（连锁与互换） 同一对同源染色体·不考虑互换完全连锁：自交后代全显性或 显:隐=3:1（比例型同单基因）；测交后代 1:1 同一对同源染色体·考虑互换重组型配子少：测交后代两多两少；自交后代两种单显性比例始终相等 亲本型判断aabb 占比＞1/16 → ab 为亲本型配子；＜1/16 → ab 为重组型配子"}, {"id": "c2s6", "ch": 2, "chT": "基因的自由组合定律", "t": "杂交育种", "terms": "", "x": "杂交育种 植物：选纯合双亲杂交 → F1 自交 → F2 选优 → 连续自交至不再发生性状分离（可用分区域种植法加快）。动物：杂交 → 选优 → 与隐性（或双隐）类型测交检验纯合度，不通过逐代自交。 若所需优良性状为种子（果实）性状，当年即可收获选用；若为植株性状，需种到植株表现性状再选。 高频考点 2022 山东卷：6种纯合突变体互交判突变基因——\"突×突→突\"为相同基因突变（非等位），\"突×突→野\"为不同基因突变。"}, {"id": "c3", "ch": 3, "chT": "基因在染色体上、伴性遗传与人类遗传病", "t": "基因在染色体上、伴性遗传与人类遗传病", "terms": "", "x": "04 基因在染色体上、伴性遗传与人类遗传病 必修2 第2章 · 系谱图判断与正反交设计是考试必出题型"}, {"id": "c3s0", "ch": 3, "chT": "基因在染色体上、伴性遗传与人类遗传病", "t": "萨顿假说（类比推理法）", "terms": "", "x": "萨顿假说（类比推理法） 依据：基因和染色体的行为存在明显的平行关系——①基因在体细胞中成对、染色体也成对；②体细胞中一对基因一个来自父方一个来自母方，同源染色体亦然；③形成配子时成对的基因（染色体）一个进入配子；④非同源染色体自由组合时，非同源染色体上的非等位基因也自由组合。结论：基因在染色体上。"}, {"id": "c3s1", "ch": 3, "chT": "基因在染色体上、伴性遗传与人类遗传病", "t": "摩尔根实验（假说-演绎法）", "terms": "呈线性排列", "x": "摩尔根实验（假说-演绎法） 提出问题：F1 全红眼、F2 3:1 且白眼只在雄性中出现。 假说：控制白眼的基因 w 位于 X 染色体上，Y 染色体上不含其等位基因。 验证：F1 红眼雌 × 白眼雄 → 4种表型 1:1:1:1；关键证据是白眼雌 × F1 红眼雄 → 子代雌全红、雄全白（1:1）。 结论：基因在染色体上；后又发明测定基因相对位置的方法（三点测交），证明基因在染色体上呈线性排列。 边角小字 测交实验不能排除\"基因位于 XY 同源区段\"的假说——可用反交实验（白眼雌 × 红眼雄）排除：若子代雌全红、雄全白且与假说预测矛盾即可排除。荧光标记的 DNA 探针与染色体杂交可直观显示基因位置。 易错警示 基因并非全部位于染色体上：线粒体、叶绿体、原核拟核与质粒、病毒中的基因无染色体。X、Y 染色体同源区段存在等位基因，非同源区段没有。果蝇的 Y 染色体比 X 大（P31）。"}, {"id": "c3s2", "ch": 3, "chT": "基因在染色体上、伴性遗传与人类遗传病", "t": "性别决定与伴性遗传", "terms": "", "x": "性别决定与伴性遗传 XY 型：含两个 X 为雌性，XY 为雄性；性别比例 1:1 的原因是含 X 与含 Y 的精子比例 1:1。ZW 型：ZZ 雄、ZW 雌（鸟类、蛾类）。 性别决定不全是 XY/ZW：有的取决于染色体数目，有的取决于环境（如后螠）；雌雄同体生物无性染色体。 类型实例特点 伴X隐性红绿色盲、血友病隔代遗传；男患者多于女；女病其父、子必病（交叉遗传） 伴X显性抗维生素D佝偻病世代连续；女患者多于男；男病其母、女必病 伴Y外耳道多毛症限雄遗传，父传子、子传孙，世代连续，无显隐之分 细胞质线粒体基因病母系遗传：子女表现型与母亲相同 易错警示 XY 同源区段（Ⅰ）：基因男女都可患病，男患病率可能≠女；X 特有区段（Ⅱ）：隐性病男＞女；Y 特有区段（Ⅲ）：患者全为男性。伴X隐性致病基因：男患者只能来自母亲、只能传给女儿。"}, {"id": "c3s3", "ch": 3, "chT": "基因在染色体上、伴性遗传与人类遗传病", "t": "遗传系谱图判断（准确/最可能）", "terms": "", "x": "遗传系谱图判断（准确/最可能） 三步：先排除伴Y遗传和细胞质遗传（母系）→ 判显隐性：\"无中生有为隐性，有中生无为显性\" → 判位置：女病其父、子全病→伴X隐性；男病其母、女全病→伴X显性；否则常染色体。\"可能\"与\"最可能\"审题：可能一般有多种，最可能只有一种。 正反交的应用（一代交配判位置） 未知显隐性：正反交结果不同（有性别差异）→伴X；结果相同（无性别差异）→常染色体；后代总与母本相同→细胞质遗传。 已知显隐性：用\"同隐异显\"（隐性雌 × 显性纯合雄）判断常/伴X。 判断父本/母本来源致死：双杂合子分别作父本、母本分别测交比较。"}, {"id": "c3s4", "ch": 3, "chT": "基因在染色体上、伴性遗传与人类遗传病", "t": "人类遗传病", "terms": "", "x": "人类遗传病 单基因遗传病：受一对等位基因控制，符合分离定律（白化病、红绿色盲、抗维生素D佝偻病）。 多基因遗传病：两对以上等位基因控制，群体发病率高，易受环境影响（原发性高血压、青少年型糖尿病）。 染色体异常遗传病：猫叫综合征=5号染色体片段缺失；21三体综合征=体细胞多一条21号染色体（是\"三条染色体\"而非三个染色体组）。 易错警示 五个\"不一定\"：携带致病基因不一定患病（女性携带者）；不携带致病基因也可能患病（染色体异常病）；先天性疾病不一定遗传；家族性疾病不一定遗传（缺维生素A夜盲）；遗传病不一定出生即表现。人类所有的病不都是基因病。 高频考点 调查：发病率→在广大人群随机抽样、群体足够大、选发病率较高的单基因遗传病；遗传方式→在患者家系中调查。多基因遗传病易受环境影响，不宜作为调查对象。基因组测序：人测 24 条（22常+X+Y），玉米（2n=20）测 11 条，果蝇同理。 高考真题链接 伴X基因频率在男女中相等（交叉遗"}, {"id": "c4", "ch": 4, "chT": "DNA 是主要的遗传物质", "t": "DNA 是主要的遗传物质", "terms": "", "x": "05 DNA 是主要的遗传物质 必修2 第3章第1节 · 三大经典实验的过程、结论与异常分析必须记准"}, {"id": "c4s0", "ch": 4, "chT": "DNA 是主要的遗传物质", "t": "肺炎链球菌转化实验", "terms": "转化因子", "x": "肺炎链球菌转化实验 材料特点：S型菌有多糖类荚膜、有毒、菌落光滑；R型菌无荚膜、无毒、菌落粗糙（P43）。 格里菲思体内转化：加热杀死的S型菌 + 活R型菌 → 小鼠死亡，体内分离出活S型菌 → 加热杀死的S型菌中含有\"转化因子\"，使R型转化为S型。 艾弗里体外转化：S型菌破碎→去除绝大部分糖类、蛋白质和脂质制成细胞提取物→分别加入蛋白酶、RNA酶、酯酶、DNA酶（减法原理：每组特异性去除一种物质）→只有 DNA 酶组转化消失 → DNA 是遗传物质，蛋白质等不是。 边角小字 加热致死后 DNA 仍保持活性的原因：80~100℃ 时蛋白质变性失活，而 DNA 双链解开、温度恢复后可复性（P43 小字）。转化的实质是基因重组；转化效率低，只有少部分R型菌转化。艾弗里实验还证明 DNA 可在同种生物不同个体间转移（为基因工程奠基，Ca²⁺处理大肠杆菌=人工转化）。"}, {"id": "c4s1", "ch": 4, "chT": "DNA 是主要的遗传物质", "t": "噬菌体侵染细菌实验", "terms": "", "x": "噬菌体侵染细菌实验 四步：①标记噬菌体：先分别用含 ³⁵S、³²P 的培养基培养大肠杆菌，再用其培养噬菌体 → ②侵染未标记的大肠杆菌 → ③搅拌（使吸附在细菌上的噬菌体与细菌分离）→ ④离心（轻的噬菌体颗粒进上清液，重的细菌留沉淀）→ ⑤检测放射性 ³⁵S 标记蛋白质理论上沉淀物无放射性；实测有少量→搅拌不充分，噬菌体仍吸附在细菌表面 ³²P 标记 DNA理论上上清液无放射性；实测有少量→保温过短（未全部侵入）或过长（细菌裂解释放子代） 结论DNA 是遗传物质，蛋白质不是（有争议说\"没证明\"） 易错警示 ①不能用培养基直接培养噬菌体（病毒必须寄生）；②³⁵S、³²P 必须分两组分别标记（同位素检测只能定位不能辨元素）；③不能标记 C、H、O、N（DNA 与蛋白质共有）；④短时间保温=让噬菌体充分侵染又不裂解释放；⑤实验间接证明 DNA 能自我复制、指导蛋白质合成，不能证明 DNA 可产生可遗传变异；⑥子代噬菌体只有少数被 ³²"}, {"id": "c4s2", "ch": 4, "chT": "DNA 是主要的遗传物质", "t": "烟草花叶病毒的重建实验", "terms": "", "x": "烟草花叶病毒的重建实验 烟草花叶病毒侵染烟草细胞时，RNA 与蛋白质没有分开（完整病毒侵入），故 TMV 实验不能用噬菌体的操作思路（噬菌体只向细菌注入 DNA，两者天然分开）。 方法：人工分离提纯 RNA 与蛋白质，分别感染烟草 → RNA 组出现病斑并分离出正常 TMV → RNA 是烟草花叶病毒的遗传物质。"}, {"id": "c4s3", "ch": 4, "chT": "DNA 是主要的遗传物质", "t": "总结与辨析", "terms": "", "x": "总结与辨析 高频考点 实验共同设计思路（考填空）：将 DNA、蛋白质等物质分开，单独、直接观察各自的作用（分离提纯法/减法原理/同位素标记）。 结论：真核、原核生物及 DNA 病毒的遗传物质都是 DNA；少数病毒（HIV、流感、新冠、烟草花叶病毒）是 RNA → DNA 是主要的遗传物质（统计分析结论，非实验直接验证）。细胞生物的遗传物质只能是 DNA。 高考真题链接 2017 全国Ⅰ卷：判断新病毒类型需甲、乙两组相互印证——用标记特定碱基（如分别标记 T 或 U）的宿主细胞培养病毒，检测子代放射性确定核酸种类。"}, {"id": "c5", "ch": 5, "chT": "DNA 的结构、基因的本质与 DNA 复制", "t": "DNA 的结构、基因的本质与 DNA 复制", "terms": "", "x": "06 DNA 的结构、基因的本质与 DNA 复制 必修2 第3章第2、3节 · 碱基计算与半保留复制证据是计算题主线"}, {"id": "c5s0", "ch": 5, "chT": "DNA 的结构、基因的本质与 DNA 复制", "t": "DNA 双螺旋结构的特点（背诵·P50）", "terms": "碱基互补配对原则", "x": "DNA 双螺旋结构的特点（背诵·P50） 由两条脱氧核苷酸长链构成，按反向平行方式盘旋成双螺旋结构。 外侧：脱氧核糖与磷酸交替连接构成基本骨架；内侧：碱基通过氢键形成碱基对（A=T，G≡C），遵循碱基互补配对原则。 A=T 之间2个氢键，G≡C 之间3个氢键 → G-C 碱基对越多 DNA 越稳定（耐高温）。 1个双链 DNA 含 2个游离磷酸基团、0个游离脱氧核糖；每个磷酸基团连接1~2个脱氧核糖（2个游离磷酸各只连1个），每个脱氧核糖连接1~2个磷酸。 模型构建：沃森、克里克（构建物理模型）；富兰克林拍摄\"照片51号\"（X射线衍射）；威尔金斯展示照片；查哥夫法则（A=T、G=C）提供化学依据。 边角小字 两条链反向平行的意义：DNA 两条链走向相反，使碱基对能整齐配对排布（P50）。酶与化学键：解旋酶、高温断氢键；DNA 聚合酶、DNA 连接酶形成磷酸二酯键；限制酶、DNA 酶破坏磷酸二酯键。"}, {"id": "c5s1", "ch": 5, "chT": "DNA 的结构、基因的本质与 DNA 复制", "t": "碱基计算", "terms": "", "x": "碱基计算 不互补碱基之和恒定A+G = T+C = 50% 互补碱基比例相等单链(A+T)% = 互补链(A+T)% = 双链(A+T)% 氢键数n对碱基中G-C有m对：2(n−m)+3m = 2n+m 磷酸二酯键2n−2 个（n为碱基对数）"}, {"id": "c5s2", "ch": 5, "chT": "DNA 的结构、基因的本质与 DNA 复制", "t": "遗传信息与基因的本质（背诵）", "terms": "遗传信息 基因 遗传效应", "x": "遗传信息与基因的本质（背诵） 遗传信息：基因中 4 种碱基（脱氧核苷酸）的排列顺序。多样性：碱基对的数目和排列顺序千变万化；特异性：每种生物有特定的碱基排列顺序（β-珠蛋白基因1700对→41700 种排列）。 基因：通常是有遗传效应的 DNA 片段。基因在 DNA 上不连续分布（被碱基序列分隔）；染色体是 DNA 的主要载体，基因在染色体上呈线性排列；RNA 病毒的基因在 RNA 上。 数量关系：1条染色体含1个（无单体）或2个（有单体）DNA，DNA 上有许多基因；基因中脱氧核苷酸排列顺序代表遗传信息。"}, {"id": "c5s3", "ch": 5, "chT": "DNA 的结构、基因的本质与 DNA 复制", "t": "DNA 的复制（背诵·P56）", "terms": "冈崎片段", "x": "DNA 的复制（背诵·P56） 时间有丝分裂间期、减数第一次分裂前的间期 场所主要细胞核；其次线粒体、叶绿体；原核在拟核、质粒 条件模板（两条母链）、原料（4种游离脱氧核苷酸）、能量、酶（解旋酶、DNA聚合酶等） 过程解旋 → 合成子链 → 重新螺旋（边解旋边复制） 特点半保留复制；多起点、双向复制 结果与意义1个DNA→2个完全相同的DNA；保持遗传信息连续性 高频考点 准确复制的原因：①独特的双螺旋结构提供精确模板；②碱基互补配对保证准确进行。方向：DNA 聚合酶只能催化子链 5'→3' 延伸（从引物 3' 端连接脱氧核苷酸）→ 后随链形成冈崎片段（不连续，由 DNA 连接酶连接）；两条链反向平行+酶的方向性 → 双向复制。引物：DNA 聚合酶不能从头合成，需 RNA 引物，随后被替换保证准确性。 半保留复制的实验证据（梅塞尔森、斯塔尔） 方法：假说-演绎法 + 同位素标记技术（¹⁵N）+ 密度梯度离心技术。 流程：¹⁵N "}, {"id": "c6", "ch": 6, "chT": "基因的表达", "t": "基因的表达", "terms": "", "x": "07 基因的表达 必修2 第4章 · 转录翻译全程、中心法则与表观遗传"}, {"id": "c6s0", "ch": 6, "chT": "基因的表达", "t": "RNA 与密码子", "terms": "密码子 反密码子", "x": "RNA 与密码子 RNA 适合做信使的原因（P65）：能储存遗传信息；一般为单链、比 DNA 短，能通过核孔从细胞核转移到细胞质。 3种 RNA：mRNA——携带遗传信息，翻译的模板；tRNA——识别并转运氨基酸、识别密码子；rRNA——构成核糖体，催化肽键形成。RNA 还是 RNA 病毒的遗传物质、少数酶的成分。3种 RNA 都是转录产物，都参与翻译。 密码子：mRNA 上决定一个氨基酸的 3 个相邻碱基，共 4³=64 种（3 种终止密码子、61 种决定氨基酸）；反密码子在 tRNA 上。一种密码子只决定一种氨基酸，一种氨基酸可由一种或多种密码子决定。 边角小字 简并性意义（P67 思考·讨论）：①碱基改变可能不改变氨基酸，增强容错性；②多种密码子编码同一氨基酸可保证翻译速度。通用性：所有生物共用一套密码子（病毒基因导入宿主仍表达病毒蛋白）。特殊：原核 GUG 可作起始密码子；UGA 特殊情况编码硒代半胱氨酸。"}, {"id": "c6s1", "ch": 6, "chT": "基因的表达", "t": "转录", "terms": "启动子 终止子", "x": "转录 场所：主要细胞核（也在线粒体、叶绿体、拟核、质粒）；模板：DNA 的一条链（模板链/反义链）；原料：4种游离核糖核苷酸；酶：RNA 聚合酶（兼具解旋、识别结合启动子、连接磷酸二酯键功能）；产物 mRNA 等。 mRNA 延伸方向 5'→3'；转录与复制都遵循碱基互补配对，保证信息传递准确。 启动子：基因上游，RNA 聚合酶识别结合位点，本身不被转录；终止子：编码区下游，终止转录（RNA 水平形成茎-环结构）。 起始密码子、终止密码子位于 mRNA 上；一个基因的有义链可能是另一基因的反义链。"}, {"id": "c6s2", "ch": 6, "chT": "基因的表达", "t": "翻译", "terms": "肽键", "x": "翻译 场所：核糖体；模板：mRNA；原料：20种氨基酸；搬运工：tRNA（一种 tRNA 只转运一种氨基酸）；方向：核糖体沿 mRNA 由 5'→3' 移动（肽链从 N 端向 C 端合成），mRNA 不移动。 核糖体有 2 个 tRNA 结合位点；氨基酸间脱水缩合形成肽键；遇终止密码子合成终止。 准确翻译的原因：mRNA 提供精确模板 + 碱基互补配对（密码子-反密码子）。 多聚核糖体（P69）：一个 mRNA 上结合多个核糖体同时翻译→少量 mRNA 迅速合成大量蛋白质；按肽链长短判断先后（长的在前）。各核糖体产物完全相同。 时空：真核——核内转录、质内翻译，时空分隔；原核——边转录边翻译；线粒体、叶绿体同原核。"}, {"id": "c6s3", "ch": 6, "chT": "基因的表达", "t": "数量关系与中心法则", "terms": "", "x": "数量关系与中心法则 碱基数比例基因 : mRNA : 氨基酸 ≈ 6 : 3 : 1；实际不符原因：内含子转录后被剪切、非编码区不转录、终止密码子不编码氨基酸、肽链加工剪切 中心法则：DNA复制、转录、翻译三主线 + RNA复制（烟草花叶病毒）+ 逆转录（HIV）。 RNA 复制酶、逆转录酶由病毒自身基因组编码、在宿主细胞合成。 体现基因两大功能：传递遗传信息（复制）与表达遗传信息（转录、翻译）。 不同细胞：分裂旺盛细胞三条途径都有；高度分化细胞只有转录翻译；哺乳动物成熟红细胞无。 遗传密码破译（P70）：尼伦伯格体外合成实验——人工多聚尿嘧啶核苷酸（UUU）→多聚苯丙氨酸；需除去提取液中 DNA 和 mRNA 排除干扰。"}, {"id": "c6s4", "ch": 6, "chT": "基因的表达", "t": "基因与性状的关系（背诵·P71）", "terms": "酶的合成控制代谢过程 蛋白质的结构 选择性表达", "x": "基因与性状的关系（背诵·P71） 间接控制：基因通过控制酶的合成控制代谢过程，进而控制性状——白化病（酪氨酸酶）、豌豆皱粒（淀粉分支酶）。 直接控制：基因通过控制蛋白质的结构直接控制性状——镰刀型细胞贫血（血红蛋白）、囊性纤维化（CFTR）。 基因与性状不都是一一对应：一个基因可影响多个性状，一个性状可受多个基因影响；表型 = 基因型 + 环境（单双眼皮、表型模拟）。 细胞分化的实质：基因的选择性表达；不同细胞 mRNA 不同，但 tRNA、rRNA 无差异。"}, {"id": "c6s5", "ch": 6, "chT": "基因的表达", "t": "表观遗传（P74）", "terms": "碱基序列保持不变 基因表达和表型发生可遗传变化", "x": "表观遗传（P74） 概念（背诵）：生物体基因的碱基序列保持不变，但基因表达和表型发生可遗传变化的现象。 机制：①DNA 甲基化；②组蛋白甲基化/乙酰化；③RNA 干扰——主要影响转录过程。 特点：可遗传、可逆（甲基化可去）；不遵循孟德尔遗传规律；通过有丝分裂、减数分裂传递。 实例：柳穿鱼花形、小鼠毛色、蜂王浆使幼虫发育成蜂王（减少 DNA 甲基化改变基因表达）。 高考真题链接 遗传印记（甲基化随配子重建）常考：亲代雌鼠某基因来自父方（雄配子印记去甲基化）；反义 RNA 与 mRNA 形成双链阻断翻译=基因沉默，杂交分子含 4 种核苷酸、4 种碱基。"}, {"id": "c7", "ch": 7, "chT": "基因突变、基因重组和染色体变异", "t": "基因突变、基因重组和染色体变异", "terms": "", "x": "08 基因突变、基因重组和染色体变异 必修2 第5章 · 三种可遗传变异比较与育种方法选择"}, {"id": "c7s0", "ch": 7, "chT": "基因突变、基因重组和染色体变异", "t": "基因突变", "terms": "替换、增添或缺失 碱基序列的改变 普遍性、随机性、不定向性、低频性、多害少利性", "x": "基因突变 概念（背诵·P81）：DNA 分子中发生碱基的替换、增添或缺失，而引起的基因碱基序列的改变。 时间：主要是有丝分裂前的间期、减数第一次分裂前的间期（DNA 复制时出现差错）；原因：物理、化学、生物因素（诱发）+ 自发突变。 5个特点：普遍性、随机性、不定向性、低频性、多害少利性。 意义：产生新基因的途径；生物变异的根本来源；为生物进化提供原材料。 易错警示 一定改变：碱基序列、遗传信息、基因种类（突变产生原基因的等位基因）；不一定改变：氨基酸序列（密码子简并性）、生物性状（隐性突变、突变发生在非编码区或内含子、个别氨基酸改变不影响蛋白功能）；基因数目和位置不变。能否遗传：发生在配子中→遵循遗传规律传给后代；体细胞→一般不能（植物可通过无性生殖）；父方细胞质基因突变一般不传子代。基因突变光镜下不可见；红细胞（无核无线粒体）不会突变。 显性/隐性突变判断：将突变体与未突变体（野生型）杂交——子一代全为野生型→隐性突变；子一"}, {"id": "c7s1", "ch": 7, "chT": "基因突变、基因重组和染色体变异", "t": "基因重组", "terms": "", "x": "基因重组 类型：①减Ⅰ后期——非同源染色体上非等位基因自由组合；②减Ⅰ前期（四分体时期）——同源染色体非姐妹染色单体间交叉互换。 本质：原有基因的重新组合，产生新基因型，不产生新基因。广义还包括基因工程、肺炎链球菌的转化。 意义：生物变异的来源之一；形成生物多样性的重要原因；为进化提供原材料（配子多样化→有性生殖加快进化，P84/P122）。 判断：基因重组不发生在受精作用中；姐妹染色单体间\"交换\"不属于基因重组；Aa 自交的性状分离是等位基因分离所致，不是基因重组。"}, {"id": "c7s2", "ch": 7, "chT": "基因突变、基因重组和染色体变异", "t": "三种可遗传变异的比较", "terms": "", "x": "三种可遗传变异的比较 项目基因突变基因重组染色体变异 适用范围所有生物（含病毒）均可发生真核生物有性生殖核基因；人工基因工程真核生物 发生时间间期（DNA复制时）减Ⅰ前期、减Ⅰ后期随时可发生 结果产生新基因产生新基因型基因数目或排列顺序改变 光镜观察不可见（分子水平）不可见可见（细胞水平） 意义变异的根本来源变异来源之一变异来源之一 易错警示 互换 vs 易位：互换发生在同源染色体的非姐妹染色单体之间（基因重组，不可见）；易位发生在非同源染色体之间（染色体结构变异，可见）。基因突变 vs 染色体缺失：基因突变是基因内若干碱基对的改变；染色体缺失是 DNA 上若干基因的缺失。姐妹染色单体上出现等位基因：基因突变或交叉互换均可导致。"}, {"id": "c7s3", "ch": 7, "chT": "基因突变、基因重组和染色体变异", "t": "染色体结构变异", "terms": "缺失 重复 倒位 易位", "x": "染色体结构变异 四种类型：缺失（猫叫综合征=5号缺失）、重复、倒位、易位——基因的数目或排列顺序发生改变。判读依据：染色体上基因数目或排列顺序改变；联会时可出现缺失环、重复环、倒位环、十字形（易位）。"}, {"id": "c7s4", "ch": 7, "chT": "基因突变、基因重组和染色体变异", "t": "染色体数目变异与染色体组", "terms": "染色体组 单倍体", "x": "染色体数目变异与染色体组 染色体组（背诵·P87）：细胞中的一组非同源染色体，形态和功能各不相同，携带着控制生物生长发育的全部遗传信息。 组数判断：①同种形态染色体有几条→几个组；②基因型中同一字母（不分大小写）出现几次→几个组（AaBb=2组、AAaaBbbb=4组）。 二倍体：受精卵发育、含2个组；多倍体：受精卵发育、含3个及以上组；单倍体：体细胞染色体数与本物种配子相同——由配子直接发育，不论几个组都是单倍体（雄蜂、四倍体的单倍体含2组）。 育性：染色体组为偶数、能联会→一般可育；奇数→联会紊乱→高度不育（三倍体、骡）。异源多倍体的单倍体加倍后仍可能是杂合子。"}, {"id": "c7s5", "ch": 7, "chT": "基因突变、基因重组和染色体变异", "t": "育种方法", "terms": "纺锤体形成", "x": "育种方法 方法原理方法要点优缺点 杂交育种基因重组杂交→自交→选优→连续自交至纯合集中双亲优良性状、操作简单；时间长 诱变育种基因突变物理化学因素处理萌发种子/幼苗提高突变率、大幅改良；盲目、需大量材料 单倍体育种染色体数目变异花药离体培养→单倍体幼苗→秋水仙素加倍→纯合子明显缩短育种年限，后代全纯合；技术复杂 多倍体育种染色体数目变异秋水仙素/低温处理萌发的种子或幼苗茎秆粗壮、果实种子大、营养高；发育迟缓、结实率低 基因工程基因重组定向改造生物性状（外源基因表达）定向、高效；克服远缘杂交不亲和 秋水仙素/低温原理：作用于分裂前期，抑制纺锤体形成→染色体不能移向两极→细胞不分裂→染色体数目加倍（秋水仙素诱导基因突变则作用于间期）。 无子西瓜（P91）：二倍体×四倍体→三倍体种子→种下，授二倍体花粉刺激子房发育→三倍体无子西瓜（联会紊乱不育故无子）。两次授粉：第一次授粉（四倍体 × 二倍体）获得三倍体种子；第二次给三倍体植株授二倍"}, {"id": "c8", "ch": 8, "chT": "生物的进化", "t": "生物的进化", "terms": "", "x": "09 生物的进化 必修2 第6章 · 现代生物进化理论五大要点与基因频率计算"}, {"id": "c8s0", "ch": 8, "chT": "生物的进化", "t": "进化理论的发展", "terms": "", "x": "进化理论的发展 拉马克：用进废退、获得性遗传——进步：否定物种不变论、所有生物由更古老生物进化而来；局限：认为变异是定向的（环境变化直接导致物种改变）。 达尔文：①共同由来学说（所有生物由原始的共同祖先进化而来，揭示生物的统一性）；②自然选择学说——过度繁殖（基础）、生存斗争（动力）、遗传变异（内因）、适者生存（结果），揭示生物的多样性和适应性。 自然选择学说局限（P109）：对遗传变异的认识局限于性状水平，不能解释本质；研究对象局限于个体水平；认为物种形成是渐变的，不能解释物种大爆发。"}, {"id": "c8s1", "ch": 8, "chT": "生物的进化", "t": "共同由来学说的证据", "terms": "化石", "x": "共同由来学说的证据 化石：保存在地层中的古代生物遗体、遗物或生活痕迹——研究生物进化最直接、最重要的证据；越早地层生物越低等、越简单，证实生物由共同祖先经漫长地质年代逐渐进化（简单→复杂、低等→高等、水生→陆生，P101）。 比较解剖学：同源器官（人的上肢与其他脊椎动物前肢结构一致）→共同祖先，适应不同环境出现形态功能差异。 胚胎学：人及脊椎动物胚胎发育都经历鳃裂、尾阶段。 细胞和分子水平：都含 DNA、细胞色素 C 氨基酸序列高度相似、密码子通用、都遵循中心法则；DNA/蛋白质差异大小反映亲缘关系远近与出现顺序。"}, {"id": "c8s2", "ch": 8, "chT": "生物的进化", "t": "适应的形成（P107-108）", "terms": "可遗传变异 自然选择 可遗传的有利变异 定向选择", "x": "适应的形成（P107-108） 适应的两层含义：形态结构适合完成一定功能；形态结构及其功能适合该生物在一定环境中生存和繁殖。 特点：普遍性（拟态、保护色）+ 相对性（雷鸟换白羽遇降雪延迟易被天敌发现）——根本原因：遗传的稳定性与环境不断变化之间的矛盾；适应性特征是对之前环境适应的结果。 拉马克：适应=用进废退+获得性遗传；达尔文：适应的来源是可遗传变异，适应是自然选择的结果。 适应形成的必要条件（背诵）：群体中出现可遗传的有利变异和环境的定向选择。"}, {"id": "c8s3", "ch": 8, "chT": "生物的进化", "t": "用进化观点解释现象", "terms": "", "x": "用进化观点解释现象 细菌抗药性：达尔文——繁殖中产生各种可遗传变异（含抗药性强变异），抗生素使抗药弱者大量死亡、抗药强者生存繁殖，抗药个体增多；现代——抗生素滥用使耐药菌生存繁殖机会增加，耐药基因频率逐年上升形成超级细菌。 防止超级细菌：建立耐药预警机制，耐药率超限时及时更换抗生素，将耐药率控制在低水平（抑制单一抗生素的定向选择）。 变异发生在环境选择之前（不定向），环境只起选择作用——拉马克认为环境变化在前、生物为适应环境产生变异是错误的。"}, {"id": "c8s4", "ch": 8, "chT": "生物的进化", "t": "现代生物进化理论（背诵·P123）", "terms": "适应是自然选择的结果 种群是生物进化的基本单位 突变和基因重组提供进化的原材料", "x": "现代生物进化理论（背诵·P123） 适应是自然选择的结果；种群是生物进化的基本单位。 突变和基因重组提供进化的原材料，自然选择使种群基因频率定向改变，进而通过隔离形成新物种。 进化过程是生物与生物、生物与环境协同进化的过程；生物多样性是协同进化的结果。"}, {"id": "c8s5", "ch": 8, "chT": "生物的进化", "t": "种群基因频率与基因库", "terms": "", "x": "种群基因频率与基因库 种群 / 基因库 / 基因频率生活在一定区域的同种生物全部个体；全部基因；某个基因占全部等位基因数的比值 定义法某基因频率 = 该基因数 ÷ 全部等位基因数（伴X：男 = Xⁿ% ÷ (X+Y)） 遗传平衡定律5条件：种群极大、随机交配、无突变、无选择、无迁入迁出；p²+2pq+q²，AA=p²、Aa=2pq、aa=q² 易错警示 进化的实质：种群基因频率的定向改变（自然选择决定进化方向）。引起基因频率改变的因素：突变和基因重组、自然选择、迁入迁出、遗传漂变等。变异不定向，不能决定进化方向，只提供原材料；自发突变频率低但种群巨大，突变和重组的随机组合数极大。自然选择直接作用对象是生物个体（表型），本质是改变种群的基因频率。"}, {"id": "c8s6", "ch": 8, "chT": "生物的进化", "t": "隔离与物种形成", "terms": "物种 隔离 生殖隔离", "x": "隔离与物种形成 物种（P116）：能在自然状态下相互交配并产生可育后代的一群生物。隔离：不同种群间个体在自然条件下不能自由交配或不能产生可育后代的现象；实质=阻断基因交流。 生殖隔离范畴：不能交配、杂种不活（胚胎致死）、杂种不育（骡子联会紊乱）；地理隔离只是阻碍基因交流，不一定形成新物种。 物种形成三环节：突变和基因重组（原材料）→ 自然选择（决定进化方向）→ 隔离（物种形成的必要条件）；新物种形成的标志=生殖隔离。 关系：基因频率改变→一定发生进化，但不一定形成新物种；只有基因库差异达到不能实现基因交流的程度才形成新物种。 四倍体西瓜与二倍体杂交所得三倍体不育，故四倍体是新物种；三倍体西瓜、骡不是物种（无性生殖生物以表型特征区分）。"}, {"id": "c8s7", "ch": 8, "chT": "生物的进化", "t": "协同进化与生物多样性", "terms": "协同进化 基因（遗传）多样性、物种多样性、生态系统多样性", "x": "协同进化与生物多样性 协同进化（P121）：不同物种之间、生物与无机环境之间在相互影响中不断进化和发展；结果=形成生物多样性。 捕食者作用（P119）：捕食个体数量多的物种，避免一种或少数几种生物占绝对优势（收割理论）；吃掉年老病弱幼小个体促进种群发展；促进协同进化。 生物多样性三个层次：基因（遗传）多样性、物种多样性、生态系统多样性；形成过程：由原始生命进化出原核→真核→多细胞→各类生物。 边角小字 探究抗生素对细菌的选择作用（P115）：抑菌圈直径逐代变小=耐药菌比例升高；结论：耐药性来自可遗传变异（基因突变），抗生素起定向选择作用。 高考真题链接 ZW 型基因频率计算：雌性 ZaW%=10% → 种群短口器雌性占 5%；遗传平衡计算伴X性状：男 7%→女 0.49%。拓展概念：中性学说（中性突变靠遗传漂变固定）、遗传漂变（小种群随机波动更显著）。"}]}; const DOG_END='', DOG_RUN="data:image/jpeg;base64,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";</script>
+<script>
+/* 生物必背知识点 · 交互版 逻辑 */
+"use strict";
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const KEY = "bio_interactive_v2";
+
+/* ---------- 用户数据存储 ---------- */
+let store = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch(e){ return null; } })() || { users:{}, current:null };
+function saveStore(){ localStorage.setItem(KEY, JSON.stringify(store)); }
+function defUser(){ return { created:Date.now(), visited:{}, mastery:{}, cloze:{revealed:0,secs:{}},
+  quiz:{}, cards:{known:{},seen:0}, theme:"light", clozeMode:"off", side:true, last:{} }; }
+function curUser(){
+  if (!store.current || !store.users[store.current]) store.current = Object.keys(store.users)[0] || null;
+  if (!store.current) { store.users["默认用户"] = defUser(); store.current = "默认用户"; saveStore(); }
+  return store.users[store.current];
+}
+const U = () => curUser();
+
+/* ---------- 主题 ---------- */
+function applyTheme(){ document.documentElement.dataset.theme = U().theme || "light"; }
+function toggleTheme(){ const u=U(); u.theme = (u.theme==="dark") ? "light" : "dark"; saveStore(); applyTheme(); }
+
+/* ---------- 章节结构（书籍页） ---------- */
+let SECS = [];      // {id, el, chIdx, chT, title}
+let CHS  = [];      // {i, n, t, el, secEls:[h2]}
+function buildStructure(){
+  const chaps = $$(".chapter");
+  chaps.forEach((el, i) => {
+    el.id = "c" + i;
+    const meta = (BOOK && BOOK.chapters[i]) || { n:String(i+1), t: el.querySelector(".ch-head h1")?.textContent || "" };
+    const h2s = [...el.querySelectorAll("h2")];
+    h2s.forEach((h, j) => { h.id = "c" + i + "s" + j; });
+    CHS.push({ i, n: meta.n, t: meta.t, el, secEls: h2s });
+    if (h2s.length === 0) SECS.push({ id: el.id, el, chIdx: i, chT: meta.t, title: meta.t });
+    h2s.forEach((h, j) => {
+      SECS.push({ id: h.id, el: h, chIdx: i, chT: meta.t, title: h.textContent });
+    });
+  });
+}
+
+/* ---------- 侧边目录 ---------- */
+function buildTOC(){
+  const toc = $("#toc"); if (!toc) return;
+  toc.innerHTML = CHS.map(ch => {
+    const secs = ch.secEls.length ? ch.secEls.map(h =>
+      `<button class="toc-sec" data-jump="${h.id}" data-sid="${h.id}"><span class="st">${esc(h.textContent)}</span><span class="m-dot" title="掌握度"></span></button>`
+    ).join("") : `<button class="toc-sec" data-jump="${ch.el.id}" data-sid="${ch.el.id}"><span class="st">本章速览</span><span class="m-dot" title="掌握度"></span></button>`;
+    return `<div class="toc-ch" data-ch="${ch.i}">
+      <button class="toc-ch-head" data-jump="${ch.el.id}" data-sid="${ch.el.id}">
+        <span class="n" style="background:var(--ac, var(--pri))">${esc(ch.n)}</span><span class="t">${esc(ch.t)}</span>
+        <span class="prog"></span><span class="arr">▶</span>
+      </button><div class="toc-secs">${secs}</div></div>`;
+  }).join("");
+  $$(".toc-sec .m-dot, .toc-ch-head .m-dot").forEach(b => b.addEventListener("click", e => {
+    e.stopPropagation(); cycleMastery(b.closest("[data-sid]").dataset.sid, b);
+  }));
+  $$(".toc-ch-head").forEach(b => b.addEventListener("click", e => {
+    const box = b.parentElement;
+    box.classList.toggle("open");
+    if (e.target.closest(".m-dot")) return;
+    if (window.innerWidth > 900) { puppyRun(); jumpTo(b.dataset.jump, {}); }
+  }));
+  $$(".toc-sec").forEach(b => b.addEventListener("click", e => {
+    if (e.target.closest(".m-dot")) return;
+    puppyRun();
+    jumpTo(b.dataset.jump, {});
+  }));
+  refreshSidebarState();
+}
+function refreshSidebarState(){
+  $$(".toc-ch").forEach(box => {
+    const ch = CHS[+box.dataset.ch];
+    const sids = ch.secEls.length ? ch.secEls.map(h => h.id) : [ch.el.id];
+    const read = sids.filter(s => (U().visited[DATA.id]||[]).includes(s)).length;
+    const done = sids.filter(s => U().mastery[s] === 2).length;
+    box.querySelector(".prog").textContent = done === sids.length ? "已掌握" : `${read}/${sids.length}`;
+  });
+}
+function cycleMastery(sid, dot){
+  const u = U(); const cur = u.mastery[sid] || 0;
+  u.mastery[sid] = (cur + 1) % 3; saveStore();
+  syncDots();
+}
+function syncDots(){
+  $$("[data-sid]").forEach(el => {
+    const d = el.querySelector(".m-dot"); if (!d) return;
+    const m = U().mastery[el.dataset.sid] || 0;
+    d.className = "m-dot" + (m === 1 ? " m1" : m === 2 ? " m2" : "");
+    d.title = ["标记：学习中", "标记：已掌握", "清除标记"][m];
+  });
+  refreshSidebarState();
+}
+
+/* ---------- 跳转 / 滚动 ---------- */
+let BACK = [];   // 页内互链返回栈 {id, y, label}
+function jumpTo(id, opts){
+  const el = document.getElementById(id); if (!el) return;
+  el.scrollIntoView({ behavior: opts.instant ? "auto" : "smooth", block: opts.block || "start" });
+  if (opts.flash !== false) {
+    const box = el.closest(".chapter") || el;
+    box.classList.remove("ch-flash"); void box.offsetWidth; box.classList.add("ch-flash");
+    setTimeout(() => box.classList.remove("ch-flash"), 1700);
+  }
+  if (window.innerWidth <= 900) document.body.classList.add("side-collapsed");
+  if (opts.afterScroll) setTimeout(opts.afterScroll, 450);
+}
+function showBack(){
+  const pill = $("#xback"); if (!pill) return;
+  const top = BACK[BACK.length - 1];
+  if (top) { pill.querySelector("span").textContent = "返回：" + top.label; pill.classList.add("show"); }
+  else pill.classList.remove("show");
+}
+/* ---------- 互链 ---------- */
+function buildXrefs(){
+  if (typeof XREFS === "undefined" || !XREFS.length) return;
+  const sidOf = (bk, c, s) => (bk === DATA.id ? "" : bk + ".html") + "#c" + c + (s == null ? "" : "s" + s);
+  const entries = XREFS.slice().sort((a, b) => (b.t || "").length - (a.t || "").length);
+  $$(".chapter").forEach(chEl => {
+    const chIdx = +chEl.id.slice(1);
+    const headText = chEl.querySelector(".ch-head")?.textContent || "";
+    const used = new Set();
+    const walker = document.createTreeWalker(chEl, NodeFilter.SHOW_TEXT, {
+      acceptNode(n) {
+        const p = n.parentElement;
+        if (!p || p.closest("a, .k, h1, h2, h3, .bx-tag, script, style, .ch-head")) return NodeFilter.FILTER_REJECT;
+        return n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      let text = node.nodeValue, hits = [];
+      entries.forEach(en => {
+        const key = en.t;
+        if (used.has(key)) return;
+        const terms = en.v ? [en.t, ...en.v] : [en.t];
+        if (headText.includes(en.t)) return;
+        for (const t of terms) {
+          const pos = text.indexOf(t);
+          if (pos >= 0) { hits.push({ pos, t, en }); break; }
+        }
+      });
+      if (!hits.length) return;
+      hits.sort((a, b) => a.pos - b.pos);
+      const frag = document.createDocumentFragment();
+      let last = 0;
+      hits.forEach(h => {
+        if (h.pos < last) return;
+        frag.appendChild(document.createTextNode(text.slice(last, h.pos)));
+        const a = document.createElement("a");
+        a.className = "xref"; a.href = sidOf(h.en.b, h.en.c, h.en.s); a.textContent = h.t;
+        a.dataset.b = h.en.b; a.dataset.c = h.en.c; a.dataset.s = h.en.s == null ? "" : h.en.s;
+        used.add(h.en.t);
+        frag.appendChild(a);
+        last = h.pos + h.t.length;
+      });
+      frag.appendChild(document.createTextNode(text.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
+  });
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest("a.xref"); if (!a) return;
+  const label = a.textContent + " → " + (a.dataset.b === DATA.id ? "本书" : (BOOK.altLabel)) ;
+  if (a.dataset.b === DATA.id) {
+    e.preventDefault();
+    const cur = activeSec();
+    BACK.push({ id: cur ? cur.id : CHS[0].el.id, y: scrollY, label: label });
+    const sid = "c" + a.dataset.c + (a.dataset.s ? "s" + a.dataset.s : "");
+    puppyRun();
+    jumpTo(sid, {});
+    showBack();
+  } else {
+    e.preventDefault();
+    const cur = activeSec();
+    try { sessionStorage.setItem("bio_back", JSON.stringify({ url: location.pathname.split("/").pop(), sid: cur ? cur.id : "", y: scrollY, label: "返回：" + cur?.title })); } catch(err){}
+    puppyRun();
+    setTimeout(() => { location.href = a.dataset.b + ".html#c" + a.dataset.c + (a.dataset.s ? "s" + a.dataset.s : ""); }, 750);
+  }
+});
+$("#xback") && $("#xback").addEventListener("click", () => {
+  puppyRun();
+  const top = BACK.pop();
+  if (top) { jumpTo(top.id, { afterScroll: () => window.scrollTo({ top: top.y, behavior: "smooth" }) }); showBack(); }
+});
+
+/* ---------- 小狗彩蛋 ---------- */
+function injectDogEnds(){
+  if (typeof DOG_END === "undefined" || !DOG_END) return;
+  $$(".chapter").forEach(ch => {
+    if (ch.querySelector(".dog-stage")) return;
+    const d = document.createElement("div");
+    d.className = "ch-end";
+    d.innerHTML = `<div class="dog-stage">
+      <svg class="dog-chain" viewBox="0 0 230 180" aria-hidden="true">
+        <path class="chain-path" d=""/><circle class="chain-anchor" cx="18" cy="18" r="5"/><circle class="chain-ring" r="7"/>
+      </svg>
+      <div class="dog-body"><img class="ch-dog" alt="戴着项圈的小狗" draggable="false"><span class="blush bl"></span><span class="blush br"></span></div>
+      <span class="dog-hint">拉一拉项圈</span>
+    </div>`;
+    ch.appendChild(d);
+  });
+  $$(".ch-end .ch-dog").forEach(i => { i.src = DOG_END; });
+  bindDogPull();
+}
+function bindDogPull(){
+  $$(".dog-stage").forEach(stage => {
+    const body = stage.querySelector(".dog-body");
+    const blushes = stage.querySelectorAll(".blush");
+    const path = stage.querySelector(".chain-path");
+    const ring = stage.querySelector(".chain-ring");
+    const hint = stage.querySelector(".dog-hint");
+    const MAX = 46, K = 110, DAMP = 7.5;
+    // 舞台 230x180；狗盒 148px，左上角 (41,16)；项圈金环在狗图 (45.5%, 65.5%)
+    const DOG_X = 41, DOG_Y = 16, DOG_S = 148;
+    const RING_X = DOG_X + 0.455 * DOG_S, RING_Y = DOG_Y + 0.655 * DOG_S;
+    const st = { x:0, y:0, vx:0, vy:0, tx:0, ty:0, drag:null, raf:0 };
+    const settled = () => !st.drag && Math.hypot(st.x, st.y) < .4 && Math.hypot(st.vx, st.vy) < .4;
+    function render(){
+      body.style.transform = `translate(${st.x.toFixed(2)}px, ${st.y.toFixed(2)}px) rotate(${(-4 + st.x * 0.09).toFixed(2)}deg)`;
+      const p = Math.min(1, Math.hypot(st.x, st.y) / MAX);
+      blushes.forEach(b => { b.style.opacity = (p * .92).toFixed(3); });
+      const rx = RING_X + st.x, ry = RING_Y + st.y;
+      ring.setAttribute("cx", rx.toFixed(1)); ring.setAttribute("cy", ry.toFixed(1));
+      const dist = Math.hypot(rx - 18, ry - 18);
+      const sag = Math.max(5, Math.min(40, 55 - dist * 0.28));
+      path.setAttribute("d", `M 18 18 Q ${((18 + rx) / 2).toFixed(1)} ${((18 + ry) / 2 + sag).toFixed(1)} ${rx.toFixed(1)} ${ry.toFixed(1)}`);
+    }
+    function start(){
+      const raf = cb => document.hidden ? setTimeout(cb, 16) : requestAnimationFrame(cb);
+      const loop = () => {
+        if (st.drag) {
+          st.x += (st.tx - st.x) * .35; st.y += (st.ty - st.y) * .35;
+        } else {
+          const dt = 1 / 60;
+          st.vx += (-K * st.x - DAMP * st.vx) * dt; st.vy += (-K * st.y - DAMP * st.vy) * dt;
+          st.x += st.vx * dt; st.y += st.vy * dt;
+        }
+        render();
+        if (settled()) { st.x = st.y = st.vx = st.vy = 0; render(); st.raf = 0; return; }
+        st.raf = raf(loop);
+      };
+      st.raf = raf(loop);
+    }
+    body.addEventListener("pointerdown", e => {
+      e.preventDefault();
+      body.setPointerCapture(e.pointerId);
+      st.drag = { px: e.clientX, py: e.clientY };
+      st.raf || start();
+      stage.classList.add("grabbing");
+      hint.classList.add("off");
+    });
+    body.addEventListener("pointermove", e => {
+      if (!st.drag) return;
+      const dx = e.clientX - st.drag.px, dy = e.clientY - st.drag.py;
+      const d = Math.hypot(dx, dy);
+      const eff = d > MAX ? MAX + (d - MAX) * .25 : d;
+      const k = d ? eff / d : 0;
+      st.tx = dx * k; st.ty = dy * k;
+    });
+    const end = () => {
+      if (!st.drag) return;
+      st.drag = null; st.tx = st.ty = 0;
+      stage.classList.remove("grabbing");
+    };
+    body.addEventListener("pointerup", end);
+    body.addEventListener("pointercancel", end);
+  });
+}
+let PUP_T = null;
+function puppyRun(){
+  const el = $("#puppy-run"); if (!el || typeof DOG_RUN === "undefined" || !DOG_RUN) return;
+  el.querySelector("img").src = DOG_RUN;
+  el.classList.remove("run"); void el.offsetWidth; el.classList.add("run");
+  clearTimeout(PUP_T);
+  PUP_T = setTimeout(() => el.classList.remove("run"), 1050);
+}
+
+/* ---------- 挖空 ---------- */
+function setupCloze(){
+  const ks = $$(".content .k");
+  ks.forEach((k, i) => k.dataset.ci = i);
+  applyClozeMode();
+}
+function applyClozeMode(){
+  const mode = U().clozeMode || "off";
+  $$(".content .k").forEach(k => {
+    const on = mode === "all" || (mode === "half" && (+k.dataset.ci % 2 === 0));
+    k.classList.remove("cz", "open");
+    if (on) k.classList.add("cz");
+  });
+  $$(".cloze-group .tbtn").forEach(b => b.classList.toggle("on", b.dataset.mode === mode));
+}
+document.addEventListener("click", e => {
+  const k = e.target.closest(".k.cz"); if (!k) return;
+  if (!k.classList.contains("open")) {
+    k.classList.add("open");
+    const u = U(); u.cloze.revealed = (u.cloze.revealed || 0) + 1;
+    const sid = k.closest("h2") ? k.closest("h2").id : k.closest(".chapter")?.id;
+    if (sid) { u.cloze.secs[sid] = (u.cloze.secs[sid] || 0) + 1; }
+    saveStore(); refreshSidebarState();
+  } else { k.classList.remove("open"); }
+});
+/* ---------- 判断快测 ---------- */
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+let QZ = null;
+function openQuiz(chKey){
+  const bank = (typeof BOOK !== "undefined" && BOOK ? BOOK.quiz : HOME.quiz).map(q => ({ ...q }));
+  const list = shuffle(chKey === "all" ? bank : bank.filter(q => "c" + q.ch === chKey)).slice(0, 10);
+  if (!list.length) { alert("该章节暂无判断题"); return; }
+  QZ = { list, i: 0, score: 0, key: chKey, answered: false };
+  openModal("#m-quiz");
+  renderQuiz();
+}
+function renderQuiz(){
+  const q = QZ.list[QZ.i];
+  $("#qz-meta").textContent = `第 ${QZ.i + 1} / ${QZ.list.length} 题 · 当前得分 ${QZ.score}`;
+  $("#qz-stem").textContent = q.q;
+  $("#qz-fb").className = "qz-fb"; $("#qz-fb").innerHTML = "";
+  $("#qz-next").classList.remove("show");
+  $("#qz-btns").style.display = "flex";
+}
+function answerQuiz(v){
+  if (QZ.answered) return;
+  const q = QZ.list[QZ.i]; QZ.answered = true;
+  const ok = (v === q.a);
+  if (ok) QZ.score++;
+  const fb = $("#qz-fb");
+  fb.className = "qz-fb show " + (ok ? "ok" : "no");
+  fb.innerHTML = `<b>${ok ? "回答正确" : "回答错误"}。</b>正确答案：${q.a ? "√ 对" : "× 错"}${q.e ? "<br>" + esc(q.e) : ""}`;
+  $("#qz-btns").style.display = "none";
+  const isLast = QZ.i === QZ.list.length - 1;
+  $("#qz-next").textContent = isLast ? "查看成绩" : "下一题";
+  $("#qz-next").classList.add("show");
+}
+function quizNext(){
+  if (QZ.ended) { QZ.ended = false; openQuiz(QZ.key); return; }
+  if (QZ.i < QZ.list.length - 1) { QZ.i++; QZ.answered = false; renderQuiz(); return; }
+  const u = U(); const rec = u.quiz[QZ.key] || { best: 0, attempts: 0 };
+  rec.attempts++; rec.best = Math.max(rec.best, QZ.score); rec.last = Date.now();
+  u.quiz[QZ.key] = rec; saveStore();
+  $("#qz-meta").textContent = `本轮成绩`;
+  $("#qz-stem").innerHTML = `<span style="font-size:34px;font-weight:800;color:var(--pri)">${QZ.score} / ${QZ.list.length}</span>
+    <div style="margin-top:8px;font-size:13.5px;color:var(--mut)">历史最佳 ${rec.best} / ${QZ.list.length} · 已练习 ${rec.attempts} 轮</div>`;
+  $("#qz-fb").className = "qz-fb"; $("#qz-next").textContent = "再来一轮";
+  QZ.answered = false;
+  QZ.ended = true;
+  QZ.score = 0;
+}
+
+/* ---------- 闪卡 ---------- */
+let FC = null;
+function openCards(chKey){
+  const bank = (typeof BOOK !== "undefined" && BOOK ? BOOK.cards : HOME.cards).map(c => ({ ...c }));
+  let list = shuffle(chKey === "all" ? bank : bank.filter(c => "c" + c.ch === chKey));
+  if (!list.length) { alert("暂无闪卡"); return; }
+  FC = { list, i: 0, yes: 0, no: 0 };
+  openModal("#m-cards"); renderCard();
+}
+function renderCard(){
+  const c = FC.list[FC.i];
+  const box = $("#fc-box");
+  box.innerHTML = `<div class="fc-card" id="fc-card">
+    <div class="fc-face"><div class="fc-term">${esc(c.t)}</div><div class="fc-hint">点击卡片查看释义</div></div>
+    <div class="fc-face back"><div>${esc(c.c)}</div></div></div>`;
+  const card = $("#fc-card");
+  card.addEventListener("click", () => card.classList.toggle("flip"));
+  $("#fc-meta").textContent = `第 ${FC.i + 1} / ${FC.list.length} 张 · 记住 ${FC.yes} · 没记住 ${FC.no}`;
+  $("#fc-btns").style.display = "flex";
+}
+function rateCard(yes){
+  const c = FC.list[FC.i]; const u = U();
+  u.cards.known[c.t] = yes ? 1 : 0; u.cards.seen = (u.cards.seen || 0) + 1;
+  yes ? FC.yes++ : FC.no++; saveStore();
+  if (FC.i < FC.list.length - 1) { FC.i++; renderCard(); return; }
+  $("#fc-meta").textContent = "本轮完成";
+  $("#fc-box").innerHTML = `<div class="fc-card"><div class="fc-face"><div class="fc-term">记住 ${FC.yes} / ${FC.list.length}</div>
+    <div class="fc-hint">没记住 ${FC.no} 张 · 再来一轮巩固</div></div></div>`;
+  $("#fc-btns").style.display = "none";
+}
+
+/* ---------- 搜索 ---------- */
+function searchAll(qs){
+  const q = qs.trim().toLowerCase(); if (!q) return [];
+  const idx = typeof BOOK !== "undefined" && BOOK ? DATA.search : HOME.search;
+  const out = [];
+  idx.forEach(it => {
+    const hay = (it.t + " " + it.chT + " " + (it.terms || "") + " " + it.x).toLowerCase();
+    if (!hay.includes(q)) return;
+    let score = 0;
+    if (it.t.toLowerCase().includes(q)) score += 6;
+    if ((it.terms || "").toLowerCase().includes(q)) score += 4;
+    if (it.chT.toLowerCase().includes(q)) score += 2;
+    out.push({ ...it, score });
+  });
+  return out.sort((a, b) => b.score - a.score).slice(0, 20);
+}
+function openSearch(prefill){
+  openModal("#m-search");
+  const inp = $("#sp-input"); inp.value = prefill || ""; inp.focus();
+  renderSearch(inp.value);
+}
+function renderSearch(qs){
+  const res = searchAll(qs);
+  const box = $("#sp-list");
+  box.innerHTML = res.length ? res.map((r, i) =>
+    `<button class="sp-item${i === 0 ? " cur" : ""}" data-jump="${r.id}">
+      <div class="sp-t">${esc(r.chT)} · ${esc(r.t)}</div><div class="sp-c">${hl(r.x, qs)}</div></button>`).join("")
+    : `<div class="sp-empty">没有找到相关知识点</div>`;
+  box.querySelectorAll(".sp-item").forEach(b => b.addEventListener("click", () => {
+    closeModal(); jumpTo(b.dataset.jump, {});
+  }));
+}
+function hl(text, q){
+  const t = esc(text.slice(0, 90)); if (!q) return t;
+  const i = t.toLowerCase().indexOf(q.toLowerCase());
+  return i < 0 ? t : t.slice(0, i) + "<mark>" + t.slice(i, i + q.length) + "</mark>" + t.slice(i + q.length);
+}
+/* ---------- 弹窗 ---------- */
+function openModal(sel){ $$(".modal").forEach(m => m.classList.remove("show")); $(sel).classList.add("show"); $("#mask").classList.add("show"); }
+function closeModal(){ $$(".modal").forEach(m => m.classList.remove("show")); $("#mask").classList.remove("show"); }
+
+/* ---------- 用户菜单 ---------- */
+function openUserMenu(anchor){
+  closeFloat();
+  const m = document.createElement("div"); m.className = "float-menu"; m.id = "float-user";
+  const names = Object.keys(store.users);
+  m.innerHTML = names.map(n =>
+    `<button class="fm-item${n === store.current ? " cur" : ""}" data-u="${esc(n)}">● ${esc(n)}${n === store.current ? "（当前）" : ""}</button>`).join("")
+    + `<div class="fm-sep"></div><button class="fm-item" id="fm-add">＋ 新建用户</button>`
+    + (names.length > 1 ? `<button class="fm-item danger" id="fm-del">删除当前用户数据</button>` : "")
+    + `<div class="fm-sep"></div><div style="padding:6px 12px;font-size:11.5px;color:var(--mut);line-height:1.6">学习数据保存在本机浏览器，<br>不同用户互不影响。</div>`;
+  document.body.appendChild(m);
+  const r = anchor.getBoundingClientRect();
+  m.style.top = (r.bottom + 8) + "px";
+  m.style.left = Math.min(r.left, innerWidth - m.offsetWidth - 10) + "px";
+  m.querySelectorAll("[data-u]").forEach(b => b.addEventListener("click", () => {
+    store.current = b.dataset.u; saveStore(); location.reload();
+  }));
+  $("#fm-add").addEventListener("click", () => {
+    const name = (prompt("新用户名称：") || "").trim();
+    if (!name) return;
+    if (store.users[name]) { alert("该用户已存在"); return; }
+    store.users[name] = defUser(); store.current = name; saveStore(); location.reload();
+  });
+  const del = $("#fm-del");
+  if (del) del.addEventListener("click", () => {
+    if (!confirm(`删除「${store.current}」的全部学习数据？不可恢复。`)) return;
+    delete store.users[store.current];
+    store.current = Object.keys(store.users)[0] || null; saveStore(); location.reload();
+  });
+  setTimeout(() => document.addEventListener("click", closeFloatOnce), 0);
+}
+function closeFloatOnce(e){ if (!e.target.closest("#float-user")) closeFloat(); }
+function closeFloat(){ const m = $("#float-user"); if (m) m.remove(); document.removeEventListener("click", closeFloatOnce); }
+function bindUserChip(){
+  const chip = $("#user-chip"); if (!chip) return;
+  const render = () => { $("#u-name").textContent = store.current; $("#u-dot").textContent = (store.current || "客").slice(0, 1); };
+  render();
+  chip.addEventListener("click", e => { e.stopPropagation(); if ($("#float-user")) { closeFloat(); return; } openUserMenu(chip); });
+}
+
+/* ---------- 滚动监听 ---------- */
+let NAV = [], activeId = null, saveTimer = null;
+function activeSec(){ return NAV.find(s => s.id === activeId); }
+function markVisited(nav){
+  const u = U(); const arr = u.visited[DATA.id] = u.visited[DATA.id] || [];
+  const track = nav.isSec || nav.solo;
+  if (track && !arr.includes(nav.id)) { arr.push(nav.id); saveStore(); refreshSidebarState(); }
+}
+function onScroll(){
+  const st = scrollY + 140;
+  let cur = NAV[0];
+  for (const s of NAV) { if (s.top <= st) cur = s; else break; }
+  if (cur && cur.id !== activeId) {
+    activeId = cur.id; markVisited(cur);
+    $$(".toc-sec").forEach(b => b.classList.toggle("active", b.dataset.jump === cur.id));
+    if (cur.chIdx != null) {
+      const box = $(`.toc-ch[data-ch="${cur.chIdx}"]`);
+      if (box) box.classList.add("open");
+      $("#crumb").innerHTML = `<b>${esc(BOOK.label)}</b> · ${esc(cur.chT)} · ${esc(cur.title)}`;
+    }
+  }
+  const h = document.documentElement.scrollHeight - innerHeight;
+  const bar = $("#readbar i"); if (bar) bar.style.width = (h > 0 ? Math.min(100, scrollY / h * 100) : 0) + "%";
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(savePos, 900);
+}
+function measureNav(){ NAV.forEach(s => { s.top = s.el.getBoundingClientRect().top + scrollY; }); }
+function savePos(){
+  if (!activeId) return;
+  U().last[DATA.id] = { sid: activeId, y: Math.round(scrollY), ts: Date.now() }; saveStore();
+}
+function savePositionNow(){ savePos(); }
+
+/* ---------- 初始化（书籍页） ---------- */
+function bootBook(){
+  applyTheme();
+  const chaps = $$(".chapter");
+  chaps.forEach((el, i) => {
+    el.id = "c" + i;
+    const meta = BOOK.chapters[i] || { n: String(i + 1), t: el.querySelector(".ch-head h1")?.textContent || "" };
+    const h2s = [...el.querySelectorAll("h2")];
+    h2s.forEach((h, j) => { h.id = "c" + i + "s" + j; });
+    CHS.push({ i, n: meta.n, t: meta.t, el, secEls: h2s });
+    NAV.push({ id: el.id, el, chIdx: i, chT: meta.t, title: meta.t, isSec: false, solo: h2s.length === 0 });
+    h2s.forEach(h => NAV.push({ id: h.id, el: h, chIdx: i, chT: meta.t, title: h.textContent, isSec: true }));
+  });
+  buildTOC();
+  buildXrefs();
+  injectDogEnds();
+  setupCloze();
+  syncDots();
+  bindToolbar();
+  bindUserChip();
+  bindQuizChips(); bindCardChips();
+  measureNav();
+  // 跨册返回按钮
+  try {
+    const b = sessionStorage.getItem("bio_back");
+    if (b) { const pill = $("#xback"); pill.querySelector("span").textContent = JSON.parse(b).label; pill.classList.add("show"); }
+  } catch(e){}
+  // 目标定位：hash > 上次位置
+  const restore = () => {
+    const ret = sessionStorage.getItem("bio_return");
+    if (ret) { try { const { y } = JSON.parse(ret); window.scrollTo(0, y); } catch(e){} sessionStorage.removeItem("bio_return"); measureNav(); onScroll(); return; }
+    const h = location.hash.slice(1);
+    if (h && document.getElementById(h)) { activeId = h; jumpTo(h, { instant: true, flash: false }); measureNav(); onScroll(); return; }
+    const last = U().last[DATA.id];
+    if (last && document.getElementById(last.sid)) {
+      jumpTo(last.sid, { instant: true, flash: false, afterScroll: () => window.scrollTo(0, last.y) });
+    }
+    measureNav(); onScroll();
+  };
+  setTimeout(restore, 250);
+  window.addEventListener("scroll", () => requestAnimationFrame(onScroll), { passive: true });
+  window.addEventListener("beforeunload", savePositionNow);
+  onScroll();
+}
+/* ---------- 工具栏绑定 ---------- */
+function bindToolbar(){
+  $("#btn-menu").addEventListener("click", () => document.body.classList.toggle("side-collapsed"));
+  $("#side-collapse").addEventListener("click", () => { document.body.classList.add("side-collapsed"); U().side = false; saveStore(); });
+  $("#side-expand").addEventListener("click", () => { document.body.classList.remove("side-collapsed"); U().side = true; saveStore(); });
+  if (U().side === false && window.innerWidth > 900) document.body.classList.add("side-collapsed");
+  $$(".cloze-group .tbtn").forEach(b => b.addEventListener("click", () => { U().clozeMode = b.dataset.mode; saveStore(); applyClozeMode(); }));
+  $("#btn-quiz").addEventListener("click", () => openModal("#m-quiz"));
+  $("#btn-cards").addEventListener("click", () => openModal("#m-cards"));
+  $("#btn-dice").addEventListener("click", openDice);
+  $("#btn-theme").addEventListener("click", toggleTheme);
+  $("#btn-top").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  $("#search-in").addEventListener("click", () => openSearch());
+  $("#sp-input").addEventListener("input", e => renderSearch(e.target.value));
+  $("#dice-again").addEventListener("click", openDice);
+  $("#qz-yes").addEventListener("click", () => answerQuiz(true));
+  $("#qz-no").addEventListener("click", () => answerQuiz(false));
+  $("#qz-next").addEventListener("click", quizNext);
+  $("#fc-yes").addEventListener("click", () => rateCard(true));
+  $("#fc-no").addEventListener("click", () => rateCard(false));
+  $$(".m-close").forEach(b => b.addEventListener("click", closeModal));
+  $("#mask").addEventListener("click", closeModal);
+  document.addEventListener("keydown", e => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); openSearch(); }
+    if (e.key === "Escape") closeModal();
+  });
+}
+function bindQuizChips(){
+  const box = $("#qz-chips"); if (!box) return;
+  box.innerHTML = `<button class="sel-chip on" data-k="all">全部</button>`
+    + BOOK.chapters.map((c, i) => `<button class="sel-chip" data-k="c${i}">${esc(c.n)} ${esc(c.t)}</button>`).join("");
+  box.querySelectorAll(".sel-chip").forEach(b => b.addEventListener("click", () => {
+    box.querySelectorAll(".sel-chip").forEach(x => x.classList.toggle("on", x === b));
+    openQuiz(b.dataset.k);
+  }));
+}
+function bindCardChips(){
+  const box = $("#fc-chips"); if (!box) return;
+  box.innerHTML = `<button class="sel-chip on" data-k="all">全部</button>`
+    + BOOK.chapters.map((c, i) => `<button class="sel-chip" data-k="c${i}">${esc(c.n)} ${esc(c.t)}</button>`).join("");
+  box.querySelectorAll(".sel-chip").forEach(b => b.addEventListener("click", () => {
+    box.querySelectorAll(".sel-chip").forEach(x => x.classList.toggle("on", x === b));
+    openCards(b.dataset.k);
+  }));
+}
+function openDice(){
+  const bank = typeof BOOK !== "undefined" && BOOK ? BOOK.cards : HOME.cards;
+  const c = bank[Math.floor(Math.random() * bank.length)];
+  openModal("#m-dice");
+  $("#dice-term").textContent = c.t;
+  $("#dice-ctx").textContent = c.c;
+}
+
+/* ---------- 落地页 ---------- */
+function bootHome(){
+  applyTheme(); bindUserChip();
+  $("#hs-user").textContent = store.current || "";
+  const u = U();
+  $("#home-books").innerHTML = HOME.books.map(b => {
+    const read = (u.visited[b.id] || []).length;
+    const pct = Math.min(100, Math.round(read / b.secs * 100));
+    return `<a class="book-card" href="${b.file}">
+      <h2>${esc(b.label)}</h2><div class="bc-sub">${esc(b.sub)}</div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <div class="bc-meta"><span>已读 ${read} / ${b.secs} 节</span><span>${b.chN} 章</span><span>判断题 ${b.quizN} 条</span><span>闪卡 ${b.cardN} 张</span></div></a>`;
+  }).join("");
+  $("#home-books").addEventListener("click", e => {
+    const a = e.target.closest("a.book-card"); if (!a) return;
+    e.preventDefault(); puppyRun();
+    setTimeout(() => { location.href = a.getAttribute("href"); }, 750);
+  });
+  const qzBest = Math.max(0, ...Object.values(u.quiz).map(r => r.best || 0));
+  $("#home-stats").innerHTML = `
+    <div class="stat"><b>${(u.visited.m1 || []).length + (u.visited.m2 || []).length}</b><span>累计已读节数</span></div>
+    <div class="stat"><b>${u.cloze.revealed || 0}</b><span>挖空已回忆次数</span></div>
+    <div class="stat"><b>${u.cards.seen || 0}</b><span>闪卡练习张数</span></div>
+    <div class="stat"><b>${qzBest}</b><span>判断题单轮最佳（满分10）</span></div>`;
+  $("#btn-dice2").addEventListener("click", openDice);
+  $("#btn-theme2").addEventListener("click", toggleTheme);
+  $$(".m-close").forEach(b => b.addEventListener("click", closeModal));
+  $("#mask").addEventListener("click", closeModal);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+}
+
+/* ---------- 启动 ---------- */
+if (document.body.dataset.book === "home") bootHome(); else bootBook();
+
+
+</script>
+</body>
+</html>
