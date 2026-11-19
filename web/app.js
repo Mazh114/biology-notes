@@ -177,7 +177,7 @@ document.addEventListener("click", e => {
     const cur = activeSec();
     try { sessionStorage.setItem("bio_back", JSON.stringify({ url: location.pathname.split("/").pop(), sid: cur ? cur.id : "", y: scrollY, label: "返回：" + cur?.title })); } catch(err){}
     puppyRun();
-    setTimeout(() => { location.href = a.dataset.b + ".html#c" + a.dataset.c + (a.dataset.s ? "s" + a.dataset.s : ""); }, 750);
+    setTimeout(() => { location.href = a.dataset.b + ".html#c" + a.dataset.c + (a.dataset.s ? "s" + a.dataset.s : ""); }, 375);
   }
 });
 $("#xback") && $("#xback").addEventListener("click", () => {
@@ -308,7 +308,7 @@ function puppyRun(){
   tick();
   clearInterval(PUP_F); PUP_F = setInterval(tick, 110);
   clearTimeout(PUP_T);
-  PUP_T = setTimeout(() => { el.classList.remove("run"); clearInterval(PUP_F); }, 1400);
+  PUP_T = setTimeout(() => { el.classList.remove("run"); clearInterval(PUP_F); }, 700);
 }
 
 /* ---------- 挖空 ---------- */
